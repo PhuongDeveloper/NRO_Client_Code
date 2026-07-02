@@ -1,0 +1,15 @@
+workflows:
+  ios-build:
+    name: Build NRO Unsigned IPA
+    instance_type: mac_mini_m1
+    environment:
+      xcode: latest
+    scripts:
+      - name: Build Unsigned IPA
+        script: |
+          xcode-project build-ipa \
+            --project "Unity-iPhone.xcodeproj" \
+            --scheme "Unity-iPhone" \
+            --disable-codesign
+    artifacts:
+      - build/ios/ipa/*.ipa
