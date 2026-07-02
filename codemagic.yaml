@@ -5,11 +5,22 @@ workflows:
     environment:
       xcode: latest
     scripts:
-      - name: Build Unsigned IPA
+      - name: Build Unsigned App
         script: |
-          xcode-project build-ipa \
-            --project "Unity-iPhone.xcodeproj" \
-            --scheme "Unity-iPhone" \
-            --disable-codesign
+          xcodebuild build \
+            -project "Unity-iPhone.xcodeproj" \
+            -scheme "Unity-iPhone" \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            CONFIGURATION_BUILD_DIR=$CM_BUILD_DIR/build_output
+      - name: Package into IPA
+        script: |
+          mkdir -p build/ios/ipa/Payload
+          cp -r $CM_BUILD_DIR/build_output/*.app build/ios/ipa/Payload/
+          cd build/ios/ipa
+          zip -qr NRO_Unsigned.ipa Payload
     artifacts:
       - build/ios/ipa/*.ipa
