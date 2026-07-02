@@ -1,27 +1,43 @@
 workflows:
   ios-build:
     name: Build NRO Unsigned IPA
-    instance_type: mac_mini_m1
+    instance_type: mac_mini_m2
     environment:
       xcode: latest
     scripts:
       - name: Build Unsigned App
         script: |
+          # Buoc 1: Cu de build tu nhien bang ten goc cho khoi loi Unity
           xcodebuild build \
             -project "Unity-iPhone.xcodeproj" \
             -scheme "Unity-iPhone" \
             -sdk iphoneos \
             -configuration Release \
-            PRODUCT_NAME="NgocRongHay" \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             CONFIGURATION_BUILD_DIR=$CM_BUILD_DIR/build_output
-      - name: Package into IPA
+      - name: Phau thuat doi ten va dong goi IPA
         script: |
-          mkdir -p build/ios/ipa/Payload
-          cp -r $CM_BUILD_DIR/build_output/*.app build/ios/ipa/Payload/
-          cd build/ios/ipa
+          cd $CM_BUILD_DIR/build_output
+          # Tim cai thu muc app vua tao ra
+          APP_DIR=$(find . -name "*.app" -type d | head -n 1)
+          APP_NAME=$(basename "$APP_DIR" .app)
+          
+          # Doi ten cai loi binary ben trong
+          mv "$APP_DIR/$APP_NAME" "$APP_DIR/NgocRongHay"
+          
+          # Sua giay khai sinh Info.plist
+          plutil -replace CFBundleExecutable -string "NgocRongHay" "$APP_DIR/Info.plist"
+          plutil -replace CFBundleName -string "NgocRongHay" "$APP_DIR/Info.plist"
+          
+          # Doi ten thu muc vo boc ben ngoai
+          mv "$APP_DIR" "NgocRongHay.app"
+          
+          # Dong goi thanh file IPA chuan
+          mkdir -p $CM_BUILD_DIR/build/ios/ipa/Payload
+          cp -r "NgocRongHay.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
+          cd $CM_BUILD_DIR/build/ios/ipa
           zip -qr NRO_Unsigned.ipa Payload
     artifacts:
       - build/ios/ipa/*.ipa
