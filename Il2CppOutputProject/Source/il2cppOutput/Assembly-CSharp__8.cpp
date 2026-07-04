@@ -291,6 +291,7 @@ IL2CPP_EXTERN_C RuntimeClass* Mob_t394900507F39725FA57379059AA703E63166F45F_il2c
 IL2CPP_EXTERN_C RuntimeClass* MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyKeyMap_t024AC4A382D5E2E2F7FD7D3DCF19ACD75DF6EDA3_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyVector_t5E551DE127AB217F3BF51644B186993381C11E30_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Npc_t72985E5728337FF5B823BA9EBBB59C7E8FC2348A_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Paint_t603D2DF3E6462B2ADB9A91D8AC61E1C87291451F_il2cpp_TypeInfo_var;
@@ -3231,6 +3232,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	bool ___isAutoDele;
 	bool ___isPaintboss;
 	bool ___isPaintChar;
+	bool ___isPaitInfoDis;
 	bool ___iscdt;
 	bool ___isAutoHoiSinh;
 	bool ___isAutoFocus;
@@ -3266,6 +3268,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ListItemUse;
 	bool ___isAutoItem;
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ItemUses;
+	List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* ___ListIconItemBuff;
 };
 struct iPhoneSettings_tE5975BDB07D10A10CA2F1140E6ADD1C350722011_StaticFields
 {
@@ -16077,6 +16080,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* ItemOption_getOptionString_m43EE9ED
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral0B0FEB3147CE20EB2C90076367F895C59BCD14B3);
 		s_Il2CppMethodInitialized = true;
@@ -16091,6 +16095,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* ItemOption_getOptionString_m43EE9ED
 		String_t* L_4 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(String_t_il2cpp_TypeInfo_var))->___Empty;
 		String_t* L_5;
 		L_5 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(L_3, L_4, NULL);
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_6;
 		L_6 = NinjaUtil_replace_m476F8836A33E91662DFE6792FDB3B8D1096EF394(L_1, _stringLiteral0B0FEB3147CE20EB2C90076367F895C59BCD14B3, L_5, NULL);
 		return L_6;
@@ -16101,6 +16106,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* ItemOption_getOptionName_mA6B78C1FC
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral3B4C89BFA2C5E82A18812CCC8124CD29B4CF4C9F);
 		s_Il2CppMethodInitialized = true;
@@ -16110,6 +16116,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* ItemOption_getOptionName_mA6B78C1FC
 		NullCheck(L_0);
 		String_t* L_1 = L_0->___name;
 		String_t* L_2 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(String_t_il2cpp_TypeInfo_var))->___Empty;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_3;
 		L_3 = NinjaUtil_replace_m476F8836A33E91662DFE6792FDB3B8D1096EF394(L_1, _stringLiteral3B4C89BFA2C5E82A18812CCC8124CD29B4CF4C9F, L_2, NULL);
 		return L_3;
@@ -16120,6 +16127,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* ItemOption_getOptiongColor_mA5A6940
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral9E6DEA6E609FD74FD29A7E5BB6D900CCBA5F3FBF);
 		s_Il2CppMethodInitialized = true;
@@ -16129,6 +16137,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* ItemOption_getOptiongColor_mA5A6940
 		NullCheck(L_0);
 		String_t* L_1 = L_0->___name;
 		String_t* L_2 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(String_t_il2cpp_TypeInfo_var))->___Empty;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_3;
 		L_3 = NinjaUtil_replace_m476F8836A33E91662DFE6792FDB3B8D1096EF394(L_1, _stringLiteral9E6DEA6E609FD74FD29A7E5BB6D900CCBA5F3FBF, L_2, NULL);
 		return L_3;
@@ -22155,6 +22164,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MagicTree_update_m3416DB9AF0E35FF344EDAE
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&MagicTree_tE3EC2D5EE8C9EA20541B7DE795AD6BFAA39D29EB_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&SmallImage_tF792A43A543EDAADA02E96089CBAA7938E1F4742_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248_il2cpp_TypeInfo_var);
@@ -22410,6 +22420,7 @@ IL_0176:
 		(G_B24_2)->SetAt(static_cast<il2cpp_array_size_t>(G_B24_1), (String_t*)G_B24_0);
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_38 = G_B24_3;
 		int32_t L_39 = __this->___seconds;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_40;
 		L_40 = NinjaUtil_getTime_mC3669AEB5A5EFB13261AAE9BD938847822A50F69(L_39, NULL);
 		NullCheck(L_38);
@@ -22523,6 +22534,7 @@ IL_0242:
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_78 = L_77->___says;
 		NullCheck(L_78);
 		int32_t L_79 = __this->___seconds;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_80;
 		L_80 = NinjaUtil_getTime_mC3669AEB5A5EFB13261AAE9BD938847822A50F69(L_79, NULL);
 		NullCheck(L_76);

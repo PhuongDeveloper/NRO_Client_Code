@@ -294,6 +294,7 @@ IL2CPP_EXTERN_C RuntimeClass* MessageCollector_tC56380A241F767496E996D1C22CD25FE
 IL2CPP_EXTERN_C RuntimeClass* Message_t6F0607127E5920A1C18E3FA5FDE1CDB7C3F10640_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyVector_t5E551DE127AB217F3BF51644B186993381C11E30_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Panel_t49349297CB778B2219539905F16B94090BD93138_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Res_t42939C8A70541C5F8BBAC618E2AE68A048453E10_il2cpp_TypeInfo_var;
@@ -10255,6 +10256,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* SkillOption_getOptionString_m63C13D
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral0B0FEB3147CE20EB2C90076367F895C59BCD14B3);
 		s_Il2CppMethodInitialized = true;
@@ -10276,6 +10278,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* SkillOption_getOptionString_m63C13D
 		L_5 = Int32_ToString_m030E01C24E294D6762FB0B6F37CB541581F55CA5(L_4, NULL);
 		String_t* L_6;
 		L_6 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(L_3, L_5, NULL);
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_7;
 		L_7 = NinjaUtil_replace_m476F8836A33E91662DFE6792FDB3B8D1096EF394(L_2, _stringLiteral0B0FEB3147CE20EB2C90076367F895C59BCD14B3, L_6, NULL);
 		__this->___optionString = L_7;

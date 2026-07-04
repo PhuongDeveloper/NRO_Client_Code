@@ -2481,6 +2481,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	bool ___isAutoDele;
 	bool ___isPaintboss;
 	bool ___isPaintChar;
+	bool ___isPaitInfoDis;
 	bool ___iscdt;
 	bool ___isAutoHoiSinh;
 	bool ___isAutoFocus;
@@ -2516,6 +2517,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ListItemUse;
 	bool ___isAutoItem;
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ItemUses;
+	List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* ___ListIconItemBuff;
 };
 struct mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields
 {

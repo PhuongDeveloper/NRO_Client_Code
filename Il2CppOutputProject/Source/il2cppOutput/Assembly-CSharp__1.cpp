@@ -310,7 +310,7 @@ IL2CPP_EXTERN_C String_t* _stringLiteral3886BF81B0CC74189295631C9BFA61A2AB32515E
 IL2CPP_EXTERN_C String_t* _stringLiteral3B256C164FB3E4817AE91AFAE7893BA9EEA74873;
 IL2CPP_EXTERN_C String_t* _stringLiteral3CBB902322063683C1187ACD1BA8A9BB89D2E86D;
 IL2CPP_EXTERN_C String_t* _stringLiteral3DC094B737415A4F506865CF85AC7BDF03158509;
-IL2CPP_EXTERN_C String_t* _stringLiteral3F750D0C8E3CC5EDB1636BDEF7664BA0DCA6F6E4;
+IL2CPP_EXTERN_C String_t* _stringLiteral40D7DC650F072B6DC38C24B0E8E9CB13235ABA4F;
 IL2CPP_EXTERN_C String_t* _stringLiteral45E4848AD99097C61F497058628EC311A69F1B78;
 IL2CPP_EXTERN_C String_t* _stringLiteral479A86A7A25126084CC160AF926D6E280C3698CA;
 IL2CPP_EXTERN_C String_t* _stringLiteral487F23FD2759D11580A8636722674258A30A2254;
@@ -2529,6 +2529,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	bool ___isAutoDele;
 	bool ___isPaintboss;
 	bool ___isPaintChar;
+	bool ___isPaitInfoDis;
 	bool ___iscdt;
 	bool ___isAutoHoiSinh;
 	bool ___isAutoFocus;
@@ -2564,6 +2565,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ListItemUse;
 	bool ___isAutoItem;
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ItemUses;
+	List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* ___ListIconItemBuff;
 };
 struct aaModSettingsUI_tDFA9944201A2F7FCD1ACEC54C0BBB8A3B65CAB2E_StaticFields
 {
@@ -4190,7 +4192,7 @@ IL_005a:
 IL_0060:
 	{
 		il2cpp_codegen_runtime_class_init_inline(aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_il2cpp_TypeInfo_var);
-		bool L_8 = ((aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields*)il2cpp_codegen_static_fields_for(aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_il2cpp_TypeInfo_var))->___isAutoItem;
+		bool L_8 = ((aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields*)il2cpp_codegen_static_fields_for(aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_il2cpp_TypeInfo_var))->___isPaitInfoDis;
 		return L_8;
 	}
 
@@ -4876,7 +4878,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void aaModSettingsUI__cctor_m7B4A01436EE8EE08
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral32AC92B4325E5233936B3F5E35022F8AA3D4B007);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral36982C6A9846F5DCD8A9A719DBF7305CD67109A1);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral3886BF81B0CC74189295631C9BFA61A2AB32515E);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral3F750D0C8E3CC5EDB1636BDEF7664BA0DCA6F6E4);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral40D7DC650F072B6DC38C24B0E8E9CB13235ABA4F);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral644DAB7E945F03714A8BBAA51250085A940A9AE9);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral6AD4650361506FD0B30F5A79E3360EFE0B5397FB);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral8BFDDFEF24F45BDF49DF5337E976B020428F3A0B);
@@ -4967,9 +4969,9 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void aaModSettingsUI__cctor_m7B4A01436EE8EE08
 		(L_17)->SetAt(static_cast<il2cpp_array_size_t>(6), (SettingRow_t3D68A445A831D8A6DA5B2C1E5556B3237B022E3F)L_18);
 		SettingRowU5BU5D_t41F2BC8849A2E1AC62F242BD46D4A1FEBD8BAB87* L_19 = L_17;
 		il2cpp_codegen_initobj((&V_0), sizeof(SettingRow_t3D68A445A831D8A6DA5B2C1E5556B3237B022E3F));
-		(&V_0)->___label = _stringLiteral3F750D0C8E3CC5EDB1636BDEF7664BA0DCA6F6E4;
-		Il2CppCodeGenWriteBarrier((void**)(&(&V_0)->___label), (void*)_stringLiteral3F750D0C8E3CC5EDB1636BDEF7664BA0DCA6F6E4);
-		(&V_0)->___isToggle = (bool)0;
+		(&V_0)->___label = _stringLiteral40D7DC650F072B6DC38C24B0E8E9CB13235ABA4F;
+		Il2CppCodeGenWriteBarrier((void**)(&(&V_0)->___label), (void*)_stringLiteral40D7DC650F072B6DC38C24B0E8E9CB13235ABA4F);
+		(&V_0)->___isToggle = (bool)1;
 		(&V_0)->___actionId = 8;
 		SettingRow_t3D68A445A831D8A6DA5B2C1E5556B3237B022E3F L_20 = V_0;
 		NullCheck(L_19);

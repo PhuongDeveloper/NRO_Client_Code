@@ -322,6 +322,7 @@ IL2CPP_EXTERN_C RuntimeClass* MovePoint_t935B2561B2469906D762963068D2E58357E8815
 IL2CPP_EXTERN_C RuntimeClass* MyKeyMap_t024AC4A382D5E2E2F7FD7D3DCF19ACD75DF6EDA3_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyRandom_t6281D28A772F93377EA9642AEC6B7DB260D57ADE_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyVector_t5E551DE127AB217F3BF51644B186993381C11E30_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* PickMobController_t39C3D3A79EAD61922CBDD49318973695889BC8A5_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* PickMob_tE487E41C8A5671A8F26C6409C2A138272DB54536_il2cpp_TypeInfo_var;
@@ -3058,6 +3059,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	bool ___isAutoDele;
 	bool ___isPaintboss;
 	bool ___isPaintChar;
+	bool ___isPaitInfoDis;
 	bool ___iscdt;
 	bool ___isAutoHoiSinh;
 	bool ___isAutoFocus;
@@ -3093,6 +3095,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ListItemUse;
 	bool ___isAutoItem;
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ItemUses;
+	List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* ___ListIconItemBuff;
 };
 struct mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields
 {
@@ -14338,12 +14341,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* mResources_replace_m5644B86B973D7BD
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral0B0FEB3147CE20EB2C90076367F895C59BCD14B3);
 		s_Il2CppMethodInitialized = true;
 	}
 	{
 		String_t* L_0 = ___0_str;
 		String_t* L_1 = ___1_replacement;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_2;
 		L_2 = NinjaUtil_replace_m476F8836A33E91662DFE6792FDB3B8D1096EF394(L_0, _stringLiteral0B0FEB3147CE20EB2C90076367F895C59BCD14B3, L_1, NULL);
 		return L_2;

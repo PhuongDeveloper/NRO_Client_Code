@@ -221,6 +221,7 @@ IL2CPP_EXTERN_C RuntimeClass* MagicTree_tE3EC2D5EE8C9EA20541B7DE795AD6BFAA39D29E
 IL2CPP_EXTERN_C RuntimeClass* Mob_t394900507F39725FA57379059AA703E63166F45F_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MovePoint_t935B2561B2469906D762963068D2E58357E88159_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyVector_t5E551DE127AB217F3BF51644B186993381C11E30_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Npc_t72985E5728337FF5B823BA9EBBB59C7E8FC2348A_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* PKFlag_t7549255383C1D2CB073066F09ADD84DFF7E6EC4E_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Panel_t49349297CB778B2219539905F16B94090BD93138_il2cpp_TypeInfo_var;
@@ -4908,6 +4909,10 @@ inline void List_1_Add_mE2E9B9FE28B8F500A48EE84A0FFFA5A275A7957C_inline (List_1_
 }
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void CharEffectTime_Update_m261D80294006020D7A789AFCA6D389D4CDB7A6C3 (CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Extension_getTimeChocolate_m756E0F5BE2A4B511D114C729AAF24E8FA894E16A (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* ___0_char, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Extension_isMeInNRDMap_mE415CD5E75EF62CC0F15CAA4FEC72C9FD15EB6DA (const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Int32_ToString_m030E01C24E294D6762FB0B6F37CB541581F55CA5 (int32_t* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MyHashTable_containsKey_mAFB7D4F2080F7FF2770D461BC29F53DA31220AE5 (MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7* __this, RuntimeObject* ___0_key, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MyHashTable_get_mDAA26A9AE2D20587A3888209030C640EC6F26CCF (MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7* __this, RuntimeObject* ___0_k, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void PetFollow_update_m6923E9D2A95CD9D8742A1ADF5BF5288FB9438E05 (PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_startDie_mC13C351A01574B1027D6C8F08B5F8F8055CAC97B (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, int16_t ___0_toX, int16_t ___1_toY, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_UpdSkillPaint_NEW_mE2158B9883892B7899E90CFA24A36928AD97A7EE (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, const RuntimeMethod* method) ;
@@ -5024,7 +5029,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ServerEffect_addServerEffect_m653AAC3047
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_checkDelayFallIfTooHigh_mA4F1362D16BA9ACC37320301D80C7B4A92E3D6BD (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_setMountIsEnd_mC8C95D920B829D21AD46D09E06D7F11070C51E5B (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void EffectData__ctor_mB8DA7EBEC217DE7ECE71FE64CBDA287E669E613B (EffectData_t6AAAD6E8A14E2A8F15B0E3EC836975813F0C7A33* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Int32_ToString_m030E01C24E294D6762FB0B6F37CB541581F55CA5 (int32_t* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR DataInputStream_t5BE6AD55145A3D280F94B2DC1EAE4EBCD8F2F9AE* MyStream_readFile_m13FB3C94A64FCF1506D6DEAAC2916AAB3628521A (String_t* ___0_path, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void EffectData_readData_m3CC7B0CC5064CFED38A731365519C246EC161842 (EffectData_t6AAAD6E8A14E2A8F15B0E3EC836975813F0C7A33* __this, String_t* ___0_patch, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Image_t88AA1A2EF052D8D9F2559D593A4EB7853C305908* GameCanvas_loadImage_m5FB0B2DAEA4E5B20BF9A4650966DB92570DD1AF0 (String_t* ___0_path, const RuntimeMethod* method) ;
@@ -5094,11 +5098,9 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* String_Substring_m6BA4A3FA3800FE926
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_paintHp_mBA04492234B38B31679656656D7885824AA497F3 (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, mGraphics_t1DA407CAFB073F74C5A08C04CEE397C0913A9BBE* ___0_g, int32_t ___1_x, int32_t ___2_y, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void mFont_drawString_mE5879DD7F938280DDF297FA968795F864878BF88 (mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7* __this, mGraphics_t1DA407CAFB073F74C5A08C04CEE397C0913A9BBE* ___0_g, String_t* ___1_st, int32_t ___2_x, int32_t ___3_y, int32_t ___4_align, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void mGraphics_setClip_m40F6AC445C68B4E10ABA519E1A2EDC421FC39797 (mGraphics_t1DA407CAFB073F74C5A08C04CEE397C0913A9BBE* __this, int32_t ___0_x, int32_t ___1_y, int32_t ___2_w, int32_t ___3_h, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool MyHashTable_containsKey_mAFB7D4F2080F7FF2770D461BC29F53DA31220AE5 (MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7* __this, RuntimeObject* ___0_key, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ClanImage__ctor_m32BE4436A52CE97B4D74C5BA60FC99C5D8DE6871 (ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MyHashTable_put_m4724A71ED1B4C97C1F054D5F77AF40CA040C7442 (MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7* __this, RuntimeObject* ___0_k, RuntimeObject* ___1_v, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Service_requestBagImage_m358250A471097685D0198D8422639F283AE03ABC (Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* __this, int8_t ___0_ID, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MyHashTable_get_mDAA26A9AE2D20587A3888209030C640EC6F26CCF (MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7* __this, RuntimeObject* ___0_k, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_paintBag_m55C8465A33F26F470D012FA58951080B33A4A6DA (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, mGraphics_t1DA407CAFB073F74C5A08C04CEE397C0913A9BBE* ___0_g, Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* ___1_id, int32_t ___2_x, int32_t ___3_y, int32_t ___4_dir, bool ___5_isPaintChar, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_paintHat_behind_m8965A17353909248B6B073D007F9164F8060E95B (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, mGraphics_t1DA407CAFB073F74C5A08C04CEE397C0913A9BBE* ___0_g, int32_t ___1_cf, int32_t ___2_yh, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Char_isHead_2Fr_m27D0982445476C3E325644CABE8D546ADCAB977C (Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* __this, int32_t ___0_idHead, const RuntimeMethod* method) ;
@@ -5507,6 +5509,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_taskAction_m72D997E36C5D073307898A9
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Hint_tD85946BD5CC1D2A6AB142523845F0A39202749BB_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&MagicTree_tE3EC2D5EE8C9EA20541B7DE795AD6BFAA39D29EB_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Npc_t72985E5728337FF5B823BA9EBBB59C7E8FC2348A_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Panel_t49349297CB778B2219539905F16B94090BD93138_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
@@ -5592,6 +5595,7 @@ IL_002d:
 	{
 		String_t* L_21 = V_1;
 		String_t* L_22 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(String_t_il2cpp_TypeInfo_var))->___Empty;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_23;
 		L_23 = NinjaUtil_replace_m476F8836A33E91662DFE6792FDB3B8D1096EF394(L_21, _stringLiteral0B0FEB3147CE20EB2C90076367F895C59BCD14B3, L_22, NULL);
 		V_1 = L_23;
@@ -8144,6 +8148,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_update_m1771C5A14E461A64CA758E35E7D
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&CharEffect_t186A51BAE851D36BA3C549BC364B3ED4DA103093_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&EffecMn_t7BBBF6893ECE79ED57FD347042288DBB9258D4AB_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494_il2cpp_TypeInfo_var);
@@ -8154,6 +8159,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_update_m1771C5A14E461A64CA758E35E7D
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&MovePoint_t935B2561B2469906D762963068D2E58357E88159_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Res_t42939C8A70541C5F8BBAC618E2AE68A048453E10_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral103E30DA97DD2197B7142C4587BC540AF4ABC02A);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral20E39C3AB7068FAFD9E4B868E16D2E5BC64D4952);
@@ -8165,60 +8171,63 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_update_m1771C5A14E461A64CA758E35E7D
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
-	int64_t V_0 = 0;
-	int32_t V_1 = 0;
-	int64_t V_2 = 0;
-	bool V_3 = false;
-	bool V_4 = false;
-	int32_t V_5 = 0;
-	int32_t V_6 = 0;
-	EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* V_7 = NULL;
-	bool V_8 = false;
-	int8_t V_9 = 0x0;
-	int32_t V_10 = 0;
+	ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37* V_0 = NULL;
+	bool V_1 = false;
+	int32_t V_2 = 0;
+	int64_t V_3 = 0;
+	int32_t V_4 = 0;
+	int64_t V_5 = 0;
+	bool V_6 = false;
+	bool V_7 = false;
+	int32_t V_8 = 0;
+	int32_t V_9 = 0;
+	EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* V_10 = NULL;
 	bool V_11 = false;
-	int64_t V_12 = 0;
-	int64_t V_13 = 0;
-	int32_t G_B132_0 = 0;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B132_1 = NULL;
-	int32_t G_B131_0 = 0;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B131_1 = NULL;
-	int32_t G_B133_0 = 0;
-	int32_t G_B133_1 = 0;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B133_2 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B163_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B163_1 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B162_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B162_1 = NULL;
-	int32_t G_B164_0 = 0;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B164_1 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B164_2 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B168_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B168_1 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B167_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B167_1 = NULL;
-	int32_t G_B169_0 = 0;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B169_1 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B169_2 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B173_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B173_1 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B172_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B172_1 = NULL;
-	int32_t G_B174_0 = 0;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B174_1 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B174_2 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B193_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B193_1 = NULL;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B192_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B192_1 = NULL;
-	int32_t G_B194_0 = 0;
-	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B194_1 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B194_2 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B331_0 = NULL;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B330_0 = NULL;
-	int32_t G_B332_0 = 0;
-	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B332_1 = NULL;
-	int32_t G_B340_0 = 0;
+	int8_t V_12 = 0x0;
+	int32_t V_13 = 0;
+	bool V_14 = false;
+	int64_t V_15 = 0;
+	int64_t V_16 = 0;
+	int32_t G_B145_0 = 0;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B145_1 = NULL;
+	int32_t G_B144_0 = 0;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B144_1 = NULL;
+	int32_t G_B146_0 = 0;
+	int32_t G_B146_1 = 0;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B146_2 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B176_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B176_1 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B175_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B175_1 = NULL;
+	int32_t G_B177_0 = 0;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B177_1 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B177_2 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B181_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B181_1 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B180_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B180_1 = NULL;
+	int32_t G_B182_0 = 0;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B182_1 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B182_2 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B186_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B186_1 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B185_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B185_1 = NULL;
+	int32_t G_B187_0 = 0;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B187_1 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B187_2 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B206_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B206_1 = NULL;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B205_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B205_1 = NULL;
+	int32_t G_B207_0 = 0;
+	SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* G_B207_1 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B207_2 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B344_0 = NULL;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B343_0 = NULL;
+	int32_t G_B345_0 = 0;
+	Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* G_B345_1 = NULL;
+	int32_t G_B353_0 = 0;
 	{
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_0 = __this->___charEffectTime;
 		NullCheck(L_0);
@@ -8310,374 +8319,519 @@ IL_0095:
 
 IL_00ad:
 	{
-		bool L_18 = __this->___isMafuba;
+		bool L_18;
+		L_18 = Extension_isMeInNRDMap_mE415CD5E75EF62CC0F15CAA4FEC72C9FD15EB6DA(NULL);
 		if (!L_18)
 		{
-			goto IL_00e1;
+			goto IL_018f;
+		}
+	}
+	{
+		int32_t L_19 = __this->___bag;
+		if ((((int32_t)L_19) < ((int32_t)0)))
+		{
+			goto IL_018f;
+		}
+	}
+	{
+		il2cpp_codegen_runtime_class_init_inline(ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_il2cpp_TypeInfo_var);
+		MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7* L_20 = ((ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_StaticFields*)il2cpp_codegen_static_fields_for(ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_il2cpp_TypeInfo_var))->___idImages;
+		int32_t* L_21 = (int32_t*)(&__this->___bag);
+		String_t* L_22;
+		L_22 = Int32_ToString_m030E01C24E294D6762FB0B6F37CB541581F55CA5(L_21, NULL);
+		String_t* L_23 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(String_t_il2cpp_TypeInfo_var))->___Empty;
+		String_t* L_24;
+		L_24 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(L_22, L_23, NULL);
+		NullCheck(L_20);
+		bool L_25;
+		L_25 = MyHashTable_containsKey_mAFB7D4F2080F7FF2770D461BC29F53DA31220AE5(L_20, L_24, NULL);
+		if (!L_25)
+		{
+			goto IL_018f;
+		}
+	}
+	{
+		il2cpp_codegen_runtime_class_init_inline(ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_il2cpp_TypeInfo_var);
+		MyHashTable_t03FB795CF8B8588EB81514182487084E49CD03E7* L_26 = ((ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_StaticFields*)il2cpp_codegen_static_fields_for(ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_il2cpp_TypeInfo_var))->___idImages;
+		int32_t* L_27 = (int32_t*)(&__this->___bag);
+		String_t* L_28;
+		L_28 = Int32_ToString_m030E01C24E294D6762FB0B6F37CB541581F55CA5(L_27, NULL);
+		String_t* L_29 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(String_t_il2cpp_TypeInfo_var))->___Empty;
+		String_t* L_30;
+		L_30 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(L_28, L_29, NULL);
+		NullCheck(L_26);
+		RuntimeObject* L_31;
+		L_31 = MyHashTable_get_mDAA26A9AE2D20587A3888209030C640EC6F26CCF(L_26, L_30, NULL);
+		V_0 = ((ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37*)CastclassClass((RuntimeObject*)L_31, ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37_il2cpp_TypeInfo_var));
+		V_1 = (bool)1;
+		ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37* L_32 = V_0;
+		NullCheck(L_32);
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_33 = L_32->___idImage;
+		if (!L_33)
+		{
+			goto IL_0174;
+		}
+	}
+	{
+		V_2 = 0;
+		goto IL_0169;
+	}
+
+IL_011a:
+	{
+		ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37* L_34 = V_0;
+		NullCheck(L_34);
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_35 = L_34->___idImage;
+		int32_t L_36 = V_2;
+		NullCheck(L_35);
+		int32_t L_37 = L_36;
+		int16_t L_38 = (L_35)->GetAt(static_cast<il2cpp_array_size_t>(L_37));
+		if ((((int32_t)L_38) == ((int32_t)((int32_t)2322))))
+		{
+			goto IL_0138;
+		}
+	}
+	{
+		ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37* L_39 = V_0;
+		NullCheck(L_39);
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_40 = L_39->___idImage;
+		int32_t L_41 = V_2;
+		NullCheck(L_40);
+		int32_t L_42 = L_41;
+		int16_t L_43 = (L_40)->GetAt(static_cast<il2cpp_array_size_t>(L_42));
+		if ((!(((uint32_t)L_43) == ((uint32_t)((int32_t)2287)))))
+		{
+			goto IL_0165;
+		}
+	}
+
+IL_0138:
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_44 = __this->___charEffectTime;
+		NullCheck(L_44);
+		L_44->___hasNRD = (bool)1;
+		V_1 = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_45 = __this->___charEffectTime;
+		NullCheck(L_45);
+		int32_t L_46 = L_45->___timeHoldingNRD;
+		if (L_46)
+		{
+			goto IL_0174;
+		}
+	}
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_47 = __this->___charEffectTime;
+		NullCheck(L_47);
+		L_47->___timeHoldingNRD = ((int32_t)302);
+		goto IL_0174;
+	}
+
+IL_0165:
+	{
+		int32_t L_48 = V_2;
+		V_2 = ((int32_t)il2cpp_codegen_add(L_48, 1));
+	}
+
+IL_0169:
+	{
+		int32_t L_49 = V_2;
+		ClanImage_tBFF205EB8DD6E75057704F3E83F8371FFAF98B37* L_50 = V_0;
+		NullCheck(L_50);
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_51 = L_50->___idImage;
+		NullCheck(L_51);
+		if ((((int32_t)L_49) < ((int32_t)((int32_t)(((RuntimeArray*)L_51)->max_length)))))
+		{
+			goto IL_011a;
+		}
+	}
+
+IL_0174:
+	{
+		bool L_52 = V_1;
+		if (!L_52)
+		{
+			goto IL_018f;
+		}
+	}
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_53 = __this->___charEffectTime;
+		NullCheck(L_53);
+		L_53->___hasNRD = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_54 = __this->___charEffectTime;
+		NullCheck(L_54);
+		L_54->___timeHoldingNRD = 0;
+	}
+
+IL_018f:
+	{
+		bool L_55 = __this->___isMafuba;
+		if (!L_55)
+		{
+			goto IL_01c3;
 		}
 	}
 	{
 		__this->___cf = ((int32_t)23);
-		int16_t L_19 = __this->___countMafuba;
-		__this->___countMafuba = ((int16_t)((int32_t)il2cpp_codegen_add((int32_t)L_19, 1)));
-		int16_t L_20 = __this->___countMafuba;
-		if ((((int32_t)L_20) <= ((int32_t)((int32_t)150))))
+		int16_t L_56 = __this->___countMafuba;
+		__this->___countMafuba = ((int16_t)((int32_t)il2cpp_codegen_add((int32_t)L_56, 1)));
+		int16_t L_57 = __this->___countMafuba;
+		if ((((int32_t)L_57) <= ((int32_t)((int32_t)150))))
 		{
-			goto IL_00e0;
+			goto IL_01c2;
 		}
 	}
 	{
 		__this->___isMafuba = (bool)0;
 	}
 
-IL_00e0:
+IL_01c2:
 	{
 		return;
 	}
 
-IL_00e1:
+IL_01c3:
 	{
 		__this->___countMafuba = (int16_t)0;
-		bool L_21 = __this->___isHide;
-		if (L_21)
+		bool L_58 = __this->___isHide;
+		if (L_58)
 		{
-			goto IL_00f8;
+			goto IL_01da;
 		}
 	}
 	{
-		bool L_22 = __this->___isMabuHold;
-		if (!L_22)
+		bool L_59 = __this->___isMabuHold;
+		if (!L_59)
 		{
-			goto IL_00f9;
+			goto IL_01db;
 		}
 	}
 
-IL_00f8:
+IL_01da:
 	{
 		return;
 	}
 
-IL_00f9:
+IL_01db:
 	{
-		bool L_23 = __this->___isCopy;
-		if (L_23)
+		bool L_60 = __this->___isCopy;
+		if (L_60)
 		{
-			goto IL_010b;
+			goto IL_01ed;
 		}
 	}
 	{
-		int32_t L_24 = __this->___clevel;
-		if ((((int32_t)L_24) < ((int32_t)((int32_t)14))))
+		int32_t L_61 = __this->___clevel;
+		if ((((int32_t)L_61) < ((int32_t)((int32_t)14))))
 		{
-			goto IL_011d;
+			goto IL_01ff;
 		}
 	}
 
-IL_010b:
+IL_01ed:
 	{
-		int32_t L_25 = __this->___statusMe;
-		if ((((int32_t)L_25) == ((int32_t)1)))
+		int32_t L_62 = __this->___statusMe;
+		if ((((int32_t)L_62) == ((int32_t)1)))
 		{
-			goto IL_011d;
+			goto IL_01ff;
 		}
 	}
 	{
-		int32_t L_26 = __this->___statusMe;
+		int32_t L_63 = __this->___statusMe;
 	}
 
-IL_011d:
+IL_01ff:
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_27 = __this->___petFollow;
-		if (!L_27)
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_64 = __this->___petFollow;
+		if (!L_64)
 		{
-			goto IL_01fe;
+			goto IL_02e0;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_28 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_28%3)))
+		int32_t L_65 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_65%3)))
 		{
-			goto IL_01f3;
+			goto IL_02d5;
 		}
 	}
 	{
-		int32_t L_29 = __this->___cdir;
-		if ((!(((uint32_t)L_29) == ((uint32_t)1))))
+		int32_t L_66 = __this->___cdir;
+		if ((!(((uint32_t)L_66) == ((uint32_t)1))))
 		{
-			goto IL_0151;
+			goto IL_0233;
 		}
 	}
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_30 = __this->___petFollow;
-		int32_t L_31 = __this->___cx;
-		NullCheck(L_30);
-		L_30->___cmtoX = ((int32_t)il2cpp_codegen_subtract(L_31, ((int32_t)20)));
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_67 = __this->___petFollow;
+		int32_t L_68 = __this->___cx;
+		NullCheck(L_67);
+		L_67->___cmtoX = ((int32_t)il2cpp_codegen_subtract(L_68, ((int32_t)20)));
 	}
 
-IL_0151:
+IL_0233:
 	{
-		int32_t L_32 = __this->___cdir;
-		if ((!(((uint32_t)L_32) == ((uint32_t)(-1)))))
+		int32_t L_69 = __this->___cdir;
+		if ((!(((uint32_t)L_69) == ((uint32_t)(-1)))))
 		{
-			goto IL_016e;
+			goto IL_0250;
 		}
 	}
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_33 = __this->___petFollow;
-		int32_t L_34 = __this->___cx;
-		NullCheck(L_33);
-		L_33->___cmtoX = ((int32_t)il2cpp_codegen_add(L_34, ((int32_t)20)));
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_70 = __this->___petFollow;
+		int32_t L_71 = __this->___cx;
+		NullCheck(L_70);
+		L_70->___cmtoX = ((int32_t)il2cpp_codegen_add(L_71, ((int32_t)20)));
 	}
 
-IL_016e:
+IL_0250:
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_35 = __this->___petFollow;
-		int32_t L_36 = __this->___cy;
-		NullCheck(L_35);
-		L_35->___cmtoY = ((int32_t)il2cpp_codegen_subtract(L_36, ((int32_t)40)));
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_37 = __this->___petFollow;
-		NullCheck(L_37);
-		int32_t L_38 = L_37->___cmx;
-		int32_t L_39 = __this->___cx;
-		if ((((int32_t)L_38) <= ((int32_t)L_39)))
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_72 = __this->___petFollow;
+		int32_t L_73 = __this->___cy;
+		NullCheck(L_72);
+		L_72->___cmtoY = ((int32_t)il2cpp_codegen_subtract(L_73, ((int32_t)40)));
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_74 = __this->___petFollow;
+		NullCheck(L_74);
+		int32_t L_75 = L_74->___cmx;
+		int32_t L_76 = __this->___cx;
+		if ((((int32_t)L_75) <= ((int32_t)L_76)))
 		{
-			goto IL_01a3;
+			goto IL_0285;
 		}
 	}
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_40 = __this->___petFollow;
-		NullCheck(L_40);
-		L_40->___dir = (-1);
-		goto IL_01af;
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_77 = __this->___petFollow;
+		NullCheck(L_77);
+		L_77->___dir = (-1);
+		goto IL_0291;
 	}
 
-IL_01a3:
+IL_0285:
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_41 = __this->___petFollow;
-		NullCheck(L_41);
-		L_41->___dir = 1;
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_78 = __this->___petFollow;
+		NullCheck(L_78);
+		L_78->___dir = 1;
 	}
 
-IL_01af:
+IL_0291:
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_42 = __this->___petFollow;
-		NullCheck(L_42);
-		int32_t L_43 = L_42->___cmtoX;
-		if ((((int32_t)L_43) >= ((int32_t)((int32_t)100))))
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_79 = __this->___petFollow;
+		NullCheck(L_79);
+		int32_t L_80 = L_79->___cmtoX;
+		if ((((int32_t)L_80) >= ((int32_t)((int32_t)100))))
 		{
-			goto IL_01cb;
+			goto IL_02ad;
 		}
 	}
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_44 = __this->___petFollow;
-		NullCheck(L_44);
-		L_44->___cmtoX = ((int32_t)100);
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_81 = __this->___petFollow;
+		NullCheck(L_81);
+		L_81->___cmtoX = ((int32_t)100);
 	}
 
-IL_01cb:
+IL_02ad:
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_45 = __this->___petFollow;
-		NullCheck(L_45);
-		int32_t L_46 = L_45->___cmtoX;
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_82 = __this->___petFollow;
+		NullCheck(L_82);
+		int32_t L_83 = L_82->___cmtoX;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_47 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
-		if ((((int32_t)L_46) <= ((int32_t)((int32_t)il2cpp_codegen_subtract(L_47, ((int32_t)100))))))
+		int32_t L_84 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
+		if ((((int32_t)L_83) <= ((int32_t)((int32_t)il2cpp_codegen_subtract(L_84, ((int32_t)100))))))
 		{
-			goto IL_01f3;
+			goto IL_02d5;
 		}
 	}
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_48 = __this->___petFollow;
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_85 = __this->___petFollow;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_49 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
-		NullCheck(L_48);
-		L_48->___cmtoX = ((int32_t)il2cpp_codegen_subtract(L_49, ((int32_t)100)));
+		int32_t L_86 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
+		NullCheck(L_85);
+		L_85->___cmtoX = ((int32_t)il2cpp_codegen_subtract(L_86, ((int32_t)100)));
 	}
 
-IL_01f3:
+IL_02d5:
 	{
-		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_50 = __this->___petFollow;
-		NullCheck(L_50);
-		PetFollow_update_m6923E9D2A95CD9D8742A1ADF5BF5288FB9438E05(L_50, NULL);
+		PetFollow_t54B5AF82F283EB4DBA47966C27C66432C589DB14* L_87 = __this->___petFollow;
+		NullCheck(L_87);
+		PetFollow_update_m6923E9D2A95CD9D8742A1ADF5BF5288FB9438E05(L_87, NULL);
 	}
 
-IL_01fe:
+IL_02e0:
 	{
-		bool L_51 = __this->___me;
-		if (L_51)
+		bool L_88 = __this->___me;
+		if (L_88)
 		{
-			goto IL_0241;
+			goto IL_0323;
 		}
 	}
 	{
-		int64_t L_52 = __this->___cHP;
-		if ((((int64_t)L_52) > ((int64_t)((int64_t)0))))
+		int64_t L_89 = __this->___cHP;
+		if ((((int64_t)L_89) > ((int64_t)((int64_t)0))))
 		{
-			goto IL_0241;
+			goto IL_0323;
 		}
 	}
 	{
-		int32_t L_53 = __this->___clanID;
-		if ((((int32_t)L_53) == ((int32_t)((int32_t)-100))))
+		int32_t L_90 = __this->___clanID;
+		if ((((int32_t)L_90) == ((int32_t)((int32_t)-100))))
 		{
-			goto IL_0241;
+			goto IL_0323;
 		}
 	}
 	{
-		int32_t L_54 = __this->___statusMe;
-		if ((((int32_t)L_54) == ((int32_t)((int32_t)14))))
+		int32_t L_91 = __this->___statusMe;
+		if ((((int32_t)L_91) == ((int32_t)((int32_t)14))))
 		{
-			goto IL_0241;
+			goto IL_0323;
 		}
 	}
 	{
-		int32_t L_55 = __this->___statusMe;
-		if ((((int32_t)L_55) == ((int32_t)5)))
+		int32_t L_92 = __this->___statusMe;
+		if ((((int32_t)L_92) == ((int32_t)5)))
 		{
-			goto IL_0241;
+			goto IL_0323;
 		}
 	}
 	{
-		int32_t L_56 = __this->___cx;
-		int32_t L_57 = __this->___cy;
-		Char_startDie_mC13C351A01574B1027D6C8F08B5F8F8055CAC97B(__this, ((int16_t)L_56), ((int16_t)L_57), NULL);
+		int32_t L_93 = __this->___cx;
+		int32_t L_94 = __this->___cy;
+		Char_startDie_mC13C351A01574B1027D6C8F08B5F8F8055CAC97B(__this, ((int16_t)L_93), ((int16_t)L_94), NULL);
 	}
 
-IL_0241:
+IL_0323:
 	{
-		bool L_58 = __this->___isInjureHp;
-		if (!L_58)
+		bool L_95 = __this->___isInjureHp;
+		if (!L_95)
 		{
-			goto IL_0271;
+			goto IL_0353;
 		}
 	}
 	{
-		int32_t L_59 = __this->___twHp;
-		__this->___twHp = ((int32_t)il2cpp_codegen_add(L_59, 1));
-		int32_t L_60 = __this->___twHp;
-		if ((!(((uint32_t)L_60) == ((uint32_t)((int32_t)20)))))
+		int32_t L_96 = __this->___twHp;
+		__this->___twHp = ((int32_t)il2cpp_codegen_add(L_96, 1));
+		int32_t L_97 = __this->___twHp;
+		if ((!(((uint32_t)L_97) == ((uint32_t)((int32_t)20)))))
 		{
-			goto IL_02b3;
+			goto IL_0395;
 		}
 	}
 	{
 		__this->___twHp = 0;
 		__this->___isInjureHp = (bool)0;
-		goto IL_02b3;
+		goto IL_0395;
 	}
 
-IL_0271:
+IL_0353:
 	{
-		int64_t L_61 = __this->___dHP;
-		int64_t L_62 = __this->___cHP;
-		if ((((int64_t)L_61) <= ((int64_t)L_62)))
+		int64_t L_98 = __this->___dHP;
+		int64_t L_99 = __this->___cHP;
+		if ((((int64_t)L_98) <= ((int64_t)L_99)))
 		{
-			goto IL_02a7;
+			goto IL_0389;
 		}
 	}
 	{
-		int64_t L_63 = __this->___dHP;
-		int64_t L_64 = __this->___cHP;
-		V_0 = ((int64_t)(((int64_t)il2cpp_codegen_subtract(L_63, L_64))>>1));
-		int64_t L_65 = V_0;
-		if ((((int64_t)L_65) >= ((int64_t)((int64_t)1))))
+		int64_t L_100 = __this->___dHP;
+		int64_t L_101 = __this->___cHP;
+		V_3 = ((int64_t)(((int64_t)il2cpp_codegen_subtract(L_100, L_101))>>1));
+		int64_t L_102 = V_3;
+		if ((((int64_t)L_102) >= ((int64_t)((int64_t)1))))
 		{
-			goto IL_0297;
+			goto IL_0379;
 		}
 	}
 	{
-		V_0 = ((int64_t)1);
+		V_3 = ((int64_t)1);
 	}
 
-IL_0297:
+IL_0379:
 	{
-		int64_t L_66 = __this->___dHP;
-		int64_t L_67 = V_0;
-		__this->___dHP = ((int64_t)il2cpp_codegen_subtract(L_66, L_67));
-		goto IL_02b3;
+		int64_t L_103 = __this->___dHP;
+		int64_t L_104 = V_3;
+		__this->___dHP = ((int64_t)il2cpp_codegen_subtract(L_103, L_104));
+		goto IL_0395;
 	}
 
-IL_02a7:
+IL_0389:
 	{
-		int64_t L_68 = __this->___cHP;
-		__this->___dHP = L_68;
+		int64_t L_105 = __this->___cHP;
+		__this->___dHP = L_105;
 	}
 
-IL_02b3:
+IL_0395:
 	{
-		int16_t L_69 = __this->___secondPower;
-		if (!L_69)
+		int16_t L_106 = __this->___secondPower;
+		if (!L_106)
 		{
-			goto IL_02f5;
-		}
-	}
-	{
-		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_70;
-		L_70 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		__this->___currS = L_70;
-		int64_t L_71 = __this->___currS;
-		int64_t L_72 = __this->___lastS;
-		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_71, L_72))) < ((int64_t)((int64_t)((int32_t)1000)))))
-		{
-			goto IL_02f5;
+			goto IL_03d7;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_73;
-		L_73 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		__this->___lastS = L_73;
-		int16_t L_74 = __this->___secondPower;
-		__this->___secondPower = ((int16_t)((int32_t)il2cpp_codegen_subtract((int32_t)L_74, 1)));
+		int64_t L_107;
+		L_107 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		__this->___currS = L_107;
+		int64_t L_108 = __this->___currS;
+		int64_t L_109 = __this->___lastS;
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_108, L_109))) < ((int64_t)((int64_t)((int32_t)1000)))))
+		{
+			goto IL_03d7;
+		}
+	}
+	{
+		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
+		int64_t L_110;
+		L_110 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		__this->___lastS = L_110;
+		int16_t L_111 = __this->___secondPower;
+		__this->___secondPower = ((int16_t)((int32_t)il2cpp_codegen_subtract((int32_t)L_111, 1)));
 	}
 
-IL_02f5:
+IL_03d7:
 	{
-		bool L_75 = __this->___isPaintNewSkill;
-		if (!L_75)
+		bool L_112 = __this->___isPaintNewSkill;
+		if (!L_112)
 		{
-			goto IL_0344;
+			goto IL_0426;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int64_t L_76 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___timeNow;
-		int64_t L_77 = __this->___timeReset_newSkill;
-		if ((((int64_t)L_76) > ((int64_t)L_77)))
+		int64_t L_113 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___timeNow;
+		int64_t L_114 = __this->___timeReset_newSkill;
+		if ((((int64_t)L_113) > ((int64_t)L_114)))
 		{
-			goto IL_031d;
+			goto IL_03ff;
 		}
 	}
 	{
-		int32_t L_78 = __this->___statusMe;
-		if ((((int32_t)L_78) == ((int32_t)((int32_t)14))))
+		int32_t L_115 = __this->___statusMe;
+		if ((((int32_t)L_115) == ((int32_t)((int32_t)14))))
 		{
-			goto IL_031d;
+			goto IL_03ff;
 		}
 	}
 	{
-		int32_t L_79 = __this->___statusMe;
-		if ((!(((uint32_t)L_79) == ((uint32_t)5))))
+		int32_t L_116 = __this->___statusMe;
+		if ((!(((uint32_t)L_116) == ((uint32_t)5))))
 		{
-			goto IL_032c;
+			goto IL_040e;
 		}
 	}
 
-IL_031d:
+IL_03ff:
 	{
 		__this->___timeReset_newSkill = ((int64_t)0);
 		__this->___isPaintNewSkill = (bool)0;
 	}
 
-IL_032c:
+IL_040e:
 	{
 		Char_UpdSkillPaint_NEW_mE2158B9883892B7899E90CFA24A36928AD97A7EE(__this, NULL);
-		bool L_80 = __this->___isShadown;
-		if (!L_80)
+		bool L_117 = __this->___isShadown;
+		if (!L_117)
 		{
-			goto IL_2580;
+			goto IL_267a;
 		}
 	}
 	{
@@ -8685,380 +8839,380 @@ IL_032c:
 		return;
 	}
 
-IL_0344:
+IL_0426:
 	{
-		bool L_81 = __this->___me;
-		if (L_81)
+		bool L_118 = __this->___me;
+		if (L_118)
 		{
-			goto IL_0354;
+			goto IL_0436;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		bool L_82 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___notPaint;
-		if (!L_82)
+		bool L_119 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___notPaint;
+		if (!L_119)
 		{
-			goto IL_0354;
+			goto IL_0436;
 		}
 	}
 	{
 		return;
 	}
 
-IL_0354:
+IL_0436:
 	{
-		bool L_83 = __this->___sleepEff;
-		if (!L_83)
+		bool L_120 = __this->___sleepEff;
+		if (!L_120)
 		{
-			goto IL_03cd;
+			goto IL_04af;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_84 = __this->___charEffectTime;
-		NullCheck(L_84);
-		bool L_85 = L_84->___isHypnotized;
-		if (L_85)
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_121 = __this->___charEffectTime;
+		NullCheck(L_121);
+		bool L_122 = L_121->___isHypnotized;
+		if (L_122)
 		{
-			goto IL_03a6;
+			goto IL_0488;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_86 = __this->___charEffectTime;
-		NullCheck(L_86);
-		L_86->___isHypnotized = (bool)1;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_87 = __this->___charEffectTime;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_123 = __this->___charEffectTime;
+		NullCheck(L_123);
+		L_123->___isHypnotized = (bool)1;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_124 = __this->___charEffectTime;
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_88;
-		L_88 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		NullCheck(L_87);
-		L_87->___lastTimeHypnotized = L_88;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_89 = __this->___charEffectTime;
-		NullCheck(L_89);
-		int32_t L_90 = L_89->___timeHypnotized;
-		if ((((int32_t)L_90) > ((int32_t)0)))
+		int64_t L_125;
+		L_125 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		NullCheck(L_124);
+		L_124->___lastTimeHypnotized = L_125;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_126 = __this->___charEffectTime;
+		NullCheck(L_126);
+		int32_t L_127 = L_126->___timeHypnotized;
+		if ((((int32_t)L_127) > ((int32_t)0)))
 		{
-			goto IL_03a6;
+			goto IL_0488;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_91 = __this->___charEffectTime;
-		int32_t L_92;
-		L_92 = Extension_getTimeHypnotize_m428BC9E1CAF81E462F796A5A74648217BACCC1C5(__this, NULL);
-		NullCheck(L_91);
-		L_91->___timeHypnotized = ((int32_t)il2cpp_codegen_add(L_92, 1));
-	}
-
-IL_03a6:
-	{
-		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_93 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_93%((int32_t)10))))
-		{
-			goto IL_03e5;
-		}
-	}
-	{
-		int32_t L_94 = __this->___cx;
-		int32_t L_95 = __this->___cy;
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_96 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
-		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_96, ((int32_t)41), L_94, L_95, 3, 1, 1, NULL);
-		il2cpp_codegen_runtime_class_init_inline(EffecMn_t7BBBF6893ECE79ED57FD347042288DBB9258D4AB_il2cpp_TypeInfo_var);
-		EffecMn_addEff_m47082784DD785FA1D9C75668618BE4A8B26B09A7(L_96, NULL);
-		goto IL_03e5;
-	}
-
-IL_03cd:
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_97 = __this->___charEffectTime;
-		NullCheck(L_97);
-		L_97->___isHypnotized = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_98 = __this->___charEffectTime;
-		NullCheck(L_98);
-		L_98->___timeHypnotized = 0;
-	}
-
-IL_03e5:
-	{
-		int8_t L_99 = __this->___isMonkey;
-		if ((!(((uint32_t)L_99) == ((uint32_t)1))))
-		{
-			goto IL_0438;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_100 = __this->___charEffectTime;
-		NullCheck(L_100);
-		bool L_101 = L_100->___hasMonkey;
-		if (L_101)
-		{
-			goto IL_0450;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_102 = __this->___charEffectTime;
-		NullCheck(L_102);
-		L_102->___hasMonkey = (bool)1;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_103 = __this->___charEffectTime;
-		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_104;
-		L_104 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		NullCheck(L_103);
-		L_103->___lastTimeMonkey = L_104;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_105 = __this->___charEffectTime;
-		NullCheck(L_105);
-		int32_t L_106 = L_105->___timeMonkey;
-		if ((((int32_t)L_106) > ((int32_t)0)))
-		{
-			goto IL_0450;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_107 = __this->___charEffectTime;
-		int32_t L_108;
-		L_108 = Extension_getTimeMonkey_mC74513E83F7DFE52DD04367D581ED75363D1930C(__this, NULL);
-		NullCheck(L_107);
-		L_107->___timeMonkey = L_108;
-		goto IL_0450;
-	}
-
-IL_0438:
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_109 = __this->___charEffectTime;
-		NullCheck(L_109);
-		L_109->___hasMonkey = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_110 = __this->___charEffectTime;
-		NullCheck(L_110);
-		L_110->___timeMonkey = 0;
-	}
-
-IL_0450:
-	{
-		bool L_111 = __this->___huytSao;
-		if (!L_111)
-		{
-			goto IL_04c4;
-		}
-	}
-	{
-		__this->___huytSao = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_112 = __this->___charEffectTime;
-		NullCheck(L_112);
-		bool L_113 = L_112->___hasHuytSao;
-		if (L_113)
-		{
-			goto IL_04a9;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_114 = __this->___charEffectTime;
-		NullCheck(L_114);
-		L_114->___hasHuytSao = (bool)1;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_115 = __this->___charEffectTime;
-		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_116;
-		L_116 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		NullCheck(L_115);
-		L_115->___lastTimeHuytSao = L_116;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_117 = __this->___charEffectTime;
-		NullCheck(L_117);
-		int32_t L_118 = L_117->___timeHuytSao;
-		if ((((int32_t)L_118) > ((int32_t)0)))
-		{
-			goto IL_04a9;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_119 = __this->___charEffectTime;
-		int32_t L_120;
-		L_120 = Extension_getTimeHuytSao_mD6A427FC568C113AB5ADB53C0A87C3E31AE1CA55(__this, NULL);
-		NullCheck(L_119);
-		L_119->___timeHuytSao = ((int32_t)il2cpp_codegen_add(L_120, 1));
-	}
-
-IL_04a9:
-	{
-		int32_t L_121 = __this->___cx;
-		int32_t L_122 = __this->___cy;
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_123 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
-		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_123, ((int32_t)39), L_121, L_122, 3, 3, 1, NULL);
-		il2cpp_codegen_runtime_class_init_inline(EffecMn_t7BBBF6893ECE79ED57FD347042288DBB9258D4AB_il2cpp_TypeInfo_var);
-		EffecMn_addEff_m47082784DD785FA1D9C75668618BE4A8B26B09A7(L_123, NULL);
-	}
-
-IL_04c4:
-	{
-		bool L_124 = __this->___blindEff;
-		if (!L_124)
-		{
-			goto IL_0523;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_125 = __this->___charEffectTime;
-		NullCheck(L_125);
-		bool L_126 = L_125->___isTeleported;
-		if (L_126)
-		{
-			goto IL_050f;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_127 = __this->___charEffectTime;
-		NullCheck(L_127);
-		L_127->___isTeleported = (bool)1;
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_128 = __this->___charEffectTime;
-		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_129;
-		L_129 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		int32_t L_129;
+		L_129 = Extension_getTimeHypnotize_m428BC9E1CAF81E462F796A5A74648217BACCC1C5(__this, NULL);
 		NullCheck(L_128);
-		L_128->___lastTimeTeleported = L_129;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_130 = __this->___charEffectTime;
-		NullCheck(L_130);
-		int32_t L_131 = L_130->___timeTeleported;
-		if ((((int32_t)L_131) > ((int32_t)0)))
-		{
-			goto IL_050f;
-		}
-	}
-	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_132 = __this->___charEffectTime;
-		NullCheck(L_132);
-		L_132->___timeTeleported = 7;
+		L_128->___timeHypnotized = ((int32_t)il2cpp_codegen_add(L_129, 1));
 	}
 
-IL_050f:
+IL_0488:
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_133 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_133%5)))
+		int32_t L_130 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_130%((int32_t)10))))
 		{
-			goto IL_053b;
+			goto IL_04c7;
 		}
 	}
 	{
-		ServerEffect_addServerEffect_m86AC5F547CB6DA0642AD0BB64686B815A6BA3483(((int32_t)113), __this, 1, NULL);
-		goto IL_053b;
+		int32_t L_131 = __this->___cx;
+		int32_t L_132 = __this->___cy;
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_133 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
+		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_133, ((int32_t)41), L_131, L_132, 3, 1, 1, NULL);
+		il2cpp_codegen_runtime_class_init_inline(EffecMn_t7BBBF6893ECE79ED57FD347042288DBB9258D4AB_il2cpp_TypeInfo_var);
+		EffecMn_addEff_m47082784DD785FA1D9C75668618BE4A8B26B09A7(L_133, NULL);
+		goto IL_04c7;
 	}
 
-IL_0523:
+IL_04af:
 	{
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_134 = __this->___charEffectTime;
 		NullCheck(L_134);
-		L_134->___isTeleported = (bool)0;
+		L_134->___isHypnotized = (bool)0;
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_135 = __this->___charEffectTime;
 		NullCheck(L_135);
-		L_135->___timeTeleported = 0;
+		L_135->___timeHypnotized = 0;
 	}
 
-IL_053b:
+IL_04c7:
 	{
-		bool L_136 = __this->___protectEff;
-		if (!L_136)
+		int8_t L_136 = __this->___isMonkey;
+		if ((!(((uint32_t)L_136) == ((uint32_t)1))))
 		{
-			goto IL_05f2;
+			goto IL_051a;
 		}
 	}
 	{
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_137 = __this->___charEffectTime;
 		NullCheck(L_137);
-		bool L_138 = L_137->___hasShield;
+		bool L_138 = L_137->___hasMonkey;
 		if (L_138)
 		{
-			goto IL_0590;
+			goto IL_0532;
 		}
 	}
 	{
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_139 = __this->___charEffectTime;
 		NullCheck(L_139);
-		L_139->___hasShield = (bool)1;
+		L_139->___hasMonkey = (bool)1;
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_140 = __this->___charEffectTime;
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
 		int64_t L_141;
 		L_141 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
 		NullCheck(L_140);
-		L_140->___lastTimeShield = L_141;
+		L_140->___lastTimeMonkey = L_141;
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_142 = __this->___charEffectTime;
 		NullCheck(L_142);
-		int32_t L_143 = L_142->___timeShield;
+		int32_t L_143 = L_142->___timeMonkey;
 		if ((((int32_t)L_143) > ((int32_t)0)))
 		{
-			goto IL_0590;
+			goto IL_0532;
 		}
 	}
 	{
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_144 = __this->___charEffectTime;
 		int32_t L_145;
-		L_145 = Extension_getTimeShield_m2AACDCB89012B22F1E5D269A59FF8257AD70B98E(__this, NULL);
+		L_145 = Extension_getTimeMonkey_mC74513E83F7DFE52DD04367D581ED75363D1930C(__this, NULL);
 		NullCheck(L_144);
-		L_144->___timeShield = ((int32_t)il2cpp_codegen_add(L_145, 1));
+		L_144->___timeMonkey = L_145;
+		goto IL_0532;
 	}
 
-IL_0590:
+IL_051a:
 	{
-		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_146 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_146%5)))
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_146 = __this->___charEffectTime;
+		NullCheck(L_146);
+		L_146->___hasMonkey = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_147 = __this->___charEffectTime;
+		NullCheck(L_147);
+		L_147->___timeMonkey = 0;
+	}
+
+IL_0532:
+	{
+		bool L_148 = __this->___huytSao;
+		if (!L_148)
 		{
-			goto IL_05b8;
+			goto IL_05a6;
 		}
 	}
 	{
-		int32_t L_147 = __this->___cx;
-		int32_t L_148 = __this->___cy;
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_149 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
-		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_149, ((int32_t)33), L_147, ((int32_t)il2cpp_codegen_add(L_148, ((int32_t)37))), 3, 3, 1, NULL);
-		__this->___eProtect = L_149;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___eProtect), (void*)L_149);
-	}
-
-IL_05b8:
-	{
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_150 = __this->___eProtect;
-		if (!L_150)
+		__this->___huytSao = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_149 = __this->___charEffectTime;
+		NullCheck(L_149);
+		bool L_150 = L_149->___hasHuytSao;
+		if (L_150)
 		{
-			goto IL_060a;
+			goto IL_058b;
 		}
 	}
 	{
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_151 = __this->___eProtect;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_151 = __this->___charEffectTime;
 		NullCheck(L_151);
-		Effect_update_mDD20C6EE6D6B2FB39BF5B25DB62D6449A70AE887(L_151, NULL);
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_152 = __this->___eProtect;
-		int32_t L_153 = __this->___cx;
+		L_151->___hasHuytSao = (bool)1;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_152 = __this->___charEffectTime;
+		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
+		int64_t L_153;
+		L_153 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
 		NullCheck(L_152);
-		L_152->___x = L_153;
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_154 = __this->___eProtect;
-		int32_t L_155 = __this->___cy;
+		L_152->___lastTimeHuytSao = L_153;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_154 = __this->___charEffectTime;
 		NullCheck(L_154);
-		L_154->___y = ((int32_t)il2cpp_codegen_add(L_155, ((int32_t)37)));
-		goto IL_060a;
+		int32_t L_155 = L_154->___timeHuytSao;
+		if ((((int32_t)L_155) > ((int32_t)0)))
+		{
+			goto IL_058b;
+		}
 	}
-
-IL_05f2:
 	{
 		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_156 = __this->___charEffectTime;
+		int32_t L_157;
+		L_157 = Extension_getTimeHuytSao_mD6A427FC568C113AB5ADB53C0A87C3E31AE1CA55(__this, NULL);
 		NullCheck(L_156);
-		L_156->___hasShield = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_157 = __this->___charEffectTime;
-		NullCheck(L_157);
-		L_157->___timeShield = 0;
+		L_156->___timeHuytSao = ((int32_t)il2cpp_codegen_add(L_157, 1));
 	}
 
-IL_060a:
+IL_058b:
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_158 = __this->___charFocus;
-		if (!L_158)
+		int32_t L_158 = __this->___cx;
+		int32_t L_159 = __this->___cy;
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_160 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
+		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_160, ((int32_t)39), L_158, L_159, 3, 3, 1, NULL);
+		il2cpp_codegen_runtime_class_init_inline(EffecMn_t7BBBF6893ECE79ED57FD347042288DBB9258D4AB_il2cpp_TypeInfo_var);
+		EffecMn_addEff_m47082784DD785FA1D9C75668618BE4A8B26B09A7(L_160, NULL);
+	}
+
+IL_05a6:
+	{
+		bool L_161 = __this->___blindEff;
+		if (!L_161)
 		{
-			goto IL_0627;
+			goto IL_0605;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_159 = __this->___charFocus;
-		NullCheck(L_159);
-		int32_t L_160 = L_159->___cy;
-		if ((((int32_t)L_160) >= ((int32_t)0)))
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_162 = __this->___charEffectTime;
+		NullCheck(L_162);
+		bool L_163 = L_162->___isTeleported;
+		if (L_163)
 		{
-			goto IL_0627;
+			goto IL_05f1;
+		}
+	}
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_164 = __this->___charEffectTime;
+		NullCheck(L_164);
+		L_164->___isTeleported = (bool)1;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_165 = __this->___charEffectTime;
+		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
+		int64_t L_166;
+		L_166 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		NullCheck(L_165);
+		L_165->___lastTimeTeleported = L_166;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_167 = __this->___charEffectTime;
+		NullCheck(L_167);
+		int32_t L_168 = L_167->___timeTeleported;
+		if ((((int32_t)L_168) > ((int32_t)0)))
+		{
+			goto IL_05f1;
+		}
+	}
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_169 = __this->___charEffectTime;
+		NullCheck(L_169);
+		L_169->___timeTeleported = 7;
+	}
+
+IL_05f1:
+	{
+		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
+		int32_t L_170 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_170%5)))
+		{
+			goto IL_061d;
+		}
+	}
+	{
+		ServerEffect_addServerEffect_m86AC5F547CB6DA0642AD0BB64686B815A6BA3483(((int32_t)113), __this, 1, NULL);
+		goto IL_061d;
+	}
+
+IL_0605:
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_171 = __this->___charEffectTime;
+		NullCheck(L_171);
+		L_171->___isTeleported = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_172 = __this->___charEffectTime;
+		NullCheck(L_172);
+		L_172->___timeTeleported = 0;
+	}
+
+IL_061d:
+	{
+		bool L_173 = __this->___protectEff;
+		if (!L_173)
+		{
+			goto IL_06d4;
+		}
+	}
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_174 = __this->___charEffectTime;
+		NullCheck(L_174);
+		bool L_175 = L_174->___hasShield;
+		if (L_175)
+		{
+			goto IL_0672;
+		}
+	}
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_176 = __this->___charEffectTime;
+		NullCheck(L_176);
+		L_176->___hasShield = (bool)1;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_177 = __this->___charEffectTime;
+		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
+		int64_t L_178;
+		L_178 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		NullCheck(L_177);
+		L_177->___lastTimeShield = L_178;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_179 = __this->___charEffectTime;
+		NullCheck(L_179);
+		int32_t L_180 = L_179->___timeShield;
+		if ((((int32_t)L_180) > ((int32_t)0)))
+		{
+			goto IL_0672;
+		}
+	}
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_181 = __this->___charEffectTime;
+		int32_t L_182;
+		L_182 = Extension_getTimeShield_m2AACDCB89012B22F1E5D269A59FF8257AD70B98E(__this, NULL);
+		NullCheck(L_181);
+		L_181->___timeShield = ((int32_t)il2cpp_codegen_add(L_182, 1));
+	}
+
+IL_0672:
+	{
+		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
+		int32_t L_183 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_183%5)))
+		{
+			goto IL_069a;
+		}
+	}
+	{
+		int32_t L_184 = __this->___cx;
+		int32_t L_185 = __this->___cy;
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_186 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
+		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_186, ((int32_t)33), L_184, ((int32_t)il2cpp_codegen_add(L_185, ((int32_t)37))), 3, 3, 1, NULL);
+		__this->___eProtect = L_186;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___eProtect), (void*)L_186);
+	}
+
+IL_069a:
+	{
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_187 = __this->___eProtect;
+		if (!L_187)
+		{
+			goto IL_06ec;
+		}
+	}
+	{
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_188 = __this->___eProtect;
+		NullCheck(L_188);
+		Effect_update_mDD20C6EE6D6B2FB39BF5B25DB62D6449A70AE887(L_188, NULL);
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_189 = __this->___eProtect;
+		int32_t L_190 = __this->___cx;
+		NullCheck(L_189);
+		L_189->___x = L_190;
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_191 = __this->___eProtect;
+		int32_t L_192 = __this->___cy;
+		NullCheck(L_191);
+		L_191->___y = ((int32_t)il2cpp_codegen_add(L_192, ((int32_t)37)));
+		goto IL_06ec;
+	}
+
+IL_06d4:
+	{
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_193 = __this->___charEffectTime;
+		NullCheck(L_193);
+		L_193->___hasShield = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_194 = __this->___charEffectTime;
+		NullCheck(L_194);
+		L_194->___timeShield = 0;
+	}
+
+IL_06ec:
+	{
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_195 = __this->___charFocus;
+		if (!L_195)
+		{
+			goto IL_0709;
+		}
+	}
+	{
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_196 = __this->___charFocus;
+		NullCheck(L_196);
+		int32_t L_197 = L_196->___cy;
+		if ((((int32_t)L_197) >= ((int32_t)0)))
+		{
+			goto IL_0709;
 		}
 	}
 	{
@@ -9066,125 +9220,125 @@ IL_060a:
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___charFocus), (void*)(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F*)NULL);
 	}
 
-IL_0627:
+IL_0709:
 	{
-		bool L_161 = __this->___isFusion;
-		if (!L_161)
+		bool L_198 = __this->___isFusion;
+		if (!L_198)
 		{
-			goto IL_063d;
+			goto IL_071f;
 		}
 	}
 	{
-		int32_t L_162 = __this->___tFusion;
-		__this->___tFusion = ((int32_t)il2cpp_codegen_add(L_162, 1));
+		int32_t L_199 = __this->___tFusion;
+		__this->___tFusion = ((int32_t)il2cpp_codegen_add(L_199, 1));
 	}
 
-IL_063d:
+IL_071f:
 	{
-		bool L_163 = __this->___isNhapThe;
-		if (!L_163)
+		bool L_200 = __this->___isNhapThe;
+		if (!L_200)
 		{
-			goto IL_0658;
+			goto IL_073a;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_164 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_164%((int32_t)25))))
+		int32_t L_201 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_201%((int32_t)25))))
 		{
-			goto IL_0658;
+			goto IL_073a;
 		}
 	}
 	{
 		ServerEffect_addServerEffect_m86AC5F547CB6DA0642AD0BB64686B815A6BA3483(((int32_t)114), __this, 1, NULL);
 	}
 
-IL_0658:
+IL_073a:
 	{
-		bool L_165 = __this->___isSetPos;
-		if (!L_165)
+		bool L_202 = __this->___isSetPos;
+		if (!L_202)
 		{
-			goto IL_0744;
+			goto IL_082a;
 		}
 	}
 	{
-		int32_t L_166 = __this->___tpos;
-		__this->___tpos = ((int32_t)il2cpp_codegen_add(L_166, 1));
-		int32_t L_167 = __this->___tpos;
-		if ((((int32_t)L_167) == ((int32_t)1)))
+		int32_t L_203 = __this->___tpos;
+		__this->___tpos = ((int32_t)il2cpp_codegen_add(L_203, 1));
+		int32_t L_204 = __this->___tpos;
+		if ((((int32_t)L_204) == ((int32_t)1)))
 		{
-			goto IL_067b;
+			goto IL_075d;
 		}
 	}
 	{
 		return;
 	}
 
-IL_067b:
+IL_075d:
 	{
 		__this->___tpos = 0;
 		__this->___isSetPos = (bool)0;
-		int16_t L_168 = __this->___xPos;
-		__this->___cx = L_168;
-		int16_t L_169 = __this->___yPos;
-		__this->___cy = L_169;
-		int32_t L_170 = 0;
-		V_1 = L_170;
-		__this->___cp3 = L_170;
-		int32_t L_171 = V_1;
-		int32_t L_172 = L_171;
-		V_1 = L_172;
-		__this->___cp2 = L_172;
-		int32_t L_173 = V_1;
-		__this->___cp1 = L_173;
-		int8_t L_174 = __this->___typePos;
-		if ((!(((uint32_t)L_174) == ((uint32_t)1))))
+		int16_t L_205 = __this->___xPos;
+		__this->___cx = L_205;
+		int16_t L_206 = __this->___yPos;
+		__this->___cy = L_206;
+		int32_t L_207 = 0;
+		V_4 = L_207;
+		__this->___cp3 = L_207;
+		int32_t L_208 = V_4;
+		int32_t L_209 = L_208;
+		V_4 = L_209;
+		__this->___cp2 = L_209;
+		int32_t L_210 = V_4;
+		__this->___cp1 = L_210;
+		int8_t L_211 = __this->___typePos;
+		if ((!(((uint32_t)L_211) == ((uint32_t)1))))
 		{
-			goto IL_070a;
+			goto IL_07f0;
 		}
 	}
 	{
-		bool L_175 = __this->___me;
-		if (!L_175)
+		bool L_212 = __this->___me;
+		if (!L_212)
 		{
-			goto IL_06e3;
+			goto IL_07c9;
 		}
 	}
 	{
-		int32_t L_176 = __this->___cx;
-		__this->___cxSend = L_176;
-		int32_t L_177 = __this->___cy;
-		__this->___cySend = L_177;
+		int32_t L_213 = __this->___cx;
+		__this->___cxSend = L_213;
+		int32_t L_214 = __this->___cy;
+		__this->___cySend = L_214;
 	}
 
-IL_06e3:
+IL_07c9:
 	{
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
 		__this->___telePortSkill = (bool)0;
-		int32_t L_178 = __this->___cx;
-		int32_t L_179 = __this->___cy;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)173), L_178, L_179, 1, NULL);
-		goto IL_071e;
+		int32_t L_215 = __this->___cx;
+		int32_t L_216 = __this->___cy;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)173), L_215, L_216, 1, NULL);
+		goto IL_0804;
 	}
 
-IL_070a:
+IL_07f0:
 	{
-		int32_t L_180 = __this->___cx;
-		int32_t L_181 = __this->___cy;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)60), L_180, L_181, 1, NULL);
+		int32_t L_217 = __this->___cx;
+		int32_t L_218 = __this->___cy;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)60), L_217, L_218, 1, NULL);
 	}
 
-IL_071e:
+IL_0804:
 	{
-		int32_t L_182 = __this->___cx;
-		int32_t L_183 = __this->___cy;
+		int32_t L_219 = __this->___cx;
+		int32_t L_220 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_184;
-		L_184 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_182, L_183, NULL);
-		if ((!(((uint32_t)((int32_t)(L_184&2))) == ((uint32_t)2))))
+		int32_t L_221;
+		L_221 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_219, L_220, NULL);
+		if ((!(((uint32_t)((int32_t)(L_221&2))) == ((uint32_t)2))))
 		{
-			goto IL_073c;
+			goto IL_0822;
 		}
 	}
 	{
@@ -9192,299 +9346,299 @@ IL_071e:
 		return;
 	}
 
-IL_073c:
+IL_0822:
 	{
 		__this->___statusMe = 4;
 		return;
 	}
 
-IL_0744:
+IL_082a:
 	{
 		Char_soundUpdate_m591BF22B763F7589F4359C258379AF646E370B20(__this, NULL);
-		bool L_185 = __this->___stone;
-		if (!L_185)
+		bool L_222 = __this->___stone;
+		if (!L_222)
 		{
-			goto IL_0796;
+			goto IL_087c;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_186 = __this->___charEffectTime;
-		NullCheck(L_186);
-		bool L_187 = L_186->___isStone;
-		if (L_187)
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_223 = __this->___charEffectTime;
+		NullCheck(L_223);
+		bool L_224 = L_223->___isStone;
+		if (L_224)
 		{
-			goto IL_0795;
+			goto IL_087b;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_188 = __this->___charEffectTime;
-		NullCheck(L_188);
-		L_188->___isStone = (bool)1;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_189 = __this->___charEffectTime;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_225 = __this->___charEffectTime;
+		NullCheck(L_225);
+		L_225->___isStone = (bool)1;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_226 = __this->___charEffectTime;
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_190;
-		L_190 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		NullCheck(L_189);
-		L_189->___lastTimeStoned = L_190;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_191 = __this->___charEffectTime;
-		NullCheck(L_191);
-		int32_t L_192 = L_191->___timeStone;
-		if ((((int32_t)L_192) > ((int32_t)0)))
+		int64_t L_227;
+		L_227 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		NullCheck(L_226);
+		L_226->___lastTimeStoned = L_227;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_228 = __this->___charEffectTime;
+		NullCheck(L_228);
+		int32_t L_229 = L_228->___timeStone;
+		if ((((int32_t)L_229) > ((int32_t)0)))
 		{
-			goto IL_0795;
+			goto IL_087b;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_193 = __this->___charEffectTime;
-		NullCheck(L_193);
-		L_193->___timeStone = 6;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_230 = __this->___charEffectTime;
+		NullCheck(L_230);
+		L_230->___timeStone = 6;
 	}
 
-IL_0795:
+IL_087b:
 	{
 		return;
 	}
 
-IL_0796:
+IL_087c:
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_194 = __this->___charEffectTime;
-		NullCheck(L_194);
-		L_194->___isStone = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_195 = __this->___charEffectTime;
-		NullCheck(L_195);
-		L_195->___timeStone = 0;
-		bool L_196 = __this->___isFreez;
-		if (!L_196)
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_231 = __this->___charEffectTime;
+		NullCheck(L_231);
+		L_231->___isStone = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_232 = __this->___charEffectTime;
+		NullCheck(L_232);
+		L_232->___timeStone = 0;
+		bool L_233 = __this->___isFreez;
+		if (!L_233)
 		{
-			goto IL_091e;
+			goto IL_0a07;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_197 = __this->___charEffectTime;
-		NullCheck(L_197);
-		L_197->___isTDHS = (bool)1;
-		bool L_198 = __this->___me;
-		if (!L_198)
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_234 = __this->___charEffectTime;
+		NullCheck(L_234);
+		L_234->___isTDHS = (bool)1;
+		bool L_235 = __this->___me;
+		if (!L_235)
 		{
-			goto IL_07f6;
+			goto IL_08dc;
 		}
 	}
 	{
-		bool L_199 = __this->___meDead;
-		if (!L_199)
+		bool L_236 = __this->___meDead;
+		if (!L_236)
 		{
-			goto IL_07f6;
+			goto IL_08dc;
 		}
 	}
 	{
 		__this->___freezSeconds = 0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_200 = __this->___charEffectTime;
-		NullCheck(L_200);
-		L_200->___isTDHS = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_201 = __this->___charEffectTime;
-		NullCheck(L_201);
-		L_201->___timeTDHS = 0;
-		goto IL_0819;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_237 = __this->___charEffectTime;
+		NullCheck(L_237);
+		L_237->___isTDHS = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_238 = __this->___charEffectTime;
+		NullCheck(L_238);
+		L_238->___timeTDHS = 0;
+		goto IL_08ff;
 	}
 
-IL_07f6:
+IL_08dc:
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_202 = __this->___charEffectTime;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_239 = __this->___charEffectTime;
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_203;
-		L_203 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		NullCheck(L_202);
-		L_202->___lastTimeTDHS = L_203;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_204 = __this->___charEffectTime;
-		int32_t L_205 = __this->___freezSeconds;
-		NullCheck(L_204);
-		L_204->___timeTDHS = ((int32_t)il2cpp_codegen_add(L_205, 1));
+		int64_t L_240;
+		L_240 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		NullCheck(L_239);
+		L_239->___lastTimeTDHS = L_240;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_241 = __this->___charEffectTime;
+		int32_t L_242 = __this->___freezSeconds;
+		NullCheck(L_241);
+		L_241->___timeTDHS = ((int32_t)il2cpp_codegen_add(L_242, 1));
 	}
 
-IL_0819:
+IL_08ff:
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_206 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_206%5)))
+		int32_t L_243 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_243%5)))
 		{
-			goto IL_0836;
+			goto IL_091c;
 		}
 	}
 	{
-		int32_t L_207 = __this->___cx;
-		int32_t L_208 = __this->___cy;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)113), L_207, L_208, 1, NULL);
+		int32_t L_244 = __this->___cx;
+		int32_t L_245 = __this->___cy;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)113), L_244, L_245, 1, NULL);
 	}
 
-IL_0836:
+IL_091c:
 	{
 		__this->___cf = ((int32_t)23);
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_209;
-		L_209 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		V_2 = L_209;
-		int64_t L_210 = V_2;
-		int64_t L_211 = __this->___lastFreez;
-		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_210, L_211))) < ((int64_t)((int64_t)((int32_t)1000)))))
+		int64_t L_246;
+		L_246 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		V_5 = L_246;
+		int64_t L_247 = V_5;
+		int64_t L_248 = __this->___lastFreez;
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_247, L_248))) < ((int64_t)((int64_t)((int32_t)1000)))))
 		{
-			goto IL_08a9;
+			goto IL_0992;
 		}
 	}
 	{
-		int32_t L_212 = __this->___freezSeconds;
-		__this->___freezSeconds = ((int32_t)il2cpp_codegen_subtract(L_212, 1));
-		int64_t L_213 = V_2;
-		__this->___lastFreez = L_213;
-		int32_t L_214 = __this->___freezSeconds;
-		if ((((int32_t)L_214) >= ((int32_t)0)))
+		int32_t L_249 = __this->___freezSeconds;
+		__this->___freezSeconds = ((int32_t)il2cpp_codegen_subtract(L_249, 1));
+		int64_t L_250 = V_5;
+		__this->___lastFreez = L_250;
+		int32_t L_251 = __this->___freezSeconds;
+		if ((((int32_t)L_251) >= ((int32_t)0)))
 		{
-			goto IL_08a9;
+			goto IL_0992;
 		}
 	}
 	{
 		__this->___isFreez = (bool)0;
 		__this->___seconds = 0;
-		bool L_215 = __this->___me;
-		if (!L_215)
+		bool L_252 = __this->___me;
+		if (!L_252)
 		{
-			goto IL_08a9;
+			goto IL_0992;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_216;
-		L_216 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_216);
-		L_216->___isLockMove = (bool)0;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_253;
+		L_253 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_253);
+		L_253->___isLockMove = (bool)0;
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_217;
-		L_217 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
-		NullCheck(L_217);
-		L_217->___dem = 0;
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_218;
-		L_218 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
-		NullCheck(L_218);
-		L_218->___isFreez = (bool)0;
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_254;
+		L_254 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
+		NullCheck(L_254);
+		L_254->___dem = 0;
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_255;
+		L_255 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
+		NullCheck(L_255);
+		L_255->___isFreez = (bool)0;
 	}
 
-IL_08a9:
+IL_0992:
 	{
-		int32_t L_219 = __this->___cx;
+		int32_t L_256 = __this->___cx;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int8_t L_220 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___size;
-		int32_t L_221 = __this->___cy;
-		int8_t L_222 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___size;
-		int32_t L_223;
-		L_223 = TileMap_tileTypeAt_m5870F2841150C3699B1B1019DD24D594AF9BD11D(((int32_t)(L_219/(int32_t)L_220)), ((int32_t)(L_221/(int32_t)L_222)), NULL);
-		if (L_223)
+		int8_t L_257 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___size;
+		int32_t L_258 = __this->___cy;
+		int8_t L_259 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___size;
+		int32_t L_260;
+		L_260 = TileMap_tileTypeAt_m5870F2841150C3699B1B1019DD24D594AF9BD11D(((int32_t)(L_256/(int32_t)L_257)), ((int32_t)(L_258/(int32_t)L_259)), NULL);
+		if (L_260)
 		{
-			goto IL_091d;
+			goto IL_0a06;
 		}
 	}
 	{
-		int32_t L_224 = __this->___ty;
-		__this->___ty = ((int32_t)il2cpp_codegen_add(L_224, 1));
-		int32_t L_225 = __this->___wt;
-		__this->___wt = ((int32_t)il2cpp_codegen_add(L_225, 1));
-		int32_t L_226 = __this->___fy;
-		bool L_227 = __this->___wy;
-		if (!L_227)
+		int32_t L_261 = __this->___ty;
+		__this->___ty = ((int32_t)il2cpp_codegen_add(L_261, 1));
+		int32_t L_262 = __this->___wt;
+		__this->___wt = ((int32_t)il2cpp_codegen_add(L_262, 1));
+		int32_t L_263 = __this->___fy;
+		bool L_264 = __this->___wy;
+		if (!L_264)
 		{
-			G_B132_0 = L_226;
-			G_B132_1 = __this;
-			goto IL_08f6;
+			G_B145_0 = L_263;
+			G_B145_1 = __this;
+			goto IL_09df;
 		}
-		G_B131_0 = L_226;
-		G_B131_1 = __this;
+		G_B144_0 = L_263;
+		G_B144_1 = __this;
 	}
 	{
-		G_B133_0 = (-1);
-		G_B133_1 = G_B131_0;
-		G_B133_2 = G_B131_1;
-		goto IL_08f7;
-	}
-
-IL_08f6:
-	{
-		G_B133_0 = 1;
-		G_B133_1 = G_B132_0;
-		G_B133_2 = G_B132_1;
+		G_B146_0 = (-1);
+		G_B146_1 = G_B144_0;
+		G_B146_2 = G_B144_1;
+		goto IL_09e0;
 	}
 
-IL_08f7:
+IL_09df:
 	{
-		NullCheck(G_B133_2);
-		G_B133_2->___fy = ((int32_t)il2cpp_codegen_add(G_B133_1, G_B133_0));
-		int32_t L_228 = __this->___wt;
-		if ((!(((uint32_t)L_228) == ((uint32_t)((int32_t)10)))))
+		G_B146_0 = 1;
+		G_B146_1 = G_B145_0;
+		G_B146_2 = G_B145_1;
+	}
+
+IL_09e0:
+	{
+		NullCheck(G_B146_2);
+		G_B146_2->___fy = ((int32_t)il2cpp_codegen_add(G_B146_1, G_B146_0));
+		int32_t L_265 = __this->___wt;
+		if ((!(((uint32_t)L_265) == ((uint32_t)((int32_t)10)))))
 		{
-			goto IL_091d;
+			goto IL_0a06;
 		}
 	}
 	{
 		__this->___wt = 0;
-		bool L_229 = __this->___wy;
-		__this->___wy = (bool)((((int32_t)L_229) == ((int32_t)0))? 1 : 0);
+		bool L_266 = __this->___wy;
+		__this->___wy = (bool)((((int32_t)L_266) == ((int32_t)0))? 1 : 0);
 	}
 
-IL_091d:
+IL_0a06:
 	{
 		return;
 	}
 
-IL_091e:
+IL_0a07:
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_230 = __this->___charEffectTime;
-		NullCheck(L_230);
-		L_230->___isTDHS = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_231 = __this->___charEffectTime;
-		NullCheck(L_231);
-		L_231->___timeTDHS = 0;
-		bool L_232 = __this->___isWaitMonkey;
-		if (!L_232)
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_267 = __this->___charEffectTime;
+		NullCheck(L_267);
+		L_267->___isTDHS = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_268 = __this->___charEffectTime;
+		NullCheck(L_268);
+		L_268->___timeTDHS = 0;
+		bool L_269 = __this->___isWaitMonkey;
+		if (!L_269)
 		{
-			goto IL_09b9;
+			goto IL_0aa2;
 		}
 	}
 	{
 		__this->___isLockMove = (bool)1;
 		__this->___cf = ((int32_t)17);
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_233 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_233%5)))
+		int32_t L_270 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_270%5)))
 		{
-			goto IL_0970;
+			goto IL_0a59;
 		}
 	}
 	{
-		int32_t L_234 = __this->___cx;
-		int32_t L_235 = __this->___cy;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)154), L_234, ((int32_t)il2cpp_codegen_subtract(L_235, ((int32_t)10))), 2, NULL);
+		int32_t L_271 = __this->___cx;
+		int32_t L_272 = __this->___cy;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)154), L_271, ((int32_t)il2cpp_codegen_subtract(L_272, ((int32_t)10))), 2, NULL);
 	}
 
-IL_0970:
+IL_0a59:
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_236 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_236%5)))
+		int32_t L_273 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_273%5)))
 		{
-			goto IL_098f;
+			goto IL_0a78;
 		}
 	}
 	{
-		int32_t L_237 = __this->___cx;
-		int32_t L_238 = __this->___cy;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(1, L_237, ((int32_t)il2cpp_codegen_add(L_238, ((int32_t)10))), 1, NULL);
+		int32_t L_274 = __this->___cx;
+		int32_t L_275 = __this->___cy;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(1, L_274, ((int32_t)il2cpp_codegen_add(L_275, ((int32_t)10))), 1, NULL);
 	}
 
-IL_098f:
+IL_0a78:
 	{
-		int32_t L_239 = __this->___chargeCount;
-		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_239, 1));
-		int32_t L_240 = __this->___chargeCount;
-		if ((!(((uint32_t)L_240) == ((uint32_t)((int32_t)500)))))
+		int32_t L_276 = __this->___chargeCount;
+		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_276, 1));
+		int32_t L_277 = __this->___chargeCount;
+		if ((!(((uint32_t)L_277) == ((uint32_t)((int32_t)500)))))
 		{
-			goto IL_09b9;
+			goto IL_0aa2;
 		}
 	}
 	{
@@ -9493,30 +9647,30 @@ IL_098f:
 		return;
 	}
 
-IL_09b9:
+IL_0aa2:
 	{
-		bool L_241 = __this->___isStandAndCharge;
-		if (!L_241)
+		bool L_278 = __this->___isStandAndCharge;
+		if (!L_278)
 		{
-			goto IL_0c88;
+			goto IL_0d76;
 		}
 	}
 	{
-		int32_t L_242 = __this->___chargeCount;
-		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_242, 1));
+		int32_t L_279 = __this->___chargeCount;
+		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_279, 1));
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_243;
-		L_243 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_243);
-		int32_t L_244 = L_243->___cx;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_245;
-		L_245 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_245);
-		int32_t L_246 = L_245->___cy;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_280;
+		L_280 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_280);
+		int32_t L_281 = L_280->___cx;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_282;
+		L_282 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_282);
+		int32_t L_283 = L_282->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_247;
-		L_247 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_244, L_246, 2, NULL);
-		V_3 = (bool)((((int32_t)L_247) == ((int32_t)0))? 1 : 0);
+		bool L_284;
+		L_284 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_281, L_283, 2, NULL);
+		V_6 = (bool)((((int32_t)L_284) == ((int32_t)0))? 1 : 0);
 		Char_updateEffect_mF621E9D44C70B719BB88D2666ACAD1BC203901F5(__this, NULL);
 		Char_updateSkillPaint_mD9F05B77BE36308EDC6D168D1BAB85A7F765D366(__this, NULL);
 		__this->___moveFast = (Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB*)NULL;
@@ -9524,213 +9678,213 @@ IL_09b9:
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
 		__this->___cf = ((int32_t)17);
-		bool L_248 = V_3;
-		if (!L_248)
+		bool L_285 = V_6;
+		if (!L_285)
 		{
-			goto IL_0a26;
+			goto IL_0b11;
 		}
 	}
 	{
-		int32_t L_249 = __this->___cgender;
-		if ((((int32_t)L_249) == ((int32_t)2)))
+		int32_t L_286 = __this->___cgender;
+		if ((((int32_t)L_286) == ((int32_t)2)))
 		{
-			goto IL_0a26;
+			goto IL_0b11;
 		}
 	}
 	{
 		__this->___cf = ((int32_t)12);
 	}
 
-IL_0a26:
+IL_0b11:
 	{
-		int32_t L_250 = __this->___cgender;
-		if ((!(((uint32_t)L_250) == ((uint32_t)2))))
+		int32_t L_287 = __this->___cgender;
+		if ((!(((uint32_t)L_287) == ((uint32_t)2))))
 		{
-			goto IL_0a8c;
+			goto IL_0b77;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_251 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_251%3)))
+		int32_t L_288 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_288%3)))
 		{
-			goto IL_0a5b;
+			goto IL_0b46;
 		}
 	}
 	{
-		int32_t L_252 = __this->___cx;
-		int32_t L_253 = __this->___cy;
-		int32_t L_254 = __this->___ch;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)154), L_252, ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_253, ((int32_t)(L_254/2)))), ((int32_t)10))), 1, NULL);
+		int32_t L_289 = __this->___cx;
+		int32_t L_290 = __this->___cy;
+		int32_t L_291 = __this->___ch;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)154), L_289, ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_290, ((int32_t)(L_291/2)))), ((int32_t)10))), 1, NULL);
 	}
 
-IL_0a5b:
+IL_0b46:
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_255 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_255%5)))
+		int32_t L_292 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_292%5)))
 		{
-			goto IL_0a8c;
+			goto IL_0b77;
 		}
 	}
 	{
-		int32_t L_256 = __this->___cx;
+		int32_t L_293 = __this->___cx;
 		il2cpp_codegen_runtime_class_init_inline(Res_t42939C8A70541C5F8BBAC618E2AE68A048453E10_il2cpp_TypeInfo_var);
-		int32_t L_257;
-		L_257 = Res_random_m4C7D8B74D6563FDABCAD9A9B88B6EA731051D971(((int32_t)-20), ((int32_t)20), NULL);
-		int32_t L_258 = __this->___cy;
-		int32_t L_259;
-		L_259 = Res_random_m4C7D8B74D6563FDABCAD9A9B88B6EA731051D971(((int32_t)-20), ((int32_t)20), NULL);
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)114), ((int32_t)il2cpp_codegen_add(L_256, L_257)), ((int32_t)il2cpp_codegen_add(L_258, L_259)), 1, NULL);
+		int32_t L_294;
+		L_294 = Res_random_m4C7D8B74D6563FDABCAD9A9B88B6EA731051D971(((int32_t)-20), ((int32_t)20), NULL);
+		int32_t L_295 = __this->___cy;
+		int32_t L_296;
+		L_296 = Res_random_m4C7D8B74D6563FDABCAD9A9B88B6EA731051D971(((int32_t)-20), ((int32_t)20), NULL);
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)114), ((int32_t)il2cpp_codegen_add(L_293, L_294)), ((int32_t)il2cpp_codegen_add(L_295, L_296)), 1, NULL);
 	}
 
-IL_0a8c:
+IL_0b77:
 	{
-		int32_t L_260 = __this->___cgender;
-		if ((!(((uint32_t)L_260) == ((uint32_t)1))))
+		int32_t L_297 = __this->___cgender;
+		if ((!(((uint32_t)L_297) == ((uint32_t)1))))
 		{
-			goto IL_0b41;
+			goto IL_0c2c;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_261 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		int32_t L_262 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_262%2)))
+		int32_t L_298 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		int32_t L_299 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_299%2)))
 		{
-			goto IL_0b41;
+			goto IL_0c2c;
 		}
 	}
 	{
-		int32_t L_263 = __this->___cdir;
-		if ((!(((uint32_t)L_263) == ((uint32_t)1))))
+		int32_t L_300 = __this->___cdir;
+		if ((!(((uint32_t)L_300) == ((uint32_t)1))))
 		{
-			goto IL_0afc;
+			goto IL_0be7;
 		}
 	}
 	{
-		int32_t L_264 = __this->___cx;
-		int32_t L_265 = __this->___cy;
-		int32_t L_266 = __this->___ch;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_subtract(L_264, ((int32_t)18))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_265, ((int32_t)(L_266/2)))), 8)), 1, NULL);
-		int32_t L_267 = __this->___cx;
-		int32_t L_268 = __this->___cy;
-		int32_t L_269 = __this->___ch;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_add(L_267, ((int32_t)23))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_268, ((int32_t)(L_269/2)))), ((int32_t)15))), 1, NULL);
-		goto IL_0b41;
+		int32_t L_301 = __this->___cx;
+		int32_t L_302 = __this->___cy;
+		int32_t L_303 = __this->___ch;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_subtract(L_301, ((int32_t)18))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_302, ((int32_t)(L_303/2)))), 8)), 1, NULL);
+		int32_t L_304 = __this->___cx;
+		int32_t L_305 = __this->___cy;
+		int32_t L_306 = __this->___ch;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_add(L_304, ((int32_t)23))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_305, ((int32_t)(L_306/2)))), ((int32_t)15))), 1, NULL);
+		goto IL_0c2c;
 	}
 
-IL_0afc:
+IL_0be7:
 	{
-		int32_t L_270 = __this->___cx;
-		int32_t L_271 = __this->___cy;
-		int32_t L_272 = __this->___ch;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_add(L_270, ((int32_t)18))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_271, ((int32_t)(L_272/2)))), 8)), 1, NULL);
-		int32_t L_273 = __this->___cx;
-		int32_t L_274 = __this->___cy;
-		int32_t L_275 = __this->___ch;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_subtract(L_273, ((int32_t)23))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_274, ((int32_t)(L_275/2)))), ((int32_t)15))), 1, NULL);
+		int32_t L_307 = __this->___cx;
+		int32_t L_308 = __this->___cy;
+		int32_t L_309 = __this->___ch;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_add(L_307, ((int32_t)18))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_308, ((int32_t)(L_309/2)))), 8)), 1, NULL);
+		int32_t L_310 = __this->___cx;
+		int32_t L_311 = __this->___cy;
+		int32_t L_312 = __this->___ch;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)70), ((int32_t)il2cpp_codegen_subtract(L_310, ((int32_t)23))), ((int32_t)il2cpp_codegen_add(((int32_t)il2cpp_codegen_subtract(L_311, ((int32_t)(L_312/2)))), ((int32_t)15))), 1, NULL);
 	}
 
-IL_0b41:
+IL_0c2c:
 	{
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_276;
-		L_276 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		__this->___cur = L_276;
-		int64_t L_277 = __this->___cur;
-		int64_t L_278 = __this->___last;
-		int32_t L_279 = __this->___seconds;
-		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_277, L_278))) > ((int64_t)((int64_t)L_279))))
+		int64_t L_313;
+		L_313 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		__this->___cur = L_313;
+		int64_t L_314 = __this->___cur;
+		int64_t L_315 = __this->___last;
+		int32_t L_316 = __this->___seconds;
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_314, L_315))) > ((int64_t)((int64_t)L_316))))
 		{
-			goto IL_0b7a;
+			goto IL_0c65;
 		}
 	}
 	{
-		int64_t L_280 = __this->___cur;
-		int64_t L_281 = __this->___last;
-		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_280, L_281))) <= ((int64_t)((int64_t)((int32_t)10000)))))
+		int64_t L_317 = __this->___cur;
+		int64_t L_318 = __this->___last;
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_317, L_318))) <= ((int64_t)((int64_t)((int32_t)10000)))))
 		{
-			goto IL_0c66;
+			goto IL_0d54;
 		}
 	}
 
-IL_0b7a:
+IL_0c65:
 	{
 		Char_stopUseChargeSkill_m6FE6163A908ECD4E1D9AFBD938D15B95D675E160(__this, NULL);
-		bool L_282 = __this->___me;
-		if (!L_282)
+		bool L_319 = __this->___me;
+		if (!L_319)
 		{
-			goto IL_0c12;
+			goto IL_0cff;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_283;
-		L_283 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
-		NullCheck(L_283);
-		L_283->___auto = 0;
-		int32_t L_284 = __this->___cgender;
-		if ((!(((uint32_t)L_284) == ((uint32_t)2))))
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_320;
+		L_320 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
+		NullCheck(L_320);
+		L_320->___auto = 0;
+		int32_t L_321 = __this->___cgender;
+		if ((!(((uint32_t)L_321) == ((uint32_t)2))))
 		{
-			goto IL_0bd0;
+			goto IL_0cbc;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_285;
-		L_285 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_322;
+		L_322 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_286 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_287;
-		L_287 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_287);
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_288 = L_287->___myskill;
-		NullCheck(L_288);
-		int16_t L_289 = L_288->___skillId;
-		NullCheck(L_286);
-		int16_t L_290 = L_289;
-		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_291 = (L_286)->GetAt(static_cast<il2cpp_array_size_t>(L_290));
-		bool L_292 = V_3;
-		if (L_292)
+		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_323 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_324;
+		L_324 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_324);
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_325 = L_324->___myskill;
+		NullCheck(L_325);
+		int16_t L_326 = L_325->___skillId;
+		NullCheck(L_323);
+		int16_t L_327 = L_326;
+		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_328 = (L_323)->GetAt(static_cast<il2cpp_array_size_t>(L_327));
+		bool L_329 = V_6;
+		if (L_329)
 		{
-			G_B163_0 = L_291;
-			G_B163_1 = L_285;
-			goto IL_0bbf;
+			G_B176_0 = L_328;
+			G_B176_1 = L_322;
+			goto IL_0cab;
 		}
-		G_B162_0 = L_291;
-		G_B162_1 = L_285;
+		G_B175_0 = L_328;
+		G_B175_1 = L_322;
 	}
 	{
-		G_B164_0 = 0;
-		G_B164_1 = G_B162_0;
-		G_B164_2 = G_B162_1;
-		goto IL_0bc0;
-	}
-
-IL_0bbf:
-	{
-		G_B164_0 = 1;
-		G_B164_1 = G_B163_0;
-		G_B164_2 = G_B163_1;
+		G_B177_0 = 0;
+		G_B177_1 = G_B175_0;
+		G_B177_2 = G_B175_1;
+		goto IL_0cac;
 	}
 
-IL_0bc0:
+IL_0cab:
 	{
-		NullCheck(G_B164_2);
-		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(G_B164_2, G_B164_1, G_B164_0, NULL);
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_293;
-		L_293 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
-		NullCheck(L_293);
-		Service_skill_not_focus_m91FAB1AC98F2C051A85BC620E6785FDEB0B3591D(L_293, (int8_t)8, NULL);
+		G_B177_0 = 1;
+		G_B177_1 = G_B176_0;
+		G_B177_2 = G_B176_1;
 	}
 
-IL_0bd0:
+IL_0cac:
 	{
-		int32_t L_294 = __this->___cgender;
-		if ((!(((uint32_t)L_294) == ((uint32_t)1))))
+		NullCheck(G_B177_2);
+		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(G_B177_2, G_B177_1, G_B177_0, NULL);
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_330;
+		L_330 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_330);
+		Service_skill_not_focus_m91FAB1AC98F2C051A85BC620E6785FDEB0B3591D(L_330, (int8_t)8, NULL);
+	}
+
+IL_0cbc:
+	{
+		int32_t L_331 = __this->___cgender;
+		if ((!(((uint32_t)L_331) == ((uint32_t)1))))
 		{
-			goto IL_0c34;
+			goto IL_0d22;
 		}
 	}
 	{
@@ -9738,152 +9892,152 @@ IL_0bd0:
 		Res_outz_mF51EC000D16B49E001011B2C1BAD2F66E72C33D3(_stringLiteralC67DB0BEF38258A594399F4FF1449CEF83A98523, NULL);
 		__this->___isCreateDark = (bool)1;
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_295;
-		L_295 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_332;
+		L_332 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_296 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_297;
-		L_297 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_297);
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_298 = L_297->___myskill;
-		NullCheck(L_298);
-		int16_t L_299 = L_298->___skillId;
-		NullCheck(L_296);
-		int16_t L_300 = L_299;
-		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_301 = (L_296)->GetAt(static_cast<il2cpp_array_size_t>(L_300));
-		bool L_302 = V_3;
-		if (L_302)
+		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_333 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_334;
+		L_334 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_334);
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_335 = L_334->___myskill;
+		NullCheck(L_335);
+		int16_t L_336 = L_335->___skillId;
+		NullCheck(L_333);
+		int16_t L_337 = L_336;
+		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_338 = (L_333)->GetAt(static_cast<il2cpp_array_size_t>(L_337));
+		bool L_339 = V_6;
+		if (L_339)
 		{
-			G_B168_0 = L_301;
-			G_B168_1 = L_295;
-			goto IL_0c0a;
+			G_B181_0 = L_338;
+			G_B181_1 = L_332;
+			goto IL_0cf7;
 		}
-		G_B167_0 = L_301;
-		G_B167_1 = L_295;
+		G_B180_0 = L_338;
+		G_B180_1 = L_332;
 	}
 	{
-		G_B169_0 = 0;
-		G_B169_1 = G_B167_0;
-		G_B169_2 = G_B167_1;
-		goto IL_0c0b;
-	}
-
-IL_0c0a:
-	{
-		G_B169_0 = 1;
-		G_B169_1 = G_B168_0;
-		G_B169_2 = G_B168_1;
+		G_B182_0 = 0;
+		G_B182_1 = G_B180_0;
+		G_B182_2 = G_B180_1;
+		goto IL_0cf8;
 	}
 
-IL_0c0b:
+IL_0cf7:
 	{
-		NullCheck(G_B169_2);
-		Char_setSkillPaint_m979C64C62DCEABAC8CEB8E9036B628149560BFFA(G_B169_2, G_B169_1, G_B169_0, NULL);
-		goto IL_0c34;
+		G_B182_0 = 1;
+		G_B182_1 = G_B181_0;
+		G_B182_2 = G_B181_1;
 	}
 
-IL_0c12:
+IL_0cf8:
 	{
-		int32_t L_303 = __this->___cgender;
-		if ((!(((uint32_t)L_303) == ((uint32_t)2))))
+		NullCheck(G_B182_2);
+		Char_setSkillPaint_m979C64C62DCEABAC8CEB8E9036B628149560BFFA(G_B182_2, G_B182_1, G_B182_0, NULL);
+		goto IL_0d22;
+	}
+
+IL_0cff:
+	{
+		int32_t L_340 = __this->___cgender;
+		if ((!(((uint32_t)L_340) == ((uint32_t)2))))
 		{
-			goto IL_0c34;
-		}
-	}
-	{
-		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_304 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
-		int32_t L_305 = __this->___skillTemplateId;
-		NullCheck(L_304);
-		int32_t L_306 = L_305;
-		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_307 = (L_304)->GetAt(static_cast<il2cpp_array_size_t>(L_306));
-		bool L_308 = V_3;
-		if (L_308)
-		{
-			G_B173_0 = L_307;
-			G_B173_1 = __this;
-			goto IL_0c2e;
-		}
-		G_B172_0 = L_307;
-		G_B172_1 = __this;
-	}
-	{
-		G_B174_0 = 0;
-		G_B174_1 = G_B172_0;
-		G_B174_2 = G_B172_1;
-		goto IL_0c2f;
-	}
-
-IL_0c2e:
-	{
-		G_B174_0 = 1;
-		G_B174_1 = G_B173_0;
-		G_B174_2 = G_B173_1;
-	}
-
-IL_0c2f:
-	{
-		NullCheck(G_B174_2);
-		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(G_B174_2, G_B174_1, G_B174_0, NULL);
-	}
-
-IL_0c34:
-	{
-		int32_t L_309 = __this->___cgender;
-		if ((!(((uint32_t)L_309) == ((uint32_t)2))))
-		{
-			goto IL_0c66;
-		}
-	}
-	{
-		int32_t L_310 = __this->___statusMe;
-		if ((((int32_t)L_310) == ((int32_t)((int32_t)14))))
-		{
-			goto IL_0c66;
-		}
-	}
-	{
-		int32_t L_311 = __this->___statusMe;
-		if ((((int32_t)L_311) == ((int32_t)5)))
-		{
-			goto IL_0c66;
+			goto IL_0d22;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_312;
-		L_312 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
-		int32_t L_313 = __this->___cx;
-		int32_t L_314 = __this->___cy;
-		NullCheck(L_312);
-		GameScr_activeSuperPower_mD1192DFE4E84B98777AADF98B782B57EAF0777BC(L_312, L_313, L_314, NULL);
+		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_341 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
+		int32_t L_342 = __this->___skillTemplateId;
+		NullCheck(L_341);
+		int32_t L_343 = L_342;
+		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_344 = (L_341)->GetAt(static_cast<il2cpp_array_size_t>(L_343));
+		bool L_345 = V_6;
+		if (L_345)
+		{
+			G_B186_0 = L_344;
+			G_B186_1 = __this;
+			goto IL_0d1c;
+		}
+		G_B185_0 = L_344;
+		G_B185_1 = __this;
+	}
+	{
+		G_B187_0 = 0;
+		G_B187_1 = G_B185_0;
+		G_B187_2 = G_B185_1;
+		goto IL_0d1d;
 	}
 
-IL_0c66:
+IL_0d1c:
 	{
-		int32_t L_315 = __this->___chargeCount;
-		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_315, 1));
-		int32_t L_316 = __this->___chargeCount;
-		if ((!(((uint32_t)L_316) == ((uint32_t)((int32_t)500)))))
+		G_B187_0 = 1;
+		G_B187_1 = G_B186_0;
+		G_B187_2 = G_B186_1;
+	}
+
+IL_0d1d:
+	{
+		NullCheck(G_B187_2);
+		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(G_B187_2, G_B187_1, G_B187_0, NULL);
+	}
+
+IL_0d22:
+	{
+		int32_t L_346 = __this->___cgender;
+		if ((!(((uint32_t)L_346) == ((uint32_t)2))))
 		{
-			goto IL_0c87;
+			goto IL_0d54;
+		}
+	}
+	{
+		int32_t L_347 = __this->___statusMe;
+		if ((((int32_t)L_347) == ((int32_t)((int32_t)14))))
+		{
+			goto IL_0d54;
+		}
+	}
+	{
+		int32_t L_348 = __this->___statusMe;
+		if ((((int32_t)L_348) == ((int32_t)5)))
+		{
+			goto IL_0d54;
+		}
+	}
+	{
+		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_349;
+		L_349 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
+		int32_t L_350 = __this->___cx;
+		int32_t L_351 = __this->___cy;
+		NullCheck(L_349);
+		GameScr_activeSuperPower_mD1192DFE4E84B98777AADF98B782B57EAF0777BC(L_349, L_350, L_351, NULL);
+	}
+
+IL_0d54:
+	{
+		int32_t L_352 = __this->___chargeCount;
+		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_352, 1));
+		int32_t L_353 = __this->___chargeCount;
+		if ((!(((uint32_t)L_353) == ((uint32_t)((int32_t)500)))))
+		{
+			goto IL_0d75;
 		}
 	}
 	{
 		Char_stopUseChargeSkill_m6FE6163A908ECD4E1D9AFBD938D15B95D675E160(__this, NULL);
 	}
 
-IL_0c87:
+IL_0d75:
 	{
 		return;
 	}
 
-IL_0c88:
+IL_0d76:
 	{
-		bool L_317 = __this->___isFlyAndCharge;
-		if (!L_317)
+		bool L_354 = __this->___isFlyAndCharge;
+		if (!L_354)
 		{
-			goto IL_0e27;
+			goto IL_0f15;
 		}
 	}
 	{
@@ -9893,17 +10047,17 @@ IL_0c88:
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___moveFast), (void*)(Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB*)NULL);
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
-		int32_t L_318 = __this->___posDisY;
-		__this->___posDisY = ((int32_t)il2cpp_codegen_add(L_318, 1));
-		int32_t L_319 = __this->___cx;
-		int32_t L_320 = __this->___cy;
-		int32_t L_321 = __this->___ch;
+		int32_t L_355 = __this->___posDisY;
+		__this->___posDisY = ((int32_t)il2cpp_codegen_add(L_355, 1));
+		int32_t L_356 = __this->___cx;
+		int32_t L_357 = __this->___cy;
+		int32_t L_358 = __this->___ch;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_322;
-		L_322 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_319, ((int32_t)il2cpp_codegen_subtract(L_320, L_321)), ((int32_t)8192), NULL);
-		if (!L_322)
+		bool L_359;
+		L_359 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_356, ((int32_t)il2cpp_codegen_subtract(L_357, L_358)), ((int32_t)8192), NULL);
+		if (!L_359)
 		{
-			goto IL_0ce1;
+			goto IL_0dcf;
 		}
 	}
 	{
@@ -9911,156 +10065,156 @@ IL_0c88:
 		return;
 	}
 
-IL_0ce1:
+IL_0dcf:
 	{
-		int32_t L_323 = __this->___posDisY;
-		if ((!(((uint32_t)L_323) == ((uint32_t)((int32_t)20)))))
+		int32_t L_360 = __this->___posDisY;
+		if ((!(((uint32_t)L_360) == ((uint32_t)((int32_t)20)))))
 		{
-			goto IL_0cf6;
+			goto IL_0de4;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_324;
-		L_324 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		__this->___last = L_324;
+		int64_t L_361;
+		L_361 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		__this->___last = L_361;
 	}
 
-IL_0cf6:
+IL_0de4:
 	{
-		int32_t L_325 = __this->___posDisY;
-		if ((((int32_t)L_325) <= ((int32_t)((int32_t)20))))
+		int32_t L_362 = __this->___posDisY;
+		if ((((int32_t)L_362) <= ((int32_t)((int32_t)20))))
 		{
-			goto IL_0df3;
+			goto IL_0ee1;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_326;
-		L_326 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		__this->___cur = L_326;
-		int64_t L_327 = __this->___cur;
-		int64_t L_328 = __this->___last;
-		int32_t L_329 = __this->___seconds;
-		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_327, L_328))) > ((int64_t)((int64_t)L_329))))
+		int64_t L_363;
+		L_363 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		__this->___cur = L_363;
+		int64_t L_364 = __this->___cur;
+		int64_t L_365 = __this->___last;
+		int32_t L_366 = __this->___seconds;
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_364, L_365))) > ((int64_t)((int64_t)L_366))))
 		{
-			goto IL_0d39;
+			goto IL_0e27;
 		}
 	}
 	{
-		int64_t L_330 = __this->___cur;
-		int64_t L_331 = __this->___last;
-		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_330, L_331))) <= ((int64_t)((int64_t)((int32_t)10000)))))
+		int64_t L_367 = __this->___cur;
+		int64_t L_368 = __this->___last;
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_367, L_368))) <= ((int64_t)((int64_t)((int32_t)10000)))))
 		{
-			goto IL_0d9a;
+			goto IL_0e88;
 		}
 	}
 
-IL_0d39:
+IL_0e27:
 	{
 		__this->___isFlyAndCharge = (bool)0;
-		bool L_332 = __this->___me;
-		if (!L_332)
+		bool L_369 = __this->___me;
+		if (!L_369)
 		{
-			goto IL_0d99;
+			goto IL_0e87;
 		}
 	}
 	{
 		__this->___isCreateDark = (bool)1;
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_333;
-		L_333 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_333);
-		int32_t L_334 = L_333->___cx;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_335;
-		L_335 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_335);
-		int32_t L_336 = L_335->___cy;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_370;
+		L_370 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_370);
+		int32_t L_371 = L_370->___cx;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_372;
+		L_372 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_372);
+		int32_t L_373 = L_372->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_337;
-		L_337 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_334, L_336, 2, NULL);
-		V_4 = L_337;
+		bool L_374;
+		L_374 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_371, L_373, 2, NULL);
+		V_7 = L_374;
 		__this->___isUseSkillAfterCharge = (bool)1;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_338;
-		L_338 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_375;
+		L_375 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_339 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_340;
-		L_340 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
-		NullCheck(L_340);
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_341 = L_340->___myskill;
-		NullCheck(L_341);
-		int16_t L_342 = L_341->___skillId;
-		NullCheck(L_339);
-		int16_t L_343 = L_342;
-		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_344 = (L_339)->GetAt(static_cast<il2cpp_array_size_t>(L_343));
-		bool L_345 = V_4;
-		if (!L_345)
+		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_376 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_377;
+		L_377 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		NullCheck(L_377);
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_378 = L_377->___myskill;
+		NullCheck(L_378);
+		int16_t L_379 = L_378->___skillId;
+		NullCheck(L_376);
+		int16_t L_380 = L_379;
+		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_381 = (L_376)->GetAt(static_cast<il2cpp_array_size_t>(L_380));
+		bool L_382 = V_7;
+		if (!L_382)
 		{
-			G_B193_0 = L_344;
-			G_B193_1 = L_338;
-			goto IL_0d93;
+			G_B206_0 = L_381;
+			G_B206_1 = L_375;
+			goto IL_0e81;
 		}
-		G_B192_0 = L_344;
-		G_B192_1 = L_338;
+		G_B205_0 = L_381;
+		G_B205_1 = L_375;
 	}
 	{
-		G_B194_0 = 0;
-		G_B194_1 = G_B192_0;
-		G_B194_2 = G_B192_1;
-		goto IL_0d94;
+		G_B207_0 = 0;
+		G_B207_1 = G_B205_0;
+		G_B207_2 = G_B205_1;
+		goto IL_0e82;
 	}
 
-IL_0d93:
+IL_0e81:
 	{
-		G_B194_0 = 1;
-		G_B194_1 = G_B193_0;
-		G_B194_2 = G_B193_1;
+		G_B207_0 = 1;
+		G_B207_1 = G_B206_0;
+		G_B207_2 = G_B206_1;
 	}
 
-IL_0d94:
+IL_0e82:
 	{
-		NullCheck(G_B194_2);
-		Char_setSkillPaint_m979C64C62DCEABAC8CEB8E9036B628149560BFFA(G_B194_2, G_B194_1, G_B194_0, NULL);
+		NullCheck(G_B207_2);
+		Char_setSkillPaint_m979C64C62DCEABAC8CEB8E9036B628149560BFFA(G_B207_2, G_B207_1, G_B207_0, NULL);
 	}
 
-IL_0d99:
+IL_0e87:
 	{
 		return;
 	}
 
-IL_0d9a:
+IL_0e88:
 	{
 		__this->___cf = ((int32_t)32);
-		int32_t L_346 = __this->___cgender;
-		if (L_346)
+		int32_t L_383 = __this->___cgender;
+		if (L_383)
 		{
-			goto IL_0dd1;
+			goto IL_0ebf;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_347 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_347%3)))
+		int32_t L_384 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_384%3)))
 		{
-			goto IL_0dd1;
+			goto IL_0ebf;
 		}
 	}
 	{
-		int32_t L_348 = __this->___cx;
-		int32_t L_349 = __this->___cy;
-		int32_t L_350 = __this->___ch;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)153), L_348, ((int32_t)il2cpp_codegen_subtract(L_349, L_350)), 2, NULL);
+		int32_t L_385 = __this->___cx;
+		int32_t L_386 = __this->___cy;
+		int32_t L_387 = __this->___ch;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(((int32_t)153), L_385, ((int32_t)il2cpp_codegen_subtract(L_386, L_387)), 2, NULL);
 	}
 
-IL_0dd1:
+IL_0ebf:
 	{
-		int32_t L_351 = __this->___chargeCount;
-		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_351, 1));
-		int32_t L_352 = __this->___chargeCount;
-		if ((!(((uint32_t)L_352) == ((uint32_t)((int32_t)500)))))
+		int32_t L_388 = __this->___chargeCount;
+		__this->___chargeCount = ((int32_t)il2cpp_codegen_add(L_388, 1));
+		int32_t L_389 = __this->___chargeCount;
+		if ((!(((uint32_t)L_389) == ((uint32_t)((int32_t)500)))))
 		{
-			goto IL_0e26;
+			goto IL_0f14;
 		}
 	}
 	{
@@ -10068,557 +10222,557 @@ IL_0dd1:
 		return;
 	}
 
-IL_0df3:
+IL_0ee1:
 	{
-		int32_t L_353 = __this->___statusMe;
-		if ((((int32_t)L_353) == ((int32_t)((int32_t)14))))
+		int32_t L_390 = __this->___statusMe;
+		if ((((int32_t)L_390) == ((int32_t)((int32_t)14))))
 		{
-			goto IL_0e04;
+			goto IL_0ef2;
 		}
 	}
 	{
 		__this->___statusMe = 3;
 	}
 
-IL_0e04:
+IL_0ef2:
 	{
 		__this->___cvy = ((int32_t)-3);
-		int32_t L_354 = __this->___cy;
-		int32_t L_355 = __this->___cvy;
-		__this->___cy = ((int32_t)il2cpp_codegen_add(L_354, L_355));
+		int32_t L_391 = __this->___cy;
+		int32_t L_392 = __this->___cvy;
+		__this->___cy = ((int32_t)il2cpp_codegen_add(L_391, L_392));
 		__this->___cf = 7;
 	}
 
-IL_0e26:
+IL_0f14:
 	{
 		return;
 	}
 
-IL_0e27:
+IL_0f15:
 	{
-		bool L_356 = __this->___me;
-		if (!L_356)
+		bool L_393 = __this->___me;
+		if (!L_393)
 		{
-			goto IL_0f9b;
+			goto IL_1089;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		bool L_357 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isTouch;
-		if (!L_357)
+		bool L_394 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isTouch;
+		if (!L_394)
 		{
-			goto IL_0f9b;
+			goto IL_1089;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_358 = __this->___charFocus;
-		if (!L_358)
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_395 = __this->___charFocus;
+		if (!L_395)
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_359 = __this->___charFocus;
-		NullCheck(L_359);
-		int32_t L_360 = L_359->___charID;
-		if ((((int32_t)L_360) < ((int32_t)0)))
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_396 = __this->___charFocus;
+		NullCheck(L_396);
+		int32_t L_397 = L_396->___charID;
+		if ((((int32_t)L_397) < ((int32_t)0)))
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_361 = __this->___charFocus;
-		NullCheck(L_361);
-		int32_t L_362 = L_361->___cx;
-		if ((((int32_t)L_362) <= ((int32_t)((int32_t)100))))
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_398 = __this->___charFocus;
+		NullCheck(L_398);
+		int32_t L_399 = L_398->___cx;
+		if ((((int32_t)L_399) <= ((int32_t)((int32_t)100))))
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_363 = __this->___charFocus;
-		NullCheck(L_363);
-		int32_t L_364 = L_363->___cx;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_400 = __this->___charFocus;
+		NullCheck(L_400);
+		int32_t L_401 = L_400->___cx;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_365 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
-		if ((((int32_t)L_364) >= ((int32_t)((int32_t)il2cpp_codegen_subtract(L_365, ((int32_t)100))))))
+		int32_t L_402 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
+		if ((((int32_t)L_401) >= ((int32_t)((int32_t)il2cpp_codegen_subtract(L_402, ((int32_t)100))))))
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
-		Waypoint_t10627C403A194C3D7901C1C01F3C6859FE7D6EE6* L_366;
-		L_366 = Char_isInEnterOnlinePoint_m26431756730644FB0802626C56E1A4705C84B83C(__this, NULL);
-		if (L_366)
+		Waypoint_t10627C403A194C3D7901C1C01F3C6859FE7D6EE6* L_403;
+		L_403 = Char_isInEnterOnlinePoint_m26431756730644FB0802626C56E1A4705C84B83C(__this, NULL);
+		if (L_403)
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
-		Waypoint_t10627C403A194C3D7901C1C01F3C6859FE7D6EE6* L_367;
-		L_367 = Char_isInEnterOfflinePoint_m40C875EB6C1F003D09E308E484AEB4B97E673E62(__this, NULL);
-		if (L_367)
+		Waypoint_t10627C403A194C3D7901C1C01F3C6859FE7D6EE6* L_404;
+		L_404 = Char_isInEnterOfflinePoint_m40C875EB6C1F003D09E308E484AEB4B97E673E62(__this, NULL);
+		if (L_404)
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
-		bool L_368;
-		L_368 = Char_isAttacPlayerStatus_m074B7B6E571F9AAD01F2860DA73DD0421A332F30(__this, NULL);
-		if (L_368)
+		bool L_405;
+		L_405 = Char_isAttacPlayerStatus_m074B7B6E571F9AAD01F2860DA73DD0421A332F30(__this, NULL);
+		if (L_405)
 		{
-			goto IL_0f94;
-		}
-	}
-	{
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_369 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___mapID;
-		if ((((int32_t)L_369) == ((int32_t)((int32_t)51))))
-		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_370 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___mapID;
-		if ((((int32_t)L_370) == ((int32_t)((int32_t)52))))
+		int32_t L_406 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___mapID;
+		if ((((int32_t)L_406) == ((int32_t)((int32_t)51))))
 		{
-			goto IL_0f94;
+			goto IL_1082;
+		}
+	}
+	{
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		int32_t L_407 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___mapID;
+		if ((((int32_t)L_407) == ((int32_t)((int32_t)52))))
+		{
+			goto IL_1082;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		Panel_t49349297CB778B2219539905F16B94090BD93138* L_371 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___panel;
-		NullCheck(L_371);
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_372 = L_371->___vPlayerMenu;
-		NullCheck(L_372);
-		int32_t L_373;
-		L_373 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_372, NULL);
-		if ((((int32_t)L_373) <= ((int32_t)0)))
+		Panel_t49349297CB778B2219539905F16B94090BD93138* L_408 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___panel;
+		NullCheck(L_408);
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_409 = L_408->___vPlayerMenu;
+		NullCheck(L_409);
+		int32_t L_410;
+		L_410 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_409, NULL);
+		if ((((int32_t)L_410) <= ((int32_t)0)))
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_374;
-		L_374 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
-		NullCheck(L_374);
-		PopUpYesNo_t6F7F3476AC6B1EBADB65A5E71409ACF766F5C151* L_375 = L_374->___popUpYesNo;
-		if (L_375)
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_411;
+		L_411 = GameScr_gI_m26BF6CA4E5B7A30A6498B3EF9992BD1CA23B8798(NULL);
+		NullCheck(L_411);
+		PopUpYesNo_t6F7F3476AC6B1EBADB65A5E71409ACF766F5C151* L_412 = L_411->___popUpYesNo;
+		if (L_412)
 		{
-			goto IL_0f94;
+			goto IL_1082;
 		}
 	}
 	{
-		int32_t L_376 = __this->___cx;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_377 = __this->___charFocus;
-		NullCheck(L_377);
-		int32_t L_378 = L_377->___cx;
-		int32_t L_379;
-		L_379 = Math_abs_m9EBB513752A930AECA9ED005549135F97E154308(((int32_t)il2cpp_codegen_subtract(L_376, L_378)), NULL);
-		int32_t L_380 = __this->___cy;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_381 = __this->___charFocus;
-		NullCheck(L_381);
-		int32_t L_382 = L_381->___cy;
-		int32_t L_383;
-		L_383 = Math_abs_m9EBB513752A930AECA9ED005549135F97E154308(((int32_t)il2cpp_codegen_subtract(L_380, L_382)), NULL);
-		V_5 = L_383;
-		if ((((int32_t)L_379) >= ((int32_t)((int32_t)60))))
+		int32_t L_413 = __this->___cx;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_414 = __this->___charFocus;
+		NullCheck(L_414);
+		int32_t L_415 = L_414->___cx;
+		int32_t L_416;
+		L_416 = Math_abs_m9EBB513752A930AECA9ED005549135F97E154308(((int32_t)il2cpp_codegen_subtract(L_413, L_415)), NULL);
+		int32_t L_417 = __this->___cy;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_418 = __this->___charFocus;
+		NullCheck(L_418);
+		int32_t L_419 = L_418->___cy;
+		int32_t L_420;
+		L_420 = Math_abs_m9EBB513752A930AECA9ED005549135F97E154308(((int32_t)il2cpp_codegen_subtract(L_417, L_419)), NULL);
+		V_8 = L_420;
+		if ((((int32_t)L_416) >= ((int32_t)((int32_t)60))))
 		{
-			goto IL_0f8b;
+			goto IL_1079;
 		}
 	}
 	{
-		int32_t L_384 = V_5;
-		if ((((int32_t)L_384) >= ((int32_t)((int32_t)40))))
+		int32_t L_421 = V_8;
+		if ((((int32_t)L_421) >= ((int32_t)((int32_t)40))))
 		{
-			goto IL_0f8b;
+			goto IL_1079;
 		}
 	}
 	{
-		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_385 = __this->___cmdMenu;
-		if (L_385)
+		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_422 = __this->___cmdMenu;
+		if (L_422)
 		{
-			goto IL_0f42;
+			goto IL_1030;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var);
-		String_t* L_386 = ((mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields*)il2cpp_codegen_static_fields_for(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var))->___MENU;
-		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_387 = (Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1*)il2cpp_codegen_object_new(Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1_il2cpp_TypeInfo_var);
-		Command__ctor_mBEF90D631F1834B890E5A23E2C5C9D57F7900ABB(L_387, L_386, ((int32_t)11111), NULL);
-		__this->___cmdMenu = L_387;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___cmdMenu), (void*)L_387);
-		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_388 = __this->___cmdMenu;
-		NullCheck(L_388);
-		L_388->___isPlaySoundButton = (bool)0;
+		String_t* L_423 = ((mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields*)il2cpp_codegen_static_fields_for(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var))->___MENU;
+		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_424 = (Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1*)il2cpp_codegen_object_new(Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1_il2cpp_TypeInfo_var);
+		Command__ctor_mBEF90D631F1834B890E5A23E2C5C9D57F7900ABB(L_424, L_423, ((int32_t)11111), NULL);
+		__this->___cmdMenu = L_424;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___cmdMenu), (void*)L_424);
+		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_425 = __this->___cmdMenu;
+		NullCheck(L_425);
+		L_425->___isPlaySoundButton = (bool)0;
 	}
 
-IL_0f42:
+IL_1030:
 	{
-		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_389 = __this->___cmdMenu;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_390 = __this->___charFocus;
-		NullCheck(L_390);
-		int32_t L_391 = L_390->___cx;
+		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_426 = __this->___cmdMenu;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_427 = __this->___charFocus;
+		NullCheck(L_427);
+		int32_t L_428 = L_427->___cx;
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		int32_t L_392 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmx;
-		NullCheck(L_389);
-		L_389->___x = ((int32_t)il2cpp_codegen_subtract(L_391, L_392));
-		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_393 = __this->___cmdMenu;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_394 = __this->___charFocus;
-		NullCheck(L_394);
-		int32_t L_395 = L_394->___cy;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_396 = __this->___charFocus;
-		NullCheck(L_396);
-		int32_t L_397 = L_396->___ch;
-		int32_t L_398 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmy;
-		NullCheck(L_393);
-		L_393->___y = ((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_395, L_397)), ((int32_t)30))), L_398));
-		goto IL_0f9b;
+		int32_t L_429 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmx;
+		NullCheck(L_426);
+		L_426->___x = ((int32_t)il2cpp_codegen_subtract(L_428, L_429));
+		Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1* L_430 = __this->___cmdMenu;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_431 = __this->___charFocus;
+		NullCheck(L_431);
+		int32_t L_432 = L_431->___cy;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_433 = __this->___charFocus;
+		NullCheck(L_433);
+		int32_t L_434 = L_433->___ch;
+		int32_t L_435 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmy;
+		NullCheck(L_430);
+		L_430->___y = ((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_432, L_434)), ((int32_t)30))), L_435));
+		goto IL_1089;
 	}
 
-IL_0f8b:
+IL_1079:
 	{
 		__this->___cmdMenu = (Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___cmdMenu), (void*)(Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1*)NULL);
-		goto IL_0f9b;
+		goto IL_1089;
 	}
 
-IL_0f94:
+IL_1082:
 	{
 		__this->___cmdMenu = (Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___cmdMenu), (void*)(Command_tC5575D51036CBC79804FB725177C7C6CC3F8C8A1*)NULL);
 	}
 
-IL_0f9b:
+IL_1089:
 	{
-		bool L_399 = __this->___isShadown;
-		if (!L_399)
+		bool L_436 = __this->___isShadown;
+		if (!L_436)
 		{
-			goto IL_0fa9;
+			goto IL_1097;
 		}
 	}
 	{
 		Char_updateShadown_m28B8FC84D28DA90636BFB105A91001B9E2D678D3(__this, NULL);
 	}
 
-IL_0fa9:
+IL_1097:
 	{
-		bool L_400 = __this->___isTeleport;
-		if (!L_400)
+		bool L_437 = __this->___isTeleport;
+		if (!L_437)
 		{
-			goto IL_0fb2;
+			goto IL_10a0;
 		}
 	}
 	{
 		return;
 	}
 
-IL_0fb2:
+IL_10a0:
 	{
-		Info_t4AA2355BF01A222A08673F2105C0653983524661* L_401 = __this->___chatInfo;
-		if (!L_401)
+		Info_t4AA2355BF01A222A08673F2105C0653983524661* L_438 = __this->___chatInfo;
+		if (!L_438)
 		{
-			goto IL_0fc5;
+			goto IL_10b3;
 		}
 	}
 	{
-		Info_t4AA2355BF01A222A08673F2105C0653983524661* L_402 = __this->___chatInfo;
-		NullCheck(L_402);
-		Info_update_m64932E4F9EBAC6E0106BDD3BA9E9D52427DE3428(L_402, NULL);
+		Info_t4AA2355BF01A222A08673F2105C0653983524661* L_439 = __this->___chatInfo;
+		NullCheck(L_439);
+		Info_update_m64932E4F9EBAC6E0106BDD3BA9E9D52427DE3428(L_439, NULL);
 	}
 
-IL_0fc5:
+IL_10b3:
 	{
-		int32_t L_403 = __this->___shadowLife;
-		if ((((int32_t)L_403) <= ((int32_t)0)))
+		int32_t L_440 = __this->___shadowLife;
+		if ((((int32_t)L_440) <= ((int32_t)0)))
 		{
-			goto IL_0fdc;
+			goto IL_10ca;
 		}
 	}
 	{
-		int32_t L_404 = __this->___shadowLife;
-		__this->___shadowLife = ((int32_t)il2cpp_codegen_subtract(L_404, 1));
+		int32_t L_441 = __this->___shadowLife;
+		__this->___shadowLife = ((int32_t)il2cpp_codegen_subtract(L_441, 1));
 	}
 
-IL_0fdc:
+IL_10ca:
 	{
-		int8_t L_405 = __this->___resultTest;
-		if ((((int32_t)L_405) <= ((int32_t)0)))
+		int8_t L_442 = __this->___resultTest;
+		if ((((int32_t)L_442) <= ((int32_t)0)))
 		{
-			goto IL_1018;
+			goto IL_1106;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_406 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_406%2)))
+		int32_t L_443 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_443%2)))
 		{
-			goto IL_1018;
+			goto IL_1106;
 		}
 	}
 	{
-		int8_t L_407 = __this->___resultTest;
-		__this->___resultTest = ((int8_t)((int32_t)il2cpp_codegen_subtract((int32_t)L_407, 1)));
-		int8_t L_408 = __this->___resultTest;
-		if ((((int32_t)L_408) == ((int32_t)((int32_t)30))))
+		int8_t L_444 = __this->___resultTest;
+		__this->___resultTest = ((int8_t)((int32_t)il2cpp_codegen_subtract((int32_t)L_444, 1)));
+		int8_t L_445 = __this->___resultTest;
+		if ((((int32_t)L_445) == ((int32_t)((int32_t)30))))
 		{
-			goto IL_1011;
+			goto IL_10ff;
 		}
 	}
 	{
-		int8_t L_409 = __this->___resultTest;
-		if ((!(((uint32_t)L_409) == ((uint32_t)((int32_t)60)))))
+		int8_t L_446 = __this->___resultTest;
+		if ((!(((uint32_t)L_446) == ((uint32_t)((int32_t)60)))))
 		{
-			goto IL_1018;
+			goto IL_1106;
 		}
 	}
 
-IL_1011:
+IL_10ff:
 	{
 		__this->___resultTest = (int8_t)0;
 	}
 
-IL_1018:
+IL_1106:
 	{
 		Char_updateSkillPaint_mD9F05B77BE36308EDC6D168D1BAB85A7F765D366(__this, NULL);
-		Mob_t394900507F39725FA57379059AA703E63166F45F* L_410 = __this->___mobMe;
-		if (!L_410)
+		Mob_t394900507F39725FA57379059AA703E63166F45F* L_447 = __this->___mobMe;
+		if (!L_447)
 		{
-			goto IL_10ac;
+			goto IL_119a;
 		}
 	}
 	{
 		Char_updateMobMe_mA8BB2A80C3D2FDEB48E27A806C875239A936E80A(__this, NULL);
-		Mob_t394900507F39725FA57379059AA703E63166F45F* L_411 = __this->___mobMe;
-		NullCheck(L_411);
-		bool L_412 = L_411->___isDie;
-		if (L_412)
+		Mob_t394900507F39725FA57379059AA703E63166F45F* L_448 = __this->___mobMe;
+		NullCheck(L_448);
+		bool L_449 = L_448->___isDie;
+		if (L_449)
 		{
-			goto IL_104b;
+			goto IL_1139;
 		}
 	}
 	{
-		Mob_t394900507F39725FA57379059AA703E63166F45F* L_413 = __this->___mobMe;
-		NullCheck(L_413);
-		int64_t L_414 = L_413->___hp;
-		if ((((int64_t)L_414) > ((int64_t)((int64_t)0))))
+		Mob_t394900507F39725FA57379059AA703E63166F45F* L_450 = __this->___mobMe;
+		NullCheck(L_450);
+		int64_t L_451 = L_450->___hp;
+		if ((((int64_t)L_451) > ((int64_t)((int64_t)0))))
 		{
-			goto IL_1060;
+			goto IL_114e;
 		}
 	}
 
-IL_104b:
+IL_1139:
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_415 = __this->___charEffectTime;
-		NullCheck(L_415);
-		L_415->___hasMobMe = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_452 = __this->___charEffectTime;
+		NullCheck(L_452);
+		L_452->___hasMobMe = (bool)0;
 		__this->___mobMe = (Mob_t394900507F39725FA57379059AA703E63166F45F*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___mobMe), (void*)(Mob_t394900507F39725FA57379059AA703E63166F45F*)NULL);
-		goto IL_10b8;
+		goto IL_11a6;
 	}
 
-IL_1060:
+IL_114e:
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_416 = __this->___charEffectTime;
-		NullCheck(L_416);
-		bool L_417 = L_416->___hasMobMe;
-		if (L_417)
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_453 = __this->___charEffectTime;
+		NullCheck(L_453);
+		bool L_454 = L_453->___hasMobMe;
+		if (L_454)
 		{
-			goto IL_10b8;
+			goto IL_11a6;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_418 = __this->___charEffectTime;
-		NullCheck(L_418);
-		L_418->___hasMobMe = (bool)1;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_419 = __this->___charEffectTime;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_455 = __this->___charEffectTime;
+		NullCheck(L_455);
+		L_455->___hasMobMe = (bool)1;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_456 = __this->___charEffectTime;
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_420;
-		L_420 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		NullCheck(L_419);
-		L_419->___lastTimeMobMe = L_420;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_421 = __this->___charEffectTime;
-		NullCheck(L_421);
-		int32_t L_422 = L_421->___timeMobMe;
-		if ((((int32_t)L_422) > ((int32_t)0)))
+		int64_t L_457;
+		L_457 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		NullCheck(L_456);
+		L_456->___lastTimeMobMe = L_457;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_458 = __this->___charEffectTime;
+		NullCheck(L_458);
+		int32_t L_459 = L_458->___timeMobMe;
+		if ((((int32_t)L_459) > ((int32_t)0)))
 		{
-			goto IL_10b8;
+			goto IL_11a6;
 		}
 	}
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_423 = __this->___charEffectTime;
-		int32_t L_424;
-		L_424 = Extension_getTimeMobMe_m81CDF5097A1227CE4CAE6D0A473867140AD9D565(__this, NULL);
-		NullCheck(L_423);
-		L_423->___timeMobMe = ((int32_t)il2cpp_codegen_add(L_424, 1));
-		goto IL_10b8;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_460 = __this->___charEffectTime;
+		int32_t L_461;
+		L_461 = Extension_getTimeMobMe_m81CDF5097A1227CE4CAE6D0A473867140AD9D565(__this, NULL);
+		NullCheck(L_460);
+		L_460->___timeMobMe = ((int32_t)il2cpp_codegen_add(L_461, 1));
+		goto IL_11a6;
 	}
 
-IL_10ac:
+IL_119a:
 	{
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_425 = __this->___charEffectTime;
-		NullCheck(L_425);
-		L_425->___hasMobMe = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_462 = __this->___charEffectTime;
+		NullCheck(L_462);
+		L_462->___hasMobMe = (bool)0;
 	}
 
-IL_10b8:
+IL_11a6:
 	{
-		Arrow_t7048A6830A9F76E0448BBD44FD9C3C00BC138DBF* L_426 = __this->___arr;
-		if (!L_426)
+		Arrow_t7048A6830A9F76E0448BBD44FD9C3C00BC138DBF* L_463 = __this->___arr;
+		if (!L_463)
 		{
-			goto IL_10cb;
+			goto IL_11b9;
 		}
 	}
 	{
-		Arrow_t7048A6830A9F76E0448BBD44FD9C3C00BC138DBF* L_427 = __this->___arr;
-		NullCheck(L_427);
-		Arrow_update_mB00FFAB21690FCE9924359079DBCC1BA1F039A97(L_427, NULL);
+		Arrow_t7048A6830A9F76E0448BBD44FD9C3C00BC138DBF* L_464 = __this->___arr;
+		NullCheck(L_464);
+		Arrow_update_mB00FFAB21690FCE9924359079DBCC1BA1F039A97(L_464, NULL);
 	}
 
-IL_10cb:
+IL_11b9:
 	{
-		PlayerDart_tABEE8108A1F7365CE461BC54449EB21508B98F28* L_428 = __this->___dart;
-		if (!L_428)
+		PlayerDart_tABEE8108A1F7365CE461BC54449EB21508B98F28* L_465 = __this->___dart;
+		if (!L_465)
 		{
-			goto IL_10de;
+			goto IL_11cc;
 		}
 	}
 	{
-		PlayerDart_tABEE8108A1F7365CE461BC54449EB21508B98F28* L_429 = __this->___dart;
-		NullCheck(L_429);
-		PlayerDart_update_m3DCB79FC30A1458F0699B4531E72BDD6E809D735(L_429, NULL);
+		PlayerDart_tABEE8108A1F7365CE461BC54449EB21508B98F28* L_466 = __this->___dart;
+		NullCheck(L_466);
+		PlayerDart_update_m3DCB79FC30A1458F0699B4531E72BDD6E809D735(L_466, NULL);
 	}
 
-IL_10de:
+IL_11cc:
 	{
 		Char_updateEffect_mF621E9D44C70B719BB88D2666ACAD1BC203901F5(__this, NULL);
-		int32_t L_430 = __this->___holdEffID;
-		if (!L_430)
+		int32_t L_467 = __this->___holdEffID;
+		if (!L_467)
 		{
-			goto IL_1117;
+			goto IL_1205;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_431 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_431%5)))
+		int32_t L_468 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_468%5)))
 		{
-			goto IL_2580;
+			goto IL_267a;
 		}
 	}
 	{
-		int32_t L_432 = __this->___cx;
-		int32_t L_433 = __this->___cy;
-		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_434 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
-		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_434, ((int32_t)32), L_432, ((int32_t)il2cpp_codegen_add(L_433, ((int32_t)24))), 3, 5, 1, NULL);
+		int32_t L_469 = __this->___cx;
+		int32_t L_470 = __this->___cy;
+		Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09* L_471 = (Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09*)il2cpp_codegen_object_new(Effect_t7314F450E1367CA54E7FC18EA08439D1A160EB09_il2cpp_TypeInfo_var);
+		Effect__ctor_m92BD7CF350C28AB9363DB4DB8C4B4BC04287937A(L_471, ((int32_t)32), L_469, ((int32_t)il2cpp_codegen_add(L_470, ((int32_t)24))), 3, 5, 1, NULL);
 		il2cpp_codegen_runtime_class_init_inline(EffecMn_t7BBBF6893ECE79ED57FD347042288DBB9258D4AB_il2cpp_TypeInfo_var);
-		EffecMn_addEff_m47082784DD785FA1D9C75668618BE4A8B26B09A7(L_434, NULL);
+		EffecMn_addEff_m47082784DD785FA1D9C75668618BE4A8B26B09A7(L_471, NULL);
 		return;
 	}
 
-IL_1117:
+IL_1205:
 	{
-		bool L_435 = __this->___blindEff;
-		if (L_435)
+		bool L_472 = __this->___blindEff;
+		if (L_472)
 		{
-			goto IL_1127;
+			goto IL_1215;
 		}
 	}
 	{
-		bool L_436 = __this->___sleepEff;
-		if (!L_436)
+		bool L_473 = __this->___sleepEff;
+		if (!L_473)
 		{
-			goto IL_1128;
+			goto IL_1216;
 		}
 	}
 
-IL_1127:
+IL_1215:
 	{
 		return;
 	}
 
-IL_1128:
+IL_1216:
 	{
-		bool L_437 = __this->___holder;
-		if (!L_437)
+		bool L_474 = __this->___holder;
+		if (!L_474)
 		{
-			goto IL_11e6;
+			goto IL_12d4;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_438 = __this->___charHold;
-		if (!L_438)
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_475 = __this->___charHold;
+		if (!L_475)
 		{
-			goto IL_115e;
+			goto IL_124c;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_439 = __this->___charHold;
-		NullCheck(L_439);
-		int32_t L_440 = L_439->___statusMe;
-		if ((((int32_t)L_440) == ((int32_t)((int32_t)14))))
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_476 = __this->___charHold;
+		NullCheck(L_476);
+		int32_t L_477 = L_476->___statusMe;
+		if ((((int32_t)L_477) == ((int32_t)((int32_t)14))))
 		{
-			goto IL_1158;
+			goto IL_1246;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_441 = __this->___charHold;
-		NullCheck(L_441);
-		int32_t L_442 = L_441->___statusMe;
-		if ((!(((uint32_t)L_442) == ((uint32_t)5))))
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_478 = __this->___charHold;
+		NullCheck(L_478);
+		int32_t L_479 = L_478->___statusMe;
+		if ((!(((uint32_t)L_479) == ((uint32_t)5))))
 		{
-			goto IL_115e;
+			goto IL_124c;
 		}
 	}
 
-IL_1158:
+IL_1246:
 	{
 		Char_removeHoleEff_m75B878D9C6373336AFCC19870A84108D145C10F1(__this, NULL);
 	}
 
-IL_115e:
+IL_124c:
 	{
-		Mob_t394900507F39725FA57379059AA703E63166F45F* L_443 = __this->___mobHold;
-		if (!L_443)
+		Mob_t394900507F39725FA57379059AA703E63166F45F* L_480 = __this->___mobHold;
+		if (!L_480)
 		{
-			goto IL_117a;
+			goto IL_1268;
 		}
 	}
 	{
-		Mob_t394900507F39725FA57379059AA703E63166F45F* L_444 = __this->___mobHold;
-		NullCheck(L_444);
-		int32_t L_445 = L_444->___status;
-		if ((!(((uint32_t)L_445) == ((uint32_t)1))))
+		Mob_t394900507F39725FA57379059AA703E63166F45F* L_481 = __this->___mobHold;
+		NullCheck(L_481);
+		int32_t L_482 = L_481->___status;
+		if ((!(((uint32_t)L_482) == ((uint32_t)1))))
 		{
-			goto IL_117a;
+			goto IL_1268;
 		}
 	}
 	{
 		Char_removeHoleEff_m75B878D9C6373336AFCC19870A84108D145C10F1(__this, NULL);
 	}
 
-IL_117a:
+IL_1268:
 	{
-		bool L_446 = __this->___me;
-		if (!L_446)
+		bool L_483 = __this->___me;
+		if (!L_483)
 		{
-			goto IL_11c0;
+			goto IL_12ae;
 		}
 	}
 	{
-		int32_t L_447 = __this->___statusMe;
-		if ((!(((uint32_t)L_447) == ((uint32_t)2))))
+		int32_t L_484 = __this->___statusMe;
+		if ((!(((uint32_t)L_484) == ((uint32_t)2))))
 		{
-			goto IL_11c0;
+			goto IL_12ae;
 		}
 	}
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_448 = __this->___currentMovePoint;
-		if (!L_448)
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_485 = __this->___currentMovePoint;
+		if (!L_485)
 		{
-			goto IL_11c0;
+			goto IL_12ae;
 		}
 	}
 	{
@@ -10627,24 +10781,24 @@ IL_117a:
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___charHold), (void*)(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F*)NULL);
 		__this->___mobHold = (Mob_t394900507F39725FA57379059AA703E63166F45F*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___mobHold), (void*)(Mob_t394900507F39725FA57379059AA703E63166F45F*)NULL);
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_449 = __this->___charEffectTime;
-		NullCheck(L_449);
-		L_449->___isTied = (bool)0;
-		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_450 = __this->___charEffectTime;
-		NullCheck(L_450);
-		L_450->___isTiedByMe = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_486 = __this->___charEffectTime;
+		NullCheck(L_486);
+		L_486->___isTied = (bool)0;
+		CharEffectTime_t42F72D7282495DF1E8E329D540D1DA3841F32CDA* L_487 = __this->___charEffectTime;
+		NullCheck(L_487);
+		L_487->___isTiedByMe = (bool)0;
 	}
 
-IL_11c0:
+IL_12ae:
 	{
-		int32_t L_451 = __this->___cx;
-		int32_t L_452 = __this->___cy;
+		int32_t L_488 = __this->___cx;
+		int32_t L_489 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_453;
-		L_453 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_451, L_452, 2, NULL);
-		if (!L_453)
+		bool L_490;
+		L_490 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_488, L_489, 2, NULL);
+		if (!L_490)
 		{
-			goto IL_11dd;
+			goto IL_12cb;
 		}
 	}
 	{
@@ -10652,301 +10806,301 @@ IL_11c0:
 		return;
 	}
 
-IL_11dd:
+IL_12cb:
 	{
 		__this->___cf = ((int32_t)31);
 		return;
 	}
 
-IL_11e6:
+IL_12d4:
 	{
-		int64_t L_454 = __this->___cHP;
-		if ((((int64_t)L_454) <= ((int64_t)((int64_t)0))))
+		int64_t L_491 = __this->___cHP;
+		if ((((int64_t)L_491) <= ((int64_t)((int64_t)0))))
 		{
-			goto IL_137a;
+			goto IL_1468;
 		}
 	}
 	{
-		V_6 = 0;
-		goto IL_12ec;
+		V_9 = 0;
+		goto IL_13da;
 	}
 
-IL_11fb:
+IL_12e9:
 	{
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_455 = __this->___vEff;
-		int32_t L_456 = V_6;
-		NullCheck(L_455);
-		RuntimeObject* L_457;
-		L_457 = MyVector_elementAt_m2058CB2FBF87C401368BB43AE172A9BB65956E4E(L_455, L_456, NULL);
-		V_7 = ((EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494*)CastclassClass((RuntimeObject*)L_457, EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494_il2cpp_TypeInfo_var));
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_458 = V_7;
-		NullCheck(L_458);
-		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_459 = L_458->___template;
-		NullCheck(L_459);
-		int8_t L_460 = L_459->___type;
-		if (!L_460)
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_492 = __this->___vEff;
+		int32_t L_493 = V_9;
+		NullCheck(L_492);
+		RuntimeObject* L_494;
+		L_494 = MyVector_elementAt_m2058CB2FBF87C401368BB43AE172A9BB65956E4E(L_492, L_493, NULL);
+		V_10 = ((EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494*)CastclassClass((RuntimeObject*)L_494, EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494_il2cpp_TypeInfo_var));
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_495 = V_10;
+		NullCheck(L_495);
+		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_496 = L_495->___template;
+		NullCheck(L_496);
+		int8_t L_497 = L_496->___type;
+		if (!L_497)
 		{
-			goto IL_122d;
+			goto IL_131b;
 		}
 	}
 	{
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_461 = V_7;
-		NullCheck(L_461);
-		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_462 = L_461->___template;
-		NullCheck(L_462);
-		int8_t L_463 = L_462->___type;
-		if ((!(((uint32_t)L_463) == ((uint32_t)((int32_t)12)))))
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_498 = V_10;
+		NullCheck(L_498);
+		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_499 = L_498->___template;
+		NullCheck(L_499);
+		int8_t L_500 = L_499->___type;
+		if ((!(((uint32_t)L_500) == ((uint32_t)((int32_t)12)))))
 		{
-			goto IL_1266;
+			goto IL_1354;
 		}
 	}
 
-IL_122d:
+IL_131b:
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		bool L_464 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff1;
-		if (!L_464)
+		bool L_501 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff1;
+		if (!L_501)
 		{
-			goto IL_12e6;
+			goto IL_13d4;
 		}
 	}
 	{
-		int64_t L_465 = __this->___cHP;
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_466 = V_7;
-		NullCheck(L_466);
-		int16_t L_467 = L_466->___param;
-		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_465, ((int64_t)L_467)));
-		int64_t L_468 = __this->___cMP;
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_469 = V_7;
-		NullCheck(L_469);
-		int16_t L_470 = L_469->___param;
-		__this->___cMP = ((int64_t)il2cpp_codegen_add(L_468, ((int64_t)L_470)));
-		goto IL_12e6;
+		int64_t L_502 = __this->___cHP;
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_503 = V_10;
+		NullCheck(L_503);
+		int16_t L_504 = L_503->___param;
+		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_502, ((int64_t)L_504)));
+		int64_t L_505 = __this->___cMP;
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_506 = V_10;
+		NullCheck(L_506);
+		int16_t L_507 = L_506->___param;
+		__this->___cMP = ((int64_t)il2cpp_codegen_add(L_505, ((int64_t)L_507)));
+		goto IL_13d4;
 	}
 
-IL_1266:
+IL_1354:
 	{
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_471 = V_7;
-		NullCheck(L_471);
-		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_472 = L_471->___template;
-		NullCheck(L_472);
-		int8_t L_473 = L_472->___type;
-		if ((((int32_t)L_473) == ((int32_t)4)))
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_508 = V_10;
+		NullCheck(L_508);
+		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_509 = L_508->___template;
+		NullCheck(L_509);
+		int8_t L_510 = L_509->___type;
+		if ((((int32_t)L_510) == ((int32_t)4)))
 		{
-			goto IL_1285;
+			goto IL_1373;
 		}
 	}
 	{
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_474 = V_7;
-		NullCheck(L_474);
-		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_475 = L_474->___template;
-		NullCheck(L_475);
-		int8_t L_476 = L_475->___type;
-		if ((!(((uint32_t)L_476) == ((uint32_t)((int32_t)17)))))
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_511 = V_10;
+		NullCheck(L_511);
+		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_512 = L_511->___template;
+		NullCheck(L_512);
+		int8_t L_513 = L_512->___type;
+		if ((!(((uint32_t)L_513) == ((uint32_t)((int32_t)17)))))
 		{
-			goto IL_12a3;
+			goto IL_1391;
 		}
 	}
 
-IL_1285:
+IL_1373:
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		bool L_477 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff1;
-		if (!L_477)
+		bool L_514 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff1;
+		if (!L_514)
 		{
-			goto IL_12e6;
+			goto IL_13d4;
 		}
 	}
 	{
-		int64_t L_478 = __this->___cHP;
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_479 = V_7;
-		NullCheck(L_479);
-		int16_t L_480 = L_479->___param;
-		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_478, ((int64_t)L_480)));
-		goto IL_12e6;
+		int64_t L_515 = __this->___cHP;
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_516 = V_10;
+		NullCheck(L_516);
+		int16_t L_517 = L_516->___param;
+		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_515, ((int64_t)L_517)));
+		goto IL_13d4;
 	}
 
-IL_12a3:
+IL_1391:
 	{
-		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_481 = V_7;
-		NullCheck(L_481);
-		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_482 = L_481->___template;
-		NullCheck(L_482);
-		int8_t L_483 = L_482->___type;
-		if ((!(((uint32_t)L_483) == ((uint32_t)((int32_t)13)))))
+		EffectChar_t2BBC21FBE5724AE3CC11E906401C2D39601C4494* L_518 = V_10;
+		NullCheck(L_518);
+		EffectTemplate_t6DE06D7DAB420408A442CFB9112AF03567303B67* L_519 = L_518->___template;
+		NullCheck(L_519);
+		int8_t L_520 = L_519->___type;
+		if ((!(((uint32_t)L_520) == ((uint32_t)((int32_t)13)))))
 		{
-			goto IL_12e6;
+			goto IL_13d4;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		bool L_484 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff1;
-		if (!L_484)
+		bool L_521 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff1;
+		if (!L_521)
 		{
-			goto IL_12e6;
+			goto IL_13d4;
 		}
 	}
 	{
-		int64_t L_485 = __this->___cHP;
-		int64_t L_486 = __this->___cHPFull;
-		__this->___cHP = ((int64_t)il2cpp_codegen_subtract(L_485, ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_486, ((int64_t)3)))/((int64_t)((int32_t)100))))));
-		int64_t L_487 = __this->___cHP;
-		if ((((int64_t)L_487) >= ((int64_t)((int64_t)1))))
+		int64_t L_522 = __this->___cHP;
+		int64_t L_523 = __this->___cHPFull;
+		__this->___cHP = ((int64_t)il2cpp_codegen_subtract(L_522, ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_523, ((int64_t)3)))/((int64_t)((int32_t)100))))));
+		int64_t L_524 = __this->___cHP;
+		if ((((int64_t)L_524) >= ((int64_t)((int64_t)1))))
 		{
-			goto IL_12e6;
+			goto IL_13d4;
 		}
 	}
 	{
 		__this->___cHP = ((int64_t)1);
 	}
 
-IL_12e6:
+IL_13d4:
 	{
-		int32_t L_488 = V_6;
-		V_6 = ((int32_t)il2cpp_codegen_add(L_488, 1));
+		int32_t L_525 = V_9;
+		V_9 = ((int32_t)il2cpp_codegen_add(L_525, 1));
 	}
 
-IL_12ec:
+IL_13da:
 	{
-		int32_t L_489 = V_6;
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_490 = __this->___vEff;
-		NullCheck(L_490);
-		int32_t L_491;
-		L_491 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_490, NULL);
-		if ((((int32_t)L_489) < ((int32_t)L_491)))
+		int32_t L_526 = V_9;
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_527 = __this->___vEff;
+		NullCheck(L_527);
+		int32_t L_528;
+		L_528 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_527, NULL);
+		if ((((int32_t)L_526) < ((int32_t)L_528)))
 		{
-			goto IL_11fb;
+			goto IL_12e9;
 		}
 	}
 	{
-		int32_t L_492 = __this->___eff5BuffHp;
-		if ((((int32_t)L_492) <= ((int32_t)0)))
+		int32_t L_529 = __this->___eff5BuffHp;
+		if ((((int32_t)L_529) <= ((int32_t)0)))
 		{
-			goto IL_1322;
+			goto IL_1410;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		bool L_493 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff2;
-		if (!L_493)
+		bool L_530 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff2;
+		if (!L_530)
 		{
-			goto IL_1322;
+			goto IL_1410;
 		}
 	}
 	{
-		int64_t L_494 = __this->___cHP;
-		int32_t L_495 = __this->___eff5BuffHp;
-		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_494, ((int64_t)L_495)));
+		int64_t L_531 = __this->___cHP;
+		int32_t L_532 = __this->___eff5BuffHp;
+		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_531, ((int64_t)L_532)));
 	}
 
-IL_1322:
+IL_1410:
 	{
-		int32_t L_496 = __this->___eff5BuffMp;
-		if ((((int32_t)L_496) <= ((int32_t)0)))
+		int32_t L_533 = __this->___eff5BuffMp;
+		if ((((int32_t)L_533) <= ((int32_t)0)))
 		{
-			goto IL_1346;
+			goto IL_1434;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		bool L_497 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff2;
-		if (!L_497)
+		bool L_534 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isEff2;
+		if (!L_534)
 		{
-			goto IL_1346;
+			goto IL_1434;
 		}
 	}
 	{
-		int64_t L_498 = __this->___cMP;
-		int32_t L_499 = __this->___eff5BuffMp;
-		__this->___cMP = ((int64_t)il2cpp_codegen_add(L_498, ((int64_t)L_499)));
+		int64_t L_535 = __this->___cMP;
+		int32_t L_536 = __this->___eff5BuffMp;
+		__this->___cMP = ((int64_t)il2cpp_codegen_add(L_535, ((int64_t)L_536)));
 	}
 
-IL_1346:
+IL_1434:
 	{
-		int64_t L_500 = __this->___cHP;
-		int64_t L_501 = __this->___cHPFull;
-		if ((((int64_t)L_500) <= ((int64_t)L_501)))
+		int64_t L_537 = __this->___cHP;
+		int64_t L_538 = __this->___cHPFull;
+		if ((((int64_t)L_537) <= ((int64_t)L_538)))
 		{
-			goto IL_1360;
+			goto IL_144e;
 		}
 	}
 	{
-		int64_t L_502 = __this->___cHPFull;
-		__this->___cHP = L_502;
+		int64_t L_539 = __this->___cHPFull;
+		__this->___cHP = L_539;
 	}
 
-IL_1360:
+IL_144e:
 	{
-		int64_t L_503 = __this->___cMP;
-		int64_t L_504 = __this->___cMPFull;
-		if ((((int64_t)L_503) <= ((int64_t)L_504)))
+		int64_t L_540 = __this->___cMP;
+		int64_t L_541 = __this->___cMPFull;
+		if ((((int64_t)L_540) <= ((int64_t)L_541)))
 		{
-			goto IL_137a;
+			goto IL_1468;
 		}
 	}
 	{
-		int64_t L_505 = __this->___cMPFull;
-		__this->___cMP = L_505;
+		int64_t L_542 = __this->___cMPFull;
+		__this->___cMP = L_542;
 	}
 
-IL_137a:
+IL_1468:
 	{
-		bool L_506 = __this->___cmtoChar;
-		if (!L_506)
+		bool L_543 = __this->___cmtoChar;
+		if (!L_543)
 		{
-			goto IL_13c2;
+			goto IL_14b0;
 		}
 	}
 	{
-		int32_t L_507 = __this->___cx;
+		int32_t L_544 = __this->___cx;
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		int32_t L_508 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___gW2;
-		((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoX = ((int32_t)il2cpp_codegen_subtract(L_507, L_508));
-		int32_t L_509 = __this->___cy;
-		int32_t L_510 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___gH23;
-		((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoY = ((int32_t)il2cpp_codegen_subtract(L_509, L_510));
+		int32_t L_545 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___gW2;
+		((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoX = ((int32_t)il2cpp_codegen_subtract(L_544, L_545));
+		int32_t L_546 = __this->___cy;
+		int32_t L_547 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___gH23;
+		((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoY = ((int32_t)il2cpp_codegen_subtract(L_546, L_547));
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		bool L_511 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isTouchControl;
-		if (L_511)
+		bool L_548 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___isTouchControl;
+		if (L_548)
 		{
-			goto IL_13c2;
+			goto IL_14b0;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		int32_t L_512 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoX;
-		int32_t L_513 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___gW6;
-		int32_t L_514 = __this->___cdir;
-		((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoX = ((int32_t)il2cpp_codegen_add(L_512, ((int32_t)il2cpp_codegen_multiply(L_513, L_514))));
+		int32_t L_549 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoX;
+		int32_t L_550 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___gW6;
+		int32_t L_551 = __this->___cdir;
+		((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___cmtoX = ((int32_t)il2cpp_codegen_add(L_549, ((int32_t)il2cpp_codegen_multiply(L_550, L_551))));
 	}
 
-IL_13c2:
+IL_14b0:
 	{
-		int32_t L_515 = __this->___tick;
-		__this->___tick = ((int32_t)(((int32_t)il2cpp_codegen_add(L_515, 1))%((int32_t)100)));
-		bool L_516 = __this->___me;
-		if (!L_516)
+		int32_t L_552 = __this->___tick;
+		__this->___tick = ((int32_t)(((int32_t)il2cpp_codegen_add(L_552, 1))%((int32_t)100)));
+		bool L_553 = __this->___me;
+		if (!L_553)
 		{
-			goto IL_19ce;
+			goto IL_1ac6;
 		}
 	}
 	{
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_517 = __this->___charFocus;
-		if (!L_517)
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_554 = __this->___charFocus;
+		if (!L_554)
 		{
-			goto IL_13ff;
+			goto IL_14ed;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_518 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___vCharInMap;
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_519 = __this->___charFocus;
-		NullCheck(L_518);
-		bool L_520;
-		L_520 = MyVector_contains_m61E50E7516A347FECC6B55CD4C383EBDD338BEBF(L_518, L_519, NULL);
-		if (L_520)
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_555 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___vCharInMap;
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_556 = __this->___charFocus;
+		NullCheck(L_555);
+		bool L_557;
+		L_557 = MyVector_contains_m61E50E7516A347FECC6B55CD4C383EBDD338BEBF(L_555, L_556, NULL);
+		if (L_557)
 		{
-			goto IL_13ff;
+			goto IL_14ed;
 		}
 	}
 	{
@@ -10954,93 +11108,93 @@ IL_13c2:
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___charFocus), (void*)(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F*)NULL);
 	}
 
-IL_13ff:
+IL_14ed:
 	{
-		int32_t L_521 = __this->___cx;
-		if ((((int32_t)L_521) >= ((int32_t)((int32_t)10))))
+		int32_t L_558 = __this->___cx;
+		if ((((int32_t)L_558) >= ((int32_t)((int32_t)10))))
 		{
-			goto IL_141a;
+			goto IL_1508;
 		}
 	}
 	{
 		__this->___cvx = 0;
 		__this->___cx = ((int32_t)10);
-		goto IL_143f;
+		goto IL_152d;
 	}
 
-IL_141a:
+IL_1508:
 	{
-		int32_t L_522 = __this->___cx;
+		int32_t L_559 = __this->___cx;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_523 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
-		if ((((int32_t)L_522) <= ((int32_t)((int32_t)il2cpp_codegen_subtract(L_523, ((int32_t)10))))))
+		int32_t L_560 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
+		if ((((int32_t)L_559) <= ((int32_t)((int32_t)il2cpp_codegen_subtract(L_560, ((int32_t)10))))))
 		{
-			goto IL_143f;
+			goto IL_152d;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_524 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
-		__this->___cx = ((int32_t)il2cpp_codegen_subtract(L_524, ((int32_t)10)));
+		int32_t L_561 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxw;
+		__this->___cx = ((int32_t)il2cpp_codegen_subtract(L_561, ((int32_t)10)));
 		__this->___cvx = 0;
 	}
 
-IL_143f:
+IL_152d:
 	{
-		bool L_525 = __this->___me;
-		if (!L_525)
+		bool L_562 = __this->___me;
+		if (!L_562)
 		{
-			goto IL_149f;
+			goto IL_158d;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		bool L_526 = ((Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_StaticFields*)il2cpp_codegen_static_fields_for(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var))->___ischangingMap;
-		if (L_526)
+		bool L_563 = ((Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_StaticFields*)il2cpp_codegen_static_fields_for(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var))->___ischangingMap;
+		if (L_563)
 		{
-			goto IL_149f;
+			goto IL_158d;
 		}
 	}
 	{
-		bool L_527;
-		L_527 = Char_isInWaypoint_m1795678986D65B9AABF154013B8FC4A43CF91C5B(__this, NULL);
-		if (!L_527)
+		bool L_564;
+		L_564 = Char_isInWaypoint_m1795678986D65B9AABF154013B8FC4A43CF91C5B(__this, NULL);
+		if (!L_564)
 		{
-			goto IL_149f;
+			goto IL_158d;
 		}
 	}
 	{
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_528;
-		L_528 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
-		NullCheck(L_528);
-		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_528, NULL);
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_565;
+		L_565 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_565);
+		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_565, NULL);
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_529;
-		L_529 = TileMap_isTrainingMap_mB40F11800EBBE8B1DFBB8CDC78CD7F1DEA6C3476(NULL);
-		if (!L_529)
+		bool L_566;
+		L_566 = TileMap_isTrainingMap_mB40F11800EBBE8B1DFBB8CDC78CD7F1DEA6C3476(NULL);
+		if (!L_566)
 		{
-			goto IL_1479;
+			goto IL_1567;
 		}
 	}
 	{
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_530;
-		L_530 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
-		NullCheck(L_530);
-		Service_getMapOffline_m0550D9D0A1E07D6814E2A1B952E918FF81B56B0A(L_530, NULL);
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_567;
+		L_567 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_567);
+		Service_getMapOffline_m0550D9D0A1E07D6814E2A1B952E918FF81B56B0A(L_567, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
 		((Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_StaticFields*)il2cpp_codegen_static_fields_for(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var))->___ischangingMap = (bool)1;
-		goto IL_1483;
+		goto IL_1571;
 	}
 
-IL_1479:
+IL_1567:
 	{
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_531;
-		L_531 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
-		NullCheck(L_531);
-		Service_requestChangeMap_m172ACEE94EB1D036F0F7CC3C89B3F1E626B6A44A(L_531, NULL);
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_568;
+		L_568 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_568);
+		Service_requestChangeMap_m172ACEE94EB1D036F0F7CC3C89B3F1E626B6A44A(L_568, NULL);
 	}
 
-IL_1483:
+IL_1571:
 	{
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
 		((Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_StaticFields*)il2cpp_codegen_static_fields_for(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var))->___isLockKey = (bool)1;
@@ -11052,57 +11206,57 @@ IL_1483:
 		return;
 	}
 
-IL_149f:
+IL_158d:
 	{
-		int32_t L_532 = __this->___statusMe;
-		if ((((int32_t)L_532) == ((int32_t)4)))
+		int32_t L_569 = __this->___statusMe;
+		if ((((int32_t)L_569) == ((int32_t)4)))
 		{
-			goto IL_14f3;
+			goto IL_15e1;
 		}
 	}
 	{
-		int32_t L_533 = __this->___cx;
-		int32_t L_534 = __this->___cxSend;
+		int32_t L_570 = __this->___cx;
+		int32_t L_571 = __this->___cxSend;
 		il2cpp_codegen_runtime_class_init_inline(Res_t42939C8A70541C5F8BBAC618E2AE68A048453E10_il2cpp_TypeInfo_var);
-		int32_t L_535;
-		L_535 = Res_abs_m613075BC715AB0662EB7A9CD2E58BF5911EFBFF0(((int32_t)il2cpp_codegen_subtract(L_533, L_534)), NULL);
-		int32_t L_536 = __this->___cy;
-		int32_t L_537 = __this->___cySend;
-		int32_t L_538;
-		L_538 = Res_abs_m613075BC715AB0662EB7A9CD2E58BF5911EFBFF0(((int32_t)il2cpp_codegen_subtract(L_536, L_537)), NULL);
-		if ((((int32_t)((int32_t)il2cpp_codegen_add(L_535, L_538))) < ((int32_t)((int32_t)70))))
+		int32_t L_572;
+		L_572 = Res_abs_m613075BC715AB0662EB7A9CD2E58BF5911EFBFF0(((int32_t)il2cpp_codegen_subtract(L_570, L_571)), NULL);
+		int32_t L_573 = __this->___cy;
+		int32_t L_574 = __this->___cySend;
+		int32_t L_575;
+		L_575 = Res_abs_m613075BC715AB0662EB7A9CD2E58BF5911EFBFF0(((int32_t)il2cpp_codegen_subtract(L_573, L_574)), NULL);
+		if ((((int32_t)((int32_t)il2cpp_codegen_add(L_572, L_575))) < ((int32_t)((int32_t)70))))
 		{
-			goto IL_14f3;
+			goto IL_15e1;
 		}
 	}
 	{
-		int32_t L_539 = __this->___cy;
-		int32_t L_540 = __this->___cySend;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_539, L_540))) > ((int32_t)0)))
+		int32_t L_576 = __this->___cy;
+		int32_t L_577 = __this->___cySend;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_576, L_577))) > ((int32_t)0)))
 		{
-			goto IL_14f3;
+			goto IL_15e1;
 		}
 	}
 	{
-		bool L_541 = __this->___me;
-		if (!L_541)
+		bool L_578 = __this->___me;
+		if (!L_578)
 		{
-			goto IL_14f3;
+			goto IL_15e1;
 		}
 	}
 	{
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_542;
-		L_542 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
-		NullCheck(L_542);
-		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_542, NULL);
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_579;
+		L_579 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_579);
+		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_579, NULL);
 	}
 
-IL_14f3:
+IL_15e1:
 	{
-		bool L_543 = __this->___isLockMove;
-		if (!L_543)
+		bool L_580 = __this->___isLockMove;
+		if (!L_580)
 		{
-			goto IL_1502;
+			goto IL_15f0;
 		}
 	}
 	{
@@ -11110,1577 +11264,1398 @@ IL_14f3:
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
 	}
 
-IL_1502:
+IL_15f0:
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_544 = __this->___currentMovePoint;
-		if (!L_544)
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_581 = __this->___currentMovePoint;
+		if (!L_581)
 		{
-			goto IL_19c3;
+			goto IL_1abb;
 		}
 	}
 	{
-		int32_t L_545 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_546 = __this->___currentMovePoint;
-		NullCheck(L_546);
-		int32_t L_547 = L_546->___xEnd;
+		int32_t L_582 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_583 = __this->___currentMovePoint;
+		NullCheck(L_583);
+		int32_t L_584 = L_583->___xEnd;
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_548;
-		L_548 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_545, L_547)), NULL);
-		if ((((int32_t)L_548) > ((int32_t)((int32_t)16))))
+		int32_t L_585;
+		L_585 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_582, L_584)), NULL);
+		if ((((int32_t)L_585) > ((int32_t)((int32_t)16))))
 		{
-			goto IL_15d0;
+			goto IL_16c0;
 		}
 	}
 	{
-		int32_t L_549 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_550 = __this->___currentMovePoint;
-		NullCheck(L_550);
-		int32_t L_551 = L_550->___yEnd;
+		int32_t L_586 = __this->___cy;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_587 = __this->___currentMovePoint;
+		NullCheck(L_587);
+		int32_t L_588 = L_587->___yEnd;
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_552;
-		L_552 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_549, L_551)), NULL);
-		if ((((int32_t)L_552) > ((int32_t)((int32_t)16))))
+		int32_t L_589;
+		L_589 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_586, L_588)), NULL);
+		if ((((int32_t)L_589) > ((int32_t)((int32_t)16))))
 		{
-			goto IL_15d0;
+			goto IL_16c0;
 		}
 	}
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_553 = __this->___currentMovePoint;
-		NullCheck(L_553);
-		int32_t L_554 = L_553->___xEnd;
-		int32_t L_555 = __this->___cx;
-		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_554, L_555))/2));
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_556 = __this->___currentMovePoint;
-		NullCheck(L_556);
-		int32_t L_557 = L_556->___yEnd;
-		__this->___cy = L_557;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_590 = __this->___currentMovePoint;
+		NullCheck(L_590);
+		int32_t L_591 = L_590->___xEnd;
+		int32_t L_592 = __this->___cx;
+		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_591, L_592))/2));
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_593 = __this->___currentMovePoint;
+		NullCheck(L_593);
+		int32_t L_594 = L_593->___yEnd;
+		__this->___cy = L_594;
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_558 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
-		NullCheck(L_558);
-		L_558->___clickMoving = (bool)0;
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_595 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
+		NullCheck(L_595);
+		L_595->___clickMoving = (bool)0;
 		Char_checkPerformEndMovePointAction_m2E408719BABFD8C5D5DF2B9910DE0F4E9302936F(__this, NULL);
-		int32_t L_559 = 0;
-		V_1 = L_559;
-		__this->___cvy = L_559;
-		int32_t L_560 = V_1;
-		__this->___cvx = L_560;
-		int32_t L_561 = __this->___cx;
-		int32_t L_562 = __this->___cy;
+		int32_t L_596 = 0;
+		V_4 = L_596;
+		__this->___cvy = L_596;
+		int32_t L_597 = V_4;
+		__this->___cvx = L_597;
+		int32_t L_598 = __this->___cx;
+		int32_t L_599 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_563;
-		L_563 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_561, L_562, NULL);
-		if ((!(((uint32_t)((int32_t)(L_563&2))) == ((uint32_t)2))))
+		int32_t L_600;
+		L_600 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_598, L_599, NULL);
+		if ((!(((uint32_t)((int32_t)(L_600&2))) == ((uint32_t)2))))
 		{
-			goto IL_15bb;
+			goto IL_16ab;
 		}
 	}
 	{
 		__this->___statusMe = 1;
-		goto IL_15c1;
+		goto IL_16b1;
 	}
 
-IL_15bb:
+IL_16ab:
 	{
 		Char_setCharFallFromJump_mC9E8910A9890E59E9C00952F78514265ACE50040(__this, NULL);
 	}
 
-IL_15c1:
+IL_16b1:
 	{
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_564;
-		L_564 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
-		NullCheck(L_564);
-		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_564, NULL);
-		goto IL_19c3;
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_601;
+		L_601 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_601);
+		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_601, NULL);
+		goto IL_1abb;
 	}
 
-IL_15d0:
+IL_16c0:
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_565 = __this->___currentMovePoint;
-		NullCheck(L_565);
-		int32_t L_566 = L_565->___xEnd;
-		int32_t L_567 = __this->___cx;
-		if ((((int32_t)L_566) > ((int32_t)L_567)))
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_602 = __this->___currentMovePoint;
+		NullCheck(L_602);
+		int32_t L_603 = L_602->___xEnd;
+		int32_t L_604 = __this->___cx;
+		if ((((int32_t)L_603) > ((int32_t)L_604)))
 		{
-			G_B331_0 = __this;
-			goto IL_15e7;
+			G_B344_0 = __this;
+			goto IL_16d7;
 		}
-		G_B330_0 = __this;
+		G_B343_0 = __this;
 	}
 	{
-		G_B332_0 = (-1);
-		G_B332_1 = G_B330_0;
-		goto IL_15e8;
-	}
-
-IL_15e7:
-	{
-		G_B332_0 = 1;
-		G_B332_1 = G_B331_0;
+		G_B345_0 = (-1);
+		G_B345_1 = G_B343_0;
+		goto IL_16d8;
 	}
 
-IL_15e8:
+IL_16d7:
 	{
-		NullCheck(G_B332_1);
-		G_B332_1->___cdir = G_B332_0;
-		int32_t L_568 = __this->___cx;
-		int32_t L_569 = __this->___cy;
+		G_B345_0 = 1;
+		G_B345_1 = G_B344_0;
+	}
+
+IL_16d8:
+	{
+		NullCheck(G_B345_1);
+		G_B345_1->___cdir = G_B345_0;
+		int32_t L_605 = __this->___cx;
+		int32_t L_606 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_570;
-		L_570 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_568, L_569, 2, NULL);
-		if (!L_570)
+		bool L_607;
+		L_607 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_605, L_606, 2, NULL);
+		if (!L_607)
 		{
-			goto IL_1803;
+			goto IL_18f5;
 		}
 	}
 	{
 		__this->___statusMe = 2;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_571 = __this->___currentMovePoint;
-		if (!L_571)
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_608 = __this->___currentMovePoint;
+		if (!L_608)
 		{
-			goto IL_162d;
+			goto IL_171d;
 		}
 	}
 	{
-		int32_t L_572 = __this->___cspeed;
-		int32_t L_573 = __this->___cdir;
-		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_572, L_573));
+		int32_t L_609 = __this->___cspeed;
+		int32_t L_610 = __this->___cdir;
+		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_609, L_610));
 		__this->___cvy = 0;
 	}
 
-IL_162d:
+IL_171d:
 	{
-		int32_t L_574 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_575 = __this->___currentMovePoint;
-		NullCheck(L_575);
-		int32_t L_576 = L_575->___xEnd;
+		int32_t L_611 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_612 = __this->___currentMovePoint;
+		NullCheck(L_612);
+		int32_t L_613 = L_612->___xEnd;
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_577;
-		L_577 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_574, L_576)), NULL);
-		if ((((int32_t)L_577) > ((int32_t)((int32_t)10))))
+		int32_t L_614;
+		L_614 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_611, L_613)), NULL);
+		if ((((int32_t)L_614) > ((int32_t)((int32_t)10))))
 		{
-			goto IL_175e;
+			goto IL_1850;
 		}
 	}
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_578 = __this->___currentMovePoint;
-		NullCheck(L_578);
-		int32_t L_579 = L_578->___yEnd;
-		int32_t L_580 = __this->___cy;
-		if ((((int32_t)L_579) <= ((int32_t)L_580)))
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_615 = __this->___currentMovePoint;
+		NullCheck(L_615);
+		int32_t L_616 = L_615->___yEnd;
+		int32_t L_617 = __this->___cy;
+		if ((((int32_t)L_616) <= ((int32_t)L_617)))
 		{
-			goto IL_172c;
+			goto IL_181e;
 		}
 	}
 	{
-		V_8 = (bool)0;
-		V_9 = (int8_t)1;
-		int32_t L_581 = __this->___cdir;
-		if ((((int32_t)L_581) == ((int32_t)1)))
+		V_11 = (bool)0;
+		V_12 = (int8_t)1;
+		int32_t L_618 = __this->___cdir;
+		if ((((int32_t)L_618) == ((int32_t)1)))
 		{
-			goto IL_1673;
+			goto IL_1763;
 		}
 	}
 	{
-		G_B340_0 = (-1);
-		goto IL_1674;
+		G_B353_0 = (-1);
+		goto IL_1764;
 	}
 
-IL_1673:
+IL_1763:
 	{
-		G_B340_0 = 1;
+		G_B353_0 = 1;
 	}
 
-IL_1674:
+IL_1764:
 	{
-		V_9 = ((int8_t)G_B340_0);
-		V_10 = 0;
-		goto IL_16b4;
+		V_12 = ((int8_t)G_B353_0);
+		V_13 = 0;
+		goto IL_17a4;
 	}
 
-IL_167c:
+IL_176c:
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_582 = __this->___currentMovePoint;
-		NullCheck(L_582);
-		int32_t L_583 = L_582->___xEnd;
-		int32_t L_584 = __this->___chw;
-		int8_t L_585 = V_9;
-		int32_t L_586 = __this->___cy;
-		int32_t L_587 = __this->___chh;
-		int32_t L_588 = V_10;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_619 = __this->___currentMovePoint;
+		NullCheck(L_619);
+		int32_t L_620 = L_619->___xEnd;
+		int32_t L_621 = __this->___chw;
+		int8_t L_622 = V_12;
+		int32_t L_623 = __this->___cy;
+		int32_t L_624 = __this->___chh;
+		int32_t L_625 = V_13;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_589;
-		L_589 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_add(L_583, ((int32_t)il2cpp_codegen_multiply(L_584, (int32_t)L_585)))), ((int32_t)il2cpp_codegen_add(L_586, ((int32_t)il2cpp_codegen_multiply(L_587, L_588)))), 2, NULL);
-		if (!L_589)
+		bool L_626;
+		L_626 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_add(L_620, ((int32_t)il2cpp_codegen_multiply(L_621, (int32_t)L_622)))), ((int32_t)il2cpp_codegen_add(L_623, ((int32_t)il2cpp_codegen_multiply(L_624, L_625)))), 2, NULL);
+		if (!L_626)
 		{
-			goto IL_16ae;
+			goto IL_179e;
 		}
 	}
 	{
-		V_8 = (bool)1;
-		goto IL_16b9;
+		V_11 = (bool)1;
+		goto IL_17a9;
 	}
 
-IL_16ae:
+IL_179e:
 	{
-		int32_t L_590 = V_10;
-		V_10 = ((int32_t)il2cpp_codegen_add(L_590, 1));
+		int32_t L_627 = V_13;
+		V_13 = ((int32_t)il2cpp_codegen_add(L_627, 1));
 	}
 
-IL_16b4:
+IL_17a4:
 	{
-		int32_t L_591 = V_10;
-		if ((((int32_t)L_591) < ((int32_t)2)))
+		int32_t L_628 = V_13;
+		if ((((int32_t)L_628) < ((int32_t)2)))
 		{
-			goto IL_167c;
+			goto IL_176c;
 		}
 	}
 
-IL_16b9:
+IL_17a9:
 	{
-		bool L_592 = V_8;
-		if (!L_592)
+		bool L_629 = V_11;
+		if (!L_629)
 		{
-			goto IL_16ee;
+			goto IL_17e0;
 		}
 	}
 	{
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_593 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
-		NullCheck(L_593);
-		L_593->___clickMoving = (bool)0;
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_630 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
+		NullCheck(L_630);
+		L_630->___clickMoving = (bool)0;
 		__this->___statusMe = 1;
-		int32_t L_594 = 0;
-		V_1 = L_594;
-		__this->___cvy = L_594;
-		int32_t L_595 = V_1;
-		__this->___cvx = L_595;
+		int32_t L_631 = 0;
+		V_4 = L_631;
+		__this->___cvy = L_631;
+		int32_t L_632 = V_4;
+		__this->___cvx = L_632;
 		Char_checkPerformEndMovePointAction_m2E408719BABFD8C5D5DF2B9910DE0F4E9302936F(__this, NULL);
-		goto IL_175e;
+		goto IL_1850;
 	}
 
-IL_16ee:
+IL_17e0:
 	{
 		il2cpp_codegen_runtime_class_init_inline(SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE_il2cpp_TypeInfo_var);
-		SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE* L_596;
-		L_596 = SoundMn_gI_mC638F7F795F36F9E04F30A3613B22693B6E6B4D7(NULL);
-		NullCheck(L_596);
-		SoundMn_charJump_mF3B57939471FFD70B743558E6F5BE88235E19757(L_596, NULL);
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_597 = __this->___currentMovePoint;
-		NullCheck(L_597);
-		int32_t L_598 = L_597->___xEnd;
-		__this->___cx = L_598;
+		SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE* L_633;
+		L_633 = SoundMn_gI_mC638F7F795F36F9E04F30A3613B22693B6E6B4D7(NULL);
+		NullCheck(L_633);
+		SoundMn_charJump_mF3B57939471FFD70B743558E6F5BE88235E19757(L_633, NULL);
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_634 = __this->___currentMovePoint;
+		NullCheck(L_634);
+		int32_t L_635 = L_634->___xEnd;
+		__this->___cx = L_635;
 		__this->___statusMe = ((int32_t)10);
 		__this->___cvy = ((int32_t)-5);
 		__this->___cvx = 0;
 		il2cpp_codegen_runtime_class_init_inline(Res_t42939C8A70541C5F8BBAC618E2AE68A048453E10_il2cpp_TypeInfo_var);
 		Res_outz_mF51EC000D16B49E001011B2C1BAD2F66E72C33D3(_stringLiteral103E30DA97DD2197B7142C4587BC540AF4ABC02A, NULL);
-		goto IL_175e;
+		goto IL_1850;
 	}
 
-IL_172c:
+IL_181e:
 	{
 		il2cpp_codegen_runtime_class_init_inline(SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE_il2cpp_TypeInfo_var);
-		SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE* L_599;
-		L_599 = SoundMn_gI_mC638F7F795F36F9E04F30A3613B22693B6E6B4D7(NULL);
-		NullCheck(L_599);
-		SoundMn_charJump_mF3B57939471FFD70B743558E6F5BE88235E19757(L_599, NULL);
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_600 = __this->___currentMovePoint;
-		NullCheck(L_600);
-		int32_t L_601 = L_600->___xEnd;
-		__this->___cx = L_601;
+		SoundMn_tF7143B2451DA74D22C62C68BA65D0A1FD37828DE* L_636;
+		L_636 = SoundMn_gI_mC638F7F795F36F9E04F30A3613B22693B6E6B4D7(NULL);
+		NullCheck(L_636);
+		SoundMn_charJump_mF3B57939471FFD70B743558E6F5BE88235E19757(L_636, NULL);
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_637 = __this->___currentMovePoint;
+		NullCheck(L_637);
+		int32_t L_638 = L_637->___xEnd;
+		__this->___cx = L_638;
 		__this->___statusMe = ((int32_t)10);
 		__this->___cvy = ((int32_t)-5);
 		__this->___cvx = 0;
 	}
 
-IL_175e:
+IL_1850:
 	{
-		int32_t L_602 = __this->___cdir;
-		if ((!(((uint32_t)L_602) == ((uint32_t)1))))
+		int32_t L_639 = __this->___cdir;
+		if ((!(((uint32_t)L_639) == ((uint32_t)1))))
 		{
-			goto IL_17b4;
+			goto IL_18a6;
 		}
 	}
 	{
-		int32_t L_603 = __this->___cx;
-		int32_t L_604 = __this->___chw;
-		int32_t L_605 = __this->___cy;
-		int32_t L_606 = __this->___chh;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_607;
-		L_607 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_add(L_603, L_604)), ((int32_t)il2cpp_codegen_subtract(L_605, L_606)), 4, NULL);
-		if (!L_607)
-		{
-			goto IL_19c3;
-		}
-	}
-	{
-		int32_t L_608 = __this->___cspeed;
-		int32_t L_609 = __this->___cdir;
-		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_608, L_609));
-		__this->___statusMe = ((int32_t)10);
-		__this->___cvy = ((int32_t)-5);
-		goto IL_19c3;
-	}
-
-IL_17b4:
-	{
-		int32_t L_610 = __this->___cx;
-		int32_t L_611 = __this->___chw;
-		int32_t L_612 = __this->___cy;
-		int32_t L_613 = __this->___chh;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_614;
-		L_614 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_610, L_611)), 1)), ((int32_t)il2cpp_codegen_subtract(L_612, L_613)), 8, NULL);
-		if (!L_614)
-		{
-			goto IL_19c3;
-		}
-	}
-	{
-		int32_t L_615 = __this->___cspeed;
-		int32_t L_616 = __this->___cdir;
-		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_615, L_616));
-		__this->___statusMe = ((int32_t)10);
-		__this->___cvy = ((int32_t)-5);
-		goto IL_19c3;
-	}
-
-IL_1803:
-	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_617 = __this->___currentMovePoint;
-		NullCheck(L_617);
-		int32_t L_618 = L_617->___yEnd;
-		int32_t L_619 = __this->___cy;
-		if ((((int32_t)L_618) >= ((int32_t)((int32_t)il2cpp_codegen_add(L_619, ((int32_t)10))))))
-		{
-			goto IL_1895;
-		}
-	}
-	{
-		__this->___statusMe = ((int32_t)10);
-		__this->___cvy = ((int32_t)-5);
-		int32_t L_620 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_621 = __this->___currentMovePoint;
-		NullCheck(L_621);
-		int32_t L_622 = L_621->___yEnd;
-		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_623;
-		L_623 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_620, L_622)), NULL);
-		if ((((int32_t)L_623) > ((int32_t)((int32_t)10))))
-		{
-			goto IL_185c;
-		}
-	}
-	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_624 = __this->___currentMovePoint;
-		NullCheck(L_624);
-		int32_t L_625 = L_624->___yEnd;
-		__this->___cy = L_625;
-		__this->___cvy = 0;
-	}
-
-IL_185c:
-	{
-		int32_t L_626 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_627 = __this->___currentMovePoint;
-		NullCheck(L_627);
-		int32_t L_628 = L_627->___xEnd;
-		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_629;
-		L_629 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_626, L_628)), NULL);
-		if ((((int32_t)L_629) > ((int32_t)((int32_t)10))))
-		{
-			goto IL_1880;
-		}
-	}
-	{
-		__this->___cvx = 0;
-		goto IL_18fb;
-	}
-
-IL_1880:
-	{
-		int32_t L_630 = __this->___cspeed;
-		int32_t L_631 = __this->___cdir;
-		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_630, L_631));
-		goto IL_18fb;
-	}
-
-IL_1895:
-	{
-		int32_t L_632 = __this->___cx;
-		int32_t L_633 = __this->___cy;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_634;
-		L_634 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_632, L_633, 2, NULL);
-		if (!L_634)
-		{
-			goto IL_18da;
-		}
-	}
-	{
-		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
-		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_635 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
-		NullCheck(L_635);
-		L_635->___clickMoving = (bool)0;
-		__this->___statusMe = 1;
-		int32_t L_636 = 0;
-		V_1 = L_636;
-		__this->___cvy = L_636;
-		int32_t L_637 = V_1;
-		__this->___cvx = L_637;
-		Char_checkPerformEndMovePointAction_m2E408719BABFD8C5D5DF2B9910DE0F4E9302936F(__this, NULL);
-		goto IL_18fb;
-	}
-
-IL_18da:
-	{
-		int32_t L_638 = __this->___statusMe;
-		if ((((int32_t)L_638) == ((int32_t)((int32_t)10))))
-		{
-			goto IL_18ed;
-		}
-	}
-	{
-		int32_t L_639 = __this->___statusMe;
-		if ((!(((uint32_t)L_639) == ((uint32_t)2))))
-		{
-			goto IL_18f4;
-		}
-	}
-
-IL_18ed:
-	{
-		__this->___cvy = 0;
-	}
-
-IL_18f4:
-	{
-		__this->___statusMe = 4;
-	}
-
-IL_18fb:
-	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_640 = __this->___currentMovePoint;
-		NullCheck(L_640);
-		int32_t L_641 = L_640->___yEnd;
+		int32_t L_640 = __this->___cx;
+		int32_t L_641 = __this->___chw;
 		int32_t L_642 = __this->___cy;
-		if ((((int32_t)L_641) <= ((int32_t)L_642)))
-		{
-			goto IL_19c3;
-		}
-	}
-	{
-		int32_t L_643 = __this->___cdir;
-		if ((!(((uint32_t)L_643) == ((uint32_t)1))))
-		{
-			goto IL_1970;
-		}
-	}
-	{
-		int32_t L_644 = __this->___cx;
-		int32_t L_645 = __this->___chw;
-		int32_t L_646 = __this->___cy;
-		int32_t L_647 = __this->___chh;
+		int32_t L_643 = __this->___chh;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_648;
-		L_648 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_add(L_644, L_645)), ((int32_t)il2cpp_codegen_subtract(L_646, L_647)), 4, NULL);
-		if (!L_648)
+		bool L_644;
+		L_644 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_add(L_640, L_641)), ((int32_t)il2cpp_codegen_subtract(L_642, L_643)), 4, NULL);
+		if (!L_644)
 		{
-			goto IL_19c3;
+			goto IL_1abb;
 		}
 	}
 	{
-		int32_t L_649 = 0;
-		V_1 = L_649;
-		__this->___cvy = L_649;
-		int32_t L_650 = V_1;
-		__this->___cvx = L_650;
-		__this->___statusMe = 4;
+		int32_t L_645 = __this->___cspeed;
+		int32_t L_646 = __this->___cdir;
+		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_645, L_646));
+		__this->___statusMe = ((int32_t)10);
+		__this->___cvy = ((int32_t)-5);
+		goto IL_1abb;
+	}
+
+IL_18a6:
+	{
+		int32_t L_647 = __this->___cx;
+		int32_t L_648 = __this->___chw;
+		int32_t L_649 = __this->___cy;
+		int32_t L_650 = __this->___chh;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		bool L_651;
+		L_651 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_647, L_648)), 1)), ((int32_t)il2cpp_codegen_subtract(L_649, L_650)), 8, NULL);
+		if (!L_651)
+		{
+			goto IL_1abb;
+		}
+	}
+	{
+		int32_t L_652 = __this->___cspeed;
+		int32_t L_653 = __this->___cdir;
+		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_652, L_653));
+		__this->___statusMe = ((int32_t)10);
+		__this->___cvy = ((int32_t)-5);
+		goto IL_1abb;
+	}
+
+IL_18f5:
+	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_654 = __this->___currentMovePoint;
+		NullCheck(L_654);
+		int32_t L_655 = L_654->___yEnd;
+		int32_t L_656 = __this->___cy;
+		if ((((int32_t)L_655) >= ((int32_t)((int32_t)il2cpp_codegen_add(L_656, ((int32_t)10))))))
+		{
+			goto IL_1987;
+		}
+	}
+	{
+		__this->___statusMe = ((int32_t)10);
+		__this->___cvy = ((int32_t)-5);
+		int32_t L_657 = __this->___cy;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_658 = __this->___currentMovePoint;
+		NullCheck(L_658);
+		int32_t L_659 = L_658->___yEnd;
+		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
+		int32_t L_660;
+		L_660 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_657, L_659)), NULL);
+		if ((((int32_t)L_660) > ((int32_t)((int32_t)10))))
+		{
+			goto IL_194e;
+		}
+	}
+	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_661 = __this->___currentMovePoint;
+		NullCheck(L_661);
+		int32_t L_662 = L_661->___yEnd;
+		__this->___cy = L_662;
+		__this->___cvy = 0;
+	}
+
+IL_194e:
+	{
+		int32_t L_663 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_664 = __this->___currentMovePoint;
+		NullCheck(L_664);
+		int32_t L_665 = L_664->___xEnd;
+		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
+		int32_t L_666;
+		L_666 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_663, L_665)), NULL);
+		if ((((int32_t)L_666) > ((int32_t)((int32_t)10))))
+		{
+			goto IL_1972;
+		}
+	}
+	{
+		__this->___cvx = 0;
+		goto IL_19ef;
+	}
+
+IL_1972:
+	{
+		int32_t L_667 = __this->___cspeed;
+		int32_t L_668 = __this->___cdir;
+		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_667, L_668));
+		goto IL_19ef;
+	}
+
+IL_1987:
+	{
+		int32_t L_669 = __this->___cx;
+		int32_t L_670 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		bool L_671;
+		L_671 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(L_669, L_670, 2, NULL);
+		if (!L_671)
+		{
+			goto IL_19ce;
+		}
+	}
+	{
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_651 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
-		NullCheck(L_651);
-		L_651->___clickMoving = (bool)0;
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_672 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
+		NullCheck(L_672);
+		L_672->___clickMoving = (bool)0;
+		__this->___statusMe = 1;
+		int32_t L_673 = 0;
+		V_4 = L_673;
+		__this->___cvy = L_673;
+		int32_t L_674 = V_4;
+		__this->___cvx = L_674;
 		Char_checkPerformEndMovePointAction_m2E408719BABFD8C5D5DF2B9910DE0F4E9302936F(__this, NULL);
-		goto IL_19c3;
-	}
-
-IL_1970:
-	{
-		int32_t L_652 = __this->___cx;
-		int32_t L_653 = __this->___chw;
-		int32_t L_654 = __this->___cy;
-		int32_t L_655 = __this->___chh;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		bool L_656;
-		L_656 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_652, L_653)), 1)), ((int32_t)il2cpp_codegen_subtract(L_654, L_655)), 8, NULL);
-		if (!L_656)
-		{
-			goto IL_19c3;
-		}
-	}
-	{
-		int32_t L_657 = 0;
-		V_1 = L_657;
-		__this->___cvy = L_657;
-		int32_t L_658 = V_1;
-		__this->___cvx = L_658;
-		__this->___statusMe = 4;
-		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
-		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_659 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
-		NullCheck(L_659);
-		L_659->___clickMoving = (bool)0;
-		Char_checkPerformEndMovePointAction_m2E408719BABFD8C5D5DF2B9910DE0F4E9302936F(__this, NULL);
-	}
-
-IL_19c3:
-	{
-		Char_searchFocus_mD8A6F48F4197A9C27D873C8CB331764CFD6FE8FD(__this, NULL);
-		goto IL_1fda;
+		goto IL_19ef;
 	}
 
 IL_19ce:
 	{
-		Char_checkHideCharName_m052147ACC422F484EE2AF903D0D6AA6A90A3185F(__this, NULL);
-		int32_t L_660 = __this->___statusMe;
-		if ((((int32_t)L_660) == ((int32_t)1)))
+		int32_t L_675 = __this->___statusMe;
+		if ((((int32_t)L_675) == ((int32_t)((int32_t)10))))
 		{
-			goto IL_19e9;
+			goto IL_19e1;
 		}
 	}
 	{
-		int32_t L_661 = __this->___statusMe;
-		if ((!(((uint32_t)L_661) == ((uint32_t)6))))
+		int32_t L_676 = __this->___statusMe;
+		if ((!(((uint32_t)L_676) == ((uint32_t)2))))
 		{
-			goto IL_1fda;
+			goto IL_19e8;
 		}
 	}
 
-IL_19e9:
+IL_19e1:
 	{
-		V_11 = (bool)0;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_662 = __this->___currentMovePoint;
-		if (!L_662)
+		__this->___cvy = 0;
+	}
+
+IL_19e8:
+	{
+		__this->___statusMe = 4;
+	}
+
+IL_19ef:
+	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_677 = __this->___currentMovePoint;
+		NullCheck(L_677);
+		int32_t L_678 = L_677->___yEnd;
+		int32_t L_679 = __this->___cy;
+		if ((((int32_t)L_678) <= ((int32_t)L_679)))
 		{
-			goto IL_1c6b;
+			goto IL_1abb;
 		}
 	}
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_663 = __this->___currentMovePoint;
-		NullCheck(L_663);
-		int32_t L_664 = L_663->___xEnd;
-		int32_t L_665 = __this->___cx;
-		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_666;
-		L_666 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_664, L_665)), NULL);
-		if ((((int32_t)L_666) >= ((int32_t)((int32_t)17))))
+		int32_t L_680 = __this->___cdir;
+		if ((!(((uint32_t)L_680) == ((uint32_t)1))))
 		{
-			goto IL_1ad4;
+			goto IL_1a66;
 		}
 	}
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_667 = __this->___currentMovePoint;
-		NullCheck(L_667);
-		int32_t L_668 = L_667->___yEnd;
-		int32_t L_669 = __this->___cy;
-		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_670;
-		L_670 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_668, L_669)), NULL);
-		if ((((int32_t)L_670) >= ((int32_t)((int32_t)25))))
+		int32_t L_681 = __this->___cx;
+		int32_t L_682 = __this->___chw;
+		int32_t L_683 = __this->___cy;
+		int32_t L_684 = __this->___chh;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		bool L_685;
+		L_685 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_add(L_681, L_682)), ((int32_t)il2cpp_codegen_subtract(L_683, L_684)), 4, NULL);
+		if (!L_685)
 		{
-			goto IL_1ad4;
+			goto IL_1abb;
 		}
 	}
 	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_671 = __this->___currentMovePoint;
-		NullCheck(L_671);
-		int32_t L_672 = L_671->___xEnd;
-		__this->___cx = L_672;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_673 = __this->___currentMovePoint;
-		NullCheck(L_673);
-		int32_t L_674 = L_673->___yEnd;
-		__this->___cy = L_674;
+		int32_t L_686 = 0;
+		V_4 = L_686;
+		__this->___cvy = L_686;
+		int32_t L_687 = V_4;
+		__this->___cvx = L_687;
+		__this->___statusMe = 4;
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
-		int32_t L_675 = __this->___cx;
-		int32_t L_676 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_688 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
+		NullCheck(L_688);
+		L_688->___clickMoving = (bool)0;
+		Char_checkPerformEndMovePointAction_m2E408719BABFD8C5D5DF2B9910DE0F4E9302936F(__this, NULL);
+		goto IL_1abb;
+	}
+
+IL_1a66:
+	{
+		int32_t L_689 = __this->___cx;
+		int32_t L_690 = __this->___chw;
+		int32_t L_691 = __this->___cy;
+		int32_t L_692 = __this->___chh;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_677;
-		L_677 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_675, L_676, NULL);
-		if ((!(((uint32_t)((int32_t)(L_677&2))) == ((uint32_t)2))))
+		bool L_693;
+		L_693 = TileMap_tileTypeAt_m3CF3977EBE57358E445EF94A89C44669ACFE2BC7(((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_689, L_690)), 1)), ((int32_t)il2cpp_codegen_subtract(L_691, L_692)), 8, NULL);
+		if (!L_693)
 		{
-			goto IL_1ab7;
+			goto IL_1abb;
+		}
+	}
+	{
+		int32_t L_694 = 0;
+		V_4 = L_694;
+		__this->___cvy = L_694;
+		int32_t L_695 = V_4;
+		__this->___cvx = L_695;
+		__this->___statusMe = 4;
+		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
+		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
+		GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6* L_696 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___instance;
+		NullCheck(L_696);
+		L_696->___clickMoving = (bool)0;
+		Char_checkPerformEndMovePointAction_m2E408719BABFD8C5D5DF2B9910DE0F4E9302936F(__this, NULL);
+	}
+
+IL_1abb:
+	{
+		Char_searchFocus_mD8A6F48F4197A9C27D873C8CB331764CFD6FE8FD(__this, NULL);
+		goto IL_20d2;
+	}
+
+IL_1ac6:
+	{
+		Char_checkHideCharName_m052147ACC422F484EE2AF903D0D6AA6A90A3185F(__this, NULL);
+		int32_t L_697 = __this->___statusMe;
+		if ((((int32_t)L_697) == ((int32_t)1)))
+		{
+			goto IL_1ae1;
+		}
+	}
+	{
+		int32_t L_698 = __this->___statusMe;
+		if ((!(((uint32_t)L_698) == ((uint32_t)6))))
+		{
+			goto IL_20d2;
+		}
+	}
+
+IL_1ae1:
+	{
+		V_14 = (bool)0;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_699 = __this->___currentMovePoint;
+		if (!L_699)
+		{
+			goto IL_1d63;
+		}
+	}
+	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_700 = __this->___currentMovePoint;
+		NullCheck(L_700);
+		int32_t L_701 = L_700->___xEnd;
+		int32_t L_702 = __this->___cx;
+		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
+		int32_t L_703;
+		L_703 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_701, L_702)), NULL);
+		if ((((int32_t)L_703) >= ((int32_t)((int32_t)17))))
+		{
+			goto IL_1bcc;
+		}
+	}
+	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_704 = __this->___currentMovePoint;
+		NullCheck(L_704);
+		int32_t L_705 = L_704->___yEnd;
+		int32_t L_706 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
+		int32_t L_707;
+		L_707 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_705, L_706)), NULL);
+		if ((((int32_t)L_707) >= ((int32_t)((int32_t)25))))
+		{
+			goto IL_1bcc;
+		}
+	}
+	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_708 = __this->___currentMovePoint;
+		NullCheck(L_708);
+		int32_t L_709 = L_708->___xEnd;
+		__this->___cx = L_709;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_710 = __this->___currentMovePoint;
+		NullCheck(L_710);
+		int32_t L_711 = L_710->___yEnd;
+		__this->___cy = L_711;
+		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
+		int32_t L_712 = __this->___cx;
+		int32_t L_713 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		int32_t L_714;
+		L_714 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_712, L_713, NULL);
+		if ((!(((uint32_t)((int32_t)(L_714&2))) == ((uint32_t)2))))
+		{
+			goto IL_1baf;
 		}
 	}
 	{
 		__this->___statusMe = 1;
 		__this->___cp3 = 0;
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_678;
-		L_678 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
-		int32_t L_679 = __this->___cx;
-		int32_t L_680 = __this->___cy;
-		NullCheck(L_678);
-		bool L_681;
-		L_681 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_678, (-1), ((int32_t)il2cpp_codegen_subtract(L_679, ((int32_t)-8))), L_680, NULL);
-		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_682;
-		L_682 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
-		int32_t L_683 = __this->___cx;
-		int32_t L_684 = __this->___cy;
-		NullCheck(L_682);
-		bool L_685;
-		L_685 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_682, 1, ((int32_t)il2cpp_codegen_subtract(L_683, 8)), L_684, NULL);
-		goto IL_1acc;
+		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_715;
+		L_715 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
+		int32_t L_716 = __this->___cx;
+		int32_t L_717 = __this->___cy;
+		NullCheck(L_715);
+		bool L_718;
+		L_718 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_715, (-1), ((int32_t)il2cpp_codegen_subtract(L_716, ((int32_t)-8))), L_717, NULL);
+		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_719;
+		L_719 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
+		int32_t L_720 = __this->___cx;
+		int32_t L_721 = __this->___cy;
+		NullCheck(L_719);
+		bool L_722;
+		L_722 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_719, 1, ((int32_t)il2cpp_codegen_subtract(L_720, 8)), L_721, NULL);
+		goto IL_1bc4;
 	}
 
-IL_1ab7:
+IL_1baf:
 	{
 		__this->___statusMe = 4;
 		__this->___cvy = 0;
 		__this->___cp1 = 0;
 	}
 
-IL_1acc:
+IL_1bc4:
 	{
-		V_11 = (bool)1;
-		goto IL_1c6e;
+		V_14 = (bool)1;
+		goto IL_1d66;
 	}
 
-IL_1ad4:
+IL_1bcc:
 	{
-		int32_t L_686 = __this->___statusBeforeNothing;
-		if ((((int32_t)L_686) == ((int32_t)((int32_t)10))))
+		int32_t L_723 = __this->___statusBeforeNothing;
+		if ((((int32_t)L_723) == ((int32_t)((int32_t)10))))
 		{
-			goto IL_1ae7;
+			goto IL_1bdf;
 		}
 	}
 	{
-		int32_t L_687 = __this->___cf;
-		if ((!(((uint32_t)L_687) == ((uint32_t)8))))
+		int32_t L_724 = __this->___cf;
+		if ((!(((uint32_t)L_724) == ((uint32_t)8))))
 		{
-			goto IL_1afd;
+			goto IL_1bf5;
 		}
 	}
 
-IL_1ae7:
+IL_1bdf:
 	{
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_688 = __this->___vMovePoints;
-		NullCheck(L_688);
-		int32_t L_689;
-		L_689 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_688, NULL);
-		if ((((int32_t)L_689) <= ((int32_t)0)))
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_725 = __this->___vMovePoints;
+		NullCheck(L_725);
+		int32_t L_726;
+		L_726 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_725, NULL);
+		if ((((int32_t)L_726) <= ((int32_t)0)))
 		{
-			goto IL_1afd;
+			goto IL_1bf5;
 		}
 	}
 	{
-		V_11 = (bool)1;
-		goto IL_1c6e;
+		V_14 = (bool)1;
+		goto IL_1d66;
 	}
 
-IL_1afd:
+IL_1bf5:
 	{
-		int32_t L_690 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_691 = __this->___currentMovePoint;
-		NullCheck(L_691);
-		int32_t L_692 = L_691->___yEnd;
-		if ((!(((uint32_t)L_690) == ((uint32_t)L_692))))
+		int32_t L_727 = __this->___cy;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_728 = __this->___currentMovePoint;
+		NullCheck(L_728);
+		int32_t L_729 = L_728->___yEnd;
+		if ((!(((uint32_t)L_727) == ((uint32_t)L_729))))
 		{
-			goto IL_1b54;
+			goto IL_1c4c;
 		}
 	}
 	{
-		int32_t L_693 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_694 = __this->___currentMovePoint;
-		NullCheck(L_694);
-		int32_t L_695 = L_694->___xEnd;
-		if ((((int32_t)L_693) == ((int32_t)L_695)))
+		int32_t L_730 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_731 = __this->___currentMovePoint;
+		NullCheck(L_731);
+		int32_t L_732 = L_731->___xEnd;
+		if ((((int32_t)L_730) == ((int32_t)L_732)))
 		{
-			goto IL_1c6e;
+			goto IL_1d66;
 		}
 	}
 	{
-		int32_t L_696 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_697 = __this->___currentMovePoint;
-		NullCheck(L_697);
-		int32_t L_698 = L_697->___xEnd;
-		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_696, L_698))/2));
+		int32_t L_733 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_734 = __this->___currentMovePoint;
+		NullCheck(L_734);
+		int32_t L_735 = L_734->___xEnd;
+		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_733, L_735))/2));
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_699 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		__this->___cf = ((int32_t)il2cpp_codegen_add(((int32_t)(L_699%5)), 2));
-		goto IL_1c6e;
+		int32_t L_736 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		__this->___cf = ((int32_t)il2cpp_codegen_add(((int32_t)(L_736%5)), 2));
+		goto IL_1d66;
 	}
 
-IL_1b54:
+IL_1c4c:
 	{
-		int32_t L_700 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_701 = __this->___currentMovePoint;
-		NullCheck(L_701);
-		int32_t L_702 = L_701->___yEnd;
-		if ((((int32_t)L_700) >= ((int32_t)L_702)))
+		int32_t L_737 = __this->___cy;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_738 = __this->___currentMovePoint;
+		NullCheck(L_738);
+		int32_t L_739 = L_738->___yEnd;
+		if ((((int32_t)L_737) >= ((int32_t)L_739)))
 		{
-			goto IL_1c2e;
+			goto IL_1d26;
 		}
 	}
 	{
 		__this->___cf = ((int32_t)12);
-		int32_t L_703 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_704 = __this->___currentMovePoint;
-		NullCheck(L_704);
-		int32_t L_705 = L_704->___xEnd;
-		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_703, L_705))/2));
-		int32_t L_706 = __this->___cvy;
-		if ((((int32_t)L_706) >= ((int32_t)0)))
+		int32_t L_740 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_741 = __this->___currentMovePoint;
+		NullCheck(L_741);
+		int32_t L_742 = L_741->___xEnd;
+		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_740, L_742))/2));
+		int32_t L_743 = __this->___cvy;
+		if ((((int32_t)L_743) >= ((int32_t)0)))
 		{
-			goto IL_1b9c;
+			goto IL_1c94;
 		}
 	}
 	{
 		__this->___cvy = 0;
 	}
 
-IL_1b9c:
+IL_1c94:
 	{
-		int32_t L_707 = __this->___cy;
-		int32_t L_708 = __this->___cvy;
-		__this->___cy = ((int32_t)il2cpp_codegen_add(L_707, L_708));
-		int32_t L_709 = __this->___cx;
-		int32_t L_710 = __this->___cy;
+		int32_t L_744 = __this->___cy;
+		int32_t L_745 = __this->___cvy;
+		__this->___cy = ((int32_t)il2cpp_codegen_add(L_744, L_745));
+		int32_t L_746 = __this->___cx;
+		int32_t L_747 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_711;
-		L_711 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_709, L_710, NULL);
-		if ((!(((uint32_t)((int32_t)(L_711&2))) == ((uint32_t)2))))
+		int32_t L_748;
+		L_748 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_746, L_747, NULL);
+		if ((!(((uint32_t)((int32_t)(L_748&2))) == ((uint32_t)2))))
 		{
-			goto IL_1bfa;
+			goto IL_1cf2;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_712;
-		L_712 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
-		int32_t L_713 = __this->___cx;
-		int32_t L_714 = __this->___cy;
-		NullCheck(L_712);
-		bool L_715;
-		L_715 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_712, (-1), ((int32_t)il2cpp_codegen_subtract(L_713, ((int32_t)-8))), L_714, NULL);
-		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_716;
-		L_716 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
-		int32_t L_717 = __this->___cx;
-		int32_t L_718 = __this->___cy;
-		NullCheck(L_716);
-		bool L_719;
-		L_719 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_716, 1, ((int32_t)il2cpp_codegen_subtract(L_717, 8)), L_718, NULL);
+		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_749;
+		L_749 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
+		int32_t L_750 = __this->___cx;
+		int32_t L_751 = __this->___cy;
+		NullCheck(L_749);
+		bool L_752;
+		L_752 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_749, (-1), ((int32_t)il2cpp_codegen_subtract(L_750, ((int32_t)-8))), L_751, NULL);
+		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_753;
+		L_753 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
+		int32_t L_754 = __this->___cx;
+		int32_t L_755 = __this->___cy;
+		NullCheck(L_753);
+		bool L_756;
+		L_756 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_753, 1, ((int32_t)il2cpp_codegen_subtract(L_754, 8)), L_755, NULL);
 	}
 
-IL_1bfa:
+IL_1cf2:
 	{
-		int32_t L_720 = __this->___cvy;
-		__this->___cvy = ((int32_t)il2cpp_codegen_add(L_720, 1));
-		int32_t L_721 = __this->___cvy;
-		if ((((int32_t)L_721) <= ((int32_t)((int32_t)16))))
+		int32_t L_757 = __this->___cvy;
+		__this->___cvy = ((int32_t)il2cpp_codegen_add(L_757, 1));
+		int32_t L_758 = __this->___cvy;
+		if ((((int32_t)L_758) <= ((int32_t)((int32_t)16))))
 		{
-			goto IL_1c6e;
+			goto IL_1d66;
 		}
 	}
 	{
-		int32_t L_722 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_723 = __this->___currentMovePoint;
-		NullCheck(L_723);
-		int32_t L_724 = L_723->___yEnd;
-		__this->___cy = ((int32_t)(((int32_t)il2cpp_codegen_add(L_722, L_724))/2));
-		goto IL_1c6e;
+		int32_t L_759 = __this->___cy;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_760 = __this->___currentMovePoint;
+		NullCheck(L_760);
+		int32_t L_761 = L_760->___yEnd;
+		__this->___cy = ((int32_t)(((int32_t)il2cpp_codegen_add(L_759, L_761))/2));
+		goto IL_1d66;
 	}
 
-IL_1c2e:
+IL_1d26:
 	{
 		__this->___cf = 7;
-		int32_t L_725 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_726 = __this->___currentMovePoint;
-		NullCheck(L_726);
-		int32_t L_727 = L_726->___xEnd;
-		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_725, L_727))/2));
-		int32_t L_728 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_729 = __this->___currentMovePoint;
-		NullCheck(L_729);
-		int32_t L_730 = L_729->___yEnd;
-		__this->___cy = ((int32_t)(((int32_t)il2cpp_codegen_add(L_728, L_730))/2));
-		goto IL_1c6e;
-	}
-
-IL_1c6b:
-	{
-		V_11 = (bool)1;
-	}
-
-IL_1c6e:
-	{
-		bool L_731 = V_11;
-		if (!L_731)
-		{
-			goto IL_1fda;
-		}
-	}
-	{
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_732 = __this->___vMovePoints;
-		NullCheck(L_732);
-		int32_t L_733;
-		L_733 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_732, NULL);
-		if ((((int32_t)L_733) <= ((int32_t)0)))
-		{
-			goto IL_1fda;
-		}
-	}
-	{
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_734 = __this->___vMovePoints;
-		NullCheck(L_734);
-		RuntimeObject* L_735;
-		L_735 = MyVector_firstElement_m94A5045C21B62FA1D7A4188219F87AFC1180CDEB(L_734, NULL);
-		__this->___currentMovePoint = ((MovePoint_t935B2561B2469906D762963068D2E58357E88159*)CastclassClass((RuntimeObject*)L_735, MovePoint_t935B2561B2469906D762963068D2E58357E88159_il2cpp_TypeInfo_var));
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)((MovePoint_t935B2561B2469906D762963068D2E58357E88159*)CastclassClass((RuntimeObject*)L_735, MovePoint_t935B2561B2469906D762963068D2E58357E88159_il2cpp_TypeInfo_var)));
-		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_736 = __this->___vMovePoints;
-		NullCheck(L_736);
-		MyVector_removeElementAt_mBAAE9A96CE172AF34B3FAFAF22E50D5F191E97C5(L_736, 0, NULL);
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_737 = __this->___currentMovePoint;
-		NullCheck(L_737);
-		int32_t L_738 = L_737->___status;
-		if ((!(((uint32_t)L_738) == ((uint32_t)2))))
-		{
-			goto IL_1dc8;
-		}
-	}
-	{
-		int32_t L_739 = __this->___cx;
-		int32_t L_740 = __this->___cy;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_741;
-		L_741 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_739, ((int32_t)il2cpp_codegen_add(L_740, ((int32_t)12))), NULL);
-		if ((((int32_t)((int32_t)(L_741&2))) == ((int32_t)2)))
-		{
-			goto IL_1d68;
-		}
-	}
-	{
-		__this->___statusMe = ((int32_t)10);
-		__this->___cp1 = 0;
-		__this->___cp2 = 0;
-		int32_t L_742 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_743 = __this->___currentMovePoint;
-		NullCheck(L_743);
-		int32_t L_744 = L_743->___xEnd;
-		__this->___cvx = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_742, L_744))))/((int32_t)10)));
-		int32_t L_745 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_746 = __this->___currentMovePoint;
-		NullCheck(L_746);
-		int32_t L_747 = L_746->___yEnd;
-		__this->___cvy = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_745, L_747))))/((int32_t)10)));
-		int32_t L_748 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_749 = __this->___currentMovePoint;
-		NullCheck(L_749);
-		int32_t L_750 = L_749->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_748, L_750))) <= ((int32_t)0)))
-		{
-			goto IL_1d44;
-		}
-	}
-	{
-		__this->___cdir = (-1);
-		goto IL_1fda;
-	}
-
-IL_1d44:
-	{
-		int32_t L_751 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_752 = __this->___currentMovePoint;
-		NullCheck(L_752);
-		int32_t L_753 = L_752->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_751, L_753))) >= ((int32_t)0)))
-		{
-			goto IL_1fda;
-		}
-	}
-	{
-		__this->___cdir = 1;
-		goto IL_1fda;
-	}
-
-IL_1d68:
-	{
-		__this->___statusMe = 2;
-		int32_t L_754 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_755 = __this->___currentMovePoint;
-		NullCheck(L_755);
-		int32_t L_756 = L_755->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_754, L_756))) <= ((int32_t)0)))
-		{
-			goto IL_1d8d;
-		}
-	}
-	{
-		__this->___cdir = (-1);
-		goto IL_1da9;
-	}
-
-IL_1d8d:
-	{
-		int32_t L_757 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_758 = __this->___currentMovePoint;
-		NullCheck(L_758);
-		int32_t L_759 = L_758->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_757, L_759))) >= ((int32_t)0)))
-		{
-			goto IL_1da9;
-		}
-	}
-	{
-		__this->___cdir = 1;
-	}
-
-IL_1da9:
-	{
-		int32_t L_760 = __this->___cspeed;
-		int32_t L_761 = __this->___cdir;
-		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_760, L_761));
-		__this->___cvy = 0;
-		goto IL_1fda;
-	}
-
-IL_1dc8:
-	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_762 = __this->___currentMovePoint;
-		NullCheck(L_762);
-		int32_t L_763 = L_762->___status;
-		if ((!(((uint32_t)L_763) == ((uint32_t)3))))
-		{
-			goto IL_1f32;
-		}
-	}
-	{
-		int32_t L_764 = __this->___cx;
+		int32_t L_762 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_763 = __this->___currentMovePoint;
+		NullCheck(L_763);
+		int32_t L_764 = L_763->___xEnd;
+		__this->___cx = ((int32_t)(((int32_t)il2cpp_codegen_add(L_762, L_764))/2));
 		int32_t L_765 = __this->___cy;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_766;
-		L_766 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_764, ((int32_t)il2cpp_codegen_add(L_765, ((int32_t)23))), NULL);
-		if ((((int32_t)((int32_t)(L_766&2))) == ((int32_t)2)))
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_766 = __this->___currentMovePoint;
+		NullCheck(L_766);
+		int32_t L_767 = L_766->___yEnd;
+		__this->___cy = ((int32_t)(((int32_t)il2cpp_codegen_add(L_765, L_767))/2));
+		goto IL_1d66;
+	}
+
+IL_1d63:
+	{
+		V_14 = (bool)1;
+	}
+
+IL_1d66:
+	{
+		bool L_768 = V_14;
+		if (!L_768)
 		{
-			goto IL_1e88;
+			goto IL_20d2;
 		}
 	}
 	{
-		__this->___statusMe = ((int32_t)10);
-		__this->___cp1 = 0;
-		__this->___cp2 = 0;
-		int32_t L_767 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_768 = __this->___currentMovePoint;
-		NullCheck(L_768);
-		int32_t L_769 = L_768->___xEnd;
-		__this->___cvx = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_767, L_769))))/((int32_t)10)));
-		int32_t L_770 = __this->___cy;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_771 = __this->___currentMovePoint;
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_769 = __this->___vMovePoints;
+		NullCheck(L_769);
+		int32_t L_770;
+		L_770 = MyVector_size_mF025A05E2021611BFB9E107342658AEB05222BA9(L_769, NULL);
+		if ((((int32_t)L_770) <= ((int32_t)0)))
+		{
+			goto IL_20d2;
+		}
+	}
+	{
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_771 = __this->___vMovePoints;
 		NullCheck(L_771);
-		int32_t L_772 = L_771->___yEnd;
-		__this->___cvy = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_770, L_772))))/((int32_t)10)));
-		int32_t L_773 = __this->___cx;
+		RuntimeObject* L_772;
+		L_772 = MyVector_firstElement_m94A5045C21B62FA1D7A4188219F87AFC1180CDEB(L_771, NULL);
+		__this->___currentMovePoint = ((MovePoint_t935B2561B2469906D762963068D2E58357E88159*)CastclassClass((RuntimeObject*)L_772, MovePoint_t935B2561B2469906D762963068D2E58357E88159_il2cpp_TypeInfo_var));
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)((MovePoint_t935B2561B2469906D762963068D2E58357E88159*)CastclassClass((RuntimeObject*)L_772, MovePoint_t935B2561B2469906D762963068D2E58357E88159_il2cpp_TypeInfo_var)));
+		MyVector_t5E551DE127AB217F3BF51644B186993381C11E30* L_773 = __this->___vMovePoints;
+		NullCheck(L_773);
+		MyVector_removeElementAt_mBAAE9A96CE172AF34B3FAFAF22E50D5F191E97C5(L_773, 0, NULL);
 		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_774 = __this->___currentMovePoint;
 		NullCheck(L_774);
-		int32_t L_775 = L_774->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_773, L_775))) <= ((int32_t)0)))
+		int32_t L_775 = L_774->___status;
+		if ((!(((uint32_t)L_775) == ((uint32_t)2))))
 		{
-			goto IL_1e64;
+			goto IL_1ec0;
 		}
 	}
-	{
-		__this->___cdir = (-1);
-		goto IL_1fda;
-	}
-
-IL_1e64:
 	{
 		int32_t L_776 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_777 = __this->___currentMovePoint;
-		NullCheck(L_777);
-		int32_t L_778 = L_777->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_776, L_778))) >= ((int32_t)0)))
+		int32_t L_777 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		int32_t L_778;
+		L_778 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_776, ((int32_t)il2cpp_codegen_add(L_777, ((int32_t)12))), NULL);
+		if ((((int32_t)((int32_t)(L_778&2))) == ((int32_t)2)))
 		{
-			goto IL_1fda;
+			goto IL_1e60;
 		}
 	}
 	{
-		__this->___cdir = 1;
-		goto IL_1fda;
-	}
-
-IL_1e88:
-	{
-		__this->___statusMe = 3;
-		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_779;
-		L_779 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
-		int32_t L_780 = __this->___cx;
-		int32_t L_781 = __this->___cy;
-		NullCheck(L_779);
-		bool L_782;
-		L_782 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_779, (-1), ((int32_t)il2cpp_codegen_subtract(L_780, ((int32_t)-8))), L_781, NULL);
-		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_783;
-		L_783 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
-		int32_t L_784 = __this->___cx;
-		int32_t L_785 = __this->___cy;
+		__this->___statusMe = ((int32_t)10);
+		__this->___cp1 = 0;
+		__this->___cp2 = 0;
+		int32_t L_779 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_780 = __this->___currentMovePoint;
+		NullCheck(L_780);
+		int32_t L_781 = L_780->___xEnd;
+		__this->___cvx = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_779, L_781))))/((int32_t)10)));
+		int32_t L_782 = __this->___cy;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_783 = __this->___currentMovePoint;
 		NullCheck(L_783);
-		bool L_786;
-		L_786 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_783, 1, ((int32_t)il2cpp_codegen_subtract(L_784, 8)), L_785, NULL);
-		int32_t L_787 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_788 = __this->___currentMovePoint;
-		NullCheck(L_788);
-		int32_t L_789 = L_788->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_787, L_789))) <= ((int32_t)0)))
+		int32_t L_784 = L_783->___yEnd;
+		__this->___cvy = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_782, L_784))))/((int32_t)10)));
+		int32_t L_785 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_786 = __this->___currentMovePoint;
+		NullCheck(L_786);
+		int32_t L_787 = L_786->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_785, L_787))) <= ((int32_t)0)))
 		{
-			goto IL_1ee2;
+			goto IL_1e3c;
 		}
 	}
 	{
 		__this->___cdir = (-1);
-		goto IL_1efe;
+		goto IL_20d2;
 	}
 
-IL_1ee2:
+IL_1e3c:
 	{
-		int32_t L_790 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_791 = __this->___currentMovePoint;
-		NullCheck(L_791);
-		int32_t L_792 = L_791->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_790, L_792))) >= ((int32_t)0)))
+		int32_t L_788 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_789 = __this->___currentMovePoint;
+		NullCheck(L_789);
+		int32_t L_790 = L_789->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_788, L_790))) >= ((int32_t)0)))
 		{
-			goto IL_1efe;
+			goto IL_20d2;
+		}
+	}
+	{
+		__this->___cdir = 1;
+		goto IL_20d2;
+	}
+
+IL_1e60:
+	{
+		__this->___statusMe = 2;
+		int32_t L_791 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_792 = __this->___currentMovePoint;
+		NullCheck(L_792);
+		int32_t L_793 = L_792->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_791, L_793))) <= ((int32_t)0)))
+		{
+			goto IL_1e85;
+		}
+	}
+	{
+		__this->___cdir = (-1);
+		goto IL_1ea1;
+	}
+
+IL_1e85:
+	{
+		int32_t L_794 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_795 = __this->___currentMovePoint;
+		NullCheck(L_795);
+		int32_t L_796 = L_795->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_794, L_796))) >= ((int32_t)0)))
+		{
+			goto IL_1ea1;
 		}
 	}
 	{
 		__this->___cdir = 1;
 	}
 
-IL_1efe:
+IL_1ea1:
 	{
-		int32_t L_793 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_794 = __this->___currentMovePoint;
-		NullCheck(L_794);
-		int32_t L_795 = L_794->___xEnd;
-		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_796;
-		L_796 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_793, L_795)), NULL);
-		int32_t L_797 = __this->___cdir;
-		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(((int32_t)(L_796/((int32_t)10))), L_797));
-		__this->___cvy = ((int32_t)-10);
-		goto IL_1fda;
-	}
-
-IL_1f32:
-	{
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_798 = __this->___currentMovePoint;
-		NullCheck(L_798);
-		int32_t L_799 = L_798->___status;
-		if ((!(((uint32_t)L_799) == ((uint32_t)4))))
-		{
-			goto IL_1fb1;
-		}
-	}
-	{
-		__this->___statusMe = 4;
-		int32_t L_800 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_801 = __this->___currentMovePoint;
-		NullCheck(L_801);
-		int32_t L_802 = L_801->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_800, L_802))) <= ((int32_t)0)))
-		{
-			goto IL_1f65;
-		}
-	}
-	{
-		__this->___cdir = (-1);
-		goto IL_1f81;
-	}
-
-IL_1f65:
-	{
-		int32_t L_803 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_804 = __this->___currentMovePoint;
-		NullCheck(L_804);
-		int32_t L_805 = L_804->___xEnd;
-		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_803, L_805))) >= ((int32_t)0)))
-		{
-			goto IL_1f81;
-		}
-	}
-	{
-		__this->___cdir = 1;
-	}
-
-IL_1f81:
-	{
-		int32_t L_806 = __this->___cx;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_807 = __this->___currentMovePoint;
-		NullCheck(L_807);
-		int32_t L_808 = L_807->___xEnd;
-		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		int32_t L_809;
-		L_809 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_806, L_808)), NULL);
-		int32_t L_810 = __this->___cdir;
-		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(((int32_t)(L_809/((int32_t)9))), L_810));
+		int32_t L_797 = __this->___cspeed;
+		int32_t L_798 = __this->___cdir;
+		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(L_797, L_798));
 		__this->___cvy = 0;
-		goto IL_1fda;
+		goto IL_20d2;
 	}
 
-IL_1fb1:
+IL_1ec0:
 	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_799 = __this->___currentMovePoint;
+		NullCheck(L_799);
+		int32_t L_800 = L_799->___status;
+		if ((!(((uint32_t)L_800) == ((uint32_t)3))))
+		{
+			goto IL_202a;
+		}
+	}
+	{
+		int32_t L_801 = __this->___cx;
+		int32_t L_802 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		int32_t L_803;
+		L_803 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_801, ((int32_t)il2cpp_codegen_add(L_802, ((int32_t)23))), NULL);
+		if ((((int32_t)((int32_t)(L_803&2))) == ((int32_t)2)))
+		{
+			goto IL_1f80;
+		}
+	}
+	{
+		__this->___statusMe = ((int32_t)10);
+		__this->___cp1 = 0;
+		__this->___cp2 = 0;
+		int32_t L_804 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_805 = __this->___currentMovePoint;
+		NullCheck(L_805);
+		int32_t L_806 = L_805->___xEnd;
+		__this->___cvx = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_804, L_806))))/((int32_t)10)));
+		int32_t L_807 = __this->___cy;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_808 = __this->___currentMovePoint;
+		NullCheck(L_808);
+		int32_t L_809 = L_808->___yEnd;
+		__this->___cvy = ((int32_t)(((-((int32_t)il2cpp_codegen_subtract(L_807, L_809))))/((int32_t)10)));
+		int32_t L_810 = __this->___cx;
 		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_811 = __this->___currentMovePoint;
 		NullCheck(L_811);
 		int32_t L_812 = L_811->___xEnd;
-		__this->___cx = L_812;
-		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_813 = __this->___currentMovePoint;
-		NullCheck(L_813);
-		int32_t L_814 = L_813->___yEnd;
-		__this->___cy = L_814;
-		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_810, L_812))) <= ((int32_t)0)))
+		{
+			goto IL_1f5c;
+		}
+	}
+	{
+		__this->___cdir = (-1);
+		goto IL_20d2;
+	}
+
+IL_1f5c:
+	{
+		int32_t L_813 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_814 = __this->___currentMovePoint;
+		NullCheck(L_814);
+		int32_t L_815 = L_814->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_813, L_815))) >= ((int32_t)0)))
+		{
+			goto IL_20d2;
+		}
+	}
+	{
+		__this->___cdir = 1;
+		goto IL_20d2;
+	}
+
+IL_1f80:
+	{
+		__this->___statusMe = 3;
+		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
+		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_816;
+		L_816 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
+		int32_t L_817 = __this->___cx;
+		int32_t L_818 = __this->___cy;
+		NullCheck(L_816);
+		bool L_819;
+		L_819 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_816, (-1), ((int32_t)il2cpp_codegen_subtract(L_817, ((int32_t)-8))), L_818, NULL);
+		GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE* L_820;
+		L_820 = GameCanvas_gI_mB1A629F4B3454E987DF9AC3FF55A67B636AAE50B_inline(NULL);
+		int32_t L_821 = __this->___cx;
+		int32_t L_822 = __this->___cy;
+		NullCheck(L_820);
+		bool L_823;
+		L_823 = GameCanvas_startDust_m4830EAAA8EC4916B18EB5DC55CF30AC664ED4D01(L_820, 1, ((int32_t)il2cpp_codegen_subtract(L_821, 8)), L_822, NULL);
+		int32_t L_824 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_825 = __this->___currentMovePoint;
+		NullCheck(L_825);
+		int32_t L_826 = L_825->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_824, L_826))) <= ((int32_t)0)))
+		{
+			goto IL_1fda;
+		}
+	}
+	{
+		__this->___cdir = (-1);
+		goto IL_1ff6;
 	}
 
 IL_1fda:
 	{
-		int32_t L_815 = __this->___statusMe;
-		V_1 = L_815;
-		int32_t L_816 = V_1;
-		switch (((int32_t)il2cpp_codegen_subtract(L_816, 1)))
+		int32_t L_827 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_828 = __this->___currentMovePoint;
+		NullCheck(L_828);
+		int32_t L_829 = L_828->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_827, L_829))) >= ((int32_t)0)))
 		{
-			case 0:
-			{
-				goto IL_202e;
-			}
-			case 1:
-			{
-				goto IL_2039;
-			}
-			case 2:
-			{
-				goto IL_2044;
-			}
-			case 3:
-			{
-				goto IL_204f;
-			}
-			case 4:
-			{
-				goto IL_205a;
-			}
-			case 5:
-			{
-				goto IL_20df;
-			}
-			case 6:
-			{
-				goto IL_21ff;
-			}
-			case 7:
-			{
-				goto IL_21ff;
-			}
-			case 8:
-			{
-				goto IL_2070;
-			}
-			case 9:
-			{
-				goto IL_207b;
-			}
-			case 10:
-			{
-				goto IL_21ff;
-			}
-			case 11:
-			{
-				goto IL_2086;
-			}
-			case 12:
-			{
-				goto IL_2091;
-			}
-			case 13:
-			{
-				goto IL_209c;
-			}
-			case 14:
-			{
-				goto IL_21ff;
-			}
-			case 15:
-			{
-				goto IL_2065;
-			}
+			goto IL_1ff6;
 		}
 	}
 	{
-		goto IL_21ff;
+		__this->___cdir = 1;
 	}
 
-IL_202e:
-	{
-		Char_updateCharStand_m8CBF7C10F0DE1A79F607BB48F126200DFD34098C(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_2039:
-	{
-		Char_updateCharRun_mA28BBC31114136CBC1A3A39AF4B8E41D2E538EC4(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_2044:
-	{
-		Char_updateCharJump_mEB59BADE60A87B02C483915235288AE43951C6F2(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_204f:
-	{
-		Char_updateCharFall_m1EC8BC4A149EE038E7184D968643D2EDB865A73F(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_205a:
-	{
-		Char_updateCharDeadFly_m83F482B97D5701CC49BEA0EF4A92A808ABA75A2B(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_2065:
-	{
-		Char_updateResetPoint_m273FD141717D0642807CA9CBA405A759B6A443B1(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_2070:
-	{
-		Char_updateCharAutoJump_mFD3D704612495BB40CE1C2604D1649F249F470C5(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_207b:
-	{
-		Char_updateCharFly_m7C0B0BD54D54222419314E857BCA475DA0961D45(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_2086:
-	{
-		Char_updateSkillStand_m9FD378D6AB8C1AFE07F1A8530F144D1C2CE4487B(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_2091:
-	{
-		Char_updateSkillFall_mBD1DD31C066E1BE0810C8A94F3C2E133B40CB2BB(__this, NULL);
-		goto IL_21ff;
-	}
-
-IL_209c:
-	{
-		int32_t L_817 = __this->___cp1;
-		__this->___cp1 = ((int32_t)il2cpp_codegen_add(L_817, 1));
-		int32_t L_818 = __this->___cp1;
-		if ((((int32_t)L_818) <= ((int32_t)((int32_t)30))))
-		{
-			goto IL_20bb;
-		}
-	}
-	{
-		__this->___cp1 = 0;
-	}
-
-IL_20bb:
-	{
-		int32_t L_819 = __this->___cp1;
-		if ((((int32_t)((int32_t)(L_819%((int32_t)15)))) >= ((int32_t)5)))
-		{
-			goto IL_20d3;
-		}
-	}
-	{
-		__this->___cf = 0;
-		goto IL_21ff;
-	}
-
-IL_20d3:
-	{
-		__this->___cf = 1;
-		goto IL_21ff;
-	}
-
-IL_20df:
-	{
-		int8_t L_820 = __this->___isInjure;
-		if ((((int32_t)L_820) > ((int32_t)0)))
-		{
-			goto IL_20f1;
-		}
-	}
-	{
-		__this->___cf = 0;
-		goto IL_2151;
-	}
-
-IL_20f1:
-	{
-		int32_t L_821 = __this->___statusBeforeNothing;
-		if ((!(((uint32_t)L_821) == ((uint32_t)((int32_t)10)))))
-		{
-			goto IL_2110;
-		}
-	}
-	{
-		int32_t L_822 = __this->___cx;
-		int32_t L_823 = __this->___cvx;
-		__this->___cx = ((int32_t)il2cpp_codegen_add(L_822, L_823));
-		goto IL_2151;
-	}
-
-IL_2110:
-	{
-		int32_t L_824 = __this->___cf;
-		if ((((int32_t)L_824) > ((int32_t)1)))
-		{
-			goto IL_2151;
-		}
-	}
-	{
-		int32_t L_825 = __this->___cp1;
-		__this->___cp1 = ((int32_t)il2cpp_codegen_add(L_825, 1));
-		int32_t L_826 = __this->___cp1;
-		if ((((int32_t)L_826) <= ((int32_t)6)))
-		{
-			goto IL_2139;
-		}
-	}
-	{
-		__this->___cf = 0;
-		goto IL_2140;
-	}
-
-IL_2139:
-	{
-		__this->___cf = 1;
-	}
-
-IL_2140:
-	{
-		int32_t L_827 = __this->___cp1;
-		if ((((int32_t)L_827) <= ((int32_t)((int32_t)10))))
-		{
-			goto IL_2151;
-		}
-	}
-	{
-		__this->___cp1 = 0;
-	}
-
-IL_2151:
-	{
-		int32_t L_828 = __this->___cf;
-		if ((((int32_t)L_828) == ((int32_t)7)))
-		{
-			goto IL_2198;
-		}
-	}
-	{
-		int32_t L_829 = __this->___cf;
-		if ((((int32_t)L_829) == ((int32_t)((int32_t)12))))
-		{
-			goto IL_2198;
-		}
-	}
+IL_1ff6:
 	{
 		int32_t L_830 = __this->___cx;
-		int32_t L_831 = __this->___cy;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_832;
-		L_832 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_830, ((int32_t)il2cpp_codegen_add(L_831, 1)), NULL);
-		if ((((int32_t)((int32_t)(L_832&2))) == ((int32_t)2)))
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_831 = __this->___currentMovePoint;
+		NullCheck(L_831);
+		int32_t L_832 = L_831->___xEnd;
+		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
+		int32_t L_833;
+		L_833 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_830, L_832)), NULL);
+		int32_t L_834 = __this->___cdir;
+		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(((int32_t)(L_833/((int32_t)10))), L_834));
+		__this->___cvy = ((int32_t)-10);
+		goto IL_20d2;
+	}
+
+IL_202a:
+	{
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_835 = __this->___currentMovePoint;
+		NullCheck(L_835);
+		int32_t L_836 = L_835->___status;
+		if ((!(((uint32_t)L_836) == ((uint32_t)4))))
 		{
-			goto IL_2198;
+			goto IL_20a9;
 		}
 	}
 	{
-		__this->___cvx = 0;
-		__this->___cvy = 0;
 		__this->___statusMe = 4;
-		__this->___cf = 7;
+		int32_t L_837 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_838 = __this->___currentMovePoint;
+		NullCheck(L_838);
+		int32_t L_839 = L_838->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_837, L_839))) <= ((int32_t)0)))
+		{
+			goto IL_205d;
+		}
+	}
+	{
+		__this->___cdir = (-1);
+		goto IL_2079;
 	}
 
-IL_2198:
+IL_205d:
 	{
-		bool L_833 = __this->___me;
-		if (L_833)
+		int32_t L_840 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_841 = __this->___currentMovePoint;
+		NullCheck(L_841);
+		int32_t L_842 = L_841->___xEnd;
+		if ((((int32_t)((int32_t)il2cpp_codegen_subtract(L_840, L_842))) >= ((int32_t)0)))
 		{
-			goto IL_21ff;
+			goto IL_2079;
 		}
 	}
 	{
-		int32_t L_834 = __this->___cp3;
-		__this->___cp3 = ((int32_t)il2cpp_codegen_add(L_834, 1));
-		int32_t L_835 = __this->___cp3;
-		if ((((int32_t)L_835) <= ((int32_t)((int32_t)10))))
-		{
-			goto IL_21e7;
-		}
-	}
-	{
-		int32_t L_836 = __this->___cx;
-		int32_t L_837 = __this->___cy;
-		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_838;
-		L_838 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_836, ((int32_t)il2cpp_codegen_add(L_837, 1)), NULL);
-		if ((((int32_t)((int32_t)(L_838&2))) == ((int32_t)2)))
-		{
-			goto IL_21e0;
-		}
-	}
-	{
-		int32_t L_839 = __this->___cy;
-		__this->___cy = ((int32_t)il2cpp_codegen_add(L_839, 5));
-		goto IL_21e7;
+		__this->___cdir = 1;
 	}
 
-IL_21e0:
+IL_2079:
 	{
-		__this->___cf = 0;
+		int32_t L_843 = __this->___cx;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_844 = __this->___currentMovePoint;
+		NullCheck(L_844);
+		int32_t L_845 = L_844->___xEnd;
+		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
+		int32_t L_846;
+		L_846 = Char_abs_m8AEFE259A26F45E74D11C9B450295F80608A5ABD(((int32_t)il2cpp_codegen_subtract(L_843, L_845)), NULL);
+		int32_t L_847 = __this->___cdir;
+		__this->___cvx = ((int32_t)il2cpp_codegen_multiply(((int32_t)(L_846/((int32_t)9))), L_847));
+		__this->___cvy = 0;
+		goto IL_20d2;
 	}
 
-IL_21e7:
+IL_20a9:
 	{
-		int32_t L_840 = __this->___cp3;
-		if ((((int32_t)L_840) <= ((int32_t)((int32_t)50))))
-		{
-			goto IL_21ff;
-		}
-	}
-	{
-		__this->___cp3 = 0;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_848 = __this->___currentMovePoint;
+		NullCheck(L_848);
+		int32_t L_849 = L_848->___xEnd;
+		__this->___cx = L_849;
+		MovePoint_t935B2561B2469906D762963068D2E58357E88159* L_850 = __this->___currentMovePoint;
+		NullCheck(L_850);
+		int32_t L_851 = L_850->___yEnd;
+		__this->___cy = L_851;
 		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
 	}
 
-IL_21ff:
+IL_20d2:
 	{
-		int8_t L_841 = __this->___isInjure;
-		if ((((int32_t)L_841) <= ((int32_t)0)))
+		int32_t L_852 = __this->___statusMe;
+		V_4 = L_852;
+		int32_t L_853 = V_4;
+		switch (((int32_t)il2cpp_codegen_subtract(L_853, 1)))
 		{
-			goto IL_221f;
+			case 0:
+			{
+				goto IL_2128;
+			}
+			case 1:
+			{
+				goto IL_2133;
+			}
+			case 2:
+			{
+				goto IL_213e;
+			}
+			case 3:
+			{
+				goto IL_2149;
+			}
+			case 4:
+			{
+				goto IL_2154;
+			}
+			case 5:
+			{
+				goto IL_21d9;
+			}
+			case 6:
+			{
+				goto IL_22f9;
+			}
+			case 7:
+			{
+				goto IL_22f9;
+			}
+			case 8:
+			{
+				goto IL_216a;
+			}
+			case 9:
+			{
+				goto IL_2175;
+			}
+			case 10:
+			{
+				goto IL_22f9;
+			}
+			case 11:
+			{
+				goto IL_2180;
+			}
+			case 12:
+			{
+				goto IL_218b;
+			}
+			case 13:
+			{
+				goto IL_2196;
+			}
+			case 14:
+			{
+				goto IL_22f9;
+			}
+			case 15:
+			{
+				goto IL_215f;
+			}
 		}
 	}
 	{
-		__this->___cf = ((int32_t)23);
-		int8_t L_842 = __this->___isInjure;
-		__this->___isInjure = ((int8_t)((int32_t)il2cpp_codegen_subtract((int32_t)L_842, 1)));
+		goto IL_22f9;
 	}
 
-IL_221f:
+IL_2128:
 	{
-		int16_t L_843 = __this->___wdx;
-		if (L_843)
-		{
-			goto IL_222f;
-		}
-	}
-	{
-		int16_t L_844 = __this->___wdy;
-		if (!L_844)
-		{
-			goto IL_224f;
-		}
+		Char_updateCharStand_m8CBF7C10F0DE1A79F607BB48F126200DFD34098C(__this, NULL);
+		goto IL_22f9;
 	}
 
-IL_222f:
+IL_2133:
 	{
-		int16_t L_845 = __this->___wdx;
-		int16_t L_846 = __this->___wdy;
-		Char_startDie_mC13C351A01574B1027D6C8F08B5F8F8055CAC97B(__this, L_845, L_846, NULL);
-		__this->___wdx = (int16_t)0;
-		__this->___wdy = (int16_t)0;
+		Char_updateCharRun_mA28BBC31114136CBC1A3A39AF4B8E41D2E538EC4(__this, NULL);
+		goto IL_22f9;
 	}
 
-IL_224f:
+IL_213e:
 	{
-		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_847 = __this->___moveFast;
-		if (!L_847)
+		Char_updateCharJump_mEB59BADE60A87B02C483915235288AE43951C6F2(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_2149:
+	{
+		Char_updateCharFall_m1EC8BC4A149EE038E7184D968643D2EDB865A73F(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_2154:
+	{
+		Char_updateCharDeadFly_m83F482B97D5701CC49BEA0EF4A92A808ABA75A2B(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_215f:
+	{
+		Char_updateResetPoint_m273FD141717D0642807CA9CBA405A759B6A443B1(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_216a:
+	{
+		Char_updateCharAutoJump_mFD3D704612495BB40CE1C2604D1649F249F470C5(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_2175:
+	{
+		Char_updateCharFly_m7C0B0BD54D54222419314E857BCA475DA0961D45(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_2180:
+	{
+		Char_updateSkillStand_m9FD378D6AB8C1AFE07F1A8530F144D1C2CE4487B(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_218b:
+	{
+		Char_updateSkillFall_mBD1DD31C066E1BE0810C8A94F3C2E133B40CB2BB(__this, NULL);
+		goto IL_22f9;
+	}
+
+IL_2196:
+	{
+		int32_t L_854 = __this->___cp1;
+		__this->___cp1 = ((int32_t)il2cpp_codegen_add(L_854, 1));
+		int32_t L_855 = __this->___cp1;
+		if ((((int32_t)L_855) <= ((int32_t)((int32_t)30))))
 		{
-			goto IL_232a;
+			goto IL_21b5;
 		}
 	}
 	{
-		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_848 = __this->___moveFast;
-		NullCheck(L_848);
-		int32_t L_849 = 0;
-		int16_t L_850 = (L_848)->GetAt(static_cast<il2cpp_array_size_t>(L_849));
-		if (L_850)
+		__this->___cp1 = 0;
+	}
+
+IL_21b5:
+	{
+		int32_t L_856 = __this->___cp1;
+		if ((((int32_t)((int32_t)(L_856%((int32_t)15)))) >= ((int32_t)5)))
 		{
-			goto IL_2284;
+			goto IL_21cd;
 		}
 	}
 	{
-		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_851 = __this->___moveFast;
-		NullCheck(L_851);
-		int16_t* L_852 = ((L_851)->GetAddressAt(static_cast<il2cpp_array_size_t>(0)));
-		int32_t L_853 = *((int16_t*)L_852);
-		*((int16_t*)L_852) = (int16_t)((int16_t)((int32_t)il2cpp_codegen_add(L_853, 1)));
-		ServerEffect_addServerEffect_m86AC5F547CB6DA0642AD0BB64686B815A6BA3483(((int32_t)60), __this, 1, NULL);
-		goto IL_232a;
+		__this->___cf = 0;
+		goto IL_22f9;
 	}
 
-IL_2284:
+IL_21cd:
 	{
-		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_854 = __this->___moveFast;
-		NullCheck(L_854);
-		int32_t L_855 = 0;
-		int16_t L_856 = (L_854)->GetAt(static_cast<il2cpp_array_size_t>(L_855));
-		if ((((int32_t)L_856) >= ((int32_t)((int32_t)10))))
+		__this->___cf = 1;
+		goto IL_22f9;
+	}
+
+IL_21d9:
+	{
+		int8_t L_857 = __this->___isInjure;
+		if ((((int32_t)L_857) > ((int32_t)0)))
 		{
-			goto IL_22a7;
+			goto IL_21eb;
 		}
 	}
 	{
-		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_857 = __this->___moveFast;
-		NullCheck(L_857);
-		int16_t* L_858 = ((L_857)->GetAddressAt(static_cast<il2cpp_array_size_t>(0)));
-		int32_t L_859 = *((int16_t*)L_858);
-		*((int16_t*)L_858) = (int16_t)((int16_t)((int32_t)il2cpp_codegen_add(L_859, 1)));
-		goto IL_232a;
+		__this->___cf = 0;
+		goto IL_224b;
 	}
 
-IL_22a7:
+IL_21eb:
 	{
-		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_860 = __this->___moveFast;
-		NullCheck(L_860);
-		int32_t L_861 = 1;
-		int16_t L_862 = (L_860)->GetAt(static_cast<il2cpp_array_size_t>(L_861));
-		__this->___cx = L_862;
-		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_863 = __this->___moveFast;
-		NullCheck(L_863);
-		int32_t L_864 = 2;
-		int16_t L_865 = (L_863)->GetAt(static_cast<il2cpp_array_size_t>(L_864));
-		__this->___cy = L_865;
-		__this->___moveFast = (Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB*)NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___moveFast), (void*)(Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB*)NULL);
-		ServerEffect_addServerEffect_m86AC5F547CB6DA0642AD0BB64686B815A6BA3483(((int32_t)60), __this, 1, NULL);
-		bool L_866 = __this->___me;
-		if (!L_866)
+		int32_t L_858 = __this->___statusBeforeNothing;
+		if ((!(((uint32_t)L_858) == ((uint32_t)((int32_t)10)))))
 		{
-			goto IL_232a;
+			goto IL_220a;
+		}
+	}
+	{
+		int32_t L_859 = __this->___cx;
+		int32_t L_860 = __this->___cvx;
+		__this->___cx = ((int32_t)il2cpp_codegen_add(L_859, L_860));
+		goto IL_224b;
+	}
+
+IL_220a:
+	{
+		int32_t L_861 = __this->___cf;
+		if ((((int32_t)L_861) > ((int32_t)1)))
+		{
+			goto IL_224b;
+		}
+	}
+	{
+		int32_t L_862 = __this->___cp1;
+		__this->___cp1 = ((int32_t)il2cpp_codegen_add(L_862, 1));
+		int32_t L_863 = __this->___cp1;
+		if ((((int32_t)L_863) <= ((int32_t)6)))
+		{
+			goto IL_2233;
+		}
+	}
+	{
+		__this->___cf = 0;
+		goto IL_223a;
+	}
+
+IL_2233:
+	{
+		__this->___cf = 1;
+	}
+
+IL_223a:
+	{
+		int32_t L_864 = __this->___cp1;
+		if ((((int32_t)L_864) <= ((int32_t)((int32_t)10))))
+		{
+			goto IL_224b;
+		}
+	}
+	{
+		__this->___cp1 = 0;
+	}
+
+IL_224b:
+	{
+		int32_t L_865 = __this->___cf;
+		if ((((int32_t)L_865) == ((int32_t)7)))
+		{
+			goto IL_2292;
+		}
+	}
+	{
+		int32_t L_866 = __this->___cf;
+		if ((((int32_t)L_866) == ((int32_t)((int32_t)12))))
+		{
+			goto IL_2292;
 		}
 	}
 	{
@@ -12688,205 +12663,384 @@ IL_22a7:
 		int32_t L_868 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
 		int32_t L_869;
-		L_869 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_867, L_868, NULL);
+		L_869 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_867, ((int32_t)il2cpp_codegen_add(L_868, 1)), NULL);
 		if ((((int32_t)((int32_t)(L_869&2))) == ((int32_t)2)))
 		{
-			goto IL_230d;
+			goto IL_2292;
+		}
+	}
+	{
+		__this->___cvx = 0;
+		__this->___cvy = 0;
+		__this->___statusMe = 4;
+		__this->___cf = 7;
+	}
+
+IL_2292:
+	{
+		bool L_870 = __this->___me;
+		if (L_870)
+		{
+			goto IL_22f9;
+		}
+	}
+	{
+		int32_t L_871 = __this->___cp3;
+		__this->___cp3 = ((int32_t)il2cpp_codegen_add(L_871, 1));
+		int32_t L_872 = __this->___cp3;
+		if ((((int32_t)L_872) <= ((int32_t)((int32_t)10))))
+		{
+			goto IL_22e1;
+		}
+	}
+	{
+		int32_t L_873 = __this->___cx;
+		int32_t L_874 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		int32_t L_875;
+		L_875 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_873, ((int32_t)il2cpp_codegen_add(L_874, 1)), NULL);
+		if ((((int32_t)((int32_t)(L_875&2))) == ((int32_t)2)))
+		{
+			goto IL_22da;
+		}
+	}
+	{
+		int32_t L_876 = __this->___cy;
+		__this->___cy = ((int32_t)il2cpp_codegen_add(L_876, 5));
+		goto IL_22e1;
+	}
+
+IL_22da:
+	{
+		__this->___cf = 0;
+	}
+
+IL_22e1:
+	{
+		int32_t L_877 = __this->___cp3;
+		if ((((int32_t)L_877) <= ((int32_t)((int32_t)50))))
+		{
+			goto IL_22f9;
+		}
+	}
+	{
+		__this->___cp3 = 0;
+		__this->___currentMovePoint = (MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___currentMovePoint), (void*)(MovePoint_t935B2561B2469906D762963068D2E58357E88159*)NULL);
+	}
+
+IL_22f9:
+	{
+		int8_t L_878 = __this->___isInjure;
+		if ((((int32_t)L_878) <= ((int32_t)0)))
+		{
+			goto IL_2319;
+		}
+	}
+	{
+		__this->___cf = ((int32_t)23);
+		int8_t L_879 = __this->___isInjure;
+		__this->___isInjure = ((int8_t)((int32_t)il2cpp_codegen_subtract((int32_t)L_879, 1)));
+	}
+
+IL_2319:
+	{
+		int16_t L_880 = __this->___wdx;
+		if (L_880)
+		{
+			goto IL_2329;
+		}
+	}
+	{
+		int16_t L_881 = __this->___wdy;
+		if (!L_881)
+		{
+			goto IL_2349;
+		}
+	}
+
+IL_2329:
+	{
+		int16_t L_882 = __this->___wdx;
+		int16_t L_883 = __this->___wdy;
+		Char_startDie_mC13C351A01574B1027D6C8F08B5F8F8055CAC97B(__this, L_882, L_883, NULL);
+		__this->___wdx = (int16_t)0;
+		__this->___wdy = (int16_t)0;
+	}
+
+IL_2349:
+	{
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_884 = __this->___moveFast;
+		if (!L_884)
+		{
+			goto IL_2424;
+		}
+	}
+	{
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_885 = __this->___moveFast;
+		NullCheck(L_885);
+		int32_t L_886 = 0;
+		int16_t L_887 = (L_885)->GetAt(static_cast<il2cpp_array_size_t>(L_886));
+		if (L_887)
+		{
+			goto IL_237e;
+		}
+	}
+	{
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_888 = __this->___moveFast;
+		NullCheck(L_888);
+		int16_t* L_889 = ((L_888)->GetAddressAt(static_cast<il2cpp_array_size_t>(0)));
+		int32_t L_890 = *((int16_t*)L_889);
+		*((int16_t*)L_889) = (int16_t)((int16_t)((int32_t)il2cpp_codegen_add(L_890, 1)));
+		ServerEffect_addServerEffect_m86AC5F547CB6DA0642AD0BB64686B815A6BA3483(((int32_t)60), __this, 1, NULL);
+		goto IL_2424;
+	}
+
+IL_237e:
+	{
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_891 = __this->___moveFast;
+		NullCheck(L_891);
+		int32_t L_892 = 0;
+		int16_t L_893 = (L_891)->GetAt(static_cast<il2cpp_array_size_t>(L_892));
+		if ((((int32_t)L_893) >= ((int32_t)((int32_t)10))))
+		{
+			goto IL_23a1;
+		}
+	}
+	{
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_894 = __this->___moveFast;
+		NullCheck(L_894);
+		int16_t* L_895 = ((L_894)->GetAddressAt(static_cast<il2cpp_array_size_t>(0)));
+		int32_t L_896 = *((int16_t*)L_895);
+		*((int16_t*)L_895) = (int16_t)((int16_t)((int32_t)il2cpp_codegen_add(L_896, 1)));
+		goto IL_2424;
+	}
+
+IL_23a1:
+	{
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_897 = __this->___moveFast;
+		NullCheck(L_897);
+		int32_t L_898 = 1;
+		int16_t L_899 = (L_897)->GetAt(static_cast<il2cpp_array_size_t>(L_898));
+		__this->___cx = L_899;
+		Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB* L_900 = __this->___moveFast;
+		NullCheck(L_900);
+		int32_t L_901 = 2;
+		int16_t L_902 = (L_900)->GetAt(static_cast<il2cpp_array_size_t>(L_901));
+		__this->___cy = L_902;
+		__this->___moveFast = (Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___moveFast), (void*)(Int16U5BU5D_t8175CE8DD9C9F9FB0CF4F58E45BC570575B43CFB*)NULL);
+		ServerEffect_addServerEffect_m86AC5F547CB6DA0642AD0BB64686B815A6BA3483(((int32_t)60), __this, 1, NULL);
+		bool L_903 = __this->___me;
+		if (!L_903)
+		{
+			goto IL_2424;
+		}
+	}
+	{
+		int32_t L_904 = __this->___cx;
+		int32_t L_905 = __this->___cy;
+		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
+		int32_t L_906;
+		L_906 = TileMap_tileTypeAtPixel_m08D9116209ABC26A069AC5251C5E131A416F4C95(L_904, L_905, NULL);
+		if ((((int32_t)((int32_t)(L_906&2))) == ((int32_t)2)))
+		{
+			goto IL_2407;
 		}
 	}
 	{
 		__this->___statusMe = 4;
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_870;
-		L_870 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_907;
+		L_907 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_871 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
-		NullCheck(L_871);
-		int32_t L_872 = ((int32_t)38);
-		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_873 = (L_871)->GetAt(static_cast<il2cpp_array_size_t>(L_872));
-		NullCheck(L_870);
-		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(L_870, L_873, 1, NULL);
-		goto IL_232a;
+		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_908 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
+		NullCheck(L_908);
+		int32_t L_909 = ((int32_t)38);
+		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_910 = (L_908)->GetAt(static_cast<il2cpp_array_size_t>(L_909));
+		NullCheck(L_907);
+		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(L_907, L_910, 1, NULL);
+		goto IL_2424;
 	}
 
-IL_230d:
+IL_2407:
 	{
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_874;
-		L_874 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
-		NullCheck(L_874);
-		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_874, NULL);
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_911;
+		L_911 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_911);
+		Service_charMove_m31B59A38B3C84EB5C26193C4AE9BB4E8EA3D84C9(L_911, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
-		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_875;
-		L_875 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
+		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_912;
+		L_912 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
 		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_876 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
-		NullCheck(L_876);
-		int32_t L_877 = ((int32_t)38);
-		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_878 = (L_876)->GetAt(static_cast<il2cpp_array_size_t>(L_877));
-		NullCheck(L_875);
-		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(L_875, L_878, 0, NULL);
+		SkillPaintU5BU5D_t57E18DB873495676281D63091C7D46A09D6A5F1E* L_913 = ((GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_StaticFields*)il2cpp_codegen_static_fields_for(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var))->___sks;
+		NullCheck(L_913);
+		int32_t L_914 = ((int32_t)38);
+		SkillPaint_t20CE74B7BD5FCEFA7DC508A6A1168EB3BD7FBA79* L_915 = (L_913)->GetAt(static_cast<il2cpp_array_size_t>(L_914));
+		NullCheck(L_912);
+		Char_setAutoSkillPaint_m63AC4BBF92AF54E4501D122C34205BD9A3352110(L_912, L_915, 0, NULL);
 	}
 
-IL_232a:
+IL_2424:
 	{
-		int32_t L_879 = __this->___statusMe;
-		if ((((int32_t)L_879) == ((int32_t)((int32_t)10))))
+		int32_t L_916 = __this->___statusMe;
+		if ((((int32_t)L_916) == ((int32_t)((int32_t)10))))
 		{
-			goto IL_233b;
+			goto IL_2435;
 		}
 	}
 	{
 		__this->___fy = 0;
 	}
 
-IL_233b:
+IL_2435:
 	{
-		bool L_880 = __this->___isCharge;
-		if (!L_880)
+		bool L_917 = __this->___isCharge;
+		if (!L_917)
 		{
-			goto IL_24d9;
+			goto IL_25d3;
 		}
 	}
 	{
 		__this->___cf = ((int32_t)17);
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_881 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
-		if (((int32_t)(L_881%4)))
+		int32_t L_918 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___gameTick;
+		if (((int32_t)(L_918%4)))
 		{
-			goto IL_2370;
+			goto IL_246a;
 		}
 	}
 	{
-		int32_t L_882 = __this->___cx;
-		int32_t L_883 = __this->___cy;
+		int32_t L_919 = __this->___cx;
+		int32_t L_920 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
-		int32_t L_884 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___transY;
-		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(1, L_882, ((int32_t)il2cpp_codegen_add(L_883, L_884)), 1, NULL);
+		int32_t L_921 = ((GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_StaticFields*)il2cpp_codegen_static_fields_for(GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var))->___transY;
+		ServerEffect_addServerEffect_m03309C0372A83EE1679264830CAC98F9A967D007(1, L_919, ((int32_t)il2cpp_codegen_add(L_920, L_921)), 1, NULL);
 	}
 
-IL_2370:
+IL_246a:
 	{
-		bool L_885 = __this->___me;
-		if (!L_885)
+		bool L_922 = __this->___me;
+		if (!L_922)
 		{
-			goto IL_24d9;
+			goto IL_25d3;
 		}
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(mSystem_t1B21ADB1655C044C0EE8693B3E616CF16812FFBC_il2cpp_TypeInfo_var);
-		int64_t L_886;
-		L_886 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
-		V_12 = L_886;
-		int64_t L_887 = V_12;
-		int64_t L_888 = __this->___last;
-		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_887, L_888))) < ((int64_t)((int64_t)((int32_t)1000)))))
+		int64_t L_923;
+		L_923 = mSystem_currentTimeMillis_m5CCB6CA1D1858E7F9BB6905048A0ACC17C73B86A(NULL);
+		V_15 = L_923;
+		int64_t L_924 = V_15;
+		int64_t L_925 = __this->___last;
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract(L_924, L_925))) < ((int64_t)((int64_t)((int32_t)1000)))))
 		{
-			goto IL_24d9;
+			goto IL_25d3;
 		}
 	}
 	{
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_889 = __this->___myskill;
-		NullCheck(L_889);
-		int16_t* L_890 = (int16_t*)(&L_889->___damage);
-		String_t* L_891;
-		L_891 = Int16_ToString_mD65153B762673B865D4F8FF9B567BECC1ABF6D23(L_890, NULL);
-		String_t* L_892;
-		L_892 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(_stringLiteralEB8E2889B0B93C4F6DAF3C7C86D104C6F96FA6C4, L_891, NULL);
-		il2cpp_codegen_runtime_class_init_inline(Res_t42939C8A70541C5F8BBAC618E2AE68A048453E10_il2cpp_TypeInfo_var);
-		Res_outz_mF51EC000D16B49E001011B2C1BAD2F66E72C33D3(L_892, NULL);
-		int64_t L_893 = V_12;
-		__this->___last = L_893;
-		int64_t L_894 = __this->___cHP;
-		int64_t L_895 = __this->___cHPFull;
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_896 = __this->___myskill;
-		NullCheck(L_896);
-		int16_t L_897 = L_896->___damage;
-		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_894, ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_895, ((int64_t)L_897)))/((int64_t)((int32_t)100))))));
-		int64_t L_898 = __this->___cMP;
-		int64_t L_899 = __this->___cMPFull;
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_900 = __this->___myskill;
-		NullCheck(L_900);
-		int16_t L_901 = L_900->___damage;
-		__this->___cMP = ((int64_t)il2cpp_codegen_add(L_898, ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_899, ((int64_t)L_901)))/((int64_t)((int32_t)100))))));
-		int64_t L_902 = __this->___cHP;
-		int64_t L_903 = __this->___cHPFull;
-		if ((((int64_t)L_902) >= ((int64_t)L_903)))
-		{
-			goto IL_2469;
-		}
-	}
-	{
-		int64_t L_904 = __this->___cHPFull;
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_905 = __this->___myskill;
-		NullCheck(L_905);
-		int16_t L_906 = L_905->___damage;
-		V_13 = ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_904, ((int64_t)L_906)))/((int64_t)((int32_t)100))));
-		String_t* L_907;
-		L_907 = Int64_ToString_m284E4E55662818E38654309A41C2B07CD436F36B((&V_13), NULL);
-		il2cpp_codegen_runtime_class_init_inline(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var);
-		String_t* L_908 = ((mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields*)il2cpp_codegen_static_fields_for(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var))->___HP;
-		String_t* L_909;
-		L_909 = String_Concat_m093934F71A9B351911EE46311674ED463B180006(_stringLiteral20E39C3AB7068FAFD9E4B868E16D2E5BC64D4952, L_907, _stringLiteral2386E77CF610F786B06A91AF2C1B3FD2282D2745, L_908, NULL);
-		int32_t L_910 = __this->___cx;
-		int32_t L_911 = __this->___cy;
-		int32_t L_912 = __this->___ch;
-		il2cpp_codegen_runtime_class_init_inline(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var);
-		int32_t L_913 = ((mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_StaticFields*)il2cpp_codegen_static_fields_for(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var))->___HP;
-		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_startFlyText_m8E749193F6988EA5C5CEF85FD88BD0072AF7E9AB(L_909, L_910, ((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_911, L_912)), ((int32_t)20))), 0, (-1), L_913, NULL);
-	}
-
-IL_2469:
-	{
-		int64_t L_914 = __this->___cMP;
-		int64_t L_915 = __this->___cMPFull;
-		if ((((int64_t)L_914) >= ((int64_t)L_915)))
-		{
-			goto IL_24ce;
-		}
-	}
-	{
-		int64_t L_916 = __this->___cMPFull;
-		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_917 = __this->___myskill;
-		NullCheck(L_917);
-		int16_t L_918 = L_917->___damage;
-		V_13 = ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_916, ((int64_t)L_918)))/((int64_t)((int32_t)100))));
-		String_t* L_919;
-		L_919 = Int64_ToString_m284E4E55662818E38654309A41C2B07CD436F36B((&V_13), NULL);
-		il2cpp_codegen_runtime_class_init_inline(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var);
-		String_t* L_920 = ((mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields*)il2cpp_codegen_static_fields_for(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var))->___KI;
-		String_t* L_921;
-		L_921 = String_Concat_m093934F71A9B351911EE46311674ED463B180006(_stringLiteral20E39C3AB7068FAFD9E4B868E16D2E5BC64D4952, L_919, _stringLiteral2386E77CF610F786B06A91AF2C1B3FD2282D2745, L_920, NULL);
-		int32_t L_922 = __this->___cx;
-		int32_t L_923 = __this->___cy;
-		int32_t L_924 = __this->___ch;
-		il2cpp_codegen_runtime_class_init_inline(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var);
-		int32_t L_925 = ((mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_StaticFields*)il2cpp_codegen_static_fields_for(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var))->___MP;
-		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
-		GameScr_startFlyText_m8E749193F6988EA5C5CEF85FD88BD0072AF7E9AB(L_921, L_922, ((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_923, L_924)), ((int32_t)20))), 0, ((int32_t)-2), L_925, NULL);
-	}
-
-IL_24ce:
-	{
-		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_926;
-		L_926 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_926 = __this->___myskill;
 		NullCheck(L_926);
-		Service_skill_not_focus_m91FAB1AC98F2C051A85BC620E6785FDEB0B3591D(L_926, (int8_t)2, NULL);
-	}
-
-IL_24d9:
-	{
-		bool L_927 = __this->___isFlyUp;
-		if (!L_927)
+		int16_t* L_927 = (int16_t*)(&L_926->___damage);
+		String_t* L_928;
+		L_928 = Int16_ToString_mD65153B762673B865D4F8FF9B567BECC1ABF6D23(L_927, NULL);
+		String_t* L_929;
+		L_929 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(_stringLiteralEB8E2889B0B93C4F6DAF3C7C86D104C6F96FA6C4, L_928, NULL);
+		il2cpp_codegen_runtime_class_init_inline(Res_t42939C8A70541C5F8BBAC618E2AE68A048453E10_il2cpp_TypeInfo_var);
+		Res_outz_mF51EC000D16B49E001011B2C1BAD2F66E72C33D3(L_929, NULL);
+		int64_t L_930 = V_15;
+		__this->___last = L_930;
+		int64_t L_931 = __this->___cHP;
+		int64_t L_932 = __this->___cHPFull;
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_933 = __this->___myskill;
+		NullCheck(L_933);
+		int16_t L_934 = L_933->___damage;
+		__this->___cHP = ((int64_t)il2cpp_codegen_add(L_931, ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_932, ((int64_t)L_934)))/((int64_t)((int32_t)100))))));
+		int64_t L_935 = __this->___cMP;
+		int64_t L_936 = __this->___cMPFull;
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_937 = __this->___myskill;
+		NullCheck(L_937);
+		int16_t L_938 = L_937->___damage;
+		__this->___cMP = ((int64_t)il2cpp_codegen_add(L_935, ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_936, ((int64_t)L_938)))/((int64_t)((int32_t)100))))));
+		int64_t L_939 = __this->___cHP;
+		int64_t L_940 = __this->___cHPFull;
+		if ((((int64_t)L_939) >= ((int64_t)L_940)))
 		{
-			goto IL_2568;
+			goto IL_2563;
 		}
 	}
 	{
-		bool L_928 = __this->___me;
-		if (!L_928)
+		int64_t L_941 = __this->___cHPFull;
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_942 = __this->___myskill;
+		NullCheck(L_942);
+		int16_t L_943 = L_942->___damage;
+		V_16 = ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_941, ((int64_t)L_943)))/((int64_t)((int32_t)100))));
+		String_t* L_944;
+		L_944 = Int64_ToString_m284E4E55662818E38654309A41C2B07CD436F36B((&V_16), NULL);
+		il2cpp_codegen_runtime_class_init_inline(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var);
+		String_t* L_945 = ((mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields*)il2cpp_codegen_static_fields_for(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var))->___HP;
+		String_t* L_946;
+		L_946 = String_Concat_m093934F71A9B351911EE46311674ED463B180006(_stringLiteral20E39C3AB7068FAFD9E4B868E16D2E5BC64D4952, L_944, _stringLiteral2386E77CF610F786B06A91AF2C1B3FD2282D2745, L_945, NULL);
+		int32_t L_947 = __this->___cx;
+		int32_t L_948 = __this->___cy;
+		int32_t L_949 = __this->___ch;
+		il2cpp_codegen_runtime_class_init_inline(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var);
+		int32_t L_950 = ((mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_StaticFields*)il2cpp_codegen_static_fields_for(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var))->___HP;
+		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
+		GameScr_startFlyText_m8E749193F6988EA5C5CEF85FD88BD0072AF7E9AB(L_946, L_947, ((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_948, L_949)), ((int32_t)20))), 0, (-1), L_950, NULL);
+	}
+
+IL_2563:
+	{
+		int64_t L_951 = __this->___cMP;
+		int64_t L_952 = __this->___cMPFull;
+		if ((((int64_t)L_951) >= ((int64_t)L_952)))
 		{
-			goto IL_252a;
+			goto IL_25c8;
+		}
+	}
+	{
+		int64_t L_953 = __this->___cMPFull;
+		Skill_t19752D8A45B2FDFBADD3DD75DD39B603EDB357AE* L_954 = __this->___myskill;
+		NullCheck(L_954);
+		int16_t L_955 = L_954->___damage;
+		V_16 = ((int64_t)(((int64_t)il2cpp_codegen_multiply(L_953, ((int64_t)L_955)))/((int64_t)((int32_t)100))));
+		String_t* L_956;
+		L_956 = Int64_ToString_m284E4E55662818E38654309A41C2B07CD436F36B((&V_16), NULL);
+		il2cpp_codegen_runtime_class_init_inline(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var);
+		String_t* L_957 = ((mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields*)il2cpp_codegen_static_fields_for(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var))->___KI;
+		String_t* L_958;
+		L_958 = String_Concat_m093934F71A9B351911EE46311674ED463B180006(_stringLiteral20E39C3AB7068FAFD9E4B868E16D2E5BC64D4952, L_956, _stringLiteral2386E77CF610F786B06A91AF2C1B3FD2282D2745, L_957, NULL);
+		int32_t L_959 = __this->___cx;
+		int32_t L_960 = __this->___cy;
+		int32_t L_961 = __this->___ch;
+		il2cpp_codegen_runtime_class_init_inline(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var);
+		int32_t L_962 = ((mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_StaticFields*)il2cpp_codegen_static_fields_for(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var))->___MP;
+		il2cpp_codegen_runtime_class_init_inline(GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
+		GameScr_startFlyText_m8E749193F6988EA5C5CEF85FD88BD0072AF7E9AB(L_958, L_959, ((int32_t)il2cpp_codegen_subtract(((int32_t)il2cpp_codegen_subtract(L_960, L_961)), ((int32_t)20))), 0, ((int32_t)-2), L_962, NULL);
+	}
+
+IL_25c8:
+	{
+		Service_t2E6B9AA4D7E2C20476C716E6AB34F0D5D76F207D* L_963;
+		L_963 = Service_gI_m3CCADAF033AB9D23EEAE06445881D9557028CD32(NULL);
+		NullCheck(L_963);
+		Service_skill_not_focus_m91FAB1AC98F2C051A85BC620E6785FDEB0B3591D(L_963, (int8_t)2, NULL);
+	}
+
+IL_25d3:
+	{
+		bool L_964 = __this->___isFlyUp;
+		if (!L_964)
+		{
+			goto IL_2662;
+		}
+	}
+	{
+		bool L_965 = __this->___me;
+		if (!L_965)
+		{
+			goto IL_2624;
 		}
 	}
 	{
@@ -12894,12 +13048,12 @@ IL_24d9:
 		((Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_StaticFields*)il2cpp_codegen_static_fields_for(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var))->___isLockKey = (bool)1;
 		__this->___statusMe = 3;
 		__this->___cvy = ((int32_t)-8);
-		int32_t L_929 = __this->___cy;
+		int32_t L_966 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_930 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxh;
-		if ((((int32_t)L_929) > ((int32_t)((int32_t)il2cpp_codegen_subtract(L_930, ((int32_t)240))))))
+		int32_t L_967 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxh;
+		if ((((int32_t)L_966) > ((int32_t)((int32_t)il2cpp_codegen_subtract(L_967, ((int32_t)240))))))
 		{
-			goto IL_2568;
+			goto IL_2662;
 		}
 	}
 	{
@@ -12907,19 +13061,19 @@ IL_24d9:
 		il2cpp_codegen_runtime_class_init_inline(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
 		((Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_StaticFields*)il2cpp_codegen_static_fields_for(Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var))->___isLockKey = (bool)0;
 		__this->___statusMe = 4;
-		goto IL_2568;
+		goto IL_2662;
 	}
 
-IL_252a:
+IL_2624:
 	{
 		__this->___statusMe = 3;
 		__this->___cvy = ((int32_t)-8);
-		int32_t L_931 = __this->___cy;
+		int32_t L_968 = __this->___cy;
 		il2cpp_codegen_runtime_class_init_inline(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var);
-		int32_t L_932 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxh;
-		if ((((int32_t)L_931) > ((int32_t)((int32_t)il2cpp_codegen_subtract(L_932, ((int32_t)240))))))
+		int32_t L_969 = ((TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_StaticFields*)il2cpp_codegen_static_fields_for(TileMap_t9A76417946CFF983D7937D363B2C18AEF41CB199_il2cpp_TypeInfo_var))->___pxh;
+		if ((((int32_t)L_968) > ((int32_t)((int32_t)il2cpp_codegen_subtract(L_969, ((int32_t)240))))))
 		{
-			goto IL_2568;
+			goto IL_2662;
 		}
 	}
 	{
@@ -12929,7 +13083,7 @@ IL_252a:
 		__this->___statusMe = 1;
 	}
 
-IL_2568:
+IL_2662:
 	{
 		Char_updateMount_m95455602D5717EA9EDC42689C1D571212E53E6C4(__this, NULL);
 		Char_updEffChar_mB70109EB09F08C5DF7EF82C8E1642EC81D7D0FFB(__this, NULL);
@@ -12937,7 +13091,7 @@ IL_2568:
 		Char_updateFHead_m2E39729060CBC99C3D36669A9E16748710FC93B1(__this, NULL);
 	}
 
-IL_2580:
+IL_267a:
 	{
 		return;
 	}
@@ -12950,6 +13104,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Char_updateEffect_mF621E9D44C70B719BB88D
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	int32_t V_0 = 0;
@@ -13047,6 +13202,7 @@ IL_0012:
 		L_33 = Char_myCharz_m9DE62929FABFA1CCB394459859AB6253266AF5DA(NULL);
 		NullCheck(L_33);
 		int64_t L_34 = L_33->___cDamFull;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		int32_t L_35;
 		L_35 = NinjaUtil_randomNumber_m725B86ABB3DA464AC56EC348F44D709B3ED8F2E7(((int32_t)11), NULL);
 		NullCheck(L_30);

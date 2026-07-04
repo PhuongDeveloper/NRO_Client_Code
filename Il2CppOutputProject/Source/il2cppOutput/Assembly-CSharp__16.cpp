@@ -258,6 +258,7 @@ IL2CPP_EXTERN_C RuntimeClass* Mabu_t6AB59035BC4D15A953D40C6FDF44E0162D3E2328_il2
 IL2CPP_EXTERN_C RuntimeClass* Mob_t394900507F39725FA57379059AA703E63166F45F_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MonsterDart_tACF7D6B19BA4BCD9533EDB00BDCC7D60DDFA7775_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* MyVector_t5E551DE127AB217F3BF51644B186993381C11E30_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Npc_t72985E5728337FF5B823BA9EBBB59C7E8FC2348A_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* PKFlag_t7549255383C1D2CB073066F09ADD84DFF7E6EC4E_il2cpp_TypeInfo_var;
@@ -3317,6 +3318,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	bool ___isAutoDele;
 	bool ___isPaintboss;
 	bool ___isPaintChar;
+	bool ___isPaitInfoDis;
 	bool ___iscdt;
 	bool ___isAutoHoiSinh;
 	bool ___isAutoFocus;
@@ -3352,6 +3354,7 @@ struct aaMod_t2E1CD0D2E9E625DB1B14EECDA1F1ACC60E0C73D4_StaticFields
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ListItemUse;
 	bool ___isAutoItem;
 	List_1_tBB4BFB497BCF47BCBBEC63B4E8645B49487294C2* ___ItemUses;
+	List_1_t05915E9237850A58106982B7FE4BC5DA4E872E73* ___ListIconItemBuff;
 };
 struct mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_StaticFields
 {
@@ -6990,6 +6993,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* CharManager_GetValue_mB66B2193C8699
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&CharManager_tB149FCA9AD09AE94CEB69BDB8527A351A86EF262_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Int32_t680FF22E76F6EFAD4375103CBBFFA0421349384C_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral7A6D6676A39C2DAF0AEE25BBF024453EF653319D);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralABADC69DE5FC53E769BEC67591D025E097A9531D);
@@ -7027,6 +7031,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* CharManager_GetValue_mB66B2193C8699
 		Char_tAD4A836CEB9BA0C6651AEC6622232BACB068836F* L_13 = ___0_charfocus;
 		NullCheck(L_13);
 		int64_t L_14 = L_13->___cHP;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_15;
 		L_15 = NinjaUtil_getMoneys_m5B63C2321BFFA03C66979F5B337F5E4DFC928F6C(L_14, NULL);
 		NullCheck(L_12);

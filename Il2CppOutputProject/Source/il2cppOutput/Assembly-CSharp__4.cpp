@@ -283,6 +283,7 @@ IL2CPP_EXTERN_C RuntimeClass* MyVector_t5E551DE127AB217F3BF51644B186993381C11E30
 IL2CPP_EXTERN_C RuntimeClass* NClassU5BU5D_t8B6BB220755070BCDDAC0AFCA543390F3A4AE352_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* NClass_tD9935A01A89F425C039E19885A493CBB59C51B0D_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* NewBoss_t89FB16D05D55D1A5A21C16E97C923E3AF51E76B0_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* NpcTemplateU5BU5D_t5570C54AF8CE002107FB3B0045D64757401F6625_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* NpcTemplate_t4BCAB7769F75C09CF80C60EBED26F50156A79FC4_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Npc_t72985E5728337FF5B823BA9EBBB59C7E8FC2348A_il2cpp_TypeInfo_var;
@@ -15307,6 +15308,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ClanMessage_paint_m009DC00AF1630D50EA57D
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GameCanvas_t3C221610BEBCBA21285DC2E692D0CEC84918B2CE_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral2386E77CF610F786B06A91AF2C1B3FD2282D2745);
@@ -15511,6 +15513,7 @@ IL_00cd:
 		mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7* L_34 = ((mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_StaticFields*)il2cpp_codegen_static_fields_for(mFont_tACAC801D855571BA75D16FF2511EB748DFEA9BE7_il2cpp_TypeInfo_var))->___tahoma_7_grey;
 		mGraphics_t1DA407CAFB073F74C5A08C04CEE397C0913A9BBE* L_35 = ___0_g;
 		int32_t L_36 = __this->___timeAgo;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_37;
 		L_37 = NinjaUtil_getTimeAgo_mF242A2BA364DE2999DEF4333A00D28AAFFE4D404(L_36, NULL);
 		il2cpp_codegen_runtime_class_init_inline(mResources_t3D48DAF9643E86DDEC268272363A2522D4D80FE8_il2cpp_TypeInfo_var);
@@ -15585,6 +15588,7 @@ IL_0108:
 		(L_68)->SetAt(static_cast<il2cpp_array_size_t>(1), (String_t*)_stringLiteral2386E77CF610F786B06A91AF2C1B3FD2282D2745);
 		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_69 = L_68;
 		int32_t L_70 = __this->___timeAgo;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		String_t* L_71;
 		L_71 = NinjaUtil_getTimeAgo_mF242A2BA364DE2999DEF4333A00D28AAFFE4D404(L_70, NULL);
 		NullCheck(L_69);
@@ -18246,6 +18250,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Controller_createData_m12AB6DB62FB7E8C10
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GameScr_t7DBA24E06D787249E531A43317C4E2403E4AF7F6_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral25D656A9666AB79C546AF85B49645D6CF9541B12);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral29E3D3A27DA76E25616745F4E4A0720F1E2270EB);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralA231C255632A42CBE194BCD69AC24711504E020B);
@@ -18270,6 +18275,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Controller_createData_m12AB6DB62FB7E8C10
 	}
 	{
 		myReader_tFB44890E0114AFA52E240744EE618ED908B4BB56* L_3 = ___0_d;
+		il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		SByteU5BU5D_t88116DA68378C3333DB73E7D36C1A06AFAA91913* L_4;
 		L_4 = NinjaUtil_readByteArray_m83567637DE2BF4A00CF6EA8D7BC2904463FDDB6D(L_3, NULL);
 		Rms_saveRMS_mF7CE60C507D5896622CA43DB7367F4A174BC62C6(_stringLiteralAEE698669DA8CB6075714D6732D00105A1B5DF90, L_4, NULL);
@@ -28386,6 +28392,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Controller_readGetImgByName_m9D7A78C718A
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&ImgByName_tB2852356CEF58CCBF41517940CBD9983F87A8D6F_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	String_t* V_0 = NULL;
@@ -28414,6 +28421,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Controller_readGetImgByName_m9D7A78C718A
 			V_1 = L_5;
 			V_2 = (SByteU5BU5D_t88116DA68378C3333DB73E7D36C1A06AFAA91913*)NULL;
 			Message_t6F0607127E5920A1C18E3FA5FDE1CDB7C3F10640* L_6 = ___0_msg;
+			il2cpp_codegen_runtime_class_init_inline(NinjaUtil_tCBAB9F5F94DBFD418C90749C622D1B5BCB0FF057_il2cpp_TypeInfo_var);
 			SByteU5BU5D_t88116DA68378C3333DB73E7D36C1A06AFAA91913* L_7;
 			L_7 = NinjaUtil_readByteArray_mD4A17FD1B58933CBDE4BC4C9F11F9428E1F074AA(L_6, NULL);
 			V_2 = L_7;
