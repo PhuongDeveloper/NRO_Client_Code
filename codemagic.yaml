@@ -26,8 +26,8 @@ workflows:
           
           # 2. Đổi tên cái lõi binary và Info.plist (Tẩy sạch tiếng Việt có dấu)
           mv "$APP_DIR/$APP_NAME" "$APP_DIR/NgocRongHay"
-          plutil -replace CFBundleExecutable -string "NgocRongHay" "$APP_DIR/Info.plist"
-          plutil -replace CFBundleName -string "NgocRongHay" "$APP_DIR/Info.plist"
+          plutil -replace CFBundleExecutable -string "NRO" "$APP_DIR/Info.plist"
+          plutil -replace CFBundleName -string "NRO" "$APP_DIR/Info.plist"
           
           # 3. Lách luật: Bơm file PrivacyInfo.xcprivacy vào thẳng UnityFramework
           cat <<EOF > "$APP_DIR/Frameworks/UnityFramework.framework/PrivacyInfo.xcprivacy"
@@ -71,6 +71,6 @@ workflows:
           mkdir -p $CM_BUILD_DIR/build/ios/ipa/Payload
           cp -r "NgocRongHay.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
           cd $CM_BUILD_DIR/build/ios/ipa
-          zip -qr NRO_Unsigned.ipa Payload
+          zip -qr NRO.ipa Payload
     artifacts:
       - build/ios/ipa/*.ipa
