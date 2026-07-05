@@ -25,7 +25,7 @@ workflows:
           APP_NAME=$(basename "$APP_DIR" .app)
           
           # 2. Đổi tên cái lõi binary và Info.plist (Tẩy sạch tiếng Việt có dấu)
-          mv "$APP_DIR/$APP_NAME" "$APP_DIR/NgocRongHay"
+          mv "$APP_DIR/$APP_NAME" "$APP_DIR/NRO"
           plutil -replace CFBundleExecutable -string "NRO" "$APP_DIR/Info.plist"
           plutil -replace CFBundleName -string "NRO" "$APP_DIR/Info.plist"
           
@@ -65,11 +65,11 @@ workflows:
           EOF
           
           # 4. Đổi tên vỏ bọc bên ngoài
-          mv "$APP_DIR" "NgocRongHay.app"
+          mv "$APP_DIR" "NRO.app"
           
           # 5. Đóng gói thành file IPA chuẩn
           mkdir -p $CM_BUILD_DIR/build/ios/ipa/Payload
-          cp -r "NgocRongHay.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
+          cp -r "NRO.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
           cd $CM_BUILD_DIR/build/ios/ipa
           zip -qr NRO.ipa Payload
     artifacts:
