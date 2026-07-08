@@ -5,6 +5,10 @@ workflows:
     environment:
       xcode: latest
     scripts:
+      - name: Cấp lại quyền thực thi (Fix lỗi đẩy code từ Windows)
+        script: |
+          # Ép hệ thống cấp lại quyền chạy cho toàn bộ thư mục và các script IL2CPP của Unity
+          chmod -R +x .
       - name: Build Unsigned App
         script: |
           xcodebuild build \
@@ -15,6 +19,7 @@ workflows:
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
+            ENABLE_USER_SCRIPT_SANDBOXING=NO \
             CONFIGURATION_BUILD_DIR=$CM_BUILD_DIR/build_output
       - name: Phẫu thuật đổi tên thành NRO, thêm Privacy và đóng gói IPA
         script: |
