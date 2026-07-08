@@ -1,94 +1,76 @@
 workflows:
   ios-build:
-    name: Build NSOJUNE Unsigned IPA
+    name: Build NRO Unsigned IPA
     instance_type: mac_mini_m2
     environment:
       xcode: latest
     scripts:
-      - name: Dọn dẹp Source Code & Tắt Sandbox bạo lực
-        script: |
-          echo "1. Chữa lỗi file bị nén bằng Windows (CRLF -> LF)"
-          find . -type f -name "*.sh" -exec sed -i '' 's/\r$//' {} \;
-          
-          echo "2. Cấp quyền thực thi tối đa cho lõi Unity"
-          find . -type d -exec chmod 755 {} \;
-          find . -type f -exec chmod 644 {} \;
-          find . -name "*.sh" -exec chmod +x {} \;
-          find . -name "MapFileParser" -exec chmod +x {} \;
-          find . -name "il2cpp" -exec chmod +x {} \;
-          
-          echo "3. Xử lý lỗi Python của máy ảo M2"
-          mkdir -p $HOME/bin
-          ln -sf $(which python3) $HOME/bin/python
-          export PATH="$HOME/bin:$PATH"
-          
-          echo "4. Can thiệp thẳng vào file gốc để tắt Sandbox của Xcode 15"
-          sed -i '' 's/buildSettings = {/buildSettings = {\n\t\t\t\tENABLE_USER_SCRIPT_SANDBOXING = NO;/g' Unity-iPhone.xcodeproj/project.pbxproj
-          
       - name: Build Unsigned App
         script: |
-          # Phải gọi lại PATH để bước này nhận được Python
-          export PATH="$HOME/bin:$PATH"
-          
           xcodebuild build \
             -project "Unity-iPhone.xcodeproj" \
             -scheme "Unity-iPhone" \
             -sdk iphoneos \
-            -destination 'generic/platform=iOS' \
             -configuration Release \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
-            OTHER_LDFLAGS="-Wl,-ld_classic" \
             CONFIGURATION_BUILD_DIR=$CM_BUILD_DIR/build_output
-            
-      - name: Phẫu thuật đổi tên NSOJUNE, bơm Privacy và đóng gói
+      - name: Phẫu thuật đổi tên thành NRO, thêm Privacy và đóng gói IPA
         script: |
           cd $CM_BUILD_DIR/build_output
           
+          # Tìm cái thư mục app vừa tạo ra
           APP_DIR=$(find . -name "*.app" -type d | head -n 1)
           APP_NAME=$(basename "$APP_DIR" .app)
           
-          # Đổi tên cái lõi binary và Info.plist
-          mv "$APP_DIR/$APP_NAME" "$APP_DIR/NSOJUNE"
-          plutil -replace CFBundleExecutable -string "NSOJUNE" "$APP_DIR/Info.plist"
-          plutil -replace CFBundleName -string "NSOJUNE" "$APP_DIR/Info.plist"
+          # Đổi tên cái lõi binary và Info.plist thành NRO
+          mv "$APP_DIR/$APP_NAME" "$APP_DIR/NRO"
+          plutil -replace CFBundleExecutable -string "NRO" "$APP_DIR/Info.plist"
+          plutil -replace CFBundleName -string "NRO" "$APP_DIR/Info.plist"
           
-          # Bơm PrivacyInfo lách luật của Apple
-          mkdir -p "$APP_DIR/Frameworks/UnityFramework.framework"
+          # Bơm file PrivacyInfo.xcprivacy vào thẳng UnityFramework
           cat <<EOF > "$APP_DIR/Frameworks/UnityFramework.framework/PrivacyInfo.xcprivacy"
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-              <key>NSPrivacyTracking</key><false/>
-              <key>NSPrivacyCollectedDataTypes</key><array/>
+              <key>NSPrivacyTracking</key>
+              <false/>
+              <key>NSPrivacyCollectedDataTypes</key>
+              <array/>
               <key>NSPrivacyAccessedAPITypes</key>
               <array>
                   <dict>
-                      <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategorySystemBootTime</string>
-                      <key>NSPrivacyAccessedAPITypeReasons</key><array><string>35F9.1</string></array>
+                      <key>NSPrivacyAccessedAPIType</key>
+                      <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+                      <key>NSPrivacyAccessedAPITypeReasons</key>
+                      <array><string>35F9.1</string></array>
                   </dict>
                   <dict>
-                      <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
-                      <key>NSPrivacyAccessedAPITypeReasons</key><array><string>C617.1</string></array>
+                      <key>NSPrivacyAccessedAPIType</key>
+                      <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+                      <key>NSPrivacyAccessedAPITypeReasons</key>
+                      <array><string>C617.1</string></array>
                   </dict>
                   <dict>
-                      <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategoryUserDefaults</string>
-                      <key>NSPrivacyAccessedAPITypeReasons</key><array><string>CA92.1</string></array>
+                      <key>NSPrivacyAccessedAPIType</key>
+                      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+                      <key>NSPrivacyAccessedAPITypeReasons</key>
+                      <array><string>CA92.1</string></array>
                   </dict>
               </array>
           </dict>
           </plist>
           EOF
           
-          # Đổi tên vỏ bọc bên ngoài
-          mv "$APP_DIR" "NSOJUNE.app"
+          # Đổi tên vỏ bọc bên ngoài thành NRO.app
+          mv "$APP_DIR" "NRO.app"
           
-          # Đóng gói IPA
+          # Đóng gói thành file IPA chuẩn
           mkdir -p $CM_BUILD_DIR/build/ios/ipa/Payload
-          cp -r "NSOJUNE.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
+          cp -r "NRO.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
           cd $CM_BUILD_DIR/build/ios/ipa
-          zip -qr NSOJUNE_Unsigned.ipa Payload
+          zip -qr NRO_Unsigned.ipa Payload
     artifacts:
       - build/ios/ipa/*.ipa
