@@ -5,12 +5,21 @@ workflows:
     environment:
       xcode: latest
     scripts:
-      - name: Cấp lại quyền thực thi (Fix lỗi đẩy code từ Windows)
+      - name: Trị bách bệnh (Phân quyền, Python, Linker)
         script: |
-          # Ép hệ thống cấp lại quyền chạy cho toàn bộ thư mục và các script IL2CPP của Unity
-          chmod -R +x .
+          # 1. Truy quét và cấp quyền chạy bằng vũ lực cho lõi Unity
+          find . -name "*.sh" -exec chmod +x {} +
+          find . -name "MapFileParser" -exec chmod +x {} +
+          find . -name "il2cpp" -exec chmod +x {} +
+          chmod -R 777 .
+          
+          # 2. Lừa máy Mac: Tạo phím tắt biến python3 thành python để Unity không bị mù
+          if ! command -v python &> /dev/null; then
+              sudo ln -s $(which python3) /usr/local/bin/python
+          fi
       - name: Build Unsigned App
         script: |
+          # 3. Thêm cờ OTHER_LDFLAGS để ép Xcode 15 dùng Linker đời cũ
           xcodebuild build \
             -project "Unity-iPhone.xcodeproj" \
             -scheme "Unity-iPhone" \
@@ -20,21 +29,22 @@ workflows:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             ENABLE_USER_SCRIPT_SANDBOXING=NO \
+            OTHER_LDFLAGS="-Wl,-ld_classic" \
             CONFIGURATION_BUILD_DIR=$CM_BUILD_DIR/build_output
       - name: Phẫu thuật đổi tên thành NRO, thêm Privacy và đóng gói IPA
         script: |
           cd $CM_BUILD_DIR/build_output
           
-          # Tìm cái thư mục app vừa tạo ra
+          # Tìm thư mục app
           APP_DIR=$(find . -name "*.app" -type d | head -n 1)
           APP_NAME=$(basename "$APP_DIR" .app)
           
-          # Đổi tên cái lõi binary và Info.plist thành NRO
+          # Đổi tên cái lõi binary và Info.plist
           mv "$APP_DIR/$APP_NAME" "$APP_DIR/NRO"
           plutil -replace CFBundleExecutable -string "NRO" "$APP_DIR/Info.plist"
           plutil -replace CFBundleName -string "NRO" "$APP_DIR/Info.plist"
           
-          # Bơm file PrivacyInfo.xcprivacy vào thẳng UnityFramework
+          # Bơm PrivacyInfo lách luật
           cat <<EOF > "$APP_DIR/Frameworks/UnityFramework.framework/PrivacyInfo.xcprivacy"
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -69,10 +79,10 @@ workflows:
           </plist>
           EOF
           
-          # Đổi tên vỏ bọc bên ngoài thành NRO.app
+          # Đổi tên vỏ bọc bên ngoài
           mv "$APP_DIR" "NRO.app"
           
-          # Đóng gói thành file IPA chuẩn
+          # Đóng gói IPA
           mkdir -p $CM_BUILD_DIR/build/ios/ipa/Payload
           cp -r "NRO.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
           cd $CM_BUILD_DIR/build/ios/ipa
