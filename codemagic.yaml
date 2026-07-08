@@ -5,21 +5,22 @@ workflows:
     environment:
       xcode: latest
     scripts:
-      - name: Trị bách bệnh (Phân quyền, Python, Linker)
+      - name: Build Unsigned App (Kèm Trị Bệnh Tận Gốc)
         script: |
-          # 1. Truy quét và cấp quyền chạy bằng vũ lực cho lõi Unity
-          find . -name "*.sh" -exec chmod +x {} +
-          find . -name "MapFileParser" -exec chmod +x {} +
-          find . -name "il2cpp" -exec chmod +x {} +
-          chmod -R 777 .
+          # 1. Sửa lỗi kí tự ẩn CRLF của Windows cản trở Mac chạy script
+          find . -type f -name "*.sh" -exec sed -i '' 's/\r$//' {} \;
           
-          # 2. Lừa máy Mac: Tạo phím tắt biến python3 thành python để Unity không bị mù
-          if ! command -v python &> /dev/null; then
-              sudo ln -s $(which python3) /usr/local/bin/python
-          fi
-      - name: Build Unsigned App
-        script: |
-          # 3. Thêm cờ OTHER_LDFLAGS để ép Xcode 15 dùng Linker đời cũ
+          # 2. Cấp quyền bạo lực cho nhân Unity
+          chmod -R 777 .
+          find . -type f -name "il2cpp" -exec chmod +x {} \;
+          find . -type f -name "MapFileParser" -exec chmod +x {} \;
+          
+          # 3. Ép dùng Python giả lập (Đặt chung bước này để không bị mất môi trường)
+          mkdir -p $HOME/bin
+          ln -sf $(which python3) $HOME/bin/python
+          export PATH="$HOME/bin:$PATH"
+          
+          # 4. Bắt đầu Build Game
           xcodebuild build \
             -project "Unity-iPhone.xcodeproj" \
             -scheme "Unity-iPhone" \
@@ -31,6 +32,7 @@ workflows:
             ENABLE_USER_SCRIPT_SANDBOXING=NO \
             OTHER_LDFLAGS="-Wl,-ld_classic" \
             CONFIGURATION_BUILD_DIR=$CM_BUILD_DIR/build_output
+            
       - name: Phẫu thuật đổi tên thành NRO, thêm Privacy và đóng gói IPA
         script: |
           cd $CM_BUILD_DIR/build_output
@@ -44,7 +46,7 @@ workflows:
           plutil -replace CFBundleExecutable -string "NRO" "$APP_DIR/Info.plist"
           plutil -replace CFBundleName -string "NRO" "$APP_DIR/Info.plist"
           
-          # Bơm PrivacyInfo lách luật
+          # Bơm PrivacyInfo lách luật của Apple
           cat <<EOF > "$APP_DIR/Frameworks/UnityFramework.framework/PrivacyInfo.xcprivacy"
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
