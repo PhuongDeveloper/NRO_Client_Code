@@ -3,6 +3,14 @@
 #include <stdint.h>
 
 #ifdef __OBJC__
+@class CAEAGLLayer;
+@class EAGLContext;
+#else
+typedef struct objc_object CAEAGLLayer;
+typedef struct objc_object EAGLContext;
+#endif
+
+#ifdef __OBJC__
 @class CAMetalLayer;
 @protocol CAMetalDrawable;
 @protocol MTLDrawable;
@@ -114,7 +122,6 @@ START_STRUCT(UnityDisplaySurfaceMTL, UnityDisplaySurfaceBase)
 OBJC_OBJECT_PTR CAMetalLayer *       layer;
 OBJC_OBJECT_PTR MTLDeviceRef         device;
 
-OBJC_OBJECT_PTR MTLCommandQueueRef  commandQueue;
 OBJC_OBJECT_PTR CAMetalDrawableRef  drawable;
 OBJC_OBJECT_PTR MTLTextureRef       drawableProxyRT[kUnityNumOffscreenSurfaces];
 UnityRenderBufferHandle             drawableProxyRS[kUnityNumOffscreenSurfaces];
@@ -123,8 +130,6 @@ int                                 drawableProxyNeedsClear[kUnityNumOffscreenSu
 // This is used on a Mac with drawableProxyRT when off-screen rendering is used
 int                                 proxySwaps;         // Counts times proxy RTs have swapped since surface recreated
 int                                 proxyReady;         // [bool] Proxy RT has swapped since last present; frame ended
-int                                 calledPresentDrawable; // Tracks presenting for editor.
-int                                 vsync;              // Is vsync enabled or not
 
 OBJC_OBJECT_PTR MTLTextureRef       drawableTex;
 OBJC_OBJECT_PTR MTLTextureRef       systemColorRB;

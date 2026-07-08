@@ -1,4 +1,4 @@
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
 
 #import "UnityView.h"
 #import "UnityAppController+Rendering.h"
@@ -46,4 +46,4 @@ extern bool _unityAppReady;
 
 @end
 
-#endif // PLATFORM_IOS || PLATFORM_VISIONOS
+#endif // PLATFORM_IOS

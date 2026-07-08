@@ -57,7 +57,10 @@
 #include "utils/Environment.h"
 #include "mono/ThreadPool/threadpool-ms.h"
 #include "mono/ThreadPool/threadpool-ms-io.h"
-//#include "icalls/mscorlib/System.Reflection/Assembly.h"
+#include "icalls/mscorlib/System.Reflection/RuntimeAssembly.h"
+#include "icalls/mscorlib/System.IO/MonoIO.h"
+#include "vm/Monitor.h"
+#include "vm-utils/Debugger.h"
 
 #include "Baselib.h"
 #include "Cpp/ReentrantLock.h"
@@ -148,6 +151,21 @@ namespace vm
             return true;
 
         SanityChecks();
+
+#if IL2CPP_MONO_DEBUGGER
+        il2cpp::utils::Debugger::AllocateStaticData();
+#endif
+        il2cpp::vm::Monitor::AllocateStaticData();
+        il2cpp::os::MemoryMappedFile::AllocateStaticData();
+        il2cpp::icalls::mscorlib::System::IO::MonoIO::AllocateStaticData();
+        il2cpp::vm::Class::AllocateStaticData();
+
+#if IL2CPP_ENABLE_PROFILER
+        // Static data for profiler is initialised here and also when profiler is installed (Profiler::Install()) since il2cpp test setup differs from Unity
+        il2cpp::vm::Profiler::AllocateStaticData();
+#endif
+
+        il2cpp::icalls::mscorlib::System::Reflection::RuntimeAssembly::AllocateStaticData();
 
         os::Initialize();
         os::Locale::Initialize();
@@ -448,12 +466,11 @@ namespace vm
 
         shutting_down = true;
 
-#if IL2CPP_ENABLE_PROFILER
-        il2cpp::vm::Profiler::Shutdown();
-#endif
 #if IL2CPP_MONO_DEBUGGER
         il2cpp::utils::Debugger::RuntimeShutdownEnd();
 #endif
+
+        il2cpp::icalls::mscorlib::System::Reflection::RuntimeAssembly::FreeStaticData();
 
 #if IL2CPP_SUPPORT_THREADS
         threadpool_ms_cleanup();
@@ -462,6 +479,10 @@ namespace vm
         // Tries to abort all threads
         // Threads at alertable waits may not have existing when this return
         Thread::AbortAllThreads();
+
+#if IL2CPP_ENABLE_PROFILER
+        il2cpp::vm::Profiler::Shutdown();
+#endif
 
         os::Socket::Cleanup();
         String::CleanupEmptyString();
@@ -497,6 +518,18 @@ namespace vm
         os::Uninitialize();
 
         Reflection::ClearStatics();
+
+#if IL2CPP_ENABLE_PROFILER
+        il2cpp::vm::Profiler::FreeStaticData();
+#endif
+
+        il2cpp::vm::Monitor::FreeStaticData();
+        il2cpp::os::MemoryMappedFile::FreeStaticData();
+        il2cpp::icalls::mscorlib::System::IO::MonoIO::FreeStaticData();
+        il2cpp::vm::Class::FreeStaticData();
+#if IL2CPP_MONO_DEBUGGER
+        il2cpp::utils::Debugger::FreeStaticData();
+#endif
 
 #if IL2CPP_ENABLE_RELOAD
         if (g_ClearMethodMetadataInitializedFlags != NULL)
@@ -926,7 +959,7 @@ namespace vm
                 return;
 
             // Wait for other thread to finish executing the constructor.
-            while (os::Atomic::CompareExchange(&klass->cctor_finished_or_no_cctor, 1, 1) != 1 && os::Atomic::CompareExchange(&klass->initializationExceptionGCHandle, 0, 0) == 0)
+            while (os::Atomic::CompareExchange(&klass->cctor_finished_or_no_cctor, 1, 1) != 1 && os::Atomic::CompareExchangePointer((void**)&klass->initializationExceptionGCHandle, (void*)0, (void*)0) == 0)
             {
                 os::Thread::Sleep(1);
             }

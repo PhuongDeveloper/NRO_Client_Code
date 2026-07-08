@@ -6,6 +6,10 @@
 #error We assume both __aarch64__ and __arm__ cannot be defined at tha same time.
 #endif
 
+#if IL2CPP_USE_PLATFORM_CONFIG
+#include "il2cpp-config-platform.h"
+#endif
+
 #if defined(__aarch64__) || defined(_M_ARM64)
 #define IL2CPP_TARGET_ARM64 1
 #define IL2CPP_TARGET_ARMV7 0
@@ -129,7 +133,7 @@
 #define IL2CPP_PLATFORM_SUPPORTS_TIMEZONEINFO 1
 
 #include "TargetConditionals.h"
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR || TARGET_OS_TV || TARGET_TVOS_SIMULATOR || TARGET_OS_XROS || TARGET_VISIONOS_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR || TARGET_OS_TV || TARGET_TVOS_SIMULATOR
 #define IL2CPP_TARGET_IOS 1
 #define IL2CPP_PLATFORM_SUPPORTS_CPU_INFO 1
 #else
@@ -192,10 +196,7 @@
 #endif
 #elif defined(NN_PLATFORM_CTR)
 #define IL2CPP_TARGET_N3DS 1
-#elif defined(NN_BUILD_TARGET_PLATFORM_NX)
-#define IL2CPP_TARGET_SWITCH 1
-#include "il2cpp-config-switch.h"
-#elif IL2CPP_TARGET_CUSTOM
+#elif IL2CPP_USE_PLATFORM_CONFIG
 // defined handled externally
 #else
 #error please define your target platform
@@ -289,7 +290,7 @@
 #define IL2CPP_IL2CPP_TINY_SUPPORT_SOCKETS IL2CPP_TINY &&IL2CPP_TINY_DEBUGGER
 
 #ifndef IL2CPP_SUPPORT_THREADS
-#define IL2CPP_SUPPORT_THREADS ((!IL2CPP_TARGET_JAVASCRIPT || IL2CPP_TINY_DEBUGGER) && (!IL2CPP_TINY || IL2CPP_IL2CPP_TINY_SUPPORT_THREADS))
+#define IL2CPP_SUPPORT_THREADS (!IL2CPP_TARGET_JAVASCRIPT)
 #endif
 
 #ifndef IL2CPP_SUPPORT_SOCKETS

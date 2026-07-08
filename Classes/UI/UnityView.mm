@@ -3,7 +3,6 @@
 #include "UnityAppController+Rendering.h"
 #include "OrientationSupport.h"
 #include "Unity/DisplayManager.h"
-#include "Unity/UnityMetalSupport.h"
 #include "Unity/ObjCRuntime.h"
 
 extern bool _renderingInited;
@@ -43,8 +42,6 @@ extern bool _skipPresent;
 
 #if UNITY_TVOS
     _curOrientation = UNITY_TVOS_ORIENTATION;
-#elif UNITY_VISIONOS
-    _curOrientation = UNITY_VISIONOS_ORIENTATION;
 #endif
 
     [self onUpdateSurfaceSize: frame.size];
@@ -65,13 +62,8 @@ extern bool _skipPresent;
 
 - (id)initFromMainScreen
 {
-#if !PLATFORM_VISIONOS
     CGRect  frame   = [UIScreen mainScreen].bounds;
     CGFloat scale   = UnityScreenScaleFactor([UIScreen mainScreen]);
-#else
-    CGRect  frame   = CGRectMake(0.0f, 0.0f, 1920.0f, 1080.0f);
-    CGFloat scale   = 1.0f;
-#endif
     if ((self = [super initWithFrame: frame]))
         [self initImpl: frame scaleFactor: scale];
     return self;
@@ -99,12 +91,7 @@ extern bool _skipPresent;
 
 - (void)recreateRenderingSurfaceIfNeeded
 {
-#if !PLATFORM_VISIONOS
     float requestedContentScaleFactor = UnityScreenScaleFactor([UIScreen mainScreen]);
-#else
-    float requestedContentScaleFactor = 1.0f;
-#endif
-
     if (abs(requestedContentScaleFactor - self.contentScaleFactor) > FLT_EPSILON)
     {
         self.contentScaleFactor = requestedContentScaleFactor;
@@ -232,7 +219,6 @@ void ReportSafeAreaChangeForView(UIView* view)
     UnityReportSafeAreaChange(safeArea.origin.x, safeArea.origin.y,
         safeArea.size.width, safeArea.size.height);
 
-#if !PLATFORM_VISIONOS
     if (UnityDeviceHasCutout())
     {
         CGSize cutoutSizeRatio = GetCutoutToScreenRatio();
@@ -249,7 +235,6 @@ void ReportSafeAreaChangeForView(UIView* view)
             return;
         }
     }
-#endif
 
     UnityReportDisplayCutouts(nullptr, nullptr, nullptr, nullptr, 0);
 }
@@ -263,7 +248,7 @@ CGRect ComputeSafeArea(UIView* view)
     float insetLeft = insets.left, insetBottom = insets.bottom;
     float insetWidth = insetLeft + insets.right, insetHeight = insetBottom + insets.top;
 
-#if PLATFORM_IOS && !PLATFORM_VISIONOS
+#if PLATFORM_IOS
     // pre-iOS 15 there is a bug with safeAreaInsets when coupled with the way unity handles forced orientation
     // when we create/show new ViewController with fixed orientation, safeAreaInsets include status bar always
     // alas, we did not find a good way to work around that (this can be seen even in View Debugging: Safe Area would have status bar accounted for)
@@ -273,16 +258,9 @@ CGRect ComputeSafeArea(UIView* view)
     {
         // everything works as expected
     }
-    else
+    else if (view.window.windowScene.statusBarManager.statusBarHidden && fabsf(insetHeight - 20) < 1e-6f)
     {
-        bool isStatusBarHidden = false;
-        if (@available(iOS 13, *))
-            isStatusBarHidden = view.window.windowScene.statusBarManager.statusBarHidden;
-        else
-            isStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
-
-        if (isStatusBarHidden && fabsf(insetHeight - 20) < 1e-6f)
-            insetHeight = insetBottom = 0.0f;
+        insetHeight = insetBottom = 0.0f;
     }
 #endif
 

@@ -399,7 +399,7 @@ NORETURN void il2cpp_codegen_raise_index_out_of_range_exception()
     il2cpp::vm::Exception::RaiseIndexOutOfRangeException();
 }
 
-NORETURN void il2cpp_codegen_raise_overflow_exception(const RuntimeMethod* method)
+NORETURN void il2cpp_codegen_raise_index_out_of_range_exception(const RuntimeMethod* method)
 {
     IL2CPP_RAISE_MANAGED_EXCEPTION(il2cpp_codegen_get_overflow_exception(), method);
 }

@@ -27,7 +27,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     // in case of multi-line input we use UITextView with UIToolbar as accessory view
     // tvOS does not support multiline input thus only UITextField option is implemented
     // tvOS does not support UIToolbar so we rely on tvOS default processing
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
     UITextView*     textView;
 
     UIToolbar*      viewToolbar;
@@ -92,20 +92,6 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     return YES;
 }
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
-- (void)textInputModeDidChange:(NSNotification*)notification
-{
-    [self setPendingSelectionRequest];
-    // Apple reports back the primary language of the current keyboard text input mode using BCP 47 language code i.e "en-GB"
-    // but this also (undocumented) will return "dictation" when using voice dictation and "emoji" when using the emoji keyboard.
-    if ([_keyboard->inputView.textInputMode.primaryLanguage isEqualToString: @"dictation"])
-    {
-        hasUsedDictation = YES;
-    }
-}
-
-#endif
-
 - (void)textInputDone:(id)sender
 {
     if (_status == Visible)
@@ -159,7 +145,18 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     return YES;
 }
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
+
+- (void)textInputModeDidChange:(NSNotification*)notification
+{
+    [self setPendingSelectionRequest];
+    // Apple reports back the primary language of the current keyboard text input mode using BCP 47 language code i.e "en-GB"
+    // but this also (undocumented) will return "dictation" when using voice dictation and "emoji" when using the emoji keyboard.
+    if ([_keyboard->inputView.textInputMode.primaryLanguage isEqualToString: @"dictation"])
+    {
+        hasUsedDictation = YES;
+    }
+}
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
@@ -243,6 +240,39 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     }
 }
 
+- (void)positionInput:(CGRect)kbRect x:(float)x y:(float)y
+{
+    const float safeAreaInsetLeft = [UnityGetGLView() safeAreaInsets].left;
+    const float safeAreaInsetRight = [UnityGetGLView() safeAreaInsets].right;
+
+    if (_multiline)
+    {
+        // use smaller area for iphones and bigger one for ipads
+        int height = UnityDeviceDPI() > 300 ? 75 : 100;
+
+        editView.frame  = CGRectMake(safeAreaInsetLeft, y - height, kbRect.size.width - safeAreaInsetLeft - safeAreaInsetRight, height);
+    }
+    else
+    {
+        editView.frame  = CGRectMake(0, y - kToolBarHeight, kbRect.size.width, kToolBarHeight);
+
+        // old constraint must be removed, changing value while constraint is active causes conflict when changing inputView.frame
+        [inputView removeConstraint: widthConstraint];
+
+        inputView.frame = CGRectMake(inputView.frame.origin.x,
+            inputView.frame.origin.y,
+            kbRect.size.width - safeAreaInsetLeft - safeAreaInsetRight - self->singleLineSystemButtonsSpace,
+            inputView.frame.size.height);
+
+        // required to avoid auto-resizing on iOS 11 in case if input text is too long
+        widthConstraint.constant = inputView.frame.size.width;
+        [inputView addConstraint: widthConstraint];
+    }
+
+    _area = CGRectMake(x, y, kbRect.size.width, kbRect.size.height);
+    [self updateInputHidden];
+}
+
 #endif
 
 + (void)Initialize
@@ -265,7 +295,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     _keyboard = nil;
 }
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
 - (UIToolbar*)createToolbarWithItems:(NSArray*)items
 {
     UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 840, 320, kToolBarHeight)];
@@ -298,15 +328,15 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     // That's why we keep UIBarButtonSystemItemDone/UIBarButtonSystemItemCancel above
     //   and try to translate "Done"/"Cancel" in a way that "should" work
     //   if localization fails we will still have "some" values (coming from english)
-    //   and while this wont work with, say, asian languages - it should not regress the current behaviour
+    //   and while this wont work with, say, asian languages - it should not regress the current behavior
     UIFont* font = [UIFont systemFontOfSize: kSingleLineFontSize];
     NSBundle* uikitBundle = [NSBundle bundleForClass: UIApplication.class];
     NSString* doneStr   = [uikitBundle localizedStringForKey: @"Done" value: nil table: nil];
     NSString* cancelStr = [uikitBundle localizedStringForKey: @"Cancel" value: nil table: nil];
 
     // mind you, all of that is highly empirical.
-    // we assume space between items to be 18 [both betwen buttons and on the sides]
-    // we also assume that button width would be more less title width exactly (it should be quite close though)
+    // we assume space between items to be 18 [both between buttons and on the sides]
+    // we also assume that button width would be more or less the title width exactly (it should be quite close though)
     const int doneW   = (int)[doneStr sizeWithAttributes: @{NSFontAttributeName: font}].width;
     const int cancelW = (int)[cancelStr sizeWithAttributes: @{NSFontAttributeName: font}].width;
 
@@ -321,7 +351,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     self = [super init];
     if (self)
     {
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
         textView = [[UITextView alloc] initWithFrame: CGRectMake(0, 840, 480, 30)];
         textView.delegate = self;
         textView.font = [UIFont systemFontOfSize: 18.0];
@@ -329,8 +359,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
         // For some unknown reason, the `textView` has visual issues when
         // using Dark Mode (some parts of the view become transparent). See case 1367091.
         // However, setting alpha to a value different than 1 fixes the issue.
-        if (@available(iOS 13, *))
-            textView.alpha = 0.99;
+        textView.alpha = 0.99;
 #endif
 
         textField = [[UITextField alloc] initWithFrame: CGRectMake(0, 0, 120, 30)];
@@ -339,17 +368,17 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
         textField.font = [UIFont systemFontOfSize: kSingleLineFontSize];
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
         widthConstraint = [NSLayoutConstraint constraintWithItem: textField attribute: NSLayoutAttributeWidth relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: textField.frame.size.width];
         [textField addConstraint: widthConstraint];
 #endif
         [textField addTarget: self action: @selector(textFieldDidChange:) forControlEvents: UIControlEventEditingChanged];
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
         [self createToolbars];
 #endif
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(keyboardWillShow:) name: UIKeyboardWillShowNotification object: nil];
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(keyboardDidShow:) name: UIKeyboardDidShowNotification object: nil];
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(keyboardWillHide:) name: UIKeyboardWillHideNotification object: nil];
@@ -429,7 +458,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
     _characterLimit = param.characterLimit;
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
     _multiline = param.multiline;
     if (_multiline)
     {
@@ -534,7 +563,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     _active = editView.isFirstResponder;
     editView.hidden = YES;
 
-    #if PLATFORM_IOS || PLATFORM_VISIONOS
+    #if PLATFORM_IOS
     viewToolbar.hidden = YES;
     #endif
 
@@ -561,49 +590,13 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
     textField.returnKeyType = _inputHidden ? UIReturnKeyDone : UIReturnKeyDefault;
 
-    #if PLATFORM_IOS || PLATFORM_VISIONOS
+    #if PLATFORM_IOS
     viewToolbar.hidden  = !_multiline || _inputHidden ? YES : NO;
     #endif
     editView.hidden     = _inputHidden ? YES : NO;
     inputView.hidden    = _inputHidden ? YES : NO;
     [self setTextInputTraits: textField withParam: cachedKeyboardParam];
 }
-
-#if PLATFORM_IOS || PLATFORM_VISIONOS
-- (void)positionInput:(CGRect)kbRect x:(float)x y:(float)y
-{
-    const float safeAreaInsetLeft = [UnityGetGLView() safeAreaInsets].left;
-    const float safeAreaInsetRight = [UnityGetGLView() safeAreaInsets].right;
-
-    if (_multiline)
-    {
-        // use smaller area for iphones and bigger one for ipads
-        int height = UnityDeviceDPI() > 300 ? 75 : 100;
-
-        editView.frame  = CGRectMake(safeAreaInsetLeft, y - height, kbRect.size.width - safeAreaInsetLeft - safeAreaInsetRight, height);
-    }
-    else
-    {
-        editView.frame  = CGRectMake(0, y - kToolBarHeight, kbRect.size.width, kToolBarHeight);
-
-        // old constraint must be removed, changing value while constraint is active causes conflict when changing inputView.frame
-        [inputView removeConstraint: widthConstraint];
-
-        inputView.frame = CGRectMake(inputView.frame.origin.x,
-            inputView.frame.origin.y,
-            kbRect.size.width - safeAreaInsetLeft - safeAreaInsetRight - self->singleLineSystemButtonsSpace,
-            inputView.frame.size.height);
-
-        // required to avoid auto-resizing on iOS 11 in case if input text is too long
-        widthConstraint.constant = inputView.frame.size.width;
-        [inputView addConstraint: widthConstraint];
-    }
-
-    _area = CGRectMake(x, y, kbRect.size.width, kbRect.size.height);
-    [self updateInputHidden];
-}
-
-#endif
 
 - (CGRect)queryArea
 {
@@ -681,7 +674,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
 - (void)setText:(NSString*)newText
 {
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
     if (_multiline)
         textView.text = newText;
     else
@@ -773,7 +766,7 @@ static bool StringContainsEmoji(NSString *string);
 
         NSString* newText = [currentText stringByReplacingCharactersInRange: range withString: newReplacementText];
 
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
         if (_multiline)
             [textView setText: newText];
         else
@@ -799,7 +792,7 @@ static bool StringContainsEmoji(NSString *string);
         if (_inputHidden && _hiddenSelection.length > 0)
         {
             NSString* newText = [currentText stringByReplacingCharactersInRange: _hiddenSelection withString: text_];
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
             if (_multiline)
                 [textView setText: newText];
             else
@@ -850,7 +843,7 @@ extern "C" void UnityKeyboard_Create(unsigned keyboardType, int autocorrection, 
 
     // on iOS 15, QuickType bar was decoupled from autocorrection (so it still shows candidates)
     // for a principle of "the least surprise" we keep it coupled internally, so autocorrection == spellchecking
-    // TODO: should we expose it the control of it?
+    // TODO: should we expose the control of it?
     static const UITextAutocorrectionType autocorrectionTypes[] =
     {
         UITextAutocorrectionTypeNo,

@@ -116,9 +116,7 @@ void    UnityOrientationRequestWasCommitted(void);
 int     UnityReportResizeView(unsigned w, unsigned h, unsigned /*ScreenOrientation*/ contentOrientation);   // returns ScreenOrientation
 void    UnityReportSafeAreaChange(float x, float y, float w, float h);
 void    UnityReportBackbufferChange(UnityRenderBufferHandle colorBB, UnityRenderBufferHandle depthBB);
-#if !PLATFORM_VISIONOS
 float   UnityCalculateScalingFactorFromTargetDPI(UIScreen* screen);
-#endif
 void    UnityReportDisplayCutouts(const float* x, const float* y, const float* width, const float* height, int count);
 
 // player settings
@@ -235,9 +233,7 @@ UIWindow*               UnityGetMainWindow(void);
 enum ScreenOrientation  UnityCurrentOrientation(void);
 
 // Unity/DisplayManager.mm
-#if !PLATFORM_VISIONOS
 float                   UnityScreenScaleFactor(UIScreen* screen);
-#endif
 
 // Unity/DeviceSettings.mm
 int                     UnityDeviceHasCutout(void);
@@ -274,8 +270,8 @@ void            UnityGetNiceKeyname(int key, char* buffer, int maxLen);
 void            UnityGfxInitedCallback(void);
 void            UnityPresentContextCallback(struct UnityFrameStats const* frameStats);
 void            UnityFramerateChangeCallback(int targetFPS);
+void            UnitySelectRenderingAPI(void);
 int             UnitySelectedRenderingAPI(void);
-int             UnityIsBatchmode(void);
 
 NSBundle*           UnityGetMetalBundle(void);
 MTLDeviceRef        UnityGetMetalDevice(void);

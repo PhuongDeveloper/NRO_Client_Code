@@ -18,6 +18,9 @@
 // Patch gcc and clang intrinsics to achieve a sequentially consistent barrier.
 // As of writing Clang 9, GCC 9 none of them produce a seq cst barrier for load-store operations.
 // To fix this we switch load store to be acquire release with a full final barrier.
+// 2022-07-27 TODO: reassess if this is still needed.
+// Arm people claim full barrier is needed only to match __sync builtins
+// https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0668r5.html
 
 #define detail_ldst_intrinsic_relaxed detail_intrinsic_relaxed
 #define detail_ldst_intrinsic_acquire detail_intrinsic_acquire
@@ -60,41 +63,47 @@ static FORCE_INLINE void Baselib_atomic_thread_fence_##order(void)              
 #define detail_LOAD(op, order, id , bits, int_type, ...)                                                                    \
 static FORCE_INLINE void Baselib_atomic_##op##_##id##_##order##_v(const void* obj, void* result)                            \
 {                                                                                                                           \
-    __extension__({ __atomic_load((int_type*)obj, (int_type*)result, detail_intrinsic_##order); });                         \
+    typedef int_type aligned_int_type COMPILER_ALIGN_AS(sizeof(int_type));                                                  \
+    __extension__({ __atomic_load((aligned_int_type*)obj, (int_type*)result, detail_intrinsic_##order); });                 \
 }
 
 #define detail_LOAD_NOT_CONST(op, order, id , bits, int_type, ...)                                                          \
 static FORCE_INLINE void Baselib_atomic_##op##_##id##_##order##_v(void* obj, void* result)                                  \
 {                                                                                                                           \
-    __extension__({ __atomic_load((int_type*)obj, (int_type*)result, detail_intrinsic_##order); });                         \
+    typedef int_type aligned_int_type COMPILER_ALIGN_AS(sizeof(int_type));                                                  \
+    __extension__({ __atomic_load((aligned_int_type*)obj, (int_type*)result, detail_intrinsic_##order); });                 \
 }
 
 #define detail_STORE(op, order, id , bits, int_type, ...)                                                                   \
 static FORCE_INLINE void Baselib_atomic_##op##_##id##_##order##_v(void* obj, const void* value)                             \
 {                                                                                                                           \
-    __extension__({ __atomic_store((int_type*)obj, (int_type*)value, detail_intrinsic_##order); });                         \
+    typedef int_type aligned_int_type COMPILER_ALIGN_AS(sizeof(int_type));                                                  \
+    __extension__({ __atomic_store((aligned_int_type*)obj, (int_type*)value, detail_intrinsic_##order); });                 \
 }
 
 #define detail_ALU(op, order, id , bits, int_type, ...)                                                                     \
 static FORCE_INLINE void Baselib_atomic_##op##_##id##_##order##_v(void* obj, const void* value, void* result)               \
 {                                                                                                                           \
-    *(int_type*)result = __extension__({ __atomic_##op((int_type*)obj, *(int_type*)value, detail_ldst_intrinsic_##order); });\
+    typedef int_type aligned_int_type COMPILER_ALIGN_AS(sizeof(int_type));                                                  \
+    *(aligned_int_type*)result = __extension__({ __atomic_##op((aligned_int_type*)obj, *(int_type*)value, detail_ldst_intrinsic_##order); });\
     detail_AARCH64_SEQCST_PATCH_BARRIER_##order;                                                                            \
 }
 
 #define detail_XCHG(op, order, id , bits, int_type, ...)                                                                    \
 static FORCE_INLINE void Baselib_atomic_##op##_##id##_##order##_v(void* obj, const void* value, void* result)               \
 {                                                                                                                           \
-    __extension__({ __atomic_exchange((int_type*)obj, (int_type*)value, (int_type*)result, detail_ldst_intrinsic_##order); });\
+    typedef int_type aligned_int_type COMPILER_ALIGN_AS(sizeof(int_type));                                                  \
+    __extension__({ __atomic_exchange((aligned_int_type*)obj, (int_type*)value, (int_type*)result, detail_ldst_intrinsic_##order); });\
     detail_AARCH64_SEQCST_PATCH_BARRIER_##order;                                                                            \
 }
 
 #define detail_CMP_XCHG_WEAK(op, order1, order2, id , bits, int_type, ...)                                                  \
 static FORCE_INLINE bool Baselib_atomic_##op##_##id##_##order1##_##order2##_v(void* obj, void* expected, const void* value) \
 {                                                                                                                           \
+    typedef int_type aligned_int_type COMPILER_ALIGN_AS(sizeof(int_type));                                                  \
     detail_GCC_CMP_XCHG_128_WEAK_QNX_PATCH(order1, order2, int_type, obj, expected, value);                                 \
     bool result = __extension__({ __atomic_compare_exchange(                                                                \
-        (int_type*)obj,                                                                                                     \
+        (aligned_int_type*)obj,                                                                                             \
         (int_type*)expected,                                                                                                \
         (int_type*)value,                                                                                                   \
         1,                                                                                                                  \
@@ -109,9 +118,10 @@ static FORCE_INLINE bool Baselib_atomic_##op##_##id##_##order1##_##order2##_v(vo
 #define detail_CMP_XCHG_STRONG(op, order1, order2, id , bits, int_type, ...)                                                \
 static FORCE_INLINE bool Baselib_atomic_##op##_##id##_##order1##_##order2##_v(void* obj, void* expected, const void* value) \
 {                                                                                                                           \
+    typedef int_type aligned_int_type COMPILER_ALIGN_AS(sizeof(int_type));                                                  \
     detail_GCC_CMP_XCHG_128_STRONG_QNX_PATCH(order1, order2, int_type, obj, expected, value);                               \
     bool result =  __extension__ ({ __atomic_compare_exchange(                                                              \
-        (int_type*)obj,                                                                                                     \
+        (aligned_int_type*)obj,                                                                                             \
         (int_type*)expected,                                                                                                \
         (int_type*)value,                                                                                                   \
         0,                                                                                                                  \

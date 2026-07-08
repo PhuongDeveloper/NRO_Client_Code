@@ -289,7 +289,6 @@ static void* _ObservePlayerItemContext = (void*)0x2;
 
 - (BOOL)setAudioVolume:(float)volume
 {
-#if  !PLATFORM_VISIONOS
     if (!_playerReady)
         return NO;
 
@@ -309,9 +308,6 @@ static void* _ObservePlayerItemContext = (void*)0x2;
     [_playerItem setAudioMix: audioMix];
 
     return YES;
-#else
-    return YES;
-#endif
 }
 
 - (void)playerItemDidReachEnd:(NSNotification*)notification
@@ -339,11 +335,10 @@ static bool _AudioRouteWasChanged = false;
 
             case AVPlayerStatusReadyToPlay:
             {
-#if !PLATFORM_VISIONOS
                 NSArray* video = [_playerItem.asset tracksWithMediaType: AVMediaTypeVideo];
                 if ([video count])
                     _videoSize = [(AVAssetTrack*)[video objectAtIndex: 0] naturalSize];
-#endif
+
                 _duration           = [_playerItem duration];
                 _assetReady         = YES;
                 reportPlayerReady   = _itemReady;
@@ -423,10 +418,8 @@ static bool _AudioRouteWasChanged = false;
          context: _ObservePlayerItemContext
         ];
 
-#if !PLATFORM_VISIONOS
         [_player setAllowsExternalPlayback: NO];
-#endif
-        
+
         // we want to subscribe to route change notifications, for that we need audio session active
         // and in case FMOD wasnt used up to this point it is still not active
         [[AVAudioSession sharedInstance] setActive: YES error: nil];
@@ -463,7 +456,6 @@ static bool _AudioRouteWasChanged = false;
     _reader.timeRange = CMTimeRangeMake(kCMTimeZero, _duration);
 
 
-#if !PLATFORM_VISIONOS
     AVAssetTrack* videoTrack = [[_playerItem.asset tracksWithMediaType: AVMediaTypeVideo] objectAtIndex: 0];
 
     NSDictionary* options = @{ (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA) };
@@ -487,9 +479,6 @@ static bool _AudioRouteWasChanged = false;
     CMVideoSampling_Initialize(&_videoSampling);
 
     return YES;
-#else
-    return NO;
-#endif
 }
 
 @end

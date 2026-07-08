@@ -1,9 +1,8 @@
 #include "UnityTrampolineCompatibility.h"
 #include "UnityRendering.h"
 
-#include "UnityMetalSupport.h"
-#include <QuartzCore/QuartzCore.h>
-#include <libkern/OSAtomic.h>
+#import <Metal/Metal.h>
+#import <QuartzCore/QuartzCore.h>
 
 #if UNITY_TRAMPOLINE_IN_USE
 #include "UnityAppController.h"
@@ -11,16 +10,26 @@
 #endif
 
 #include "ObjCRuntime.h"
+#include <libkern/OSAtomic.h>
 #include <utility>
+
+#if UNITY_TRAMPOLINE_IN_USE
+static Class MTLTextureDescriptorClass;
+#else
+extern Class MTLTextureDescriptorClass;
+#endif
 
 extern "C" void InitRenderingMTL()
 {
+#if UNITY_TRAMPOLINE_IN_USE
+    MTLTextureDescriptorClass = NSClassFromString(@"MTLTextureDescriptor");
+#endif
 }
 
 static MTLPixelFormat GetColorFormatForSurface(const UnityDisplaySurfaceMTL* surface)
 {
     MTLPixelFormat colorFormat = surface->srgb ? MTLPixelFormatBGRA8Unorm_sRGB : MTLPixelFormatBGRA8Unorm;
-#if PLATFORM_IOS || PLATFORM_TVOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS || PLATFORM_TVOS
     if (surface->wideColor && UnityIsWideColorSupported())
         colorFormat = surface->srgb ? MTLPixelFormatBGR10_XR_sRGB : MTLPixelFormatBGR10_XR;
 #elif PLATFORM_OSX
@@ -41,7 +50,7 @@ static uint32_t GetCVPixelFormatForSurface(const UnityDisplaySurfaceMTL* surface
 {
     // this makes sense only for ios (at least we dont support this on macos)
     uint32_t colorFormat = kCVPixelFormatType_32BGRA;
-#if PLATFORM_IOS || PLATFORM_TVOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS || PLATFORM_TVOS
     if (surface->wideColor && UnityIsWideColorSupported())
         colorFormat = kCVPixelFormatType_30RGB;
 #endif
@@ -100,7 +109,7 @@ extern "C" void CreateSystemRenderingSurfaceMTL(UnityDisplaySurfaceMTL* surface)
     surface->layer.framebufferOnly = (surface->framebufferOnly != 0);
     surface->colorFormat = (unsigned)colorFormat;
 
-    MTLTextureDescriptor* txDesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat: colorFormat width: surface->systemW height: surface->systemH mipmapped: NO];
+    MTLTextureDescriptor* txDesc = [MTLTextureDescriptorClass texture2DDescriptorWithPixelFormat: colorFormat width: surface->systemW height: surface->systemH mipmapped: NO];
 #if PLATFORM_OSX
     txDesc.resourceOptions = MTLResourceCPUCacheModeDefaultCache | MTLResourceStorageModeManaged;
 #endif
@@ -110,9 +119,6 @@ extern "C" void CreateSystemRenderingSurfaceMTL(UnityDisplaySurfaceMTL* surface)
     {
 #if PLATFORM_OSX
         surface->proxySwaps = 0;
-        surface->proxyReady = 0;
-        surface->calledPresentDrawable = 0;
-        surface->vsync = 1; // by default, vsync is enabled for all surfaces
 #endif
 
         for (int i = 0; i < kUnityNumOffscreenSurfaces; i++)
@@ -123,7 +129,7 @@ extern "C" void CreateSystemRenderingSurfaceMTL(UnityDisplaySurfaceMTL* surface)
             surface->drawableProxyRT[i] = [surface->device newTextureWithDescriptor: txDesc];
             surface->drawableProxyRT[i].label = @"DrawableProxy";
 
-        #if PLATFORM_IOS || PLATFORM_TVOS || PLATFORM_VISIONOS
+        #if PLATFORM_IOS || PLATFORM_TVOS
             [surface->drawableProxyRT[i] setPurgeableState: MTLPurgeableStateEmpty];
         #endif
 
@@ -145,7 +151,7 @@ extern "C" void CreateRenderingSurfaceMTL(UnityDisplaySurfaceMTL* surface)
 
     if (w != surface->systemW || h != surface->systemH || surface->useCVTextureCache)
     {
-#if PLATFORM_IOS || PLATFORM_TVOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS || PLATFORM_TVOS
         if (surface->useCVTextureCache)
             surface->cvTextureCache = CreateCVTextureCache();
 
@@ -158,7 +164,7 @@ extern "C" void CreateRenderingSurfaceMTL(UnityDisplaySurfaceMTL* surface)
         else
 #endif
         {
-            MTLTextureDescriptor* txDesc = [MTLTextureDescriptor new];
+            MTLTextureDescriptor* txDesc = [MTLTextureDescriptorClass new];
             txDesc.textureType = MTLTextureType2D;
             txDesc.width = w;
             txDesc.height = h;
@@ -179,7 +185,7 @@ extern "C" void CreateRenderingSurfaceMTL(UnityDisplaySurfaceMTL* surface)
 
     if (surface->msaaSamples > 1)
     {
-        MTLTextureDescriptor* txDesc = [MTLTextureDescriptor new];
+        MTLTextureDescriptor* txDesc = [MTLTextureDescriptorClass new];
         txDesc.textureType = MTLTextureType2DMultisample;
         txDesc.width = w;
         txDesc.height = h;
@@ -223,10 +229,10 @@ extern "C" void CreateSharedDepthbufferMTL(UnityDisplaySurfaceMTL* surface)
 
     MTLPixelFormat pixelFormat = MTLPixelFormatDepth32Float_Stencil8;
 
-    MTLTextureDescriptor* depthTexDesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat: pixelFormat width: surface->targetW height: surface->targetH mipmapped: NO];
+    MTLTextureDescriptor* depthTexDesc = [MTLTextureDescriptorClass texture2DDescriptorWithPixelFormat: pixelFormat width: surface->targetW height: surface->targetH mipmapped: NO];
     depthTexDesc.resourceOptions = MTLResourceStorageModePrivate;
 
-#if PLATFORM_IOS || PLATFORM_TVOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS || PLATFORM_TVOS
     if (surface->memorylessDepth)
         depthTexDesc.storageMode = MTLStorageModeMemoryless;
 #endif
@@ -334,19 +340,18 @@ extern "C" void PreparePresentMTL(UnityDisplaySurfaceMTL* surface)
 
 extern "C" void PresentMTL(UnityDisplaySurfaceMTL* surface)
 {
+    //ARCHEOLOGY: we used to present using [MTLCommandBuffer presentDrawable:afterMinimumDuration:]
+    //however that was found to sometimes cause 0.5s-1s hangs when acquiring drawable after surface rebuild, or presenting hanging completely (UUM-9480)
+    //after some further investigation we found that using the more complex present logic didn't actually yield much benefit
+    //current implementation is made to align with our macOS present logic
     if (surface->drawable)
     {
-        // for some reason presentDrawable: afterMinimumDuration: is missing from simulator headers completely in xcode 12
-    #if (PLATFORM_IOS || PLATFORM_TVOS || PLATFORM_VISIONOS) && !(TARGET_IPHONE_SIMULATOR || TARGET_TVOS_SIMULATOR)
-        const int targetFPS = UnityGetTargetFPS(); assert(targetFPS > 0);
-        [UnityCurrentMTLCommandBuffer() presentDrawable: surface->drawable afterMinimumDuration: 1.0 / targetFPS];
-        return;
-    #endif
+        id<CAMetalDrawable> drawable = surface->drawable;
 
-        // note that we end up here if presentDrawable: afterMinimumDuration: is not supported
-        [UnityCurrentMTLCommandBuffer() presentDrawable: surface->drawable];
+        [UnityCurrentMTLCommandBuffer() addScheduledHandler:^(id<MTLCommandBuffer> commandBuffer) {
+            [drawable present];
+        }];
     }
-    surface->calledPresentDrawable = 1;
 }
 
 extern "C" MTLTextureRef AcquireDrawableMTL(UnityDisplaySurfaceMTL* surface)
@@ -416,9 +421,6 @@ extern "C" void EndFrameRenderingMTL(UnityDisplaySurfaceMTL* surface)
 #if PLATFORM_OSX
     @synchronized(surface->layer)
     {
-        if (!surface->calledPresentDrawable)
-            return;
-        surface->calledPresentDrawable = 0;
         std::swap(surface->drawableProxyRT[0], surface->drawableProxyRT[1]);
         std::swap(surface->drawableProxyRS[0], surface->drawableProxyRS[1]);
         surface->proxySwaps++;

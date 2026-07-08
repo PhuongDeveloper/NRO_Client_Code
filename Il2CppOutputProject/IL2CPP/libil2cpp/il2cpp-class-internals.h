@@ -42,7 +42,8 @@ typedef enum Il2CppTypeNameFormat
     IL2CPP_TYPE_NAME_FORMAT_IL,
     IL2CPP_TYPE_NAME_FORMAT_REFLECTION,
     IL2CPP_TYPE_NAME_FORMAT_FULL_NAME,
-    IL2CPP_TYPE_NAME_FORMAT_ASSEMBLY_QUALIFIED
+    IL2CPP_TYPE_NAME_FORMAT_ASSEMBLY_QUALIFIED,
+    IL2CPP_TYPE_NAME_FORMAT_REFLECTION_QUALIFIED
 } Il2CppTypeNameFormat;
 
 
@@ -403,7 +404,7 @@ typedef struct Il2CppClass
 
     void *unity_user_data;
 
-    uint32_t initializationExceptionGCHandle;
+    Il2CppGCHandle initializationExceptionGCHandle;
 
     uint32_t cctor_started;
     uint32_t cctor_finished_or_no_cctor;

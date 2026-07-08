@@ -617,6 +617,7 @@ static const Il2CppGenericInst* GetSharedInst(const Il2CppGenericInst* inst)
                             type = &il2cpp_defaults.byte_shared_enum->byval_arg;
                             break;
                         case IL2CPP_TYPE_U2:
+                        case IL2CPP_TYPE_CHAR:
                             type = &il2cpp_defaults.uint16_shared_enum->byval_arg;
                             break;
                         case IL2CPP_TYPE_U4:
@@ -624,6 +625,9 @@ static const Il2CppGenericInst* GetSharedInst(const Il2CppGenericInst* inst)
                             break;
                         case IL2CPP_TYPE_U8:
                             type = &il2cpp_defaults.uint64_shared_enum->byval_arg;
+                            break;
+                        case IL2CPP_TYPE_I:
+                        case IL2CPP_TYPE_U:
                             break;
                         default:
                             IL2CPP_ASSERT(0 && "Invalid enum underlying type");

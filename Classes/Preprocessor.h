@@ -24,44 +24,35 @@
 #error Please use tvOS SDK 15.0 or newer
 #endif
 
-#if TARGET_OS_IOS && (!defined(__IPHONE_12_0) || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_12_0)
-#error Please target iOS 12.0 or newer
+#if TARGET_OS_IOS && (!defined(__IPHONE_13_0) || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_13_0)
+#error Please target iOS 13.0 or newer
 #endif
 
-#if TARGET_OS_TV && (!defined(__TVOS_12_0) || __TV_OS_VERSION_MIN_REQUIRED < __TVOS_12_0)
-#error Please target tvOS 12.0 or newer
+#if TARGET_OS_TV && (!defined(__TVOS_13_0) || __TV_OS_VERSION_MIN_REQUIRED < __TVOS_13_0)
+#error Please target tvOS 13.0 or newer
 #endif
 
 //------------------------------------------------------------------------------
 //
 // defines for target platform
-// Note: visionOS defines _OS_XR and _OS_IOS
 //
 
 #define UNITY_TRAMPOLINE_IN_USE 1
 
-#if defined(TARGET_OS_XR) && TARGET_OS_XR
+#if defined(TARGET_OS_IOS) && TARGET_OS_IOS
 #define PLATFORM_IOS 1
     #define PLATFORM_OSX    0
 #define PLATFORM_TVOS 0
-#define PLATFORM_VISIONOS 0
-#elif defined(TARGET_OS_IOS) && TARGET_OS_IOS
-#define PLATFORM_IOS 1
-    #define PLATFORM_OSX    0
-#define PLATFORM_TVOS 0
-#define PLATFORM_VISIONOS 0
 #elif defined(TARGET_OS_OSX) && TARGET_OS_OSX
 #define PLATFORM_IOS 1
     #define PLATFORM_OSX    1
 #define PLATFORM_TVOS 0
-#define PLATFORM_VISIONOS 0
 #elif defined(TARGET_OS_TV) && TARGET_OS_TV
 #define PLATFORM_IOS 1
     #define PLATFORM_OSX    0
 #define PLATFORM_TVOS 0
-#define PLATFORM_VISIONOS 0
 #else
-    #error one of TARGET_OS_IOS, TARGET_OS_OSX, TARGET_OS_TV (add visionos code here) should be defined
+    #error one of TARGET_OS_IOS, TARGET_OS_OSX, TARGET_OS_TV should be defined
 #endif
 
 
@@ -177,7 +168,7 @@
 
 #define UNITY_USES_REMOTE_NOTIFICATIONS 0
 #define UNITY_USES_WEBCAM 0
-#define UNITY_USES_MICROPHONE 0
+#define UNITY_USES_MICROPHONE 1
 #define UNITY_USES_REPLAY_KIT 0
 #define UNITY_USES_DYNAMIC_PLAYER_LIB 0
 #define UNITY_USES_LOCATION 0
@@ -200,12 +191,8 @@
 #if PLATFORM_TVOS
     #define UNITY_TVOS_ORIENTATION landscapeLeft
 #endif
-#if PLATFORM_VISIONOS
-    #define UNITY_VISIONOS_ORIENTATION landscapeLeft
-#endif
 
-
-#if PLATFORM_IOS || PLATFORM_TVOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS || PLATFORM_TVOS
     #define UNITY_REPLAY_KIT_AVAILABLE UNITY_USES_REPLAY_KIT
 #else
     #define UNITY_REPLAY_KIT_AVAILABLE 0

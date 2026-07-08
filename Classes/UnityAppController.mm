@@ -46,6 +46,8 @@ bool _ios100orNewer = false, _ios101orNewer = false, _ios102orNewer = false, _io
 bool _ios110orNewer = false, _ios111orNewer = false, _ios112orNewer = false;
 bool _ios130orNewer = false, _ios140orNewer = false, _ios150orNewer = false, _ios160orNewer = false;
 
+// was core of Unity loaded (non-graphics part prior to loading first scene)
+bool _unityEngineInitialized = false;
 // was unity rendering already inited: we should not touch rendering while this is false
 bool    _renderingInited        = false;
 // was unity inited: we should not touch unity api while this is false
@@ -117,10 +119,8 @@ NSInteger _forceInterfaceOrientationMask = 0;
 
     UnityInitApplicationGraphics();
 
-#if !PLATFORM_VISIONOS
     // we make sure that first level gets correct display list and orientation
     [[DisplayManager Instance] updateDisplayListCacheInUnity];
-#endif
 
     UnityLoadApplication();
     Profiler_InitProfiler();
@@ -278,7 +278,7 @@ extern "C" void UnityCleanupTrampoline()
     return YES;
 }
 
-- (UIWindowScene*)pickStartupWindowScene:(NSSet<UIScene*>*)scenes API_AVAILABLE(ios(13.0), tvos(13.0))
+- (UIWindowScene*)pickStartupWindowScene:(NSSet<UIScene*>*)scenes
 {
     // if we have scene with UISceneActivationStateForegroundActive - pick it
     // otherwise UISceneActivationStateForegroundInactive will work
@@ -308,27 +308,44 @@ extern "C" void UnityCleanupTrampoline()
     ::printf("-> applicationDidFinishLaunching()\n");
 
     // send notfications
-#if !PLATFORM_TVOS && !PLATFORM_VISIONOS
+#if !PLATFORM_TVOS
     if ([UIDevice currentDevice].generatesDeviceOrientationNotifications == NO)
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 #endif
 
+    if ([self isBackgroundLaunchOptions: launchOptions])
+        return YES;
+
+    [self initUnityWithApplication: application];
+    return YES;
+}
+
+- (BOOL)isBackgroundLaunchOptions:(NSDictionary*)launchOptions
+{
+    if (launchOptions.count == 0)
+        return NO;
+
+    // launch due to location event, the app likely will stay in background
+    BOOL locationLaunch = [[launchOptions valueForKey: UIApplicationLaunchOptionsLocationKey] boolValue];
+    if (locationLaunch)
+        return YES;
+    return NO;
+}
+
+- (void)initUnityWithApplication:(UIApplication*)application
+{
+    if (_unityEngineInitialized)
+        return;
+    _unityEngineInitialized = true;
+
+    // basic unity init
     UnityInitApplicationNoGraphics(UnityDataBundleDir());
 
     [self selectRenderingAPI];
     [UnityRenderingView InitializeForAPI: self.renderingAPI];
 
-#if !PLATFORM_VISIONOS
-    if (@available(iOS 13, tvOS 13, *))
-        _window = [[UIWindow alloc] initWithWindowScene: [self pickStartupWindowScene: application.connectedScenes]];
-    else
-        _window = [[UIWindow alloc] initWithFrame: [UIScreen mainScreen].bounds];
-#else
-    _window = [[UIWindow alloc] init]; 
-#endif
-
+    _window = [[UIWindow alloc] initWithWindowScene: [self pickStartupWindowScene: application.connectedScenes]];
     _unityView = [self createUnityView];
-
 
     [DisplayManager Initialize];
     _mainDisplay = [DisplayManager Instance].mainDisplay;
@@ -340,12 +357,12 @@ extern "C" void UnityCleanupTrampoline()
     // if you wont use keyboard you may comment it out at save some memory
     [KeyboardDelegate Initialize];
 
-    // delay is needed so that the attach managed debugger window would be properly created when OS view is prepared to show it,
-    //  otherwise debug window will not appear and will cause application to be in frozen state. "startUnity" method after delay will be called on applicationDidBecomeActive
-    // also this might introduce one black frame between launch screen and unity splash screen, but in most scenarios it will be not visible since the splash screen has black background itself
+#if UNITY_DEVELOPER_BUILD
+    // Causes a black screen after splash screen, but would deadlock if waiting for manged debugger otherwise
     [self performSelector: @selector(startUnity:) withObject: application afterDelay: 0];
-    
-    return YES;
+#else
+    [self startUnity: application];
+#endif
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context
@@ -394,6 +411,10 @@ extern "C" void UnityCleanupTrampoline()
         // need to do this with delay because FMOD restarts audio in AVAudioSessionInterruptionNotification handler
         [self performSelector: @selector(updateUnityAudioOutput) withObject: nil afterDelay: 0.1];
         UnitySetPlayerFocus(1);
+    }
+    else
+    {
+        [self initUnityWithApplication: application];
     }
 
     _didResignActive = false;
@@ -623,7 +644,6 @@ extern "C" bool UnityiOS160orNewer() { return _ios160orNewer; }
 // in that case we simply add these functions ourselves to simplify code
 static void AddNewAPIImplIfNeeded()
 {
-#if !PLATFORM_VISIONOS
     if (![[UIScreen class] instancesRespondToSelector: @selector(maximumFramesPerSecond)])
     {
         IMP UIScreen_MaximumFramesPerSecond_IMP = imp_implementationWithBlock(^NSInteger(id _self) {
@@ -639,5 +659,4 @@ static void AddNewAPIImplIfNeeded()
         });
         class_replaceMethod([UIView class], @selector(safeAreaInsets), UIView_SafeAreaInsets_IMP, UIView_safeAreaInsets_Enc);
     }
-#endif
 }

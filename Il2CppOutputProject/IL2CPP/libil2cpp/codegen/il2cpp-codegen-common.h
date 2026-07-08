@@ -250,7 +250,7 @@ inline void* il2cpp_codegen_get_reverse_pinvoke_function_ptr(void* d)
 
 #endif // IL2CPP_TINY
 
-NORETURN void il2cpp_codegen_raise_overflow_exception(const RuntimeMethod* method);
+NORETURN void il2cpp_codegen_raise_index_out_of_range_exception(const RuntimeMethod* method);
 
 template<typename T>
 constexpr bool il2cpp_codegen_is_floating_point_type()
@@ -280,16 +280,16 @@ struct ConvImpl<TDest, TSource, TILStackType, checkOverflow, treatInputAsUnsigne
             if (!treatInputAsUnsigned && !std::is_unsigned<TDest>::value)
             {
                 if ((CompType)ilStackValue > (CompType)std::numeric_limits<TDest>::max())
-                    il2cpp_codegen_raise_overflow_exception(method);
+                    il2cpp_codegen_raise_index_out_of_range_exception(method);
                 if ((CompType)ilStackValue < (CompType)std::numeric_limits<TDest>::min())
-                    il2cpp_codegen_raise_overflow_exception(method);
+                    il2cpp_codegen_raise_index_out_of_range_exception(method);
             }
             if (treatInputAsUnsigned || std::is_unsigned<TDest>::value)
             {
                 if ((typename std::make_unsigned<TILStackType>::type)ilStackValue > (typename std::make_unsigned<TDest>::type) std::numeric_limits<TDest>::max())
-                    il2cpp_codegen_raise_overflow_exception(method);
+                    il2cpp_codegen_raise_index_out_of_range_exception(method);
                 if (!treatInputAsUnsigned && ilStackValue < 0)
-                    il2cpp_codegen_raise_overflow_exception(method);
+                    il2cpp_codegen_raise_index_out_of_range_exception(method);
             }
         }
 
@@ -321,11 +321,11 @@ struct ConvImpl<TDest, TSource, TILStackType, checkOverflow, treatInputAsUnsigne
         if (checkOverflow)
         {
             if (ilStackValue > (TILStackType)std::numeric_limits<TDest>::max())
-                il2cpp_codegen_raise_overflow_exception(method);
+                il2cpp_codegen_raise_index_out_of_range_exception(method);
             if (std::is_signed<TDest>::value && ilStackValue < (TILStackType)std::numeric_limits<TDest>::min())
-                il2cpp_codegen_raise_overflow_exception(method);
+                il2cpp_codegen_raise_index_out_of_range_exception(method);
             if (std::is_unsigned<TDest>::value && ilStackValue < 0)
-                il2cpp_codegen_raise_overflow_exception(method);
+                il2cpp_codegen_raise_index_out_of_range_exception(method);
         }
 
         if (std::is_same<TDest, typename std::make_unsigned<TDest>::type>::value)

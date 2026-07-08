@@ -39,8 +39,23 @@ extern "C" void RegisterStaticallyLinkedModulesGranular()
 	void RegisterModule_TextCoreTextEngine();
 	RegisterModule_TextCoreTextEngine();
 
+	void RegisterModule_UnityAnalyticsCommon();
+	RegisterModule_UnityAnalyticsCommon();
+
+	void RegisterModule_UnityConnect();
+	RegisterModule_UnityConnect();
+
 	void RegisterModule_UnityWebRequest();
 	RegisterModule_UnityWebRequest();
+
+	void RegisterModule_UnityAnalytics();
+	RegisterModule_UnityAnalytics();
+
+	void RegisterModule_CrashReporting();
+	RegisterModule_CrashReporting();
+
+	void RegisterModule_UnityWebRequestAudio();
+	RegisterModule_UnityWebRequestAudio();
 
 }
 
@@ -100,6 +115,7 @@ class RuntimeInitializeOnLoadManager; template <> void RegisterUnityClass<Runtim
 class Shader; template <> void RegisterUnityClass<Shader>(const char*);
 class ShaderNameRegistry; template <> void RegisterUnityClass<ShaderNameRegistry>(const char*);
 class Sprite; template <> void RegisterUnityClass<Sprite>(const char*);
+class SpriteAtlas; template <> void RegisterUnityClass<SpriteAtlas>(const char*);
 class SpriteRenderer; template <> void RegisterUnityClass<SpriteRenderer>(const char*);
 class TagManager; template <> void RegisterUnityClass<TagManager>(const char*);
 class TextAsset; template <> void RegisterUnityClass<TextAsset>(const char*);
@@ -110,12 +126,13 @@ class Texture3D; template <> void RegisterUnityClass<Texture3D>(const char*);
 class TimeManager; template <> void RegisterUnityClass<TimeManager>(const char*);
 class Transform; template <> void RegisterUnityClass<Transform>(const char*);
 namespace TextRendering { class Font; } template <> void RegisterUnityClass<TextRendering::Font>(const char*);
+class UnityConnectSettings; template <> void RegisterUnityClass<UnityConnectSettings>(const char*);
 
 void RegisterAllClasses()
 {
 void RegisterBuiltinTypes();
 RegisterBuiltinTypes();
-	//Total: 58 non stripped classes
+	//Total: 60 non stripped classes
 	//0. AudioBehaviour
 	RegisterUnityClass<AudioBehaviour>("Audio");
 	//1. AudioClip
@@ -212,25 +229,29 @@ RegisterBuiltinTypes();
 	RegisterUnityClass<ShaderNameRegistry>("Core");
 	//47. Sprite
 	RegisterUnityClass<Sprite>("Core");
-	//48. SpriteRenderer
+	//48. SpriteAtlas
+	RegisterUnityClass<SpriteAtlas>("Core");
+	//49. SpriteRenderer
 	RegisterUnityClass<SpriteRenderer>("Core");
-	//49. TagManager
+	//50. TagManager
 	RegisterUnityClass<TagManager>("Core");
-	//50. TextAsset
+	//51. TextAsset
 	RegisterUnityClass<TextAsset>("Core");
-	//51. Texture
+	//52. Texture
 	RegisterUnityClass<Texture>("Core");
-	//52. Texture2D
+	//53. Texture2D
 	RegisterUnityClass<Texture2D>("Core");
-	//53. Texture2DArray
+	//54. Texture2DArray
 	RegisterUnityClass<Texture2DArray>("Core");
-	//54. Texture3D
+	//55. Texture3D
 	RegisterUnityClass<Texture3D>("Core");
-	//55. TimeManager
+	//56. TimeManager
 	RegisterUnityClass<TimeManager>("Core");
-	//56. Transform
+	//57. Transform
 	RegisterUnityClass<Transform>("Core");
-	//57. Font
+	//58. Font
 	RegisterUnityClass<TextRendering::Font>("TextRendering");
+	//59. UnityConnectSettings
+	RegisterUnityClass<UnityConnectSettings>("UnityConnect");
 
 }

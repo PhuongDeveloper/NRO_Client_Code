@@ -15,6 +15,39 @@ namespace baselib
         class Lock
         {
         public:
+            // Releases Lock when ScopedRelease goes out of scope.
+            //
+            // Can only be created by Lock's scoped acquire methods.
+            // Loses its reference to the Lock when moved (target of the move will take ownership).
+            class ScopedRelease
+            {
+                friend Lock;
+
+            public:
+                FORCE_INLINE ~ScopedRelease() { if (m_LockPtr) m_LockPtr->Release(); }
+
+                // non-copyable
+                ScopedRelease(const ScopedRelease& other) = delete;
+                ScopedRelease& operator=(const ScopedRelease& other) = delete;
+
+                // move-constructable, but not assignable as it doesn't make much sense to swap locks.
+                ScopedRelease(ScopedRelease&& other)
+                {
+                    this->m_LockPtr = other.m_LockPtr;
+                    other.m_LockPtr = nullptr;
+                }
+
+                ScopedRelease& operator=(ScopedRelease&& other) = delete;
+
+                // Returns false if either this object was created from a failed TryAcquireScoped/TryTimedAcquireScoped or ownership was moved.
+                bool HasAcquiredLock() const { return m_LockPtr != nullptr; }
+
+            private:
+                FORCE_INLINE ScopedRelease(Lock* lockPtr) : m_LockPtr(lockPtr) {}
+
+                Lock* m_LockPtr;
+            };
+
             // non-copyable
             Lock(const Lock& other) = delete;
             Lock& operator=(const Lock& other) = delete;
@@ -100,9 +133,19 @@ namespace baselib
             template<class FunctionType>
             FORCE_INLINE void AcquireScoped(const FunctionType& func)
             {
-                ReleaseOnDestroy releaseScope(*this);
+                ScopedRelease releaseScope(this);
                 Acquire();
                 func();
+            }
+
+            // Acquire lock and returns an object that calls Release on its destruction.
+            //
+            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
+            COMPILER_WARN_UNUSED_RESULT
+            FORCE_INLINE ScopedRelease AcquireScoped()
+            {
+                Acquire();
+                return ScopedRelease(this);
             }
 
             // Try to acquire lock and invoke user defined function.
@@ -122,11 +165,26 @@ namespace baselib
             {
                 if (TryAcquire())
                 {
-                    ReleaseOnDestroy releaseScope(*this);
+                    ScopedRelease releaseScope(this);
                     func();
                     return true;
                 }
                 return false;
+            }
+
+            // Try to acquire lock and returns an object that calls Release on its destruction.
+            // If lock is held, either by this or another thread, then lock is not acquired and function return false.
+            // On failure to obtain lock the user defined function is not invoked.
+            //
+            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
+            //
+            // Return:          Scope object will do nothing on destruction if no lock was acquired.
+            COMPILER_WARN_UNUSED_RESULT
+            FORCE_INLINE ScopedRelease TryAcquireScoped()
+            {
+                if (TryAcquire())
+                    return ScopedRelease(this);
+                return ScopedRelease(nullptr);
             }
 
             // Try to acquire lock and invoke user defined function.
@@ -150,23 +208,32 @@ namespace baselib
             {
                 if (TryTimedAcquire(timeoutInMilliseconds))
                 {
-                    ReleaseOnDestroy releaseScope(*this);
+                    ScopedRelease releaseScope(this);
                     func();
                     return true;
                 }
                 return false;
             }
 
-        private:
-            class ReleaseOnDestroy
+            // Try to acquire lock and returns an object that calls Release on its destruction.
+            // If lock is held, either by this or another thread, then the function wait for timeoutInMilliseconds for lock to be released.
+            // On failure to obtain lock the user defined function is not invoked.
+            //
+            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
+            //
+            // Timeout passed to this function may be subject to system clock resolution.
+            // If the system clock has a resolution of e.g. 16ms that means this function may exit with a timeout error 16ms earlier than originally scheduled.
+            //
+            // Return:          Scope object will do nothing on destruction if no lock was acquired.
+            COMPILER_WARN_UNUSED_RESULT
+            FORCE_INLINE ScopedRelease TryTimedAcquireScoped(const timeout_ms timeoutInMilliseconds)
             {
-            public:
-                FORCE_INLINE ReleaseOnDestroy(Lock& lockReference) : m_LockReference(lockReference) {}
-                FORCE_INLINE ~ReleaseOnDestroy() { m_LockReference.Release(); }
-            private:
-                Lock& m_LockReference;
-            };
+                if (TryTimedAcquire(timeoutInMilliseconds))
+                    return ScopedRelease(this);
+                return ScopedRelease(nullptr);
+            }
 
+        private:
             Baselib_Lock   m_LockData;
         };
     }

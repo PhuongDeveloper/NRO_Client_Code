@@ -50,15 +50,31 @@ namespace vm
 {
     const int Class::IgnoreNumberOfArguments = -1;
 
-    static il2cpp::utils::dynamic_array<Il2CppClass*> s_staticFieldData;
     static int32_t s_FinalizerSlot = -1;
     static int32_t s_GetHashCodeSlot = -1;
     static Il2CppClass* s_EmptyClassList[] = {NULL};
+
+    struct ClassContext
+    {
+        il2cpp::utils::dynamic_array<Il2CppClass*> m_staticFieldData;
+    };
+    static ClassContext* s_ClassContext = nullptr;
 
     static void SetupGCDescriptor(Il2CppClass* klass, const il2cpp::os::FastAutoLock& lock);
     static void GetBitmapNoInit(Il2CppClass* klass, size_t* bitmap, size_t& maxSetBit, size_t parentOffset, const il2cpp::os::FastAutoLock* lockPtr);
     static Il2CppClass* ResolveGenericInstanceType(Il2CppClass*, const il2cpp::vm::TypeNameParseInfo&, TypeSearchFlags searchFlags);
     static void SetupVTable(Il2CppClass *klass, const il2cpp::os::FastAutoLock& lock);
+
+    void Class::AllocateStaticData()
+    {
+        s_ClassContext = new ClassContext();
+    }
+
+    void Class::FreeStaticData()
+    {
+        delete s_ClassContext;
+        s_ClassContext = nullptr;
+    }
 
     Il2CppClass* Class::FromIl2CppType(const Il2CppType* type, bool throwOnError)
     {
@@ -994,7 +1010,7 @@ namespace vm
         if (klass->static_fields_size)
         {
             klass->static_fields = il2cpp::gc::GarbageCollector::AllocateFixed(klass->static_fields_size, NULL);
-            s_staticFieldData.push_back(klass);
+            s_ClassContext->m_staticFieldData.push_back(klass);
 
             il2cpp_runtime_stats.class_static_data_size += klass->static_fields_size;
         }
@@ -1884,7 +1900,7 @@ namespace vm
 
     const il2cpp::utils::dynamic_array<Il2CppClass*>& Class::GetStaticFieldData()
     {
-        return s_staticFieldData;
+        return s_ClassContext->m_staticFieldData;
     }
 
     const size_t kWordSize = (8 * sizeof(size_t));

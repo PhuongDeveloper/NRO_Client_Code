@@ -76,11 +76,7 @@ extern "C"
 
     int UnityReplayKitShowCameraPreviewAt(float x, float y, float width, float height)
     {
-#if !PLATFORM_VISIONOS
         float q = 1.0f / UnityScreenScaleFactor([UIScreen mainScreen]);
-#else
-        float q = 1.0f;
-#endif
         float h = [[UIScreen mainScreen] bounds].size.height;
         return [[UnityReplayKit sharedInstance] showCameraPreviewAt: CGPointMake(x * q, h - y * q) width: width height: height] ? 1 : 0;
     }
@@ -167,9 +163,7 @@ extern "C"
         [[UnityReplayKit sharedInstance] createOverlayWindow];
     }
 
-#if !PLATFORM_VISIONOS
     extern "C" float UnityScreenScaleFactor(UIScreen* screen);
-#endif
 
 #else
 

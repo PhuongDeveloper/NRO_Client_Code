@@ -9492,7 +9492,11 @@ type_commands_internal (int command, MonoClass *klass, MonoDomain *domain, guint
 		goto_if_nok (error, loader_error);
 
 		if (vtable)
+#ifdef RUNTIME_IL2CPP
+			buffer_add_int (buf, il2cpp_class_is_initialized(klass) ? 1 : 0);
+#else
 			buffer_add_int (buf, (vtable->initialized || vtable->init_failed) ? 1 : 0);
+#endif
 		else
 			buffer_add_int (buf, 0);
 		break;

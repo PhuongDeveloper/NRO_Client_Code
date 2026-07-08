@@ -104,6 +104,10 @@ namespace System
                 COMPARE_ENUM_VALUES(uint64_t);
             case IL2CPP_TYPE_I8:
                 COMPARE_ENUM_VALUES(int64_t);
+            case IL2CPP_TYPE_U:
+                COMPARE_ENUM_VALUES(uintptr_t);
+            case IL2CPP_TYPE_I:
+                COMPARE_ENUM_VALUES(intptr_t);
             default:
                 IL2CPP_ASSERT(false && "Implement type 0x%02x in Enum::InternalCompareTo");
                 return retInvalidEnumType;

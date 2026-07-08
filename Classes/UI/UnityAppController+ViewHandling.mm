@@ -88,11 +88,7 @@ extern bool _unityAppReady;
 
 - (void)willStartWithViewController:(UIViewController*)controller
 {
-#if !PLATFORM_VISIONOS
     _unityView.contentScaleFactor   = UnityScreenScaleFactor([UIScreen mainScreen]);
-#else
-    _unityView.contentScaleFactor   = 1.0f;
-#endif
     _unityView.autoresizingMask     = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     _rootController.view = _rootView = _unityView;
@@ -104,7 +100,7 @@ extern bool _unityAppReady;
 
 - (void)didTransitionToViewController:(UIViewController*)toController fromViewController:(UIViewController*)fromController
 {
-#if UNITY_SUPPORT_ROTATION && !PLATFORM_VISIONOS
+#if UNITY_SUPPORT_ROTATION
     // when transitioning between view controllers ios will not send reorient events (because they are bound to controllers, not view)
     // so we imitate them here so unity view can update its size/orientation
     UIInterfaceOrientation newOrientation = UIViewControllerInterfaceOrientation(toController);
@@ -135,10 +131,11 @@ extern bool _unityAppReady;
     NSAssert(_rootView != nil, @"_rootView  should be inited at this point");
     NSAssert(_rootController != nil, @"_rootController should be inited at this point");
 
-    // We need to add the root view to the view hierarchy before initializing graphics,
-    // as plugins might need to access view properties (e.g. safeAreaInsets). Otherwise,
-    // they will get default values if the view is not yet added to the window.
-    [_window addSubview: _rootView];
+    // CODE ARCHEOLOGY: We used to add _rootView (unityView) to the subviews of _window so that unityView would get its
+    // initial actual device values (e.g. safeAreaInsets) before initializing graphics. This is not needed anymore after
+    // we made a change where iOS is handling splash screen. Now unityView will be configured at
+    // [_window makeKeyAndVisible] call. makeKeyAndVisible will configure _window.rootViewController.view, which is
+    // _rootController.view, which is unityView (_rootView)
 
     // We should have rootViewController set always, otherwise UIKit might trow exception when doing anything with UI
     _window.rootViewController = _rootController;
@@ -273,7 +270,7 @@ extern bool _unityAppReady;
 
 - (void)notifyHideHomeButtonChange
 {
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
     // setNeedsUpdateOfHomeIndicatorAutoHidden is not implemented on iOS 11.0.
     // The bug has been fixed in iOS 11.0.1. See http://www.openradar.me/35127134
     if ([_rootController respondsToSelector: @selector(setNeedsUpdateOfHomeIndicatorAutoHidden)])
@@ -283,7 +280,7 @@ extern bool _unityAppReady;
 
 - (void)notifyDeferSystemGesturesChange
 {
-#if PLATFORM_IOS || PLATFORM_VISIONOS
+#if PLATFORM_IOS
     [_rootController setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
 #endif
 }
@@ -398,9 +395,7 @@ extern bool _unityAppReady;
         [self transitionToViewController: [self createRootViewControllerForOrientation: newOrient]];
         [self interfaceDidChangeOrientationFrom: oldOrient];
 
-#if !PLATFORM_VISIONOS
         [UIApplication sharedApplication].statusBarOrientation = orient;
-#endif
     }
     [CATransaction commit];
 

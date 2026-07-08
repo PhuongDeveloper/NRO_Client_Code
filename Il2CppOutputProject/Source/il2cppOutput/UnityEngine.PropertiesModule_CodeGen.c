@@ -1,9 +1,4 @@
 ﻿#include "pch-c.h"
-#ifndef _MSC_VER
-# include <alloca.h>
-#else
-# include <malloc.h>
-#endif
 
 
 #include "codegen/il2cpp-codegen-metadata.h"
@@ -12,6 +7,7 @@
 
 
 
+extern void CreatePropertyAttribute_get_ReadOnly_m451FE098EF663531E062E280D98B8A425B032E61 (void);
 extern void FieldMember__ctor_mA6F2BB809BD42F26804E1E9A78B80ECA6C65FF03 (void);
 extern void FieldMember_get_Name_m9301F65E796E51B6F4EF0837AEB3EB9AD25293D6 (void);
 extern void FieldMember_get_IsReadOnly_mF9CA4CBB2973908DA90F49DD86124FC769168FB0 (void);
@@ -41,58 +37,9 @@ extern void U3CU3Ec__ctor_mD06BD054A2682CAA505B6F75C45B8D4736FBFA39 (void);
 extern void U3CU3Ec_U3C_cctorU3Eb__11_0_m59D3FD88A1841D56C6A2D231E993AA6D2E6465E1 (void);
 extern void U3CU3Ec_U3C_cctorU3Eb__11_1_mCF36865D4A819F0C0DDA987F30077434E56BC826 (void);
 extern void U3CU3Ec_U3C_cctorU3Eb__11_2_mBA773F3E344C145FE939B19C5EE690F9FEC60716 (void);
-extern void DefaultPropertyBagInitializer_Initialize_m8BA3D4950B9C07EF2A0978A88D908FCF297BD080 (void);
-extern void Vector2IntPropertyBag__ctor_mA5E766EC29B1E37CAA759CBB09997D25FAFB0631 (void);
-extern void XProperty_get_Name_m6E8366D6ADA17D3A95511FE12147584A26159AFE (void);
-extern void XProperty__ctor_m850B5684A9419E1A388FA41A041AD667EB1B2589 (void);
-extern void YProperty_get_Name_m27BEC9727316585FA4BF59F19B53ECC6DC458318 (void);
-extern void YProperty__ctor_mC8B0BA567D3BED03017F65512C6DE795C7F7558B (void);
-extern void Vector3IntPropertyBag__ctor_mECB1D0CC81ACF263C6C0D126BB285A11CBACB2BC (void);
-extern void XProperty_get_Name_m214358C5224F9EB07B17E4BACEAE9079B50D815C (void);
-extern void XProperty__ctor_m8A1CCE2C8F5179029876BD678965D6C211CB332C (void);
-extern void YProperty_get_Name_m2C54CF468EE63E89D8B301BBB2D5FD02F19101D4 (void);
-extern void YProperty__ctor_m2233FD190B553BFBD445F8A2EE6BE3DDF0047DBC (void);
-extern void ZProperty_get_Name_m2A323942BFFED99C2269258DBB195A8C75EC7032 (void);
-extern void ZProperty__ctor_mBFB49B0AD7F5606851D8E8B29D0F3AC93B0E0FA7 (void);
-extern void RectPropertyBag__ctor_m4C5D1C260902338AC90DB837C39FE28695ED0110 (void);
-extern void XProperty_get_Name_m4847A49D2AA9C51AFF775ECDF8923AE2D9287C99 (void);
-extern void XProperty__ctor_mB5A8967CB19EE4DFE4ECEBEB88D0E1E7B0E6A534 (void);
-extern void YProperty_get_Name_m2ECB38AAD0B3AF556F16411B19A6E8051C7E6B2A (void);
-extern void YProperty__ctor_m06A2AAA9690D1D2BFC24B0EB360DB3585A877441 (void);
-extern void WidthProperty_get_Name_m418258980F9849C8B8974F1BFFE3B81A5A29205D (void);
-extern void WidthProperty__ctor_m94F29A6177829CC11F530347605BB4592547C72D (void);
-extern void HeightProperty_get_Name_mACC36167E0E725402D144CF52B5315FD01E17A3D (void);
-extern void HeightProperty__ctor_m07DCB5A7DF246055CB471EF52A8B0C909C222F2E (void);
-extern void RectIntPropertyBag__ctor_mFFAC4C410B920C26B29CB6A309FB7EEF90E75A4F (void);
-extern void XProperty_get_Name_m6F3F6E0874574CA99F1067BC0CB937F03CBC84AB (void);
-extern void XProperty__ctor_mE83AE59E6CAFA7F55F968FD2D8DBD9DCD0284632 (void);
-extern void YProperty_get_Name_m2AE1DE95187BBD3082B9AEE36180867B7D0A9919 (void);
-extern void YProperty__ctor_m484229CC408CD868ABA8D0DBE8B12BDEEE74E4C8 (void);
-extern void WidthProperty_get_Name_mFEF2D1077A3A5D33C9B6BE8E4576FFE459B19EA2 (void);
-extern void WidthProperty__ctor_m83F6E008F488F8C6DEC0A7BCCF5118221C576DCD (void);
-extern void HeightProperty_get_Name_m0E2478B4BBEBFAFBB16F14DCC98730B7E79DC08F (void);
-extern void HeightProperty__ctor_m9191C19D80EA3F2F645028F03A507E0D492DBB2A (void);
-extern void BoundsPropertyBag__ctor_mB3B92E349452661D037A9AB2A8B6581ECFEBB111 (void);
-extern void CenterProperty_get_Name_mE2932C9FBF1FBC93325E98817C5D7B377DEB0CCF (void);
-extern void CenterProperty__ctor_m4ECB75EAEC52B0EDDC2EE91F4F46F12A7870420A (void);
-extern void ExtentsProperty_get_Name_m01B60324ABC14349CAB683087AA1617A61F428B2 (void);
-extern void ExtentsProperty__ctor_mC3315D3C24FA257EE106E3F6460360D65EB0DB16 (void);
-extern void BoundsIntPropertyBag__ctor_mE2B2BB212558FE1C221E01D8FCEC4C41B02C6BF5 (void);
-extern void PositionProperty_get_Name_m39AE78CF5CD19081CF1B424CE3182BE78AE55F62 (void);
-extern void PositionProperty__ctor_mC574247EEEC6CFC189F13B0B961BD2A9C2CBB2CD (void);
-extern void SizeProperty_get_Name_m6941C93A954B441C5188389C079E699FD0CBC41C (void);
-extern void SizeProperty__ctor_m45114288E626A2F23A1035BDB8420DD663FE25BB (void);
-extern void SystemVersionPropertyBag__ctor_mC0D23BC1F975382571DFA70EC5B52B24083BD4AF (void);
-extern void MajorProperty__ctor_m5FA801277D886789A8732CE2E86F27C49E371679 (void);
-extern void MajorProperty_get_Name_m95F7965B52F39B3620B82E47B30CF2893FA414EC (void);
-extern void MinorProperty__ctor_mF391B7B9C95C2B48FB07127E463F0B788F9B0F29 (void);
-extern void MinorProperty_get_Name_mC00B9C231673E72545064F606F64027117280A09 (void);
-extern void BuildProperty__ctor_mD5BCC6C2F665694E7711CE8742008F6F2434BDAC (void);
-extern void BuildProperty_get_Name_mE523A88F9890A84EA707B257639A18D3EC256E3A (void);
-extern void RevisionProperty__ctor_m0606FE463AAA1C106582277BB0115987861BE2FC (void);
-extern void RevisionProperty_get_Name_m3A7BF24E10B80CB5CD0F651215A73824BCF9D4CE (void);
-extern void PropertyBagStore__cctor_mF5E7248419BE8AEAB2356857AE4E19759082AFBD (void);
+extern void PropertyBagStore_get_ReflectedPropertyBagProvider_mBA47F27FBBD41C8FD79BE1A3098A7E2E74405CE0 (void);
 extern void PropertyBagStore_GetPropertyBag_m90F2EBB48D60993594856358C572964C8011143E (void);
+extern void PropertyBagStore__cctor_mF5E7248419BE8AEAB2356857AE4E19759082AFBD (void);
 extern void ReflectedPropertyBagAttribute__ctor_m630B43FC9EA5EACF97A960B10C6A4F28E2786B10 (void);
 extern void ReflectedPropertyBagProvider__ctor_mF83A77394EF7205D41A784158583F084E8CE04C2 (void);
 extern void ReflectedPropertyBagProvider_CreatePropertyBag_m89CDB23B3D426162B7641A4BB14DB3D71FE56CB2 (void);
@@ -108,12 +55,13 @@ extern void U3CGetPropertyMembersU3Ed__22_System_IDisposable_Dispose_m9F93025851
 extern void U3CGetPropertyMembersU3Ed__22_MoveNext_m729AF376AC4F43C28BD1BAA7792CE1D0C9C2EDB9 (void);
 extern void U3CGetPropertyMembersU3Ed__22_U3CU3Em__Finally1_m199A76100E9211640529676C30A85BD1060498D4 (void);
 extern void U3CGetPropertyMembersU3Ed__22_System_Collections_Generic_IEnumeratorU3CSystem_Reflection_MemberInfoU3E_get_Current_mB28BEAF4EB3FAB5E771DC9A6454DCE6A67741FD9 (void);
+extern void U3CGetPropertyMembersU3Ed__22_System_Collections_IEnumerator_Reset_mBF507A053052F0001483795394E045C4E2EB826C (void);
 extern void U3CGetPropertyMembersU3Ed__22_System_Collections_IEnumerator_get_Current_mC30C3E93C92C552E330B9A3D6D239E72A0586BA0 (void);
 extern void U3CGetPropertyMembersU3Ed__22_System_Collections_Generic_IEnumerableU3CSystem_Reflection_MemberInfoU3E_GetEnumerator_mFB07F1A6491DB7EEA44C182930AD32C728599080 (void);
 extern void U3CGetPropertyMembersU3Ed__22_System_Collections_IEnumerable_GetEnumerator_mD6684E626A039A8014D140C3BEEBD24928F7D5ED (void);
-static Il2CppMethodPointer s_methodPointers[235] = 
+static Il2CppMethodPointer s_methodPointers[185] = 
 {
-	NULL,
+	CreatePropertyAttribute_get_ReadOnly_m451FE098EF663531E062E280D98B8A425B032E61,
 	NULL,
 	NULL,
 	NULL,
@@ -142,7 +90,6 @@ static Il2CppMethodPointer s_methodPointers[235] =
 	PropertyMember_get_ValueType_m40F8CF0BBF20782A6C594365911716F386FE4E1A,
 	PropertyMember__ctor_m0B727AF7D87194ED8EA453CC4CF01A10563E2334,
 	PropertyMember_GetCustomAttributes_mE4214E27A5A04DF047573888EDD9590FD6C85409,
-	NULL,
 	NULL,
 	NULL,
 	NULL,
@@ -263,61 +210,11 @@ static Il2CppMethodPointer s_methodPointers[235] =
 	U3CU3Ec_U3C_cctorU3Eb__11_2_mBA773F3E344C145FE939B19C5EE690F9FEC60716,
 	NULL,
 	NULL,
-	DefaultPropertyBagInitializer_Initialize_m8BA3D4950B9C07EF2A0978A88D908FCF297BD080,
-	Vector2IntPropertyBag__ctor_mA5E766EC29B1E37CAA759CBB09997D25FAFB0631,
-	XProperty_get_Name_m6E8366D6ADA17D3A95511FE12147584A26159AFE,
-	XProperty__ctor_m850B5684A9419E1A388FA41A041AD667EB1B2589,
-	YProperty_get_Name_m27BEC9727316585FA4BF59F19B53ECC6DC458318,
-	YProperty__ctor_mC8B0BA567D3BED03017F65512C6DE795C7F7558B,
-	Vector3IntPropertyBag__ctor_mECB1D0CC81ACF263C6C0D126BB285A11CBACB2BC,
-	XProperty_get_Name_m214358C5224F9EB07B17E4BACEAE9079B50D815C,
-	XProperty__ctor_m8A1CCE2C8F5179029876BD678965D6C211CB332C,
-	YProperty_get_Name_m2C54CF468EE63E89D8B301BBB2D5FD02F19101D4,
-	YProperty__ctor_m2233FD190B553BFBD445F8A2EE6BE3DDF0047DBC,
-	ZProperty_get_Name_m2A323942BFFED99C2269258DBB195A8C75EC7032,
-	ZProperty__ctor_mBFB49B0AD7F5606851D8E8B29D0F3AC93B0E0FA7,
-	RectPropertyBag__ctor_m4C5D1C260902338AC90DB837C39FE28695ED0110,
-	XProperty_get_Name_m4847A49D2AA9C51AFF775ECDF8923AE2D9287C99,
-	XProperty__ctor_mB5A8967CB19EE4DFE4ECEBEB88D0E1E7B0E6A534,
-	YProperty_get_Name_m2ECB38AAD0B3AF556F16411B19A6E8051C7E6B2A,
-	YProperty__ctor_m06A2AAA9690D1D2BFC24B0EB360DB3585A877441,
-	WidthProperty_get_Name_m418258980F9849C8B8974F1BFFE3B81A5A29205D,
-	WidthProperty__ctor_m94F29A6177829CC11F530347605BB4592547C72D,
-	HeightProperty_get_Name_mACC36167E0E725402D144CF52B5315FD01E17A3D,
-	HeightProperty__ctor_m07DCB5A7DF246055CB471EF52A8B0C909C222F2E,
-	RectIntPropertyBag__ctor_mFFAC4C410B920C26B29CB6A309FB7EEF90E75A4F,
-	XProperty_get_Name_m6F3F6E0874574CA99F1067BC0CB937F03CBC84AB,
-	XProperty__ctor_mE83AE59E6CAFA7F55F968FD2D8DBD9DCD0284632,
-	YProperty_get_Name_m2AE1DE95187BBD3082B9AEE36180867B7D0A9919,
-	YProperty__ctor_m484229CC408CD868ABA8D0DBE8B12BDEEE74E4C8,
-	WidthProperty_get_Name_mFEF2D1077A3A5D33C9B6BE8E4576FFE459B19EA2,
-	WidthProperty__ctor_m83F6E008F488F8C6DEC0A7BCCF5118221C576DCD,
-	HeightProperty_get_Name_m0E2478B4BBEBFAFBB16F14DCC98730B7E79DC08F,
-	HeightProperty__ctor_m9191C19D80EA3F2F645028F03A507E0D492DBB2A,
-	BoundsPropertyBag__ctor_mB3B92E349452661D037A9AB2A8B6581ECFEBB111,
-	CenterProperty_get_Name_mE2932C9FBF1FBC93325E98817C5D7B377DEB0CCF,
-	CenterProperty__ctor_m4ECB75EAEC52B0EDDC2EE91F4F46F12A7870420A,
-	ExtentsProperty_get_Name_m01B60324ABC14349CAB683087AA1617A61F428B2,
-	ExtentsProperty__ctor_mC3315D3C24FA257EE106E3F6460360D65EB0DB16,
-	BoundsIntPropertyBag__ctor_mE2B2BB212558FE1C221E01D8FCEC4C41B02C6BF5,
-	PositionProperty_get_Name_m39AE78CF5CD19081CF1B424CE3182BE78AE55F62,
-	PositionProperty__ctor_mC574247EEEC6CFC189F13B0B961BD2A9C2CBB2CD,
-	SizeProperty_get_Name_m6941C93A954B441C5188389C079E699FD0CBC41C,
-	SizeProperty__ctor_m45114288E626A2F23A1035BDB8420DD663FE25BB,
-	SystemVersionPropertyBag__ctor_mC0D23BC1F975382571DFA70EC5B52B24083BD4AF,
-	MajorProperty__ctor_m5FA801277D886789A8732CE2E86F27C49E371679,
-	MajorProperty_get_Name_m95F7965B52F39B3620B82E47B30CF2893FA414EC,
-	MinorProperty__ctor_mF391B7B9C95C2B48FB07127E463F0B788F9B0F29,
-	MinorProperty_get_Name_mC00B9C231673E72545064F606F64027117280A09,
-	BuildProperty__ctor_mD5BCC6C2F665694E7711CE8742008F6F2434BDAC,
-	BuildProperty_get_Name_mE523A88F9890A84EA707B257639A18D3EC256E3A,
-	RevisionProperty__ctor_m0606FE463AAA1C106582277BB0115987861BE2FC,
-	RevisionProperty_get_Name_m3A7BF24E10B80CB5CD0F651215A73824BCF9D4CE,
-	NULL,
-	PropertyBagStore__cctor_mF5E7248419BE8AEAB2356857AE4E19759082AFBD,
+	PropertyBagStore_get_ReflectedPropertyBagProvider_mBA47F27FBBD41C8FD79BE1A3098A7E2E74405CE0,
 	NULL,
 	NULL,
 	PropertyBagStore_GetPropertyBag_m90F2EBB48D60993594856358C572964C8011143E,
+	PropertyBagStore__cctor_mF5E7248419BE8AEAB2356857AE4E19759082AFBD,
 	ReflectedPropertyBagAttribute__ctor_m630B43FC9EA5EACF97A960B10C6A4F28E2786B10,
 	NULL,
 	NULL,
@@ -345,6 +242,7 @@ static Il2CppMethodPointer s_methodPointers[235] =
 	U3CGetPropertyMembersU3Ed__22_MoveNext_m729AF376AC4F43C28BD1BAA7792CE1D0C9C2EDB9,
 	U3CGetPropertyMembersU3Ed__22_U3CU3Em__Finally1_m199A76100E9211640529676C30A85BD1060498D4,
 	U3CGetPropertyMembersU3Ed__22_System_Collections_Generic_IEnumeratorU3CSystem_Reflection_MemberInfoU3E_get_Current_mB28BEAF4EB3FAB5E771DC9A6454DCE6A67741FD9,
+	U3CGetPropertyMembersU3Ed__22_System_Collections_IEnumerator_Reset_mBF507A053052F0001483795394E045C4E2EB826C,
 	U3CGetPropertyMembersU3Ed__22_System_Collections_IEnumerator_get_Current_mC30C3E93C92C552E330B9A3D6D239E72A0586BA0,
 	U3CGetPropertyMembersU3Ed__22_System_Collections_Generic_IEnumerableU3CSystem_Reflection_MemberInfoU3E_GetEnumerator_mFB07F1A6491DB7EEA44C182930AD32C728599080,
 	U3CGetPropertyMembersU3Ed__22_System_Collections_IEnumerable_GetEnumerator_mD6684E626A039A8014D140C3BEEBD24928F7D5ED,
@@ -372,8 +270,9 @@ static Il2CppTokenAdjustorThunkPair s_adjustorThunks[10] =
 	{ 0x0600001C, PropertyMember__ctor_m0B727AF7D87194ED8EA453CC4CF01A10563E2334_AdjustorThunk },
 	{ 0x0600001D, PropertyMember_GetCustomAttributes_mE4214E27A5A04DF047573888EDD9590FD6C85409_AdjustorThunk },
 };
-static const int32_t s_InvokerIndices[235] = 
+static const int32_t s_InvokerIndices[185] = 
 {
+	2211,
 	0,
 	0,
 	0,
@@ -392,17 +291,17 @@ static const int32_t s_InvokerIndices[235] =
 	0,
 	0,
 	0,
+	1935,
+	2268,
+	2211,
+	2268,
+	2268,
+	2268,
+	2211,
+	2268,
+	1935,
+	2268,
 	0,
-	1506,
-	1739,
-	1707,
-	1739,
-	1739,
-	1739,
-	1707,
-	1739,
-	1506,
-	1739,
 	0,
 	0,
 	0,
@@ -459,9 +358,9 @@ static const int32_t s_InvokerIndices[235] =
 	0,
 	0,
 	0,
+	3520,
 	0,
 	0,
-	2864,
 	0,
 	0,
 	0,
@@ -476,17 +375,17 @@ static const int32_t s_InvokerIndices[235] =
 	0,
 	0,
 	0,
+	3837,
+	3654,
+	3012,
+	3654,
+	3654,
 	0,
+	3654,
 	0,
-	3170,
-	2994,
-	2397,
-	2994,
-	2994,
+	3520,
 	0,
-	2994,
 	0,
-	2864,
 	0,
 	0,
 	0,
@@ -494,11 +393,11 @@ static const int32_t s_InvokerIndices[235] =
 	0,
 	0,
 	0,
+	3400,
 	0,
+	3400,
 	0,
-	2762,
 	0,
-	2762,
 	0,
 	0,
 	0,
@@ -510,80 +409,31 @@ static const int32_t s_InvokerIndices[235] =
 	0,
 	0,
 	0,
+	2211,
+	2268,
+	2304,
 	0,
+	2304,
+	3837,
+	2304,
+	2268,
+	1935,
+	2268,
 	0,
-	1707,
-	1739,
-	1772,
 	0,
-	1772,
-	3170,
-	1772,
-	1739,
-	1506,
-	1739,
+	3820,
 	0,
 	0,
-	3170,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1772,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1739,
-	1772,
-	1739,
+	3654,
+	3837,
+	2304,
 	0,
-	3170,
 	0,
+	2304,
+	1746,
 	0,
-	2994,
-	1772,
 	0,
 	0,
-	1772,
-	1385,
 	0,
 	0,
 	0,
@@ -591,76 +441,74 @@ static const int32_t s_InvokerIndices[235] =
 	0,
 	0,
 	0,
-	0,
-	0,
-	0,
-	2994,
-	2864,
-	2864,
-	3170,
-	1772,
-	1167,
-	1322,
-	1497,
-	1772,
-	1707,
-	1772,
-	1739,
-	1739,
-	1739,
-	1739,
+	3654,
+	3520,
+	3520,
+	3837,
+	2304,
+	1438,
+	1656,
+	1915,
+	2304,
+	2211,
+	2304,
+	2268,
+	2304,
+	2268,
+	2268,
+	2268,
 };
 static const Il2CppTokenRangePair s_rgctxIndices[49] = 
 {
 	{ 0x02000006, { 0, 5 } },
 	{ 0x02000009, { 5, 2 } },
-	{ 0x0200000D, { 8, 15 } },
-	{ 0x02000012, { 23, 6 } },
-	{ 0x02000013, { 29, 13 } },
-	{ 0x02000014, { 44, 5 } },
-	{ 0x02000015, { 49, 5 } },
-	{ 0x02000016, { 54, 7 } },
-	{ 0x02000017, { 61, 4 } },
-	{ 0x0200001A, { 65, 5 } },
-	{ 0x0200001B, { 70, 6 } },
-	{ 0x0200001C, { 76, 18 } },
-	{ 0x0200001D, { 94, 9 } },
-	{ 0x0200001E, { 103, 6 } },
-	{ 0x02000020, { 112, 8 } },
-	{ 0x02000021, { 120, 5 } },
-	{ 0x02000022, { 125, 5 } },
-	{ 0x02000025, { 130, 12 } },
-	{ 0x0200002D, { 192, 17 } },
-	{ 0x02000054, { 222, 9 } },
-	{ 0x0600000E, { 7, 1 } },
-	{ 0x0600002D, { 42, 2 } },
-	{ 0x0600004B, { 109, 3 } },
-	{ 0x0600006E, { 142, 6 } },
-	{ 0x06000070, { 148, 4 } },
-	{ 0x06000072, { 152, 2 } },
-	{ 0x06000073, { 154, 4 } },
-	{ 0x06000074, { 158, 5 } },
-	{ 0x06000075, { 163, 5 } },
-	{ 0x06000076, { 168, 2 } },
-	{ 0x06000077, { 170, 3 } },
-	{ 0x06000078, { 173, 6 } },
-	{ 0x06000079, { 179, 7 } },
-	{ 0x0600007A, { 186, 4 } },
-	{ 0x0600007C, { 190, 2 } },
-	{ 0x0600008E, { 209, 2 } },
-	{ 0x060000CB, { 211, 7 } },
-	{ 0x060000CC, { 218, 4 } },
-	{ 0x060000CF, { 231, 5 } },
-	{ 0x060000D3, { 236, 7 } },
-	{ 0x060000D4, { 243, 6 } },
-	{ 0x060000D5, { 249, 3 } },
-	{ 0x060000D6, { 252, 3 } },
-	{ 0x060000D7, { 255, 3 } },
-	{ 0x060000D8, { 258, 3 } },
-	{ 0x060000D9, { 261, 3 } },
-	{ 0x060000DA, { 264, 3 } },
-	{ 0x060000DB, { 267, 3 } },
-	{ 0x060000DC, { 270, 3 } },
+	{ 0x0200000D, { 9, 16 } },
+	{ 0x02000012, { 25, 6 } },
+	{ 0x02000013, { 31, 13 } },
+	{ 0x02000014, { 46, 5 } },
+	{ 0x02000015, { 51, 5 } },
+	{ 0x02000016, { 56, 7 } },
+	{ 0x02000017, { 63, 4 } },
+	{ 0x0200001A, { 67, 5 } },
+	{ 0x0200001B, { 72, 6 } },
+	{ 0x0200001C, { 78, 18 } },
+	{ 0x0200001D, { 96, 9 } },
+	{ 0x0200001E, { 105, 6 } },
+	{ 0x0200001F, { 111, 8 } },
+	{ 0x02000020, { 119, 5 } },
+	{ 0x02000021, { 124, 5 } },
+	{ 0x02000024, { 129, 12 } },
+	{ 0x0200002C, { 191, 17 } },
+	{ 0x02000036, { 221, 9 } },
+	{ 0x0600000D, { 7, 1 } },
+	{ 0x0600000E, { 8, 1 } },
+	{ 0x0600002D, { 44, 2 } },
+	{ 0x0600006D, { 141, 6 } },
+	{ 0x0600006F, { 147, 4 } },
+	{ 0x06000071, { 151, 2 } },
+	{ 0x06000072, { 153, 4 } },
+	{ 0x06000073, { 157, 5 } },
+	{ 0x06000074, { 162, 5 } },
+	{ 0x06000075, { 167, 2 } },
+	{ 0x06000076, { 169, 3 } },
+	{ 0x06000077, { 172, 6 } },
+	{ 0x06000078, { 178, 7 } },
+	{ 0x06000079, { 185, 4 } },
+	{ 0x0600007B, { 189, 2 } },
+	{ 0x0600008D, { 208, 2 } },
+	{ 0x06000097, { 210, 7 } },
+	{ 0x06000098, { 217, 4 } },
+	{ 0x0600009C, { 230, 5 } },
+	{ 0x060000A0, { 235, 7 } },
+	{ 0x060000A1, { 242, 6 } },
+	{ 0x060000A2, { 248, 3 } },
+	{ 0x060000A3, { 251, 3 } },
+	{ 0x060000A4, { 254, 3 } },
+	{ 0x060000A5, { 257, 3 } },
+	{ 0x060000A6, { 260, 3 } },
+	{ 0x060000A7, { 263, 3 } },
+	{ 0x060000A8, { 266, 3 } },
+	{ 0x060000A9, { 269, 3 } },
 };
 extern const uint32_t g_rgctx_DelegateProperty_2_t5331A036050433E21EDE1FDEE3EEDFA62B6472C4;
 extern const uint32_t g_rgctx_Property_2__ctor_m04847E65CE56B405159C6DDE72BCFF86F9C883BF;
@@ -670,13 +518,15 @@ extern const uint32_t g_rgctx_PropertySetter_2_t93F8308648FBB6CE78B87D5E31143918
 extern const uint32_t g_rgctx_TValue_t4379C2A6D64AA1D37094415E781EF910A816CE98;
 extern const uint32_t g_rgctx_Property_2_t6003A1D86BF2008913824232EBC1A65B9244AA6F;
 extern const uint32_t g_rgctx_TAttribute_tB70594628B155E59AAA7B6256C1F1F34DBD70423;
+extern const uint32_t g_rgctx_TAttribute_t4F615CE6E41FE5F5C3CF78E7CB6996DFD39529FB;
 extern const uint32_t g_rgctx_ReflectedMemberProperty_2_tBE1ADA1DB047A75445E302CB56591C8B01096158;
 extern const uint32_t g_rgctx_Property_2__ctor_m6D0A692DA6FCCAD3B44EB1374F7409194CB7CE50;
 extern const uint32_t g_rgctx_Property_2_t40EBB65A9302889C9BD34EC3027323E6DE224B2C;
 extern const uint32_t g_rgctx_TypeTraits_1_get_IsValueType_mE304A46C44A467FFCEE68C20B4FF7E38678118F0;
 extern const uint32_t g_rgctx_TypeTraits_1_t91E347E71AC92A9155B16E3F209BF7DD2A0D6525;
 extern const uint32_t g_rgctx_Property_2_AddAttributes_mDAFD0BFD44331F8442CA776CD8675AE5F3EB4174;
-extern const uint32_t g_rgctx_Property_2_HasAttribute_TisReadOnlyAttribute_t890CAC7DF188F3F18CAED6DE8A0A03BA92BE5FB7_mD7063C906B2BD74278A8B157D13896F8606D1A6B;
+extern const uint32_t g_rgctx_Property_2_HasAttribute_TisCreatePropertyAttribute_t481619BD84F5E29767718DE127DD1E781A3B6F92_m7EC764902FA027A63822FE673E0EA0C24D1A34A9;
+extern const uint32_t g_rgctx_Property_2_GetAttribute_TisCreatePropertyAttribute_t481619BD84F5E29767718DE127DD1E781A3B6F92_mE27E96B5A29AC8007F81A376F55787659AEB7B54;
 extern const uint32_t g_rgctx_GetStructValueAction_tC156DADFFDD81D3570F3D8267C7311FC0B0DA002;
 extern const uint32_t g_rgctx_GetStructValueAction_tC156DADFFDD81D3570F3D8267C7311FC0B0DA002;
 extern const uint32_t g_rgctx_SetStructValueAction_t5050788B0C69686BA9129D27D9D9F639C8E7BB1D;
@@ -771,9 +621,6 @@ extern const uint32_t g_rgctx_List_1__ctor_mD59118DD1E4030DF90A6A84DAC09E4235A82
 extern const uint32_t g_rgctx_IndexedCollectionPropertyBag_2__ctor_m66BEC6E5439602AD2946D09C6779DE5F908C978C;
 extern const uint32_t g_rgctx_IndexedCollectionPropertyBag_2_t5459B3CEAEAFA45387B1711D9CEDF54ADD634E82;
 extern const uint32_t g_rgctx_PropertyBag_1_tC370C50F83899743E5CE24E5FAFB0AE7D907D870;
-extern const uint32_t g_rgctx_PropertyBag_1_t5C0E1125CDA2F505FF9FFE85E46377962287C990;
-extern const uint32_t g_rgctx_PropertyBagStore_AddPropertyBag_TisTContainer_tEEEB75B3D916D977A92F2E8CCC46FF99DB4E4F35_m314935B9A3F5FEAA6C263D4D3EB19139118F3A39;
-extern const uint32_t g_rgctx_IPropertyBag_1_t6CAF3F9EA42226EBD00D7252DB022C9592FD554F;
 extern const uint32_t g_rgctx_TContainer_tDD41E5BDFD434E31190676C56EDFF26DCF9FB837;
 extern const uint32_t g_rgctx_PropertyBagStore_AddPropertyBag_TisTContainer_tDD41E5BDFD434E31190676C56EDFF26DCF9FB837_mCDBAAE121680B6FBC3274DDF0AA79D3310275327;
 extern const uint32_t g_rgctx_IPropertyBag_1_t40AA0A4DCE75F707CEC1CA8C3D792361BB2252CF;
@@ -935,7 +782,7 @@ extern const uint32_t g_rgctx_IPropertyBag_1_t9A9A3F2EED1278CCA08BABB9DC60DE6B41
 extern const uint32_t g_rgctx_DictionaryPropertyBag_2_tE606638F1CF524214E9C65398357242A53E1938B;
 extern const uint32_t g_rgctx_DictionaryPropertyBag_2__ctor_m2AF546381FFCE3F5CD211F82CE8923EBB52A73F9;
 extern const uint32_t g_rgctx_IPropertyBag_1_tA3E85A9DBE91225B32BC663975BD5BA2D37FC36E;
-static const Il2CppRGCTXDefinition s_rgctxValues[273] = 
+static const Il2CppRGCTXDefinition s_rgctxValues[272] = 
 {
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_DelegateProperty_2_t5331A036050433E21EDE1FDEE3EEDFA62B6472C4 },
 	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_Property_2__ctor_m04847E65CE56B405159C6DDE72BCFF86F9C883BF },
@@ -945,13 +792,15 @@ static const Il2CppRGCTXDefinition s_rgctxValues[273] =
 	{ (Il2CppRGCTXDataType)1, (const void *)&g_rgctx_TValue_t4379C2A6D64AA1D37094415E781EF910A816CE98 },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_Property_2_t6003A1D86BF2008913824232EBC1A65B9244AA6F },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_TAttribute_tB70594628B155E59AAA7B6256C1F1F34DBD70423 },
+	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_TAttribute_t4F615CE6E41FE5F5C3CF78E7CB6996DFD39529FB },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_ReflectedMemberProperty_2_tBE1ADA1DB047A75445E302CB56591C8B01096158 },
 	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_Property_2__ctor_m6D0A692DA6FCCAD3B44EB1374F7409194CB7CE50 },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_Property_2_t40EBB65A9302889C9BD34EC3027323E6DE224B2C },
 	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_TypeTraits_1_get_IsValueType_mE304A46C44A467FFCEE68C20B4FF7E38678118F0 },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_TypeTraits_1_t91E347E71AC92A9155B16E3F209BF7DD2A0D6525 },
 	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_Property_2_AddAttributes_mDAFD0BFD44331F8442CA776CD8675AE5F3EB4174 },
-	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_Property_2_HasAttribute_TisReadOnlyAttribute_t890CAC7DF188F3F18CAED6DE8A0A03BA92BE5FB7_mD7063C906B2BD74278A8B157D13896F8606D1A6B },
+	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_Property_2_HasAttribute_TisCreatePropertyAttribute_t481619BD84F5E29767718DE127DD1E781A3B6F92_m7EC764902FA027A63822FE673E0EA0C24D1A34A9 },
+	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_Property_2_GetAttribute_TisCreatePropertyAttribute_t481619BD84F5E29767718DE127DD1E781A3B6F92_mE27E96B5A29AC8007F81A376F55787659AEB7B54 },
 	{ (Il2CppRGCTXDataType)1, (const void *)&g_rgctx_GetStructValueAction_tC156DADFFDD81D3570F3D8267C7311FC0B0DA002 },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_GetStructValueAction_tC156DADFFDD81D3570F3D8267C7311FC0B0DA002 },
 	{ (Il2CppRGCTXDataType)1, (const void *)&g_rgctx_SetStructValueAction_t5050788B0C69686BA9129D27D9D9F639C8E7BB1D },
@@ -1046,9 +895,6 @@ static const Il2CppRGCTXDefinition s_rgctxValues[273] =
 	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_IndexedCollectionPropertyBag_2__ctor_m66BEC6E5439602AD2946D09C6779DE5F908C978C },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_IndexedCollectionPropertyBag_2_t5459B3CEAEAFA45387B1711D9CEDF54ADD634E82 },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_PropertyBag_1_tC370C50F83899743E5CE24E5FAFB0AE7D907D870 },
-	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_PropertyBag_1_t5C0E1125CDA2F505FF9FFE85E46377962287C990 },
-	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_PropertyBagStore_AddPropertyBag_TisTContainer_tEEEB75B3D916D977A92F2E8CCC46FF99DB4E4F35_m314935B9A3F5FEAA6C263D4D3EB19139118F3A39 },
-	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_IPropertyBag_1_t6CAF3F9EA42226EBD00D7252DB022C9592FD554F },
 	{ (Il2CppRGCTXDataType)1, (const void *)&g_rgctx_TContainer_tDD41E5BDFD434E31190676C56EDFF26DCF9FB837 },
 	{ (Il2CppRGCTXDataType)3, (const void *)&g_rgctx_PropertyBagStore_AddPropertyBag_TisTContainer_tDD41E5BDFD434E31190676C56EDFF26DCF9FB837_mCDBAAE121680B6FBC3274DDF0AA79D3310275327 },
 	{ (Il2CppRGCTXDataType)2, (const void *)&g_rgctx_IPropertyBag_1_t40AA0A4DCE75F707CEC1CA8C3D792361BB2252CF },
@@ -1215,7 +1061,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_PropertiesModule_CodeGen
 const Il2CppCodeGenModule g_UnityEngine_PropertiesModule_CodeGenModule = 
 {
 	"UnityEngine.PropertiesModule.dll",
-	235,
+	185,
 	s_methodPointers,
 	10,
 	s_adjustorThunks,
@@ -1224,7 +1070,7 @@ const Il2CppCodeGenModule g_UnityEngine_PropertiesModule_CodeGenModule =
 	NULL,
 	49,
 	s_rgctxIndices,
-	273,
+	272,
 	s_rgctxValues,
 	NULL,
 	NULL,

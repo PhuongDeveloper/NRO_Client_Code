@@ -60,8 +60,12 @@
 
 #define COMPILER_DEBUG_TRAP()               __debugbreak()
 
+#if _MSVC_LANG >= 201703L
+    #define COMPILER_WARN_UNUSED_RESULT         [[nodiscard]]
+#else
 // Note that this is best effort, as "/analyze" compiler flag required to make warning appear
-#define COMPILER_WARN_UNUSED_RESULT         _Check_return_
+    #define COMPILER_WARN_UNUSED_RESULT         _Check_return_
+#endif
 
 #if !defined(alloca)
     #define alloca _alloca

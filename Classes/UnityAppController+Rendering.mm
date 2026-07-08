@@ -2,12 +2,13 @@
 #include "UnityAppController+ViewHandling.h"
 
 #include "Unity/InternalProfiler.h"
-#include "Unity/UnityMetalSupport.h"
 #include "Unity/DisplayManager.h"
 
 #include "UI/UnityView.h"
 
 #include <dlfcn.h>
+
+#import <Metal/Metal.h>
 
 // _glesContextCreated was renamed to _renderingInited
 extern bool _renderingInited;
@@ -16,9 +17,7 @@ extern bool _skipPresent;
 extern bool _didResignActive;
 
 static int _renderingAPI = 0;
-static int SelectRenderingAPIImpl();
-
-static bool _enableRunLoopAcceptInput = false;
+static void SelectRenderingAPIImpl();
 
 @implementation UnityAppController (Rendering)
 
@@ -35,12 +34,25 @@ static bool _enableRunLoopAcceptInput = false;
     _displayLink = nil;
 }
 
+- (void)processTouchEvents
+{
+    // Sometimes some touch event delivery isn't properly interleaved with graphical frames.
+    // Running additional run loop here improves event handling in those cases.
+    // We pass an NSDate from the past to invoke the run loop only once.
+    if (self.unityView.userInteractionEnabled)
+    {
+        static NSDate* past = [NSDate dateWithTimeIntervalSince1970: 0]; // the oldest date we can get
+        [[NSRunLoop currentRunLoop] acceptInputForMode: NSDefaultRunLoopMode beforeDate: past];
+    }
+}
+
 - (void)repaintDisplayLink
 {
     if (!_didResignActive)
     {
         UnityDisplayLinkCallback(_displayLink.timestamp);
         [self repaint];
+        [self processTouchEvents];
     }
 }
 
@@ -78,11 +90,9 @@ static bool _enableRunLoopAcceptInput = false;
     if (UnitySelectedRenderingAPI() == apiMetal)
     {
         [[DisplayManager Instance].mainDisplay present];
-#if !PLATFORM_VISIONOS
         [[DisplayManager Instance] enumerateNonMainDisplaysWithBlock:^(DisplayConnection* conn) {
             PreparePresentNonMainScreenMTL((UnityDisplaySurfaceMTL*)conn.surface);
         }];
-#endif
     }
     else
     {
@@ -94,27 +104,15 @@ static bool _enableRunLoopAcceptInput = false;
 
 - (void)callbackFramerateChange:(int)targetFPS
 {
+    int maxFPS = (int)[UIScreen mainScreen].maximumFramesPerSecond;
     if (targetFPS <= 0)
         targetFPS = UnityGetTargetFPS();
-    #if !PLATFORM_VISIONOS
-        // on tvos it is possible to start application without a screen attached
-        // alas, mainScreen is set in this case, but the values provided are bogus
-        //   and in the case of maxFPS = 0 we will end up in endless recursion
-        const int maxFPS = (int)[UIScreen mainScreen].maximumFramesPerSecond;
-    #else
-        // hardcode for visionOS?
-        const int maxFPS = 90;
-    #endif
-
-    if (maxFPS > 0 && targetFPS > maxFPS)
+    if (targetFPS > maxFPS)
     {
         targetFPS = maxFPS;
-        // note that this changes FPS, resulting in UnityFramerateChangeCallback call, calling this method recursively recursively
         UnitySetTargetFPS(targetFPS);
         return;
     }
-
-    _enableRunLoopAcceptInput = (targetFPS == maxFPS && UnityDeviceCPUCount() > 1);
 
     if (@available(iOS 15.0, tvOS 15.0, *))
         _displayLink.preferredFrameRateRange = CAFrameRateRangeMake(targetFPS, targetFPS, targetFPS);
@@ -125,7 +123,7 @@ static bool _enableRunLoopAcceptInput = false;
 - (void)selectRenderingAPI
 {
     NSAssert(_renderingAPI == 0, @"[UnityAppController selectRenderingApi] called twice");
-    _renderingAPI = SelectRenderingAPIImpl();
+    SelectRenderingAPIImpl();
 }
 
 - (UnityRenderingAPI)renderingAPI
@@ -152,44 +150,30 @@ extern "C" void UnityFramerateChangeCallback(int targetFPS)
     [GetAppController() callbackFramerateChange: targetFPS];
 }
 
-static NSBundle*        _MetalBundle    = nil;
-static id<MTLDevice>    _MetalDevice    = nil;
+static NSBundle*            _MetalBundle        = nil;
+static id<MTLDevice>        _MetalDevice        = nil;
+static id<MTLCommandQueue>  _MetalCommandQueue  = nil;
 
-static bool IsMetalSupported(int /*api*/)
+static void SelectRenderingAPIImpl()
 {
-    _MetalBundle = [NSBundle bundleWithPath: @"/System/Library/Frameworks/Metal.framework"];
-    if (_MetalBundle)
+    assert(_renderingAPI == 0 && "Rendering API selection was done twice");
+
+    _renderingAPI = UnityGetRenderingAPI();
+    if (_renderingAPI == apiMetal)
     {
-        [_MetalBundle load];
-        _MetalDevice = ((MTLCreateSystemDefaultDeviceFunc)::dlsym(dlopen(0, RTLD_LOCAL | RTLD_LAZY), "MTLCreateSystemDefaultDevice"))();
-        if (_MetalDevice)
-            return true;
+        _MetalBundle        = [NSBundle bundleWithPath: @"/System/Library/Frameworks/Metal.framework"];
+        _MetalDevice        = MTLCreateSystemDefaultDevice();
+        _MetalCommandQueue  = [_MetalDevice newCommandQueueWithMaxCommandBufferCount: UnityCommandQueueMaxCommandBufferCountMTL()];
+
+        assert(_MetalDevice != nil && _MetalCommandQueue != nil && "Could not initialize Metal.");
     }
-
-    [_MetalBundle unload];
-    return false;
 }
 
-static int SelectRenderingAPIImpl()
-{
-    const int api = UnityGetRenderingAPI();
-    if (api == apiMetal && IsMetalSupported(0))
-        return api;
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_TVOS_SIMULATOR
-    printf_console("On Simulator, Metal is supported only from iOS 13, and it requires at least macOS 10.15 and Xcode 11. Setting no graphics device.\n");
-#endif
-    return apiNoGraphics;
-}
-
-extern "C" NSBundle*            UnityGetMetalBundle()
-{
-    return _MetalBundle;
-}
-
+extern "C" NSBundle*            UnityGetMetalBundle()       { return _MetalBundle; }
 extern "C" MTLDeviceRef         UnityGetMetalDevice()       { return _MetalDevice; }
-extern "C" MTLCommandQueueRef   UnityGetMetalCommandQueue() { return ((UnityDisplaySurfaceMTL*)GetMainDisplaySurface())->commandQueue; }
+extern "C" MTLCommandQueueRef   UnityGetMetalCommandQueue() { return _MetalCommandQueue; }
 extern "C" int                  UnitySelectedRenderingAPI() { return _renderingAPI; }
+extern "C" void                 UnitySelectRenderingAPI()   { SelectRenderingAPIImpl(); }
 
 // deprecated and no longer used by unity itself (will soon be removed)
 extern "C" MTLCommandQueueRef   UnityGetMetalDrawableCommandQueue() { return UnityGetMetalCommandQueue(); }
@@ -207,10 +191,7 @@ extern "C" void UnityRepaint()
     @autoreleasepool
     {
         Profiler_FrameStart();
-        if (UnityIsBatchmode())
-            UnityBatchPlayerLoop();
-        else
-            UnityPlayerLoop();
+        UnityPlayerLoop();
         Profiler_FrameEnd();
     }
 }

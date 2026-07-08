@@ -136,22 +136,26 @@ namespace baselib
                     return node;
 
                 BackNode:
-                    // - filters obsolete nodes
-                    // - Exclusive access (re-entrant block)
+                    // - Filters obsolete nodes (invalidates pop loops in flight - the llsc monitor is reset by the cmpxchg).
+                    // - Set exclusive access (re-entrant block)
+                    // - Maintain the front ptr address since multiple threads may linger here and concurrently a push call may have set the next ptr of front node.
+                    //   This is handled by the consequent code below (fetch_and on front ptr to reset access).
                     T * front = node;
                     if (!m_FrontPair.ptr.compare_exchange_strong(front, reinterpret_cast<T*>(value | 1), memory_order_acquire, memory_order_relaxed))
                         return 0;
 
-                    // - filters incomplete nodes
-                    // - check if node is back == retrigger new back
+                    // - filters incomplete nodes. Incomplete nodes are nodes that have been added by the push function, but next ptr is not yet set.
+                    // - check if node (front) is equal to back and if so re-trigger new back (set back to zero) e.g. See success case below.
                     if (!m_Back.compare_exchange_strong(front, 0, memory_order_acquire, memory_order_relaxed))
                     {
-                        // Back progressed or node is incomplete, restore access and return 0
+                        // Back progressed or node is incomplete, restore access bit and return 0.
+                        // We need to restore access since if back has progressed (more nodes were pushed) at this point, back is not reset.
+                        // The fetch_and operation is needed since the pop loop may have have paused between exclusive access check and reading the next ptr.
                         m_FrontIntPtr.fetch_and(~1, memory_order_release);
                         return 0;
                     }
 
-                    // Success, back == front node, back was set to zero above and index / access is restored by producers, so we return the back node.
+                    // Success, back == front node. Back was set to zero above. Access (bit 1 of front ptr address) is restored by producers on next push when writing new node address.
                     // LLSC monitors invalidates any obsolete nodes still in process in other threads.
                     return node;
                 }
@@ -180,24 +184,27 @@ namespace baselib
                     return node;
 
                 BackNodeDCAS:
-                    // - filters obsolete nodes
-                    // - Exclusive access (re-entrant block)
+                    // - Filters obsolete nodes (invalidates pop loops in flight by idx bit set to odd).
+                    // - Set exclusive access (re-entrant block)
+                    // - Maintain the front ptr address since multiple threads may linger here and concurrently a push call may have set the next ptr of front node.
+                    //   This is handled by the consequent code below (fetch_and on front ptr to reset access).
                     value.ptr = front.ptr;
                     value.idx = front.idx | 1;
                     if (!m_Front.compare_exchange_strong(front, value, memory_order_acquire, memory_order_relaxed))
                         return 0;
 
-                    // - filters incomplete nodes
-                    // - check if node is back == retrigger new back
+                    // - filters incomplete nodes. Incomplete nodes are nodes that have been added by the push function, but next ptr is not yet set.
+                    // - check if node (front) is equal to back and if so re-trigger new back (set back to zero) e.g. See success case below.
                     value.ptr = node;
                     if (!m_Back.compare_exchange_strong(value.ptr, 0, memory_order_acquire, memory_order_relaxed))
                     {
-                        // Back progressed or node is incomplete, restore access and return 0
+                        // Back progressed or node is incomplete, restore access idx bit and return 0.
+                        // We need to restore access since if back has progressed (more nodes were pushed) at this point, back is not reset.
+                        // The fetch_and operation is needed since the pop loop may have have paused between exclusive access check and reading the next ptr.
                         m_FrontPair.idx.fetch_and(~1, memory_order_release);
                         return 0;
                     }
-
-                    // Success, back == front node, back was set to zero above and index / access is restored by producers, so we return the back node.
+                    // Success, back == front node. Back was set to zero above. Access (bit 1 of of idx) is restored by producers on next push when writing new node address.
                     // Version check invalidates any obsolete nodes in still in process in other threads.
                     return node;
                 }
