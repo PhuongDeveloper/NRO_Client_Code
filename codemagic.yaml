@@ -1,76 +1,96 @@
 workflows:
-  ios-build:
+  ios-build-nro:
     name: Build NRO Unsigned IPA
     instance_type: mac_mini_m2
     environment:
       xcode: latest
     scripts:
-      - name: Build Unsigned App
+      - name: 1. Tẩy sạch lỗi Windows & Kích hoạt quyền thực thi
         script: |
-          xcodebuild build \
+          echo "=== 1. Sửa triệt để lỗi ký tự ẩn CRLF (\r) do Windows chèn vào ==="
+          find . -type f -name "*.sh" -exec sed -i '' 's/\r$//' {} \;
+          find . -type f -name "il2cpp*" -exec sed -i '' 's/\r$//' {} \;
+          find . -type f -name "*.json" -exec sed -i '' 's/\r$//' {} \;
+
+          echo "=== 2. Cấp quyền bạo lực cho toàn bộ lõi chạy của Unity ==="
+          chmod -R 777 . || true
+          find . -type f -name "il2cpp" -exec chmod +x {} \;
+          find . -type f -name "MapFileParser" -exec chmod +x {} \;
+          find . -type f -name "*.sh" -exec chmod +x {} \;
+
+          echo "=== 3. Tạo đường dẫn liên kết Python3 giả lập cho Unity ==="
+          sudo ln -sf $(which python3) /usr/local/bin/python
+          
+      - name: 2. Biên dịch Xcode (Ép chặn CodeSign & Sandbox)
+        script: |
+          export PATH="/usr/local/bin:$PATH"
+          
+          # Sử dụng lệnh xcodebuild sạch, tắt Sandbox trực tiếp bằng tham số hệ thống
+          xcodebuild clean build \
             -project "Unity-iPhone.xcodeproj" \
             -scheme "Unity-iPhone" \
             -sdk iphoneos \
             -configuration Release \
             CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            CONFIGURATION_BUILD_DIR=$CM_BUILD_DIR/build_output
-      - name: Phẫu thuật đổi tên thành NRO, thêm Privacy và đóng gói IPA
+            CODE_SIGNING_REQUIRED="NO" \
+            CODE_SIGNING_ALLOWED="NO" \
+            ENABLE_USER_SCRIPT_SANDBOXING="NO" \
+            COMPILER_INDEX_STORE_ENABLE="NO" \
+            OTHER_LDFLAGS="-Wl,-ld_classic" \
+            CONFIGURATION_BUILD_DIR="$CM_BUILD_DIR/build_output"
+            
+      - name: 3. Phẫu thuật đổi tên NRO, bơm Privacy & Đóng gói IPA
         script: |
-          cd $CM_BUILD_DIR/build_output
+          cd "$CM_BUILD_DIR/build_output"
           
-          # Tìm cái thư mục app vừa tạo ra
-          APP_DIR=$(find . -name "*.app" -type d | head -n 1)
+          # Tìm thư mục cài đặt gốc (.app) vừa build ra
+          APP_DIR=$(find . -maxdepth 1 -name "*.app" | head -n 1)
+          if [ -z "$APP_DIR" ]; then
+            echo "Lỗi chí mạng: Không tìm thấy thư mục .app từ Xcode!"
+            exit 1
+          fi
           APP_NAME=$(basename "$APP_DIR" .app)
           
-          # Đổi tên cái lõi binary và Info.plist thành NRO
+          echo "Đang đổi tên lõi binary thực thi bên trong thành NRO..."
           mv "$APP_DIR/$APP_NAME" "$APP_DIR/NRO"
+          
+          echo "Đang cập nhật lại giấy khai sinh Info.plist cho đồng bộ..."
           plutil -replace CFBundleExecutable -string "NRO" "$APP_DIR/Info.plist"
           plutil -replace CFBundleName -string "NRO" "$APP_DIR/Info.plist"
           
-          # Bơm file PrivacyInfo.xcprivacy vào thẳng UnityFramework
+          echo "Đang tự động bơm file PrivacyInfo lách luật bảo mật Apple..."
+          mkdir -p "$APP_DIR/Frameworks/UnityFramework.framework"
           cat <<EOF > "$APP_DIR/Frameworks/UnityFramework.framework/PrivacyInfo.xcprivacy"
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-              <key>NSPrivacyTracking</key>
-              <false/>
-              <key>NSPrivacyCollectedDataTypes</key>
-              <array/>
+              <key>NSPrivacyTracking</key><false/>
               <key>NSPrivacyAccessedAPITypes</key>
               <array>
                   <dict>
-                      <key>NSPrivacyAccessedAPIType</key>
-                      <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
-                      <key>NSPrivacyAccessedAPITypeReasons</key>
-                      <array><string>35F9.1</string></array>
+                      <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+                      <key>NSPrivacyAccessedAPITypeReasons</key><array><string>35F9.1</string></array>
                   </dict>
                   <dict>
-                      <key>NSPrivacyAccessedAPIType</key>
-                      <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
-                      <key>NSPrivacyAccessedAPITypeReasons</key>
-                      <array><string>C617.1</string></array>
+                      <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+                      <key>NSPrivacyAccessedAPITypeReasons</key><array><string>C617.1</string></array>
                   </dict>
                   <dict>
-                      <key>NSPrivacyAccessedAPIType</key>
-                      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
-                      <key>NSPrivacyAccessedAPITypeReasons</key>
-                      <array><string>CA92.1</string></array>
+                      <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+                      <key>NSPrivacyAccessedAPITypeReasons</key><array><string>CA92.1</string></array>
                   </dict>
               </array>
           </dict>
           </plist>
           EOF
           
-          # Đổi tên vỏ bọc bên ngoài thành NRO.app
+          echo "Đang đóng gói cấu trúc Payload thành file IPA hoàn chỉnh..."
           mv "$APP_DIR" "NRO.app"
-          
-          # Đóng gói thành file IPA chuẩn
-          mkdir -p $CM_BUILD_DIR/build/ios/ipa/Payload
-          cp -r "NRO.app" $CM_BUILD_DIR/build/ios/ipa/Payload/
-          cd $CM_BUILD_DIR/build/ios/ipa
+          mkdir -p "$CM_BUILD_DIR/build/ios/ipa/Payload"
+          cp -r "NRO.app" "$CM_BUILD_DIR/build/ios/ipa/Payload/"
+          cd "$CM_BUILD_DIR/build/ios/ipa"
           zip -qr NRO_Unsigned.ipa Payload
+          echo "Hoàn thành đóng gói siêu sạch!"
     artifacts:
       - build/ios/ipa/*.ipa
