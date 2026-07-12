@@ -5363,13 +5363,12 @@ process_single_step (void)
 {
 	process_signal_event (mono_de_process_single_step);
 }
-#endif
+
 /*
  * debugger_agent_single_step_event:
  *
  *   Called from a signal handler to handle a single step event.
  */
-#ifndef RUNTIME_IL2CPP
 static void
 debugger_agent_single_step_event (void *sigctx)
 {
@@ -5952,7 +5951,7 @@ unity_debugger_agent_handle_exception(MonoException *exc)
 	{
 		SingleStepReq* ss_req = unity_get_active_ss_req();
 		if (!ss_req || !ss_req->bps) {
-			mono_gc_wbarrier_generic_store_internal (&tls->exception, exc);
+			tls->exception = exc;
 		} else if (ss_req->bps && seqPt) {
 			int ss_req_bp_count = g_slist_length(ss_req->bps);
 			GHashTable *ss_req_bp_cache = NULL;

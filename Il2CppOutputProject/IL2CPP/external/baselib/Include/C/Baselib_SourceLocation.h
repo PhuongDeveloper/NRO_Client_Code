@@ -1,5 +1,13 @@
 #pragma once
 
+#ifndef BASELIB_ENABLE_SOURCELOCATION
+    #ifdef NDEBUG
+        #define BASELIB_ENABLE_SOURCELOCATION 0
+    #else
+        #define BASELIB_ENABLE_SOURCELOCATION 1
+    #endif
+#endif
+
 #ifdef __cplusplus
 BASELIB_C_INTERFACE
 {
@@ -14,7 +22,11 @@ typedef struct Baselib_SourceLocation
 } Baselib_SourceLocation;
 
 // Macro to create source location in-place for the current line of code.
-#define BASELIB_SOURCELOCATION Baselib_SourceLocation { COMPILER_FILE, COMPILER_FUNCTION, COMPILER_LINE }
+#if BASELIB_ENABLE_SOURCELOCATION
+    #define BASELIB_SOURCELOCATION Baselib_SourceLocation { __FILE__, __func__, __LINE__ }
+#else
+    #define BASELIB_SOURCELOCATION Baselib_SourceLocation { NULL, NULL, 0 }
+#endif
 
 #ifdef __cplusplus
 }

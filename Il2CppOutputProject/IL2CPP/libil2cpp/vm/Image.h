@@ -8,7 +8,11 @@
 struct Il2CppClass;
 struct MethodInfo;
 struct Il2CppAssembly;
+struct Il2CppDelegate;
 struct Il2CppImage;
+struct Il2CppType;
+struct Il2CppGenericContext;
+struct Il2CppGenericContainer;
 struct Il2CppReflectionAssembly;
 struct Il2CppArray;
 class AssemblyVector;

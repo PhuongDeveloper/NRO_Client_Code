@@ -3,13 +3,13 @@
 #include <cstring>
 
 static NSString* bundleIdWithData = nil;
-UNITY_EXPORT extern "C" void UnitySetDataBundleDirWithBundleId(const char* bundleId)
+extern "C" void UnitySetDataBundleDirWithBundleId(const char* bundleId)
 {
     if (bundleId) bundleIdWithData = [NSString stringWithUTF8String: bundleId];
     else bundleIdWithData = nil;
 }
 
-UNITY_EXPORT extern "C" const char* UnityDataBundleDir()
+extern "C" const char* UnityDataBundleDir()
 {
     static const char* dir = NULL;
     if (dir == NULL)
@@ -30,31 +30,39 @@ UNITY_EXPORT extern "C" const char* UnityDataBundleDir()
         return var;                         \
     } while (0)
 
-UNITY_EXPORT extern "C" const char* UnityDocumentsDir()
+extern "C" const char* UnityDocumentsDir()
 {
     RETURN_SPECIAL_DIR(NSDocumentDirectory);
 }
 
-UNITY_EXPORT extern "C" const char* UnityLibraryDir()
+extern "C" const char* UnityLibraryDir()
 {
     RETURN_SPECIAL_DIR(NSLibraryDirectory);
 }
 
-UNITY_EXPORT extern "C" const char* UnityCachesDir()
+extern "C" const char* UnityCachesDir()
 {
     RETURN_SPECIAL_DIR(NSCachesDirectory);
 }
 
 #undef RETURN_SPECIAL_DIR
 
-UNITY_EXPORT extern "C" int UnityUpdateNoBackupFlag(const char* path, int setFlag)
+extern "C" int UnityUpdateNoBackupFlag(const char* path, int setFlag)
 {
-    NSURL* url = [NSURL fileURLWithPath: [NSString stringWithUTF8String: path]];
-    NSError* err = nil;
-    return [url setResourceValue: (setFlag ? @YES : @NO) forKey: NSURLIsExcludedFromBackupKey error: &err] == YES ? 1 : 0;
+    int result;
+    if (setFlag)
+    {
+        u_int8_t b = 1;
+        result = ::setxattr(path, "com.apple.MobileBackup", &b, 1, 0, 0);
+    }
+    else
+    {
+        result = ::removexattr(path, "com.apple.MobileBackup", 0);
+    }
+    return result == 0 ? 1 : 0;
 }
 
-UNITY_EXPORT extern "C" const char* const* UnityFontFallbacks()
+extern "C" const char* const* UnityFontFallbacks()
 {
     /*  The following is the family names of fonts that are used as fallbacks
         for characters that were not fount in user-specified fonts. Add more

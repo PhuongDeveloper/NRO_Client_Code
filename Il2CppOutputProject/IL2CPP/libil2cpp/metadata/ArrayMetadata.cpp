@@ -593,38 +593,22 @@ namespace metadata
 
     void ArrayMetadata::WalkSZArrays(ArrayTypeWalkCallback callback, void* context)
     {
-        s_SZArrayClassMap.LockShared();
+        FastAutoLock lock(&il2cpp::vm::g_MetadataLock);
 
         for (SZArrayClassMap::iterator it = s_SZArrayClassMap.UnlockedBegin(); it != s_SZArrayClassMap.UnlockedEnd(); it++)
         {
             callback(it->second, context);
         }
-
-        s_SZArrayClassMap.ReleaseShared();
     }
 
     void ArrayMetadata::WalkArrays(ArrayTypeWalkCallback callback, void* context)
     {
-        s_ArrayClassMap.LockShared();
+        FastAutoLock lock(&il2cpp::vm::g_MetadataLock);
 
         for (ArrayClassMap::iterator it = s_ArrayClassMap.UnlockedBegin(); it != s_ArrayClassMap.UnlockedEnd(); it++)
         {
             callback(it->second, context);
         }
-
-        s_ArrayClassMap.ReleaseShared();
-    }
-
-    void ArrayMetadata::AcquireMetadataLocks()
-    {
-        s_SZArrayClassMap.LockExclusive();
-        s_ArrayClassMap.LockExclusive();
-    }
-
-    void ArrayMetadata::ReleaseMetadataLocks()
-    {
-        s_ArrayClassMap.ReleaseExclusive();
-        s_SZArrayClassMap.ReleaseExclusive();
     }
 } /* namespace vm */
 } /* namespace il2cpp */

@@ -483,36 +483,46 @@ static NSMutableArray<CameraCaptureDevice*> *videoCaptureDevices = nil;
     AVCaptureDeviceType type = _device.deviceType;
     if ([type isEqualToString: AVCaptureDeviceTypeBuiltInWideAngleCamera])
         return kWebCamWideAngle;
-    if ([type isEqualToString: AVCaptureDeviceTypeBuiltInUltraWideCamera])
-        return kWebCamUltraWideAngle;
     if ([type isEqualToString: AVCaptureDeviceTypeBuiltInTelephotoCamera])
         return kWebCamTelephoto;
     if ([type isEqualToString: AVCaptureDeviceTypeBuiltInDualCamera] && [self isColorAndDepthCaptureDevice])
         return kWebCamColorAndDepth;
-    if ([type isEqualToString: AVCaptureDeviceTypeBuiltInDualWideCamera])
-        return kWebCamWideAngle;
-    if ([type isEqualToString: AVCaptureDeviceTypeBuiltInTripleCamera])
-        return kWebCamUltraWideAngle;
+    if (@available(iOS 13, *))
+    {
+        if ([type isEqualToString: AVCaptureDeviceTypeBuiltInUltraWideCamera])
+            return kWebCamUltraWideAngle;
+        if ([type isEqualToString: AVCaptureDeviceTypeBuiltInDualWideCamera])
+            return kWebCamWideAngle;
+        if ([type isEqualToString: AVCaptureDeviceTypeBuiltInTripleCamera])
+            return kWebCamUltraWideAngle;
+    }
+    else
+    {
+        // Only works if device language is English; this was original impl, keeping to not regress
+        if ([self->_device.localizedName containsString: @"Ultra Wide"])
+            return kWebCamUltraWideAngle;
+    }
 #if defined(__IPHONE_17_0) || defined(__TVOS_17_0)
     if (@available(iOS 17.0, *))
     {
-
         if ([type isEqualToString: AVCaptureDeviceTypeContinuityCamera])
             return kWebCamWideAngle;
     }
 #endif
 #endif
-#if PLATFORM_IOS && defined(__IPHONE_15_4)
+#if PLATFORM_IOS
+#ifdef __IPHONE_15_4
     if (@available(iOS 15.4, *))
     {
         if ([type isEqualToString: AVCaptureDeviceTypeBuiltInLiDARDepthCamera])
             return kWebCamColorAndDepth;
     }
+#endif
     if ([type isEqualToString: AVCaptureDeviceTypeBuiltInTrueDepthCamera] && [self isColorAndDepthCaptureDevice])
         return kWebCamColorAndDepth;
 #endif
 
-    return kWebCamUnknown;
+    return kWebCamWideAngle;
 }
 
 - (void)fillCaptureDeviceResolutions
@@ -651,7 +661,7 @@ static NSMutableArray<CameraCaptureDevice*> *videoCaptureDevices = nil;
 
 + (void)createCameraCaptureDevicesArray
 {
-    videoCaptureDevices = [NSMutableArray arrayWithCapacity: 8];
+    videoCaptureDevices = [NSMutableArray arrayWithCapacity: 2];
 }
 
 + (void)addCameraCaptureDevice:(AVCaptureDevice*)device
@@ -662,7 +672,7 @@ static NSMutableArray<CameraCaptureDevice*> *videoCaptureDevices = nil;
 @end
 
 
-UNITY_EXPORT extern "C" void UnityEnumVideoCaptureDevices(void* udata, void(*callback)(void* udata, const char* name, int frontFacing, int autoFocusPointSupported, int kind, const int* resolutions, int resCount))
+extern "C" void UnityEnumVideoCaptureDevices(void* udata, void(*callback)(void* udata, const char* name, int frontFacing, int autoFocusPointSupported, int kind, const int* resolutions, int resCount))
 {
     if (![CameraCaptureDevice initialized])
     {
@@ -677,9 +687,13 @@ UNITY_EXPORT extern "C" void UnityEnumVideoCaptureDevices(void* udata, void(*cal
 
         [captureDevices addObject: AVCaptureDeviceTypeBuiltInDualCamera];
         [captureDevices addObject: AVCaptureDeviceTypeBuiltInTrueDepthCamera];
-        [captureDevices addObject: AVCaptureDeviceTypeBuiltInUltraWideCamera];
-        [captureDevices addObject: AVCaptureDeviceTypeBuiltInDualWideCamera];
-        [captureDevices addObject: AVCaptureDeviceTypeBuiltInTripleCamera];
+
+        if (UnityiOS130orNewer())
+        {
+            [captureDevices addObject: AVCaptureDeviceTypeBuiltInUltraWideCamera];
+            [captureDevices addObject: AVCaptureDeviceTypeBuiltInDualWideCamera];
+            [captureDevices addObject: AVCaptureDeviceTypeBuiltInTripleCamera];
+        }
 
         AVCaptureDeviceDiscoverySession *captureDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes: captureDevices mediaType: AVMediaTypeVideo position: AVCaptureDevicePositionUnspecified];
         for (AVCaptureDevice* device in [captureDeviceDiscoverySession devices])
@@ -694,12 +708,10 @@ UNITY_EXPORT extern "C" void UnityEnumVideoCaptureDevices(void* udata, void(*cal
     if ([AVCaptureDevice authorizationStatusForMediaType: AVMediaTypeVideo] != AVAuthorizationStatusAuthorized)
         return;
 
-    const unsigned kMaxResolutions = 16;
-    int resolutions[kMaxResolutions * 2];
     for (CameraCaptureDevice *cameraCaptureDevice in videoCaptureDevices)
     {
         int resCount = (int)[cameraCaptureDevice->_resolutions count];
-        assert(resCount <= kMaxResolutions && "Increase the constant above");
+        int *resolutions = new int[resCount * 2];
         for (int i = 0; i < resCount; ++i)
         {
             resolutions[i * 2] = (int)[cameraCaptureDevice->_resolutions[i] CGSizeValue].width;
@@ -708,10 +720,11 @@ UNITY_EXPORT extern "C" void UnityEnumVideoCaptureDevices(void* udata, void(*cal
         NSString* localizedName = cameraCaptureDevice->_device.localizedName;
         const char* deviceName = localizedName != nil ? localizedName.UTF8String : "";
         callback(udata, deviceName, cameraCaptureDevice->_frontFacing, cameraCaptureDevice->_autoFocusPointSupported, cameraCaptureDevice->_kind, resolutions, resCount);
+        delete[] resolutions;
     }
 }
 
-UNITY_EXPORT extern "C" void* UnityInitCameraCapture(int deviceIndex, int w, int h, int fps, int isDepth, void* udata)
+extern "C" void* UnityInitCameraCapture(int deviceIndex, int w, int h, int fps, int isDepth, void* udata)
 {
     if (videoCaptureDevices != nil && deviceIndex < videoCaptureDevices.count)
     {
@@ -727,24 +740,24 @@ UNITY_EXPORT extern "C" void* UnityInitCameraCapture(int deviceIndex, int w, int
     return 0;
 }
 
-UNITY_EXPORT extern "C" void UnityStartCameraCapture(void* capture)
+extern "C" void UnityStartCameraCapture(void* capture)
 {
     [(__bridge CameraCaptureController*)capture start];
 }
 
-UNITY_EXPORT extern "C" void UnityPauseCameraCapture(void* capture)
+extern "C" void UnityPauseCameraCapture(void* capture)
 {
     [(__bridge CameraCaptureController*)capture pause];
 }
 
-UNITY_EXPORT extern "C" void UnityStopCameraCapture(void* capture)
+extern "C" void UnityStopCameraCapture(void* capture)
 {
     CameraCaptureController* controller = (__bridge_transfer CameraCaptureController*)capture;
     [controller stop];
     controller = nil;
 }
 
-UNITY_EXPORT extern "C" void UnityCameraCaptureExtents(void* capture, int* w, int* h)
+extern "C" void UnityCameraCaptureExtents(void* capture, int* w, int* h)
 {
     CameraCaptureController* controller = (__bridge CameraCaptureController*)capture;
     if (controller == nil)
@@ -753,7 +766,7 @@ UNITY_EXPORT extern "C" void UnityCameraCaptureExtents(void* capture, int* w, in
     *h = (int)controller->_height;
 }
 
-UNITY_EXPORT extern "C" void UnityCameraCaptureReadToMemory(void* capture, void* dst_, int w, int h)
+extern "C" void UnityCameraCaptureReadToMemory(void* capture, void* dst_, int w, int h)
 {
     CameraCaptureController* controller = (__bridge CameraCaptureController*)capture;
     if (controller == nil)
@@ -762,7 +775,7 @@ UNITY_EXPORT extern "C" void UnityCameraCaptureReadToMemory(void* capture, void*
     [controller capturePixelBufferToMemBuffer: (uint8_t*)dst_];
 }
 
-UNITY_EXPORT extern "C" int UnityCameraCaptureVideoRotationDeg(void* capture)
+extern "C" int UnityCameraCaptureVideoRotationDeg(void* capture)
 {
     CameraCaptureController* controller = (__bridge CameraCaptureController*)capture;
     if (controller == nil)
@@ -781,7 +794,7 @@ UNITY_EXPORT extern "C" int UnityCameraCaptureVideoRotationDeg(void* capture)
     return 0;
 }
 
-UNITY_EXPORT extern "C" int UnityCameraCaptureVerticallyMirrored(void* capture)
+extern "C" int UnityCameraCaptureVerticallyMirrored(void* capture)
 {
     CameraCaptureController* controller = (__bridge CameraCaptureController*)capture;
     if (controller == nil)
@@ -789,7 +802,7 @@ UNITY_EXPORT extern "C" int UnityCameraCaptureVerticallyMirrored(void* capture)
     return [controller isCVTextureFlipped];
 }
 
-UNITY_EXPORT extern "C" int UnityCameraCaptureSetAutoFocusPoint(void* capture, float x, float y)
+extern "C" int UnityCameraCaptureSetAutoFocusPoint(void* capture, float x, float y)
 {
     CameraCaptureController* controller = (__bridge CameraCaptureController*)capture;
     if (controller == nil)
@@ -801,46 +814,46 @@ UNITY_EXPORT extern "C" int UnityCameraCaptureSetAutoFocusPoint(void* capture, f
 
 // Stubs for when UNITY_USES_WEBCAM is not defined
 
-UNITY_EXPORT extern "C" void UnityEnumVideoCaptureDevices(void* udata, void(*callback)(void* udata, const char* name, int frontFacing, int autoFocusPointSupported, int kind, const int* resolutions, int resCount))
+extern "C" void UnityEnumVideoCaptureDevices(void* udata, void(*callback)(void* udata, const char* name, int frontFacing, int autoFocusPointSupported, int kind, const int* resolutions, int resCount))
 {
 }
 
-UNITY_EXPORT extern "C" void* UnityInitCameraCapture(int deviceIndex, int w, int h, int fps, int isDepth, void* udata)
-{
-    return 0;
-}
-
-UNITY_EXPORT extern "C" void UnityStartCameraCapture(void* capture)
-{
-}
-
-UNITY_EXPORT extern "C" void UnityPauseCameraCapture(void* capture)
-{
-}
-
-UNITY_EXPORT extern "C" void UnityStopCameraCapture(void* capture)
-{
-}
-
-UNITY_EXPORT extern "C" void UnityCameraCaptureExtents(void* capture, int* w, int* h)
-{
-}
-
-UNITY_EXPORT extern "C" void UnityCameraCaptureReadToMemory(void* capture, void* dst_, int w, int h)
-{
-}
-
-UNITY_EXPORT extern "C" int UnityCameraCaptureVideoRotationDeg(void* capture)
+extern "C" void* UnityInitCameraCapture(int deviceIndex, int w, int h, int fps, int isDepth, void* udata)
 {
     return 0;
 }
 
-UNITY_EXPORT extern "C" int UnityCameraCaptureVerticallyMirrored(void* capture)
+extern "C" void UnityStartCameraCapture(void* capture)
+{
+}
+
+extern "C" void UnityPauseCameraCapture(void* capture)
+{
+}
+
+extern "C" void UnityStopCameraCapture(void* capture)
+{
+}
+
+extern "C" void UnityCameraCaptureExtents(void* capture, int* w, int* h)
+{
+}
+
+extern "C" void UnityCameraCaptureReadToMemory(void* capture, void* dst_, int w, int h)
+{
+}
+
+extern "C" int UnityCameraCaptureVideoRotationDeg(void* capture)
 {
     return 0;
 }
 
-UNITY_EXPORT extern "C" int UnityCameraCaptureSetAutoFocusPoint(void* capture, float x, float y)
+extern "C" int UnityCameraCaptureVerticallyMirrored(void* capture)
+{
+    return 0;
+}
+
+extern "C" int UnityCameraCaptureSetAutoFocusPoint(void* capture, float x, float y)
 {
     return 0;
 }

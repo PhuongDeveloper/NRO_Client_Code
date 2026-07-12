@@ -7,8 +7,8 @@
 #if (__cplusplus == 1) && defined(LINUX)
     #error "This version of GCC is not supported. Please update to a more recent one."
 #endif
-#if defined(__cplusplus) && __cplusplus < 201703L
-    #error "Baselib requires C++17 support"
+#if defined(__cplusplus) && __cplusplus < 201103L
+    #error "Baselib requires C++11 support"
 #endif
 
 #define COMPILER_GCC 1
@@ -51,11 +51,6 @@
 #define COMPILER_EMPTYINLINE                __attribute__((const, always_inline)) inline
 #define COMPILER_NORETURN                   __attribute__((noreturn))
 
-#define COMPILER_FILE                       __builtin_FILE()
-#define COMPILER_FUNCTION                   __builtin_FUNCTION()
-#define COMPILER_LINE                       (uint32_t)__builtin_LINE()
-#define COMPILER_COLUMN                     0 // Not supported by GCC
-
 #if (__GNUC__ == 4 && __GNUC_MINOR__ >= 5) || __GNUC__ > 4
     #define COMPILER_DEPRECATED(msg) __attribute__((deprecated(msg)))
 #else
@@ -88,11 +83,7 @@
 #define COMPILER_DEBUG_TRAP()               __asm__ volatile(".inst 0xd4200000")
 #endif
 
-#if __cplusplus >= 201703L
-    #define COMPILER_WARN_UNUSED_RESULT         [[nodiscard]]
-#else
-    #define COMPILER_WARN_UNUSED_RESULT         __attribute__((warn_unused_result))
-#endif
+#define COMPILER_WARN_UNUSED_RESULT         __attribute__((warn_unused_result))
 
 #define HAS_CLANG_FEATURE(x) 0
 

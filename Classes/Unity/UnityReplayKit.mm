@@ -396,7 +396,16 @@ static UnityReplayKit* _replayKit = nil;
     #if PLATFORM_TVOS
         vc.modalPresentationStyle = UIModalPresentationFullScreen;
     #else
-        vc.modalPresentationStyle = UIModalPresentationFormSheet;
+        if (UnityiOS130orNewer())
+        {
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+        }
+        else
+        {
+            vc.modalPresentationStyle = UIModalPresentationPopover;
+            vc.popoverPresentationController.sourceRect = CGRectMake(GetAppController().rootView.bounds.size.width / 2, 0, 0, 0);
+            vc.popoverPresentationController.sourceView = GetAppController().rootView;
+        }
     #endif
 
         [UnityGetGLViewController() presentViewController: vc animated: YES completion: nil];

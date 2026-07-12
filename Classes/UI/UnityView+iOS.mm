@@ -29,10 +29,8 @@
 
 - (void)didRotate
 {
-    // if we are using metal display link we will delay actual unity-side resizing to happen before rendering
-    if (_shouldRecreateView && !GetAppController().unityUsesMetalDisplayLink)
+    if (_shouldRecreateView)
     {
-        [self updateUnityBackbufferSize];
         [self recreateRenderingSurface];
     }
 

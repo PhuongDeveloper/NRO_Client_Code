@@ -195,14 +195,11 @@ static NSMutableArray<UnityURLRequest*>* currentRequests;
         }
 
 #if !defined(DISABLE_WEBREQUEST_CERTIFICATE_CALLBACK)
-        SecTrustResultType systemResult = kSecTrustResultProceed;
-        CFErrorRef error;
+        SecTrustResultType systemResult;
         SecTrustRef serverTrust = [[challenge protectionSpace] serverTrust];
-        if (serverTrust == nil)
-            systemResult = kSecTrustResultOtherError;
-        else if (!SecTrustEvaluateWithError(serverTrust, &error))
+        if (serverTrust == nil || errSecSuccess != SecTrustEvaluate(serverTrust, &systemResult))
         {
-            SecTrustGetTrustResult(serverTrust, &systemResult);
+            systemResult = kSecTrustResultOtherError;
         }
 
         switch (systemResult)
@@ -369,7 +366,7 @@ static NSMutableArray<UnityURLRequest*>* currentRequests;
 const int WEB_ERROR_OK = 0;
 const int WEB_ERROR_MALFORMATTED_URL = 5;
 
-UNITY_EXPORT extern "C" void UnityWebRequestAddCustomHeader(void** headers, const char* headerName, const char* headerValue)
+extern "C" void UnityWebRequestAddCustomHeader(void** headers, const char* headerName, const char* headerValue)
 {
     @autoreleasepool
     {
@@ -384,7 +381,7 @@ UNITY_EXPORT extern "C" void UnityWebRequestAddCustomHeader(void** headers, cons
     }
 }
 
-UNITY_EXPORT extern "C" int UnityCreateWebRequestBackend(void** connection, void* udata, const char* methodString, const void* headerDict, const char* url)
+extern "C" int UnityCreateWebRequestBackend(void** connection, void* udata, const char* methodString, const void* headerDict, const char* url)
 {
     @autoreleasepool
     {
@@ -426,7 +423,7 @@ UNITY_EXPORT extern "C" int UnityCreateWebRequestBackend(void** connection, void
     }
 }
 
-UNITY_EXPORT extern "C" void UnitySendWebRequest(void* const* connection, unsigned length, unsigned long timeoutSec, bool wantCertificateCallback)
+extern "C" void UnitySendWebRequest(void* const* connection, unsigned length, unsigned long timeoutSec, bool wantCertificateCallback)
 {
     @autoreleasepool
     {
@@ -473,7 +470,7 @@ UNITY_EXPORT extern "C" void UnitySendWebRequest(void* const* connection, unsign
     }
 }
 
-UNITY_EXPORT extern "C" bool UnityWebRequestIsDone(void* const* connection)
+extern "C" bool UnityWebRequestIsDone(void* const* connection)
 {
     @autoreleasepool
     {
@@ -485,7 +482,7 @@ UNITY_EXPORT extern "C" bool UnityWebRequestIsDone(void* const* connection)
     }
 }
 
-UNITY_EXPORT extern "C" void UnityDestroyWebRequestBackend(void** connection)
+extern "C" void UnityDestroyWebRequestBackend(void** connection)
 {
     @autoreleasepool
     {
@@ -498,7 +495,7 @@ UNITY_EXPORT extern "C" void UnityDestroyWebRequestBackend(void** connection)
     }
 }
 
-UNITY_EXPORT extern "C" void UnityCancelWebRequest(void* const* connection)
+extern "C" void UnityCancelWebRequest(void* const* connection)
 {
     @autoreleasepool
     {
@@ -521,7 +518,7 @@ UNITY_EXPORT extern "C" void UnityCancelWebRequest(void* const* connection)
     }
 }
 
-UNITY_EXPORT extern "C" void UnityWebRequestClearCookieCache(const char* domain)
+extern "C" void UnityWebRequestClearCookieCache(const char* domain)
 {
     NSArray<NSHTTPCookie*>* cookies;
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -548,7 +545,7 @@ UNITY_EXPORT extern "C" void UnityWebRequestClearCookieCache(const char* domain)
         [cookieStorage deleteCookie: cookies[i]];
 }
 
-UNITY_EXPORT extern "C" void UnityWebRequestCleanupSession()
+extern "C" void UnityWebRequestCleanupSession()
 {
     if (unityWebRequestLock == nil)
         return;

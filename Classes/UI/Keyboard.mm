@@ -3,7 +3,6 @@
 #include "UnityAppController.h"
 #include "UnityForwardDecls.h"
 #include <string>
-#import <GameController/GameController.h>
 
 #ifndef FILTER_EMOJIS_IOS_KEYBOARD
 #define FILTER_EMOJIS_IOS_KEYBOARD 1
@@ -20,35 +19,6 @@ static const unsigned       kSingleLineFontSize = 20;
 extern "C" void UnityKeyboard_StatusChanged(int status);
 extern "C" void UnityKeyboard_TextChanged(NSString* text);
 extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
-
-@interface AdjustableWidthTextField : UITextField
-@property (nonatomic) CGFloat width;
-@end
-
-@implementation AdjustableWidthTextField
-
-- (instancetype)init
-{
-    self = [super initWithFrame:CGRectZero];
-    self.width = 0;
-    self.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [NSLayoutConstraint activateConstraints:@[
-        [self.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [self.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        [self.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [self.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-    ]];
-    return self;
-}
-
-- (CGSize)intrinsicContentSize
-{
-    CGSize baseSize = [super intrinsicContentSize];
-    return CGSizeMake(self.width, baseSize.height);
-}
-
-@end
 
 @implementation KeyboardDelegate
 {
@@ -67,22 +37,19 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     UIBarButtonItem *multiLineDone, *multiLineCancel;
     UIBarButtonItem *singleLineDone, *singleLineCancel, *singleLineInputField;
 
+    NSLayoutConstraint* widthConstraint;
     CGFloat singleLineSystemButtonsSpace;
 #endif
 
-    AdjustableWidthTextField*    textField;
+    UITextField*    textField;
 
     // inputView is view used for actual input (it will be responder): UITextField [single-line] or UITextView [multi-line]
     // editView is the "root" view for keyboard: UIToolbar [single-line] or UITextView [multi-line]
     UIView*         inputView;
     UIView*         editView;
-    // dummy view used for positioning editView when the on-screen keyboard is floating
-    UIView*         dummyAccessoryPositionView;
-
     KeyboardShowParam cachedKeyboardParam;
 
     CGRect          _area;
-    CGRect          lastKeyboardRect;
     NSString*       initialText;
 
     UIKeyboardType  keyboardType;
@@ -109,6 +76,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 @synthesize selection;
 @synthesize hasUsedDictation;
 
+
 - (void)setPendingSelectionRequest
 {
     if (_selectionRequest.location != NSNotFound)
@@ -123,6 +91,20 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     [self textInputDone: nil];
     return YES;
 }
+
+#if PLATFORM_IOS || PLATFORM_VISIONOS
+- (void)textInputModeDidChange:(NSNotification*)notification
+{
+    [self setPendingSelectionRequest];
+    // Apple reports back the primary language of the current keyboard text input mode using BCP 47 language code i.e "en-GB"
+    // but this also (undocumented) will return "dictation" when using voice dictation and "emoji" when using the emoji keyboard.
+    if ([_keyboard->inputView.textInputMode.primaryLanguage isEqualToString: @"dictation"])
+    {
+        hasUsedDictation = YES;
+    }
+}
+
+#endif
 
 - (void)textInputDone:(id)sender
 {
@@ -161,40 +143,33 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-  if (textView.markedTextRange == nil && textView.text.length > _characterLimit && _characterLimit != 0)
-  {
-    textView.text = [textView.text substringToIndex: _characterLimit];
-  }
-
-  UnityKeyboard_TextChanged(textView.text);
+    if (textView.markedTextRange == nil && textView.text.length > _characterLimit && _characterLimit != 0)
+    {
+      textView.text = [textView.text substringToIndex: _characterLimit];
+    }
+    
+    UnityKeyboard_TextChanged(textView.text);
 }
 
 - (void)textFieldDidChange:(UITextField*)textField
 {
-  if (textField.markedTextRange == nil && textField.text.length > _characterLimit && _characterLimit != 0)
-  {
-    textField.text = [textField.text substringToIndex: _characterLimit];
-  }
-
-  UnityKeyboard_TextChanged(textField.text);
+    if (textField.markedTextRange == nil && textField.text.length > _characterLimit && _characterLimit != 0)
+    {
+      textField.text = [textField.text substringToIndex: _characterLimit];
+    }
+    
+    UnityKeyboard_TextChanged(textField.text);
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView*)view
 {
+#if !PLATFORM_TVOS
+    view.inputAccessoryView = viewToolbar;
+#endif
     return YES;
 }
 
 #if PLATFORM_IOS || PLATFORM_VISIONOS
-- (void)textInputModeDidChange:(NSNotification*)notification
-{
-    [self setPendingSelectionRequest];
-    // Apple reports back the primary language of the current keyboard text input mode using BCP 47 language code i.e "en-GB"
-    // but this also (undocumented) will return "dictation" when using voice dictation and "emoji" when using the emoji keyboard.
-    if ([_keyboard->inputView.textInputMode.primaryLanguage isEqualToString: @"dictation"])
-    {
-        hasUsedDictation = YES;
-    }
-}
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
@@ -202,18 +177,27 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
         return;
 
     [self setPendingSelectionRequest];
-    [self positionInput];
+    CGRect srcRect  = [[notification.userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect rect     = [UnityGetGLView() convertRect: srcRect fromView: nil];
 
-    auto appController = GetAppController();
-    if (@available(iOS 16, tvOS 16, *)) {}
-    else if (!appController.didResignActive) // A workaround for iPadOS 15 to fully animate keyboard after going from detached to docked
-        [inputView reloadInputViews];
+    [self positionInput: rect x: rect.origin.x y: rect.origin.y];
 }
 
 - (void)keyboardDidShow:(NSNotification*)notification
 {
     _active = YES;
     UnityKeyboard_LayoutChanged(textField.textInputMode.primaryLanguage);
+
+    // We only need to do this in < iOS 14
+    // Used in keyboardDidShow as keyboardWillShow might not have the height ready yet as it's not on screen and
+    // we're only interested in the height when it's fully on screen.
+    if (@available(iOS 14, tvOS 14, *)) {}
+    else
+    {
+        CGRect srcRect  = [[notification.userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        CGRect rect     = [UnityGetGLView() convertRect: srcRect fromView: nil];
+        _heightOfKeyboard = rect.size.height;
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification
@@ -247,85 +231,26 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
 - (void)keyboardDidChangeFrame:(NSNotification*)notification
 {
+    _active = true;
+
     CGRect srcRect  = [[notification.userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGRect rect     = [UnityGetGLView() convertRect: srcRect fromView: nil];
 
-    if (!CGRectEqualToRect(lastKeyboardRect, rect))
-    {
-        [self positionInput];
-    }
-    lastKeyboardRect = rect;
-}
+    // there are several ways to hide keyboard:
+    // one, using the hide button on the keyboard, will move it outside view
+    // another, for ipad floating keyboard, will "minimize" it (making its height/width zero)
 
-- (void)positionInput
-{
-    /*
-    The logic in this function and everywhere around it is extremely fragile
-    When changing make sure to test:
-     - Area API
-     - Orientation changes
-     - Size changes in Stage Manager
-     - Split Screen
-     - Ducking/Undocking the keyboard
-     - All the combinations of all of the above
-    */
+    // if input field is multiline we need to account for the toolbar height
+    float expectedHeight = _multiline ? kToolBarHeight : 1e-6;
 
-    if ([self hasExternalKeyboard])
+    if (rect.origin.y + expectedHeight >= [UnityGetGLView() bounds].size.height || rect.size.width < 1e-6)
     {
         [self systemHideKeyboard];
-        _active = NO;
-        return;
-    }
-
-    if (!inputView.isFirstResponder)
-    {
-        _area = CGRectMake(0, 0, 0, 0);
-        _active = NO;  // in case of floating keyboard this looks to be the only place to detect it closed
-        return;
-    }
-    UIView* unityView = UnityGetGLView();
-    CGRect unityViewRect = unityView.frame;
-    CGRect accessoryRect = [dummyAccessoryPositionView.superview convertRect: dummyAccessoryPositionView.frame toView: unityView];
-    float width = unityViewRect.size.width;
-    float xPos = accessoryRect.origin.x;
-    float yPos = accessoryRect.origin.y;
-    const float safeAreaInsetLeft = [unityView safeAreaInsets].left;
-    const float safeAreaInsetRight = [unityView safeAreaInsets].right;
-    const float safeAreaInsetBottom = [unityView safeAreaInsets].bottom;
-
-    if (_rotating || yPos == 0)
-    {
-        // hacky way to reposition input view just before the screen rotation animation starts
-        // this way position animates nicely throughout the screen rotation animation
-        yPos = unityViewRect.size.height - safeAreaInsetBottom;
-        if (_rotating)
-            xPos = safeAreaInsetLeft;
-    }
-
-    // Only add safe area offset if the input bar is placed at the bottom of the view
-    float offsetY = yPos == unityViewRect.size.height ? safeAreaInsetBottom : 0;
-
-    if (_multiline)
-    {
-        // use smaller area for iphones and bigger one for ipads
-        int height = UnityDeviceDPI() > 300 ? 75 : 100;
-
-        editView.frame = CGRectMake(xPos + safeAreaInsetLeft, yPos - kToolBarHeight - height - offsetY, width - safeAreaInsetLeft - safeAreaInsetRight, height);
-        viewToolbar.frame = CGRectMake(xPos, yPos - kToolBarHeight - offsetY, width, kToolBarHeight);;
     }
     else
     {
-        editView.frame  = CGRectMake(xPos, yPos - kToolBarHeight - offsetY, width, kToolBarHeight);
-        textField.width = unityViewRect.size.width - safeAreaInsetLeft - safeAreaInsetRight - self->singleLineSystemButtonsSpace;
-        [textField invalidateIntrinsicContentSize];
+        [self positionInput: rect x: rect.origin.x y: rect.origin.y];
     }
-
-    [self updateInputHidden];
-    // updating area of the keyboard
-    _area = CGRectMake(xPos, yPos, width - safeAreaInsetLeft - safeAreaInsetRight, unityViewRect.size.height - yPos);
-    if (!editView.hidden)
-        _area = CGRectUnion(_area, editView.frame);
-    _active = YES;  // at this point input field is first responder, so keyboard is active
 }
 
 #endif
@@ -353,9 +278,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 #if PLATFORM_IOS || PLATFORM_VISIONOS
 - (UIToolbar*)createToolbarWithItems:(NSArray*)items
 {
-    // Default position ensures the input view slides from the bottom of the screen together with the keyboard
-    CGSize windowSize = [UnityGetGLView() bounds].size;
-    UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, windowSize.height, windowSize.width, kToolBarHeight)];
+    UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 840, 320, kToolBarHeight)];
     UnitySetViewTouchProcessing(toolbar, touchesIgnored);
     toolbar.hidden = NO;
     toolbar.items = items;
@@ -410,38 +333,31 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     if (self)
     {
 #if PLATFORM_IOS || PLATFORM_VISIONOS
-        // Default position ensures the input view slides from the bottom of the screen together with the keyboard
-        CGSize windowSize = [UnityGetGLView() bounds].size;
-        textView = [[UITextView alloc] initWithFrame: CGRectMake(0, windowSize.height, 480, 30)];
+        textView = [[UITextView alloc] initWithFrame: CGRectMake(0, 840, 480, 30)];
         textView.delegate = self;
         textView.font = [UIFont systemFontOfSize: 18.0];
         textView.hidden = YES;
         // For some unknown reason, the `textView` has visual issues when
         // using Dark Mode (some parts of the view become transparent). See case 1367091.
         // However, setting alpha to a value different than 1 fixes the issue.
-        textView.alpha = 0.99;
-
-        dummyAccessoryPositionView = [[UIView alloc] initWithFrame: CGRectMake(0, windowSize.height, 0, 0)];
-        dummyAccessoryPositionView.backgroundColor = [UIColor clearColor];
-        dummyAccessoryPositionView.userInteractionEnabled = NO;
-        dummyAccessoryPositionView.translatesAutoresizingMaskIntoConstraints = NO;
+        if (@available(iOS 13, *))
+            textView.alpha = 0.99;
 #endif
 
-        textField = [[AdjustableWidthTextField alloc] init];
+        textField = [[UITextField alloc] initWithFrame: CGRectMake(0, 0, 120, 30)];
         textField.delegate = self;
         textField.borderStyle = UITextBorderStyleRoundedRect;
         textField.font = [UIFont systemFontOfSize: kSingleLineFontSize];
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
+#if PLATFORM_IOS || PLATFORM_VISIONOS
+        widthConstraint = [NSLayoutConstraint constraintWithItem: textField attribute: NSLayoutAttributeWidth relatedBy: NSLayoutRelationEqual toItem: nil attribute: NSLayoutAttributeNotAnAttribute multiplier: 1.0 constant: textField.frame.size.width];
+        [textField addConstraint: widthConstraint];
+#endif
         [textField addTarget: self action: @selector(textFieldDidChange:) forControlEvents: UIControlEventEditingChanged];
 
 #if PLATFORM_IOS || PLATFORM_VISIONOS
         [self createToolbars];
-#if !PLATFORM_VISIONOS
-        textView.inputAccessoryView = dummyAccessoryPositionView;
-        textField.inputAccessoryView = dummyAccessoryPositionView;
-#endif
 #endif
 
 #if PLATFORM_IOS || PLATFORM_VISIONOS
@@ -451,7 +367,6 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(keyboardDidHide:) name: UIKeyboardDidHideNotification object: nil];
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(keyboardDidChangeFrame:) name: UIKeyboardDidChangeFrameNotification object: nil];
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(textInputModeDidChange:) name: UITextInputCurrentInputModeDidChangeNotification object: nil];
-        [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(keyboardDidConnect:) name: GCKeyboardDidConnectNotification object: nil];
 #endif
 
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(textInputDone:) name: UITextFieldTextDidEndEditingNotification object: nil];
@@ -459,18 +374,6 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     }
 
     return self;
-}
-
-- (void)layoutSubviews
-{
-#if PLATFORM_IOS
-    // Needed for updating keyboard when resizing the view in stage manager and orientation change
-    [_keyboard positionInput];
-#endif
-}
-
-- (void)keyboardDidConnect:(NSNotification *)notification {
-    [self systemHideKeyboard];
 }
 
 - (void)setTextInputTraits:(id<UITextInputTraits>)traits
@@ -576,7 +479,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
     _status     = Visible;
     UnityKeyboard_StatusChanged(_status);
-    _active = !self.hasExternalKeyboard;
+    _active     = YES;
     _selectionRequest.location = NSNotFound;
 }
 
@@ -586,18 +489,14 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 {
     // if we unhide everything now the input will be shown smaller then needed quickly (and resized later)
     // so unhide only when keyboard is actually shown (we will update it when reacting to ios notifications)
+
     [NSObject cancelPreviousPerformRequestsWithTarget: self];
     if (!inputView.isFirstResponder)
     {
         editView.hidden = YES;
 
-        UIView* unityView = UnityGetGLView();
-        [unityView addSubview: editView];
-#if PLATFORM_IOS
-        [unityView addSubview: viewToolbar];
-#endif
+        [UnityGetGLView() addSubview: editView];
         [inputView becomeFirstResponder];
-
 
 #if PLATFORM_TVOS
         // make keyboard usable via controller by allowing exit to home temporarily
@@ -625,11 +524,6 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     [editView removeFromSuperview];
     editView.hidden = YES;
 
-#if PLATFORM_IOS
-    [viewToolbar removeFromSuperview];
-    viewToolbar.hidden = YES;
-#endif
-
     // Keyboard notifications are not supported on tvOS so keyboardWillHide: will never be called which would set _active to false.
     // To work around that limitation we will update _active from here.
     #if PLATFORM_TVOS
@@ -650,16 +544,12 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
     _active = editView.isFirstResponder;
     editView.hidden = YES;
-    // Default position ensures the input view slides from the bottom of the screen together with the keyboard
-    CGSize windowSize = [UnityGetGLView() frame].size;
-    editView.frame = CGRectMake(0, windowSize.height, editView.frame.size.width, editView.frame.size.height);
 
     #if PLATFORM_IOS || PLATFORM_VISIONOS
     viewToolbar.hidden = YES;
     #endif
 
     _area = CGRectMake(0, 0, 0, 0);
-    lastKeyboardRect = CGRectMake(0, 0, 0, 0);
 }
 
 - (void)show
@@ -683,43 +573,52 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     textField.returnKeyType = _inputHidden ? UIReturnKeyDone : UIReturnKeyDefault;
 
     #if PLATFORM_IOS || PLATFORM_VISIONOS
-
-    UIView* unityView = UnityGetGLView();
-    NSMutableArray<UIAccessibilityElement*>* elements = unityView.accessibilityElements ? [unityView.accessibilityElements mutableCopy] : [NSMutableArray array];
-
     viewToolbar.hidden  = !_multiline || _inputHidden ? YES : NO;
-
-    [elements removeObject: (UIAccessibilityElement*)viewToolbar];
-
-    if (!viewToolbar.hidden)
-    {
-        [elements addObject: (UIAccessibilityElement*)viewToolbar];
-    }
-
-    [elements removeObject: (UIAccessibilityElement*)fieldToolbar];
-
-    editView.hidden     = _inputHidden ? YES : NO;
-
-    if (!_multiline && !editView.hidden)
-    {
-        [elements addObject: (UIAccessibilityElement*)fieldToolbar];
-    }
-
-    unityView.accessibilityElements = elements;
-
-    #else
-
-    editView.hidden     = _inputHidden ? YES : NO;
-
     #endif
-
+    editView.hidden     = _inputHidden ? YES : NO;
     inputView.hidden    = _inputHidden ? YES : NO;
     [self setTextInputTraits: textField withParam: cachedKeyboardParam];
 }
 
+#if PLATFORM_IOS || PLATFORM_VISIONOS
+- (void)positionInput:(CGRect)kbRect x:(float)x y:(float)y
+{
+    const float safeAreaInsetLeft = [UnityGetGLView() safeAreaInsets].left;
+    const float safeAreaInsetRight = [UnityGetGLView() safeAreaInsets].right;
+
+    if (_multiline)
+    {
+        // use smaller area for iphones and bigger one for ipads
+        int height = UnityDeviceDPI() > 300 ? 75 : 100;
+
+        editView.frame  = CGRectMake(safeAreaInsetLeft, y - height, kbRect.size.width - safeAreaInsetLeft - safeAreaInsetRight, height);
+    }
+    else
+    {
+        editView.frame  = CGRectMake(0, y - kToolBarHeight, kbRect.size.width, kToolBarHeight);
+
+        // old constraint must be removed, changing value while constraint is active causes conflict when changing inputView.frame
+        [inputView removeConstraint: widthConstraint];
+
+        inputView.frame = CGRectMake(inputView.frame.origin.x,
+            inputView.frame.origin.y,
+            kbRect.size.width - safeAreaInsetLeft - safeAreaInsetRight - self->singleLineSystemButtonsSpace,
+            inputView.frame.size.height);
+
+        // required to avoid auto-resizing on iOS 11 in case if input text is too long
+        widthConstraint.constant = inputView.frame.size.width;
+        [inputView addConstraint: widthConstraint];
+    }
+
+    _area = CGRectMake(x, y, kbRect.size.width, kbRect.size.height);
+    [self updateInputHidden];
+}
+
+#endif
+
 - (CGRect)queryArea
 {
-    return _area;
+    return editView.hidden ? _area : CGRectUnion(_area, editView.frame);
 }
 
 - (NSRange)querySelection
@@ -768,20 +667,13 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 + (void)StartReorientation
 {
     if (_keyboard && _keyboard.active)
-    {
         _keyboard->_rotating = YES;
-    }
 }
 
 + (void)FinishReorientation
 {
-    if (_keyboard && _keyboard.active)
-    {
+    if (_keyboard)
         _keyboard->_rotating = NO;
-#if PLATFORM_IOS || PLATFORM_VISIONOS
-        _keyboard->editView.hidden = NO;
-#endif
-    }
 }
 
 - (NSString*)getText
@@ -840,7 +732,11 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
 - (BOOL)hasExternalKeyboard
 {
-    return [GCKeyboard coalescedKeyboard] != nil;
+    // iOS 14 and above has a public API in the GameController framework. If this is missing then this will return false
+    if (@available(iOS 14, tvOS 14, *))
+        return [NSClassFromString(@"GCKeyboard") valueForKey: @"coalescedKeyboard"] != nil;
+    else // The minimum height a software keyboard will be on iOS is 160, A bluetooth keyboard just uses a toolbar which will be smaller than this.
+        return _heightOfKeyboard < 160.0f;
 }
 
 - (UITextField*)getTextField
@@ -945,7 +841,7 @@ static bool StringContainsEmoji(NSString *string);
 //
 //  Unity Interface:
 
-UNITY_EXPORT extern "C" void UnityKeyboard_Create(unsigned keyboardType, int autocorrection, int multiline, int secure, int alert, const char* text, const char* placeholder, int characterLimit)
+extern "C" void UnityKeyboard_Create(unsigned keyboardType, int autocorrection, int multiline, int secure, int alert, const char* text, const char* placeholder, int characterLimit)
 {
 #if PLATFORM_TVOS
     // Not supported. The API for showing keyboard for editing multi-line text is not available on tvOS
@@ -970,7 +866,7 @@ UNITY_EXPORT extern "C" void UnityKeyboard_Create(unsigned keyboardType, int aut
 
     // on iOS 15, QuickType bar was decoupled from autocorrection (so it still shows candidates)
     // for a principle of "the least surprise" we keep it coupled internally, so autocorrection == spellchecking
-    // TODO: should we expose the control of it?
+    // TODO: should we expose it the control of it?
     static const UITextAutocorrectionType autocorrectionTypes[] =
     {
         UITextAutocorrectionTypeNo,
@@ -1006,7 +902,7 @@ UNITY_EXPORT extern "C" void UnityKeyboard_Create(unsigned keyboardType, int aut
     [[KeyboardDelegate Instance] setKeyboardParams: param];
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_Show()
+extern "C" void UnityKeyboard_Show()
 {
     // do not send hide if didnt create keyboard
     // TODO: probably assert?
@@ -1016,7 +912,7 @@ UNITY_EXPORT extern "C" void UnityKeyboard_Show()
     [[KeyboardDelegate Instance] show];
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_Hide()
+extern "C" void UnityKeyboard_Hide()
 {
     // do not send hide if didnt create keyboard
     // TODO: probably assert?
@@ -1026,27 +922,27 @@ UNITY_EXPORT extern "C" void UnityKeyboard_Hide()
     [[KeyboardDelegate Instance] textInputLostFocus];
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_SetText(const char* text)
+extern "C" void UnityKeyboard_SetText(const char* text)
 {
     [KeyboardDelegate Instance].text = [NSString stringWithUTF8String: text];
 }
 
-UNITY_EXPORT extern "C" NSString* UnityKeyboard_GetText()
+extern "C" NSString* UnityKeyboard_GetText()
 {
     return [KeyboardDelegate Instance].text;
 }
 
-UNITY_EXPORT extern "C" int UnityKeyboard_IsActive()
+extern "C" int UnityKeyboard_IsActive()
 {
     return (_keyboard && _keyboard.active) ? 1 : 0;
 }
 
-UNITY_EXPORT extern "C" int UnityKeyboard_Status()
+extern "C" int UnityKeyboard_Status()
 {
     return _keyboard ? _keyboard.status : Canceled;
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_SetInputHidden(int hidden)
+extern "C" void UnityKeyboard_SetInputHidden(int hidden)
 {
     _shouldHideInput        = hidden;
     _shouldHideInputChanged = true;
@@ -1056,12 +952,12 @@ UNITY_EXPORT extern "C" void UnityKeyboard_SetInputHidden(int hidden)
         [_keyboard updateInputHidden];
 }
 
-UNITY_EXPORT extern "C" int UnityKeyboard_IsInputHidden()
+extern "C" int UnityKeyboard_IsInputHidden()
 {
     return _shouldHideInput ? 1 : 0;
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_GetRect(float* x, float* y, float* w, float* h)
+extern "C" void UnityKeyboard_GetRect(float* x, float* y, float* w, float* h)
 {
     CGRect area = _keyboard ? _keyboard.area : CGRectMake(0, 0, 0, 0);
 
@@ -1076,17 +972,17 @@ UNITY_EXPORT extern "C" void UnityKeyboard_GetRect(float* x, float* y, float* w,
     *h = area.size.height * multY;
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_SetCharacterLimit(unsigned characterLimit)
+extern "C" void UnityKeyboard_SetCharacterLimit(unsigned characterLimit)
 {
     [KeyboardDelegate Instance].characterLimit = characterLimit;
 }
 
-UNITY_EXPORT extern "C" int UnityKeyboard_CanGetSelection()
+extern "C" int UnityKeyboard_CanGetSelection()
 {
     return (_keyboard) ? 1 : 0;
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_GetSelection(int* location, int* length)
+extern "C" void UnityKeyboard_GetSelection(int* location, int* length)
 {
     if (_keyboard)
     {
@@ -1102,12 +998,12 @@ UNITY_EXPORT extern "C" void UnityKeyboard_GetSelection(int* location, int* leng
     }
 }
 
-UNITY_EXPORT extern "C" int UnityKeyboard_CanSetSelection()
+extern "C" int UnityKeyboard_CanSetSelection()
 {
     return (_keyboard) ? 1 : 0;
 }
 
-UNITY_EXPORT extern "C" void UnityKeyboard_SetSelection(int location, int length)
+extern "C" void UnityKeyboard_SetSelection(int location, int length)
 {
     if (_keyboard)
     {

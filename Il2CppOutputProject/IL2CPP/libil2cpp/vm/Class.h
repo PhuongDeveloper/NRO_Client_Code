@@ -48,8 +48,6 @@ namespace vm
     class LIBIL2CPP_CODEGEN_API Class
     {
     public:
-        static void AllocateStaticData();
-        static void FreeStaticData();
         static Il2CppClass* FromIl2CppType(const Il2CppType* type, bool throwOnError = true);
         static Il2CppClass* FromIl2CppTypeEnum(Il2CppTypeEnum type);
         static Il2CppClass* FromName(const Il2CppImage* image, const char* namespaze, const char *name);
@@ -168,11 +166,7 @@ namespace vm
         static Il2CppClass* InflateGenericClass(Il2CppClass* klass, Il2CppGenericContext *context);
         static const Il2CppType* InflateGenericType(const Il2CppType* type, Il2CppGenericContext *context);
 
-        inline static Il2CppMetadataGenericContainerHandle GetGenericContainer(const Il2CppClass* klass)
-        {
-            return klass->genericContainerHandle;
-        }
-
+        static Il2CppMetadataGenericContainerHandle GetGenericContainer(Il2CppClass *klass);
         static const MethodInfo* GetCCtor(Il2CppClass *klass);
         static const char* GetFieldDefaultValue(const FieldInfo *field, const Il2CppType** type);
         static int GetFieldMarshaledSize(const FieldInfo *field);
@@ -219,7 +213,7 @@ namespace vm
 
             const Il2CppGenericInst* genericInst = genericClass->context.class_inst;
             const Il2CppGenericInst* oGenericInst = oGenericClass->context.class_inst;
-            Il2CppMetadataGenericContainerHandle genericContainer = Class::GetGenericContainer(klass);
+            Il2CppMetadataGenericContainerHandle genericContainer = MetadataCache::GetGenericContainerFromGenericClass(klass->image, klass->generic_class);
 
             IL2CPP_ASSERT(oGenericInst->type_argc == genericInst->type_argc);
 

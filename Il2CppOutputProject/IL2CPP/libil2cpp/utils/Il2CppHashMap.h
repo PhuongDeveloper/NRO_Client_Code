@@ -129,26 +129,6 @@ public:
         return hashMap.end();
     }
 
-    void LockShared()
-    {
-        lock.LockShared();
-    }
-
-    void ReleaseShared()
-    {
-        lock.ReleaseShared();
-    }
-
-    void LockExclusive()
-    {
-        lock.LockExclusive();
-    }
-
-    void ReleaseExclusive()
-    {
-        lock.ReleaseExclusive();
-    }
-
 private:
     il2cpp::os::FastReaderReaderWriterLock lock;
     Il2CppHashMap<Key, T, HashFcn, EqualKey, Alloc> hashMap;

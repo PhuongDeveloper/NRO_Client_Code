@@ -51,32 +51,16 @@ namespace vm
 {
     const int Class::IgnoreNumberOfArguments = -1;
 
+    static il2cpp::utils::dynamic_array<Il2CppClass*> s_staticFieldData;
     static int32_t s_FinalizerSlot = -1;
     static int32_t s_GetHashCodeSlot = -1;
     static Il2CppClass* s_EmptyClassList[] = {NULL};
-
-    struct ClassContext
-    {
-        il2cpp::utils::dynamic_array<Il2CppClass*> m_staticFieldData;
-    };
-    static ClassContext* s_ClassContext = nullptr;
 
     static void SetupGCDescriptor(Il2CppClass* klass, const il2cpp::os::FastAutoLock& lock);
     static void GetBitmapNoInit(Il2CppClass* klass, size_t* bitmap, size_t& maxSetBit, size_t parentOffset, const il2cpp::os::FastAutoLock* lockPtr);
     static Il2CppClass* ResolveGenericInstanceType(Il2CppClass*, const il2cpp::vm::TypeNameParseInfo&, TypeSearchFlags searchFlags);
     static void SetupVTable(Il2CppClass *klass, const il2cpp::os::FastAutoLock& lock);
     static void AddStaticFieldData(Il2CppClass* klass);
-
-    void Class::AllocateStaticData()
-    {
-        s_ClassContext = new ClassContext();
-    }
-
-    void Class::FreeStaticData()
-    {
-        delete s_ClassContext;
-        s_ClassContext = nullptr;
-    }
 
     Il2CppClass* Class::FromIl2CppType(const Il2CppType* type, bool throwOnError)
     {
@@ -356,6 +340,9 @@ namespace vm
         if (!klass->has_finalize)
             return NULL;
 
+#if IL2CPP_TINY
+        IL2CPP_ASSERT(0 && "System.Object does not have a finalizer in the Tiny mscorlib, so we don't have a finalizer slot.");
+#endif
         return klass->vtable[s_FinalizerSlot].method;
     }
 
@@ -1159,7 +1146,6 @@ namespace vm
                 if (newMethod->genericContainerHandle)
                     newMethod->is_generic = true;
                 newMethod->has_full_generic_sharing_signature = false;
-                newMethod->is_unmanaged_callers_only = methodInfo.isUnmangedCallersOnly;
 
                 if (newMethod->virtualMethodPointer)
                 {
@@ -1247,7 +1233,7 @@ namespace vm
                     {
                         if (method && method->is_inflated)
                         {
-                            Il2CppGenericMethod genericMethod = il2cpp::metadata::GenericMetadata::Inflate(*method->genericMethod, context);
+                            const Il2CppGenericMethod* genericMethod = il2cpp::metadata::GenericMetadata::Inflate(method->genericMethod, context);
                             method = il2cpp::metadata::GenericMethod::GetMethod(genericMethod);
                         }
                         if (method && method->klass && Class::IsGeneric(method->klass))
@@ -1259,7 +1245,7 @@ namespace vm
                     klass->vtable[i].method = method;
                     if (method != NULL)
                     {
-                        // For default interface methods on generic interfaces we need to ensure that their rgctx's are initialized
+                        // For default interface methods on generic interfaces we need to ensure that their rgctx's are initalized
                         if (method->klass != NULL && method->klass != klass && Method::IsDefaultInterfaceMethodOnGenericInstance(method))
                             Class::InitLocked(method->klass, lock);
 
@@ -1545,8 +1531,10 @@ namespace vm
                 else if (!strcmp(vmethod->name, "Finalize"))
                     s_FinalizerSlot = slot;
             }
+#if !IL2CPP_TINY
             IL2CPP_ASSERT(s_FinalizerSlot > 0);
             IL2CPP_ASSERT(s_GetHashCodeSlot > 0);
+#endif
         }
 
         bool canBeInstantiated = !Class::IsGeneric(klass) && !il2cpp::metadata::GenericMetadata::ContainsGenericParameters(klass);
@@ -1785,6 +1773,11 @@ namespace vm
         return klass->image;
     }
 
+    Il2CppMetadataGenericContainerHandle Class::GetGenericContainer(Il2CppClass *klass)
+    {
+        return klass->genericContainerHandle;
+    }
+
     const MethodInfo* Class::GetCCtor(Il2CppClass *klass)
     {
         if (!klass->has_cctor)
@@ -1896,11 +1889,11 @@ namespace vm
 
     static void AddStaticFieldData(Il2CppClass* klass)
     {
-        // The m_staticFieldData collect is used by liveness checking with the GC lock held
+        // The s_staticFieldData collect is used by liveness checking with the GC lock held
         // Use the GC lock to add to this array
 
         gc::GarbageCollector::CallWithAllocLockHeld([](void* klass) {
-            s_ClassContext->m_staticFieldData.push_back((Il2CppClass*)klass);
+            s_staticFieldData.push_back((Il2CppClass*)klass);
             return (void*)nullptr;
         }, klass);
 
@@ -1910,7 +1903,7 @@ namespace vm
     const il2cpp::utils::dynamic_array<Il2CppClass*>& Class::GetStaticFieldData()
     {
         // Must be called with the GC lock held!
-        return s_ClassContext->m_staticFieldData;
+        return s_staticFieldData;
     }
 
     const size_t kWordSize = (8 * sizeof(size_t));
@@ -1922,8 +1915,8 @@ namespace vm
 
     size_t Class::GetBitmapSize(const Il2CppClass* klass)
     {
-        size_t maxBytes = klass->instance_size / kWordSize + 1;
-        size_t maxWords = 1 + (maxBytes / sizeof(size_t));
+        size_t maxBits = klass->instance_size / sizeof(void*);
+        size_t maxWords = 1 + (maxBits / sizeof(size_t));
         return sizeof(size_t) * maxWords;
     }
 
@@ -1992,7 +1985,7 @@ namespace vm
                         maxSetBit = std::max(maxSetBit, offset / sizeof(void*));
                         break;
                     case IL2CPP_TYPE_GENERICINST:
-                        if (!Type::IsValueType(type))
+                        if (!Type::GenericInstIsValuetype(type))
                         {
                             IL2CPP_ASSERT(0 == (offset % sizeof(void*)));
                             set_bit(bitmap, offset / sizeof(void*));
@@ -2026,12 +2019,6 @@ namespace vm
 
     void SetupGCDescriptor(Il2CppClass* klass, const il2cpp::os::FastAutoLock& lock)
     {
-        if (!klass->has_references)
-        {
-            klass->gc_desc = il2cpp::gc::GarbageCollector::MakeEmptyDescriptor();
-            return;
-        }
-
         const size_t kMaxAllocaSize = 1024;
         size_t bitmapSize = Class::GetBitmapSize(klass);
         size_t* bitmap = NULL;

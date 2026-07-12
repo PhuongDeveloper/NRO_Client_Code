@@ -1,4 +1,9 @@
 ﻿#include "pch-c.h"
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
 
 
 #include "codegen/il2cpp-codegen-metadata.h"
@@ -22,17 +27,17 @@ extern void StateMachineBehaviour_OnStateIK_mCE3B4C71868B564EE6BE4B8663535058705
 extern void StateMachineBehaviour_OnStateMachineEnter_m0399B12419A4F990F41BD589C833E2D2C0076762 (void);
 extern void StateMachineBehaviour_OnStateMachineExit_mF8BB1A8851B0699FC1D85F538E16EF12C08BBB93 (void);
 extern void StateMachineBehaviour__ctor_m9663A75D1016E16D7E3A48E2D4E6466A041A00AB (void);
-extern void AnimationEventBlittable_PointerToAnimationEvent_mD918F607F68D204B0D31AAF0073BFAFD689F52D1 (void);
-extern void AnimationEventBlittable_ToAnimationEvent_mF0A7F2DBE0ACD246404DE03A75C2A78120172A5A (void);
-extern void AnimationEventBlittable_Dispose_mC9D1CBCBB5DBB4082B047729897A7A1C6C4E4B5D (void);
 extern void AnimationEvent__ctor_mBC954085B1D18B436D08E7ADE3458B91E208F3B2 (void);
-extern void GCHandlePool__ctor_mF6967020B4513047BB5FAFF1802D68CFAB75AE67 (void);
-extern void GCHandlePool_Free_m3DEF150BA5DC4B173CEF6D5A357F28655601A3C3 (void);
+extern void Animator_SetTrigger_mC9CD54D627C8843EF6E159E167449D216EF6EB30 (void);
+extern void Animator_ResetTrigger_m8DCA67D5A6B56702E3FAD4E18243E194B71297CC (void);
+extern void Animator_get_hasBoundPlayables_mA5A6132C03593851FE80D8E7490191E051E5A1C9 (void);
 extern void Animator_StringToHash_mD67B872C411BE37641F49D7AA1DBD45B67F63E3A (void);
-extern void Animator_StringToHash_Injected_m034D05BA0F26EAC251C3EA39C764D29CCB98D3F8 (void);
+extern void Animator_SetTriggerString_m177C75DFBE070DE66FC08A3232444CCEA409C25E (void);
+extern void Animator_ResetTriggerString_m78259348CED35F156148A64B95EBD73CE3951868 (void);
 extern void AnimatorOverrideController_OnInvalidateOverrideController_mA6B0AA977505FDEFDD6BCA2E941FD3A18AE1AD23 (void);
 extern void OnOverrideControllerDirtyCallback__ctor_mA49B11AF24CB49A9B764058DB73CE221AE54E106 (void);
 extern void OnOverrideControllerDirtyCallback_Invoke_m538DCB0FFFE75495DC3977DBBF55A07C570F8B5A (void);
+extern void RuntimeAnimatorController__ctor_m676D4538BB6C62314B256173C5F592EFCA16AAC8 (void);
 extern void DiscreteEvaluationAttribute__ctor_m8C8036DC8BB15BBD3BBB79F2D14637C0DEBCB151 (void);
 extern void DiscreteEvaluationAttributeUtilities_ConvertFloatToDiscreteInt_mADD1EB91441A214F69458BFF45F86E77D11A340C (void);
 extern void DiscreteEvaluationAttributeUtilities_ConvertDiscreteIntToFloat_m6A22CA1A2232C185F6E10865530FFEDA68E28D7F (void);
@@ -89,17 +94,17 @@ static Il2CppMethodPointer s_methodPointers[65] =
 	StateMachineBehaviour_OnStateMachineEnter_m0399B12419A4F990F41BD589C833E2D2C0076762,
 	StateMachineBehaviour_OnStateMachineExit_mF8BB1A8851B0699FC1D85F538E16EF12C08BBB93,
 	StateMachineBehaviour__ctor_m9663A75D1016E16D7E3A48E2D4E6466A041A00AB,
-	AnimationEventBlittable_PointerToAnimationEvent_mD918F607F68D204B0D31AAF0073BFAFD689F52D1,
-	AnimationEventBlittable_ToAnimationEvent_mF0A7F2DBE0ACD246404DE03A75C2A78120172A5A,
-	AnimationEventBlittable_Dispose_mC9D1CBCBB5DBB4082B047729897A7A1C6C4E4B5D,
 	AnimationEvent__ctor_mBC954085B1D18B436D08E7ADE3458B91E208F3B2,
-	GCHandlePool__ctor_mF6967020B4513047BB5FAFF1802D68CFAB75AE67,
-	GCHandlePool_Free_m3DEF150BA5DC4B173CEF6D5A357F28655601A3C3,
+	Animator_SetTrigger_mC9CD54D627C8843EF6E159E167449D216EF6EB30,
+	Animator_ResetTrigger_m8DCA67D5A6B56702E3FAD4E18243E194B71297CC,
+	Animator_get_hasBoundPlayables_mA5A6132C03593851FE80D8E7490191E051E5A1C9,
 	Animator_StringToHash_mD67B872C411BE37641F49D7AA1DBD45B67F63E3A,
-	Animator_StringToHash_Injected_m034D05BA0F26EAC251C3EA39C764D29CCB98D3F8,
+	Animator_SetTriggerString_m177C75DFBE070DE66FC08A3232444CCEA409C25E,
+	Animator_ResetTriggerString_m78259348CED35F156148A64B95EBD73CE3951868,
 	AnimatorOverrideController_OnInvalidateOverrideController_mA6B0AA977505FDEFDD6BCA2E941FD3A18AE1AD23,
 	OnOverrideControllerDirtyCallback__ctor_mA49B11AF24CB49A9B764058DB73CE221AE54E106,
 	OnOverrideControllerDirtyCallback_Invoke_m538DCB0FFFE75495DC3977DBBF55A07C570F8B5A,
+	RuntimeAnimatorController__ctor_m676D4538BB6C62314B256173C5F592EFCA16AAC8,
 	DiscreteEvaluationAttribute__ctor_m8C8036DC8BB15BBD3BBB79F2D14637C0DEBCB151,
 	DiscreteEvaluationAttributeUtilities_ConvertFloatToDiscreteInt_mADD1EB91441A214F69458BFF45F86E77D11A340C,
 	DiscreteEvaluationAttributeUtilities_ConvertDiscreteIntToFloat_m6A22CA1A2232C185F6E10865530FFEDA68E28D7F,
@@ -140,7 +145,6 @@ static Il2CppMethodPointer s_methodPointers[65] =
 	AnimatorControllerPlayable_Equals_m14125BB4CCFCDFFD098223AF20E38501BA264180,
 	AnimatorControllerPlayable__cctor_m88506D1B15D609B818DFDC6B2BCFF42ABB41B090,
 };
-extern void AnimationEventBlittable_Dispose_mC9D1CBCBB5DBB4082B047729897A7A1C6C4E4B5D_AdjustorThunk (void);
 extern void AnimationClipPlayable_GetHandle_mE775F2247901BA293DB01A8D384D3F9D02A25627_AdjustorThunk (void);
 extern void AnimationClipPlayable_Equals_mC5263BEA86C02CEDF93C5B14EAA168883E1DB5F4_AdjustorThunk (void);
 extern void AnimationLayerMixerPlayable__ctor_m28884B8B9F7E057DF947E3B43ED78EA107368BD6_AdjustorThunk (void);
@@ -168,9 +172,8 @@ extern void AnimatorControllerPlayable__ctor_mBCB9475E2740BE1AEB94C08BAD14D51333
 extern void AnimatorControllerPlayable_GetHandle_m718D9A4E0DB7AC62947B1D09E47DBCD25C27AF6C_AdjustorThunk (void);
 extern void AnimatorControllerPlayable_SetHandle_mD86A3C0D03453FAF21903F7A52A743AB2DA6DED4_AdjustorThunk (void);
 extern void AnimatorControllerPlayable_Equals_m14125BB4CCFCDFFD098223AF20E38501BA264180_AdjustorThunk (void);
-static Il2CppTokenAdjustorThunkPair s_adjustorThunks[28] = 
+static Il2CppTokenAdjustorThunkPair s_adjustorThunks[27] = 
 {
-	{ 0x06000012, AnimationEventBlittable_Dispose_mC9D1CBCBB5DBB4082B047729897A7A1C6C4E4B5D_AdjustorThunk },
 	{ 0x0600001E, AnimationClipPlayable_GetHandle_mE775F2247901BA293DB01A8D384D3F9D02A25627_AdjustorThunk },
 	{ 0x0600001F, AnimationClipPlayable_Equals_mC5263BEA86C02CEDF93C5B14EAA168883E1DB5F4_AdjustorThunk },
 	{ 0x06000020, AnimationLayerMixerPlayable__ctor_m28884B8B9F7E057DF947E3B43ED78EA107368BD6_AdjustorThunk },
@@ -201,71 +204,71 @@ static Il2CppTokenAdjustorThunkPair s_adjustorThunks[28] =
 };
 static const int32_t s_InvokerIndices[65] = 
 {
-	742,
-	742,
-	742,
-	742,
-	742,
-	1295,
-	1295,
-	489,
-	489,
-	489,
-	489,
-	489,
-	749,
-	749,
-	2944,
-	4830,
-	4820,
-	2944,
-	2944,
-	2944,
-	2317,
-	4760,
-	4749,
-	4967,
-	1297,
-	2944,
-	2944,
-	4762,
-	4873,
-	2903,
-	1636,
-	1311,
-	2903,
-	1637,
-	4438,
-	5071,
-	2365,
-	2903,
-	1638,
-	5071,
-	2365,
-	2903,
-	1639,
-	5071,
-	2365,
-	2903,
-	1640,
-	5071,
-	2365,
-	2903,
-	1641,
-	5071,
-	2365,
-	2903,
-	1642,
-	5071,
-	2365,
-	2903,
-	1643,
-	5071,
-	2365,
-	2903,
-	2365,
-	1644,
-	5071,
+	1248,
+	1248,
+	1248,
+	1248,
+	1248,
+	2345,
+	2345,
+	833,
+	833,
+	833,
+	833,
+	833,
+	1255,
+	1255,
+	5134,
+	5134,
+	4171,
+	4171,
+	4963,
+	7280,
+	4171,
+	4171,
+	7523,
+	2347,
+	5134,
+	5134,
+	5134,
+	7281,
+	7401,
+	5046,
+	2933,
+	2369,
+	5046,
+	2934,
+	6955,
+	7688,
+	4179,
+	5046,
+	2935,
+	7688,
+	4179,
+	5046,
+	2936,
+	7688,
+	4179,
+	5046,
+	2937,
+	7688,
+	4179,
+	5046,
+	2938,
+	7688,
+	4179,
+	5046,
+	2939,
+	7688,
+	4179,
+	5046,
+	2940,
+	7688,
+	4179,
+	5046,
+	4179,
+	2941,
+	7688,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_AnimationModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_AnimationModule_CodeGenModule = 
@@ -273,7 +276,7 @@ const Il2CppCodeGenModule g_UnityEngine_AnimationModule_CodeGenModule =
 	"UnityEngine.AnimationModule.dll",
 	65,
 	s_methodPointers,
-	28,
+	27,
 	s_adjustorThunks,
 	s_InvokerIndices,
 	0,

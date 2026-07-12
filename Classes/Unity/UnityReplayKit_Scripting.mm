@@ -9,34 +9,34 @@ extern "C"
 {
 #if UNITY_REPLAY_KIT_AVAILABLE
 
-    UNITY_EXPORT int UnityReplayKitAPIAvailable()
+    int UnityReplayKitAPIAvailable()
     {
         return [UnityReplayKit sharedInstance].apiAvailable ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitRecordingAvailable()
+    int UnityReplayKitRecordingAvailable()
     {
         return [UnityReplayKit sharedInstance].recordingPreviewAvailable ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitIsCameraEnabled()
+    int UnityReplayKitIsCameraEnabled()
     {
         return [UnityReplayKit sharedInstance].cameraEnabled != NO ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitSetCameraEnabled(bool yes)
+    int UnityReplayKitSetCameraEnabled(bool yes)
     {
         BOOL value = yes ? YES : NO;
         [UnityReplayKit sharedInstance].cameraEnabled = value;
         return [UnityReplayKit sharedInstance].cameraEnabled == value;
     }
 
-    UNITY_EXPORT int UnityReplayKitIsMicrophoneEnabled()
+    int UnityReplayKitIsMicrophoneEnabled()
     {
         return [UnityReplayKit sharedInstance].microphoneEnabled != NO ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitSetMicrophoneEnabled(bool yes)
+    int UnityReplayKitSetMicrophoneEnabled(bool yes)
     {
         if ([UnityReplayKit sharedInstance].isRecording)
         {
@@ -49,7 +49,7 @@ extern "C"
         return [UnityReplayKit sharedInstance].microphoneEnabled == value;
     }
 
-    UNITY_EXPORT const char* UnityReplayKitLastError()
+    const char* UnityReplayKitLastError()
     {
         NSString* err = [UnityReplayKit sharedInstance].lastError;
         if (err == nil)
@@ -64,17 +64,17 @@ extern "C"
         return error;
     }
 
-    UNITY_EXPORT int UnityReplayKitStartRecording()
+    int UnityReplayKitStartRecording()
     {
         return [[UnityReplayKit sharedInstance] startRecording] ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitIsRecording()
+    int UnityReplayKitIsRecording()
     {
         return [UnityReplayKit sharedInstance].isRecording ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitShowCameraPreviewAt(float x, float y, float width, float height)
+    int UnityReplayKitShowCameraPreviewAt(float x, float y, float width, float height)
     {
 #if !PLATFORM_VISIONOS
         float q = 1.0f / UnityScreenScaleFactor([UIScreen mainScreen]);
@@ -85,12 +85,12 @@ extern "C"
         return [[UnityReplayKit sharedInstance] showCameraPreviewAt: CGPointMake(x * q, h - y * q) width: width height: height] ? 1 : 0;
     }
 
-    UNITY_EXPORT void UnityReplayKitHideCameraPreview()
+    void UnityReplayKitHideCameraPreview()
     {
         [[UnityReplayKit sharedInstance] hideCameraPreview];
     }
 
-    UNITY_EXPORT int UnityReplayKitStopRecording()
+    int UnityReplayKitStopRecording()
     {
 #if !PLATFORM_TVOS
         UnityReplayKitHideCameraPreview();
@@ -99,27 +99,27 @@ extern "C"
         return [[UnityReplayKit sharedInstance] stopRecording] ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitDiscard()
+    int UnityReplayKitDiscard()
     {
         return [[UnityReplayKit sharedInstance] discardPreview] ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitPreview()
+    int UnityReplayKitPreview()
     {
         return [[UnityReplayKit sharedInstance] showPreview] ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitBroadcastingAPIAvailable()
+    int UnityReplayKitBroadcastingAPIAvailable()
     {
         return [[UnityReplayKit sharedInstance] broadcastingApiAvailable] ? 1 : 0;
     }
 
-    UNITY_EXPORT void UnityReplayKitStartBroadcasting(void* callback)
+    void UnityReplayKitStartBroadcasting(void* callback)
     {
         [[UnityReplayKit sharedInstance] startBroadcastingWithCallback: callback];
     }
 
-    UNITY_EXPORT void UnityReplayKitStopBroadcasting()
+    void UnityReplayKitStopBroadcasting()
     {
 #if !PLATFORM_TVOS
         UnityReplayKitHideCameraPreview();
@@ -127,32 +127,32 @@ extern "C"
         [[UnityReplayKit sharedInstance] stopBroadcasting];
     }
 
-    UNITY_EXPORT void UnityReplayKitPauseBroadcasting()
+    void UnityReplayKitPauseBroadcasting()
     {
         [[UnityReplayKit sharedInstance] pauseBroadcasting];
     }
 
-    UNITY_EXPORT void UnityReplayKitResumeBroadcasting()
+    void UnityReplayKitResumeBroadcasting()
     {
         [[UnityReplayKit sharedInstance] resumeBroadcasting];
     }
 
-    UNITY_EXPORT int UnityReplayKitIsBroadcasting()
+    int UnityReplayKitIsBroadcasting()
     {
         return [[UnityReplayKit sharedInstance] isBroadcasting] ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitIsBroadcastingPaused()
+    int UnityReplayKitIsBroadcastingPaused()
     {
         return [[UnityReplayKit sharedInstance] isBroadcastingPaused] ? 1 : 0;
     }
 
-    UNITY_EXPORT int UnityReplayKitIsPreviewControllerActive()
+    int UnityReplayKitIsPreviewControllerActive()
     {
         return [[UnityReplayKit sharedInstance] isPreviewControllerActive] ? 1 : 0;
     }
 
-    UNITY_EXPORT const char* UnityReplayKitGetBroadcastURL()
+    const char* UnityReplayKitGetBroadcastURL()
     {
         NSURL *url = [[UnityReplayKit sharedInstance] broadcastURL];
         if (url != nil)
@@ -162,7 +162,7 @@ extern "C"
         return nullptr;
     }
 
-    UNITY_EXPORT void UnityReplayKitCreateOverlayWindow()
+    void UnityReplayKitCreateOverlayWindow()
     {
         [[UnityReplayKit sharedInstance] createOverlayWindow];
     }
@@ -175,33 +175,33 @@ extern "C"
 
 // Impl when ReplayKit is not available.
 
-    UNITY_EXPORT int UnityReplayKitAPIAvailable()        { return 0; }
-    UNITY_EXPORT int UnityReplayKitRecordingAvailable()  { return 0; }
-    UNITY_EXPORT const char* UnityReplayKitLastError()   { return NULL; }
-    UNITY_EXPORT int UnityReplayKitStartRecording(int enableMicrophone, int enableCamera) { return 0; }
-    UNITY_EXPORT int UnityReplayKitIsRecording()         { return 0; }
-    UNITY_EXPORT int UnityReplayKitStopRecording()       { return 0; }
-    UNITY_EXPORT int UnityReplayKitDiscard()             { return 0; }
-    UNITY_EXPORT int UnityReplayKitPreview()             { return 0; }
+    int UnityReplayKitAPIAvailable()        { return 0; }
+    int UnityReplayKitRecordingAvailable()  { return 0; }
+    const char* UnityReplayKitLastError()   { return NULL; }
+    int UnityReplayKitStartRecording(int enableMicrophone, int enableCamera) { return 0; }
+    int UnityReplayKitIsRecording()         { return 0; }
+    int UnityReplayKitStopRecording()       { return 0; }
+    int UnityReplayKitDiscard()             { return 0; }
+    int UnityReplayKitPreview()             { return 0; }
 
-    UNITY_EXPORT int UnityReplayKitIsCameraEnabled() { return 0; }
-    UNITY_EXPORT int UnityReplayKitSetCameraEnabled(bool) { return 0; }
-    UNITY_EXPORT int UnityReplayKitIsMicrophoneEnabled() { return 0; }
-    UNITY_EXPORT int UnityReplayKitSetMicrophoneEnabled(bool) { return 0; }
-    UNITY_EXPORT int UnityReplayKitShowCameraPreviewAt(float x, float y, float width, float height) { return 0; }
-    UNITY_EXPORT void UnityReplayKitHideCameraPreview() {}
-    UNITY_EXPORT void UnityReplayKitCreateOverlayWindow() {}
+    int UnityReplayKitIsCameraEnabled() { return 0; }
+    int UnityReplayKitSetCameraEnabled(bool) { return 0; }
+    int UnityReplayKitIsMicrophoneEnabled() { return 0; }
+    int UnityReplayKitSetMicrophoneEnabled(bool) { return 0; }
+    int UnityReplayKitShowCameraPreviewAt(float x, float y, float width, float height) { return 0; }
+    void UnityReplayKitHideCameraPreview() {}
+    void UnityReplayKitCreateOverlayWindow() {}
 
     void UnityReplayKitTriggerBroadcastStatusCallback(void*, bool, const char*);
-    UNITY_EXPORT int UnityReplayKitBroadcastingAPIAvailable() { return 0; }
-    UNITY_EXPORT void UnityReplayKitStartBroadcasting(void* callback) { UnityReplayKitTriggerBroadcastStatusCallback(callback, false, "ReplayKit not implemented."); }
-    UNITY_EXPORT void UnityReplayKitStopBroadcasting() {}
-    UNITY_EXPORT void UnityReplayKitPauseBroadcasting() {}
-    UNITY_EXPORT void UnityReplayKitResumeBroadcasting() {}
-    UNITY_EXPORT int UnityReplayKitIsBroadcasting() { return 0; }
-    UNITY_EXPORT int UnityReplayKitIsBroadcastingPaused() { return 0; }
-    UNITY_EXPORT int UnityReplayKitIsPreviewControllerActive() { return 0; }
-    UNITY_EXPORT const char* UnityReplayKitGetBroadcastURL() { return nullptr; }
+    int UnityReplayKitBroadcastingAPIAvailable() { return 0; }
+    void UnityReplayKitStartBroadcasting(void* callback) { UnityReplayKitTriggerBroadcastStatusCallback(callback, false, "ReplayKit not implemented."); }
+    void UnityReplayKitStopBroadcasting() {}
+    void UnityReplayKitPauseBroadcasting() {}
+    void UnityReplayKitResumeBroadcasting() {}
+    int UnityReplayKitIsBroadcasting() { return 0; }
+    int UnityReplayKitIsBroadcastingPaused() { return 0; }
+    int UnityReplayKitIsPreviewControllerActive() { return 0; }
+    const char* UnityReplayKitGetBroadcastURL() { return nullptr; }
 
 #endif  // UNITY_REPLAY_KIT_AVAILABLE
 }  // extern "C"

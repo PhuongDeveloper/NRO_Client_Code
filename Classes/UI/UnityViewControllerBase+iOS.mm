@@ -58,8 +58,6 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
         NSString* style = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"UIStatusBarStyle"];
         if (style && [style isEqualToString: @"UIStatusBarStyleLightContent"])
             _PreferredStatusBarStyle = UIStatusBarStyleLightContent;
-        if (style && [style isEqualToString: @"UIStatusBarStyleDarkContent"])
-            _PreferredStatusBarStyle = UIStatusBarStyleDarkContent;
 
         _PreferredStatusBarStyleInited = true;
     }
@@ -168,12 +166,8 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
 
     // delay resolution change, ideally we want it to happen in the middle of rotation animation
     // we force rendering back upon completion, just in case transition happens sooner
-    // NOTE: with CAMetalDisplayLink we cannot just skip rendering, hence the if
-    if(!GetAppController().unityUsesMetalDisplayLink)
-    {
-        GetAppController().unityView.skipRendering = YES;
-        [GetAppController().unityView performSelector: @selector(resumeRendering) withObject: nil afterDelay: REORIENTATION_RENDERING_PAUSE];
-    }
+    GetAppController().unityView.skipRendering = YES;
+    [GetAppController().unityView performSelector: @selector(resumeRendering) withObject: nil afterDelay: REORIENTATION_RENDERING_PAUSE];
 
     // in case of presentation controller it will take control over orientations
     // so to avoid crazy corner cases, make default view controller to ignore "wrong" orientations
@@ -213,8 +207,7 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
 - (instancetype)initWithOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _fixedOrientation = interfaceOrientation;
     }
     return self;
@@ -245,8 +238,8 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
     //
     // NB: Look for additional explanation at UnityAppController+ViewHandling.mm method -transitionToViewController: before
     // call to same method.
-    [GetAppController() didTransitionToViewController: self fromViewController: self];
-
+    [GetAppController() didTransitionToViewController:self fromViewController:self];
+    
     [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
@@ -256,7 +249,7 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
 
 - (instancetype)init
 {
-    self = [super initWithOrientation: UIInterfaceOrientationPortrait];
+    self = [super initWithOrientation:UIInterfaceOrientationPortrait];
     return self;
 }
 
@@ -266,7 +259,7 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
 
 - (instancetype)init
 {
-    self = [super initWithOrientation: UIInterfaceOrientationPortraitUpsideDown];
+    self = [super initWithOrientation:UIInterfaceOrientationPortraitUpsideDown];
     return self;
 }
 
@@ -276,7 +269,7 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
 
 - (instancetype)init
 {
-    self = [super initWithOrientation: UIInterfaceOrientationLandscapeLeft];
+    self = [super initWithOrientation:UIInterfaceOrientationLandscapeLeft];
     return self;
 }
 
@@ -286,7 +279,7 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
 
 - (instancetype)init
 {
-    self = [super initWithOrientation: UIInterfaceOrientationLandscapeRight];
+    self = [super initWithOrientation:UIInterfaceOrientationLandscapeRight];
     return self;
 }
 
@@ -304,7 +297,7 @@ NSUInteger EnabledAutorotationInterfaceOrientations()
         ret |= (1 << UIInterfaceOrientationLandscapeRight);
     if (UnityIsOrientationEnabled(landscapeRight))
         ret |= (1 << UIInterfaceOrientationLandscapeLeft);
-
+    
     // Handling unexpected case where autorotation is on and all the orientations are off by defaulting to current orientation.
     // Previously we returned 0 and iOS were handling it by keeping orientation as is. From iOS16 behaviour changed and the bug was raised.
     // Either way iOS requires us to provide non 0 value to supportedInterfaceOrientations.

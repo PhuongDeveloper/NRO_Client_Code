@@ -211,7 +211,7 @@ namespace Reflection
                 {
                     newCtx.class_inst = klass->generic_class->context.class_inst;
                 }
-                else if (il2cpp::vm::Class::IsGenericTypeDefinition(klass))
+                else if (klass->genericContainerHandle != NULL)
                 {
                     IL2CPP_NOT_IMPLEMENTED(il2cpp_method_get_equivalent_method: generic_container_case);
                     //const Il2CppGenericContainer *genericContainer = il2cpp::vm::MetadataCache::GetGenericContainerFromIndex(klass->genericContainerIndex);

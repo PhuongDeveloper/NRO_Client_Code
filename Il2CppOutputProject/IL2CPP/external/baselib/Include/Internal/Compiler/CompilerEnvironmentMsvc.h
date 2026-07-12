@@ -1,16 +1,10 @@
 #pragma once
 
-#if defined(__cplusplus) && __cplusplus < 201703L
-    #error "Baselib requires C++17 support"
+#if _MSC_VER < 1900
+    #error "Baselib requires C++11 support, i.e. MSVC 2015 or newer"
 #endif
 
 #define COMPILER_MSVC 1
-
-#ifdef __clang__
-    #define COMPILER_MSVC_EMULATED_BY_CLANG             1
-#else
-    #define COMPILER_MSVC_EMULATED_BY_CLANG             0
-#endif
 
 #ifdef _CPPUNWIND
     #define COMPILER_SUPPORTS_EXCEPTIONS                _CPPUNWIND
@@ -54,11 +48,6 @@
 #define COMPILER_EMPTYINLINE                __forceinline
 #define COMPILER_NORETURN                   __declspec(noreturn)
 
-#define COMPILER_FILE                       __builtin_FILE()
-#define COMPILER_FUNCTION                   __builtin_FUNCTION()
-#define COMPILER_LINE                       __builtin_LINE()
-#define COMPILER_COLUMN                     __builtin_COLUMN()
-
 #define COMPILER_DEPRECATED(msg)            __declspec(deprecated(msg))
 #define COMPILER_DEPRECATED_ENUM_VALUE(msg) /* no equivalent for this in MSVC */
 
@@ -71,12 +60,8 @@
 
 #define COMPILER_DEBUG_TRAP()               __debugbreak()
 
-#if _MSVC_LANG >= 201703L
-    #define COMPILER_WARN_UNUSED_RESULT         [[nodiscard]]
-#else
 // Note that this is best effort, as "/analyze" compiler flag required to make warning appear
-    #define COMPILER_WARN_UNUSED_RESULT         _Check_return_
-#endif
+#define COMPILER_WARN_UNUSED_RESULT         _Check_return_
 
 #if !defined(alloca)
     #define alloca _alloca

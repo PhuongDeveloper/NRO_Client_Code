@@ -12,6 +12,9 @@
 #include "UI/Keyboard.h"
 #include <utility>
 
+extern bool _skipPresent;
+extern bool _unityAppReady;
+
 static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
 
 @implementation UnityAppController (ViewHandling)
@@ -32,7 +35,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     [_unityView didRotate];
 
     // after we have updated unity view, this will poke unity itself about the changes in orient/extents
-    [_unityView updateUnityBackbufferSize];
+    [_unityView boundsUpdated];
 }
 
 #endif
@@ -133,10 +136,8 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     NSAssert(_unityView != nil, @"_unityView should be inited at this point");
     NSAssert(_window != nil, @"_window should be inited at this point");
 
-#if PLATFORM_IOS
     if (@available(iOS 16.0, *))    _shouldUseDefaultViewControllerForFixedOrientations = YES;
     else                            _shouldUseDefaultViewControllerForFixedOrientations = NO;
-#endif
 
     _rootController = [self createRootViewController];
 
@@ -181,12 +182,10 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     HideActivityIndicator();
 
     // make sure that we start up with correctly created/inited rendering surface
-    // NB: recreateRenderingSurface won't go into rendering because AppReady state is not set
+    // NB: recreateRenderingSurface won't go into rendering because _unityAppReady is false
 #if UNITY_SUPPORT_ROTATION
     [self checkOrientationRequest];
 #endif
-
-    [_unityView updateUnityBackbufferSize];
     [_unityView recreateRenderingSurface];
 
     // UI hierarchy
@@ -204,25 +203,20 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     // but this frame now is actually the first one we want to process/draw
     // so all the recreateSurface before now (triggered by reorientation) should simply change extents
 
-    [self advanceEngineLoadState: kUnityEngineLoadStateAppReady];
+    _unityAppReady = true;
 
-    // this is/was needed as a workaround for various issues with first frame rendering
-    //   on older iOS, not doing this "render twice" would result in black frame showing
-    // that does not seem necessary now, but we keep it "just in case" when using CADisplayLink
-    // when using CAMetalDisplayLink we cannot render to backbuffer (drawable) out of the displaylink callback, hence we must skip this
+    // why we skip present:
+    // this will be the first frame to draw, so Start methods will be called
+    // and we want to properly handle resolution request in Start (which might trigger surface recreate)
+    // NB: we want to draw right after showing window, to avoid black frame creeping in
 
-    if(!self.unityUsesMetalDisplayLink)
-    {
-        // why we skip present:
-        // this will be the first frame to draw, so Start methods will be called
-        // and we want to properly handle resolution request in Start (which might trigger surface recreate)
-        // NB: we want to draw right after showing window, to avoid black frame creeping in
+    _skipPresent = true;
 
-        if (!UnityIsPaused())
-            UnityRepaint();
+    if (!UnityIsPaused())
+        UnityRepaint();
 
-        [self repaint];
-    }
+    _skipPresent = false;
+    [self repaint];
 
     [UIView setAnimationsEnabled: YES];
 }
@@ -268,7 +262,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     // not call -viewWillTransitionToSize:.
     UIInterfaceOrientation newOrientation = UIViewControllerInterfaceOrientation(vc);
     BOOL orientationChangedToSupported = vc.supportedInterfaceOrientations & (1 << newOrientation);
-    if (!UnityiOSVersionIsAtLeast(16) || orientationChangedToSupported)
+    if (!UnityiOS160orNewer() || orientationChangedToSupported)
     {
         [self didTransitionToViewController: vc fromViewController: _rootController];
     }
@@ -418,7 +412,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
 
 - (void)orientInterface:(UIInterfaceOrientation)orient
 {
-    if (self.engineLoadState >= kUnityEngineLoadStateAppReady)
+    if (_unityAppReady)
         UnityFinishRendering();
 
     [KeyboardDelegate StartReorientation];
@@ -437,12 +431,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
         [self interfaceDidChangeOrientationFrom: oldOrient];
 
 #if !PLATFORM_VISIONOS
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        // this was deprecated in favor of [UIWindowScene setInterfaceOrientation:]
-        // this API works perfectly fine for now, so we use it until we rewrite/modernize trampoline to be Scene-based
         [UIApplication sharedApplication].statusBarOrientation = orient;
-    #pragma clang diagnostic pop
 #endif
     }
     [CATransaction commit];
@@ -459,12 +448,12 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
 
 #endif
 
-UNITY_EXPORT extern "C" void UnityNotifyHideHomeButtonChange()
+extern "C" void UnityNotifyHideHomeButtonChange()
 {
     [GetAppController() notifyHideHomeButtonChange];
 }
 
-UNITY_EXPORT extern "C" void UnityNotifyDeferSystemGesturesChange()
+extern "C" void UnityNotifyDeferSystemGesturesChange()
 {
     [GetAppController() notifyDeferSystemGesturesChange];
 }

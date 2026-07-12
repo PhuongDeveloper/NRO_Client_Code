@@ -42,11 +42,9 @@
 @end
 
 @interface UnityView (UnityAppController)
-- (void)boundsUpdated __deprecated_msg("use updateUnityBackbufferSize instead.");
-// if we know that unity view bounds have changed but we need to update unity-side size/orientation immediately
-- (void)updateUnityBackbufferSize;
-// update layer's drawableSize from bounds size: needed when bounds are changed (either by iOS or by us)
-- (void)updateLayerDrawableSizeFromBounds;
+// if we know that unity view bounds have changed but need to update unity-side size/orientation immediately
+// otherwise the update will be delayed to next layoutSubviews
+- (void)boundsUpdated;
 @end
 
 #if PLATFORM_IOS || PLATFORM_VISIONOS
