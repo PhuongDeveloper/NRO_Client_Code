@@ -181,15 +181,15 @@ static FORCE_INLINE void Baselib_atomic_##op##_##id##_##order##_v(void* obj, con
 #define detail_LOAD_STORE(op, order, id , bits, int_type, ...)                                                                                          \
 static FORCE_INLINE void Baselib_atomic_##op##_##id##_##order##_v(void* obj, const void* value, void* result)                                           \
 {                                                                                                                                                       \
-    *(__int##bits##*)result = PP_CONCAT(detail_intrinsic_##op, bits, detail_intrinsic_##order)((__int##bits##*)obj, *(const __int##bits##*)value);      \
+    *(__int##bits*)result = PP_CONCAT(detail_intrinsic_##op, bits, detail_intrinsic_##order)((__int##bits*)obj, *(const __int##bits*)value);            \
 }
 
 #define detail_CMP_XCHG(op, order1, order2, id , bits, int_type, ...)                                                                                   \
 static FORCE_INLINE bool Baselib_atomic_##op##_##id##_##order1##_##order2##_v(void* obj, void* expected, const void* value)                             \
 {                                                                                                                                                       \
-    __int##bits cmp =  *(__int##bits##*)expected;                                                                                                       \
-    __int##bits result = PP_CONCAT(_InterlockedCompareExchange, bits, detail_intrinsic_##order1)((__int##bits##*)obj, *(__int##bits##*)value, cmp);     \
-    return result == cmp ? true : (*(__int##bits##*)expected = result, false);                                                                          \
+    __int##bits cmp =  *(__int##bits*)expected;                                                                                                         \
+    __int##bits result = PP_CONCAT(_InterlockedCompareExchange, bits, detail_intrinsic_##order1)((__int##bits*)obj, *(__int##bits*)value, cmp);         \
+    return result == cmp ? true : (*(__int##bits*)expected = result, false);                                                                            \
 }
 
 #define detail_NOT_SUPPORTED(...)

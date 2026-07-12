@@ -168,7 +168,11 @@ namespace vm
         static Il2CppClass* InflateGenericClass(Il2CppClass* klass, Il2CppGenericContext *context);
         static const Il2CppType* InflateGenericType(const Il2CppType* type, Il2CppGenericContext *context);
 
-        static Il2CppMetadataGenericContainerHandle GetGenericContainer(Il2CppClass *klass);
+        inline static Il2CppMetadataGenericContainerHandle GetGenericContainer(const Il2CppClass* klass)
+        {
+            return klass->genericContainerHandle;
+        }
+
         static const MethodInfo* GetCCtor(Il2CppClass *klass);
         static const char* GetFieldDefaultValue(const FieldInfo *field, const Il2CppType** type);
         static int GetFieldMarshaledSize(const FieldInfo *field);
@@ -184,6 +188,7 @@ namespace vm
         static void SetupTypeHierarchy(Il2CppClass *klass);
         static void SetupInterfaces(Il2CppClass *klass);
 
+        // Must be called with the GC lock held!
         static const il2cpp::utils::dynamic_array<Il2CppClass*>& GetStaticFieldData();
 
         static size_t GetBitmapSize(const Il2CppClass* klass);
@@ -195,7 +200,7 @@ namespace vm
         static const MethodInfo* GetVirtualMethod(Il2CppClass* klass, const MethodInfo* virtualMethod);
 
         static void SetClassInitializationError(Il2CppClass* klass, Il2CppException* error);
-        static void UpdateInitializedAndNoError(Il2CppClass *klass);
+        static void PublishInitialized(Il2CppClass* klass);
 
         static IL2CPP_FORCE_INLINE bool IsGenericClassAssignableFrom(const Il2CppClass* klass, const Il2CppClass* oklass, const Il2CppClass* implementingClass = il2cpp_defaults.missing_class)
         {
@@ -214,7 +219,7 @@ namespace vm
 
             const Il2CppGenericInst* genericInst = genericClass->context.class_inst;
             const Il2CppGenericInst* oGenericInst = oGenericClass->context.class_inst;
-            Il2CppMetadataGenericContainerHandle genericContainer = MetadataCache::GetGenericContainerFromGenericClass(klass->image, klass->generic_class);
+            Il2CppMetadataGenericContainerHandle genericContainer = Class::GetGenericContainer(klass);
 
             IL2CPP_ASSERT(oGenericInst->type_argc == genericInst->type_argc);
 

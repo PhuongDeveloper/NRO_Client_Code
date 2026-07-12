@@ -8,6 +8,20 @@
 #import <Metal/Metal.h>
 #import <QuartzCore/QuartzCore.h>
 
+#if !(defined(__IPHONE_16_0) || defined(__TVOS_16_0))
+@interface CAMetalLayer (UnityForSdk16)
+{
+}
+@property BOOL wantsExtendedDynamicRangeContent API_AVAILABLE(ios(16.0), macCatalyst(16.0)) API_UNAVAILABLE(tvos, watchos);
+@end
+@interface UIScreen (UnityForSdk16)
+{
+}
+@property CGFloat potentialEDRHeadroom API_AVAILABLE(ios(16.0), tvos(16.0), macCatalyst(16.0)) API_UNAVAILABLE(watchos);
+@property CGFloat currentEDRHeadroom API_AVAILABLE(ios(16.0), tvos(16.0), macCatalyst(16.0)) API_UNAVAILABLE(watchos);
+@end
+#endif
+
 static DisplayManager* _DisplayManager = nil;
 
 @interface DisplayConnection ()
@@ -19,7 +33,9 @@ static DisplayManager* _DisplayManager = nil;
     BOOL                        _needRecreateSurface;
     CGSize                      _requestedRenderingSize;
 
+#if !PLATFORM_VISIONOS
     UIScreen*                   _screen;
+#endif
     UIWindow*                   _window;
     UIView*                     _view;
 
@@ -28,7 +44,9 @@ static DisplayManager* _DisplayManager = nil;
     UnityDisplaySurfaceBase*    _surface;
 }
 
+#if !PLATFORM_VISIONOS
 @synthesize screen      = _screen;
+#endif
 @synthesize window      = _window;
 @synthesize view        = _view;
 @synthesize screenSize  = _screenSize;
@@ -41,6 +59,7 @@ static DisplayManager* _DisplayManager = nil;
     return (UnityDisplaySurfaceMTL*)_surface;
 }
 
+#if !PLATFORM_VISIONOS
 - (id)init:(UIScreen*)targetScreen
 {
     if ((self = [super init]))
@@ -61,6 +80,18 @@ static DisplayManager* _DisplayManager = nil;
     }
     return self;
 }
+#else
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        self->_screenSize = CGSizeMake(1920, 1080);
+        self->_needRecreateSurface = NO;
+        self->_requestedRenderingSize = CGSizeMake(-1, -1);
+    }
+    return self;
+}
+#endif
 
 - (void)createWithWindow:(UIWindow*)window andView:(UIView*)view
 {
@@ -68,7 +99,13 @@ static DisplayManager* _DisplayManager = nil;
     _view   = view;
 
     CGSize layerSize = _view.layer.bounds.size;
-    _screenSize = CGSizeMake(roundf(layerSize.width) * _view.contentScaleFactor, roundf(layerSize.height) * _view.contentScaleFactor);
+    _screenSize = CGSizeMake(::roundf(layerSize.width * _view.contentScaleFactor), ::roundf(layerSize.height * _view.contentScaleFactor));
+
+    if ([_view.layer isKindOfClass: [CAMetalLayer class]])
+    {
+        // UnityView either has CAMetalLayer backing, when running on Metal, or CALayer, when running in 'nographics' mode
+        ((CAMetalLayer*)_view.layer).drawableSize = layerSize;
+    }
 }
 
 - (void)createView:(BOOL)useForRendering
@@ -78,14 +115,27 @@ static DisplayManager* _DisplayManager = nil;
 
 - (void)createView:(BOOL)useForRendering showRightAway:(BOOL)showRightAway;
 {
+#if !PLATFORM_VISIONOS
     NSAssert(_screen != [UIScreen mainScreen], @"DisplayConnection for mainScreen should be created with createWithWindow:andView:");
+#endif
     if (_view == nil)
     {
+#if !PLATFORM_VISIONOS
         UIWindow* window = [[UIWindow alloc] initWithFrame: _screen.bounds];
+
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        // [UIWindow setScreen:] is deprecated in favor of [UIWindow setWindowScene:], but we are not yet scenes based
+        // this API works perfectly fine for now, so we use it until we rewrite/modernize trampoline to be Scene-based
         window.screen = _screen;
+    #pragma clang diagnostic pop
 
         UIView* view = [(useForRendering ? [UnityRenderingView alloc] : [UIView alloc]) initWithFrame: _screen.bounds];
         view.contentScaleFactor = UnityScreenScaleFactor(_screen);
+#else
+        UIWindow* window = [[UIWindow alloc] init];
+        UIView* view = [(useForRendering ? [UnityRenderingView alloc] : [UIView alloc]) init];
+#endif
 
         [self createWithWindow: window andView: view];
 
@@ -100,7 +150,15 @@ static DisplayManager* _DisplayManager = nil;
 - (void)shouldShowWindow:(BOOL)show
 {
     _window.hidden = show ? NO : YES;
+
+#if !PLATFORM_VISIONOS
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // [UIWindow setScreen:] is deprecated in favor of [UIWindow setWindowScene:], but we are not yet scenes based
+    // this API works perfectly fine for now, so we use it until we rewrite/modernize trampoline to be Scene-based
     _window.screen = show ? _screen : nil;
+#pragma clang diagnostic pop
+#endif
 }
 
 - (UnityDisplaySurfaceBase*)initRendering
@@ -113,8 +171,8 @@ static DisplayManager* _DisplayManager = nil;
     if (api == apiMetal)
     {
         UnityDisplaySurfaceMTL* surf = new UnityDisplaySurfaceMTL();
-        surf->layer         = (CAMetalLayer*)_view.layer;
-        surf->device        = UnityGetMetalDevice();
+        surf->swapchain.layer = (CAMetalLayer*)_view.layer;
+        surf->device = UnityGetMetalDevice();
         ret = surf;
     }
     else
@@ -131,20 +189,12 @@ static DisplayManager* _DisplayManager = nil;
     // On metal we depend on hardware screen compositor to handle upscaling this way avoiding additional blit
     CGSize layerSize = _view.layer.bounds.size;
     float scale = _view.contentScaleFactor;
-    CGSize screenSize = CGSizeMake(layerSize.width * scale, layerSize.height * scale);
-    // if we did request custom resolution we apply it here.
-    // for metal we use hardware scaler which will be triggered exactly because our window is not of "native" size
-    // but we also want to enforce native resolution as maximum, otherwise we might run out of memory vert fast
-    // TODO: how about supersampling screenshots? maybe there are reasonable usecases
-    if (UnitySelectedRenderingAPI() == apiMetal && params.renderW > 0 && params.renderH > 0)
-        _screenSize = CGSizeMake(fminf(screenSize.width, params.renderW), fminf(screenSize.height, params.renderH));
-    else
-        _screenSize = screenSize;
+    _screenSize = CGSizeMake(::roundf(layerSize.width * scale), ::roundf(layerSize.height * scale));
 
+    bool hdrChanged         = surface->hdr != params.hdr;
     bool systemSizeChanged  = surface->systemW != _screenSize.width || surface->systemH != _screenSize.height;
     bool msaaChanged        = surface->msaaSamples != params.msaaSampleCount;
     bool depthFmtChanged    = surface->disableDepthAndStencil != params.disableDepthAndStencil;
-    bool cvCacheChanged     = surface->useCVTextureCache != params.useCVTextureCache;
     bool memorylessChanged  = surface->memorylessDepth != params.metalMemorylessDepth;
 
     bool renderSizeChanged  = false;
@@ -157,9 +207,8 @@ static DisplayManager* _DisplayManager = nil;
         renderSizeChanged = true;
     }
 
-    bool recreateSystemSurface      = systemSizeChanged;
-    bool recreateRenderingSurface   = systemSizeChanged || renderSizeChanged || msaaChanged || cvCacheChanged;
-    bool recreateDepthbuffer        = systemSizeChanged || renderSizeChanged || msaaChanged || depthFmtChanged || memorylessChanged;
+    bool recreateSystemSurface      = systemSizeChanged || hdrChanged;
+    bool recreateRenderingSurface   = systemSizeChanged || renderSizeChanged || msaaChanged || hdrChanged || memorylessChanged;
 
     surface->disableDepthAndStencil = params.disableDepthAndStencil;
 
@@ -173,44 +222,45 @@ static DisplayManager* _DisplayManager = nil;
     surface->srgb = params.srgb;
     surface->wideColor = params.wideColor;
     surface->hdr = params.hdr;
-    surface->useCVTextureCache = params.useCVTextureCache;
     surface->memorylessDepth = params.metalMemorylessDepth;
 
     const int api = UnitySelectedRenderingAPI();
     if (api == apiMetal)
-    {
-        UnityDisplaySurfaceMTL* mtlSurf = (UnityDisplaySurfaceMTL*)surface;
-        recreateSystemSurface = recreateSystemSurface || mtlSurf->systemColorRB == 0;
-        mtlSurf->framebufferOnly = params.metalFramebufferOnly;
-    }
+        ((UnityDisplaySurfaceMTL*)surface)->framebufferOnly = params.metalFramebufferOnly;
 
     if (recreateSystemSurface)
         CreateSystemRenderingSurface(surface);
-    if (recreateRenderingSurface)
-        CreateRenderingSurface(surface);
-    if (recreateDepthbuffer)
-        CreateSharedDepthbuffer(surface);
-    if (recreateSystemSurface || recreateRenderingSurface || recreateDepthbuffer)
+    if (recreateSystemSurface || recreateRenderingSurface)
         CreateUnityRenderBuffers(surface);
 
+    if (api == apiMetal && (recreateSystemSurface || recreateRenderingSurface))
+    {
+        UnityDisplaySurfaceMTL* mtlSurf = (UnityDisplaySurfaceMTL*)surface;
+#if !PLATFORM_TVOS
+        if (@available(iOS 16.0, *))
+        {
+            mtlSurf->swapchain.layer.wantsExtendedDynamicRangeContent = surface->hdr != 0;
+        }
+#endif
+        UnitySetHDRMode(surface->hdr);
+    }
     _surface = surface;
+#if !PLATFORM_VISIONOS
     UnityInvalidateDisplayDataCache((__bridge void*)_screen);
+#endif
 }
 
 - (void)destroySurface
 {
     if (_surface)
     {
-        DestroySystemRenderingSurface(_surface);
-        DestroyRenderingSurface(_surface);
-        DestroySharedDepthbuffer(_surface);
         DestroyUnityRenderBuffers(_surface);
 
         const int api = UnitySelectedRenderingAPI();
         if (api == apiMetal)
         {
             self.surfaceMTL->device = nil;
-            self.surfaceMTL->layer  = nil;
+            self.surfaceMTL->swapchain.layer  = nil;
         }
     }
 
@@ -226,10 +276,36 @@ static DisplayManager* _DisplayManager = nil;
     _window = nil;
 }
 
-- (void)present
+- (void)presentWith:(id<MTLCommandBuffer>)cb toMainScreen:(BOOL)mainScreen
 {
-    PreparePresent(self.surface);
-    Present(self.surface);
+#if !PLATFORM_VISIONOS
+    CGFloat maxEDR = 1.f;
+    CGFloat currentEDR = 1.f;
+    if (_screen.captured)
+    {
+        maxEDR = 1.f;
+        currentEDR = 1.f;
+    }
+    else
+    {
+        if (@available(iOS 16.0, tvOS 16.0, *))
+        {
+            maxEDR = _screen.potentialEDRHeadroom;
+            currentEDR = _screen.currentEDRHeadroom;
+        }
+    }
+    UnitySetEDRValues(maxEDR, currentEDR);
+#endif
+
+    if(UnitySelectedRenderingAPI() == apiMetal)
+    {
+        PreparePresentMTL(self.surfaceMTL, cb);
+
+        if(mainScreen)
+            APP_CONTROLLER_RENDER_PLUGIN_METHOD(onFrameResolved);
+
+        PresentMTL(self.surfaceMTL, cb);
+    }
 
     if (_needRecreateSurface)
     {
@@ -244,7 +320,6 @@ static DisplayManager* _DisplayManager = nil;
             .metalFramebufferOnly   = 0,
             .metalMemorylessDepth   = 0,
             .disableDepthAndStencil = _surface->disableDepthAndStencil,
-            .useCVTextureCache      = self.surface->cvTextureCache != 0,
         };
         [self recreateSurface: params];
 
@@ -262,6 +337,7 @@ static DisplayManager* _DisplayManager = nil;
 @end
 
 
+#if !PLATFORM_VISIONOS
 @implementation DisplayManager
 {
     NSMapTable*         _displayConnection;
@@ -275,36 +351,32 @@ static DisplayManager* _DisplayManager = nil;
 
 - (void)registerScreen:(UIScreen*)screen
 {
-    [_displayConnection setObject: [[DisplayConnection alloc] init: screen] forKey: screen];
+    if([_displayConnection objectForKey:screen] == nil)
+        [_displayConnection setObject: [[DisplayConnection alloc] init: screen] forKey: screen];
 }
 
 - (id)init
 {
     if ((self = [super init]))
     {
-        [[NSNotificationCenter defaultCenter] addObserver: self
-         selector: @selector(screenDidConnect:)
-         name: UIScreenDidConnectNotification
-         object: nil
-        ];
+        const NSPointerFunctionsOptions options = NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality;
+        _displayConnection = [NSMapTable mapTableWithKeyOptions: options valueOptions: options];
 
-        [[NSNotificationCenter defaultCenter] addObserver: self
-         selector: @selector(screenDidDisconnect:)
-         name: UIScreenDidDisconnectNotification
-         object: nil
-        ];
-
-        _displayConnection = [NSMapTable
-                              mapTableWithKeyOptions: NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality
-                              valueOptions: NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality
-            ];
-
-        for (UIScreen* screen in [UIScreen screens])
-            [self registerScreen: screen];
-
+        [self registerScreen: [UIScreen mainScreen]];
         _mainDisplay = self[[UIScreen mainScreen]];
     }
     return self;
+}
+
+- (void)prepareForFirstScene
+{
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(screenDidConnect:) name: UIScreenDidConnectNotification object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(screenDidDisconnect:) name: UIScreenDidDisconnectNotification object: nil];
+
+    for (UIScreen* screen in [UIScreen screens])
+        [self registerScreen: screen];
+
+    [self updateDisplayListCacheInUnity];
 }
 
 - (void)dealloc
@@ -328,7 +400,7 @@ static DisplayManager* _DisplayManager = nil;
     return [_displayConnection objectForKey: (UIScreen*)key];
 }
 
-- (void)updateDisplayListCacheInUnity;
+- (void)updateDisplayListCacheInUnity
 {
     // [UIScreen screens] might be out of sync to what is indicated to the
     // application via UIScreenDidConnectNotification and UIScreenDidDisconnectNotification
@@ -388,10 +460,11 @@ static DisplayManager* _DisplayManager = nil;
     }];
 }
 
-- (void)present
+- (void)presentWith:(id<MTLCommandBuffer>)cb
 {
-    [self enumerateDisplaysWithBlock:^(DisplayConnection* conn) {
-        [conn present];
+    [_mainDisplay presentWith:cb toMainScreen:YES];
+    [self enumerateNonMainDisplaysWithBlock:^(DisplayConnection* conn) {
+        [conn presentWith:cb toMainScreen:NO];
     }];
 }
 
@@ -437,6 +510,66 @@ static DisplayManager* _DisplayManager = nil;
 }
 
 @end
+#else
+// xros DisplayManager
+@implementation DisplayManager
+{
+    DisplayConnection*  _mainDisplay;
+}
+
+@synthesize mainDisplay     = _mainDisplay;
+@synthesize displayCount;
+- (NSUInteger)displayCount { return 1; }
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        _mainDisplay = [[DisplayConnection alloc] init];
+
+        // Unity needs a non-zero screen in order for renderloop to run
+        const int screenCount = 1;
+        void* screens[screenCount] = {(void*)0x1};
+        UnityUpdateDisplayListCache(screens, screenCount);
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+}
+
+- (void)startFrameRendering
+{
+    StartFrameRendering(_mainDisplay.surface);
+}
+
+- (void)endFrameRendering
+{
+    EndFrameRendering(_mainDisplay.surface);
+}
+
+- (void)presentWith:(id<MTLCommandBuffer>)cb
+{
+    [_mainDisplay presentWith:cb toMainScreen:YES];
+}
+
++ (void)Initialize
+{
+    NSAssert(_DisplayManager == nil, @"[DisplayManager Initialize] called after creating handler");
+    if (!_DisplayManager)
+        _DisplayManager = [[DisplayManager alloc] init];
+}
+
++ (DisplayManager*)Instance
+{
+    if (!_DisplayManager)
+        _DisplayManager = [[DisplayManager alloc] init];
+
+    return _DisplayManager;
+}
+@end
+#endif
 
 //==============================================================================
 //
@@ -457,7 +590,7 @@ static void EnsureDisplayIsInited(DisplayConnection* conn)
     if (conn.surface == 0)
         needRecreate = true;
     else if (api == apiMetal)
-        needRecreate = conn.surfaceMTL->layer == nil;
+        needRecreate = conn.surfaceMTL->swapchain.layer == nil;
 
     if (needRecreate)
     {
@@ -472,7 +605,6 @@ static void EnsureDisplayIsInited(DisplayConnection* conn)
             .metalFramebufferOnly   = UnityMetalFramebufferOnly(),
             .metalMemorylessDepth   = UnityMetalMemorylessDepth(),
             .disableDepthAndStencil = UnityDisableDepthAndStencilBuffers(),
-            .useCVTextureCache      = 0,
         };
 
         [conn recreateSurface: params];
@@ -484,26 +616,35 @@ static void EnsureDisplayIsInited(DisplayConnection* conn)
 }
 
 #if !PLATFORM_TVOS
-extern "C" int UnityDisplayManager_DisplayCount()
+UNITY_EXPORT extern "C" int UnityDisplayManager_DisplayCount()
 {
     return (int)[DisplayManager Instance].displayCount;
 }
 
-extern "C" bool UnityDisplayManager_DisplayAvailable(void* nativeDisplay)
+UNITY_EXPORT extern "C" bool UnityDisplayManager_DisplayAvailable(void* nativeDisplay)
 {
+#if !PLATFORM_VISIONOS
     if (nativeDisplay == NULL)
         return false;
 
     return [[DisplayManager Instance] displayAvailable: (__bridge UIScreen*)nativeDisplay];
+#else
+    return false;
+#endif
 }
 
-extern "C" bool UnityDisplayManager_DisplayActive(void* nativeDisplay)
+UNITY_EXPORT extern "C" bool UnityDisplayManager_DisplayActive(void* nativeDisplay)
 {
+#if !PLATFORM_VISIONOS
     return UnityDisplayManager_DisplayAvailable(nativeDisplay);
+#else
+    return true;
+#endif
 }
 
-extern "C" void UnityDisplayManager_DisplaySystemResolution(void* nativeDisplay, int* w, int* h)
+UNITY_EXPORT extern "C" void UnityDisplayManager_DisplaySystemResolution(void* nativeDisplay, int* w, int* h)
 {
+#if !PLATFORM_VISIONOS
     if (nativeDisplay == NULL)
         return;
 
@@ -522,28 +663,37 @@ extern "C" void UnityDisplayManager_DisplaySystemResolution(void* nativeDisplay,
     //   so we have CAMetalLayer.drawableSize = rendering size
     //   and        CAMetalLayer.size         = system (native) size
     const CGSize layerSize = conn.view.layer.bounds.size; const float scale = conn.view.contentScaleFactor;
-    *w = (int)(layerSize.width * scale);
-    *h = (int)(layerSize.height * scale);
+    *w = (int)::roundf(layerSize.width * scale);
+    *h = (int)::roundf(layerSize.height * scale);
+#endif
 }
 
-extern "C" void UnityDisplayManager_DisplayRenderingResolution(void* nativeDisplay, int* w, int* h)
+UNITY_EXPORT extern "C" void UnityDisplayManager_DisplayRenderingResolution(void* nativeDisplay, int* w, int* h)
 {
     if (nativeDisplay == NULL)
         return;
 
+#if !PLATFORM_VISIONOS
     DisplayConnection* conn = [DisplayManager Instance][(__bridge UIScreen*)nativeDisplay];
+#else
+    DisplayConnection* conn = [DisplayManager Instance].mainDisplay;
+#endif
     EnsureDisplayIsInited(conn);
 
     *w = (int)conn.surface->targetW;
     *h = (int)conn.surface->targetH;
 }
 
-extern "C" void UnityDisplayManager_DisplayRenderingBuffers(void* nativeDisplay, void** colorBuffer, void** depthBuffer)
+UNITY_EXPORT extern "C" void UnityDisplayManager_DisplayRenderingBuffers(void* nativeDisplay, void** colorBuffer, void** depthBuffer)
 {
     if (nativeDisplay == NULL)
         return;
 
+#if !PLATFORM_VISIONOS
     DisplayConnection* conn = [DisplayManager Instance][(__bridge UIScreen*)nativeDisplay];
+#else
+    DisplayConnection* conn = [DisplayManager Instance].mainDisplay;
+#endif
     EnsureDisplayIsInited(conn);
 
     if (colorBuffer)
@@ -552,8 +702,9 @@ extern "C" void UnityDisplayManager_DisplayRenderingBuffers(void* nativeDisplay,
         *depthBuffer = conn.surface->unityDepthBuffer;
 }
 
-extern "C" void UnityDisplayManager_SetRenderingResolution(void* nativeDisplay, int w, int h)
+UNITY_EXPORT extern "C" void UnityDisplayManager_SetRenderingResolution(void* nativeDisplay, int w, int h)
 {
+#if !PLATFORM_VISIONOS
     if (nativeDisplay == NULL)
         return;
 
@@ -565,27 +716,33 @@ extern "C" void UnityDisplayManager_SetRenderingResolution(void* nativeDisplay, 
         UnityRequestRenderingResolution(w, h);
     else
         [conn requestRenderingResolution: CGSizeMake(w, h)];
+#endif
 }
 
-extern "C" int UnityDisplayManager_PrimaryDisplayIndex()
+UNITY_EXPORT extern "C" int UnityDisplayManager_PrimaryDisplayIndex()
 {
     return 0;
 }
 
 #endif
 
-extern "C" void UnityActivateScreenForRendering(void* nativeDisplay)
+UNITY_EXPORT extern "C" void UnityActivateScreenForRendering(void* nativeDisplay)
 {
     if (nativeDisplay == NULL)
         return;
 
+#if !PLATFORM_VISIONOS
     DisplayConnection* conn = [DisplayManager Instance][(__bridge UIScreen*)nativeDisplay];
+#else
+    DisplayConnection* conn = [DisplayManager Instance].mainDisplay;
+#endif
 
     EnsureDisplayIsInited(conn);
     [conn shouldShowWindow: YES];
 }
 
-extern "C" float UnityScreenScaleFactor(UIScreen* screen)
+#if !PLATFORM_VISIONOS
+UNITY_EXPORT extern "C" float UnityScreenScaleFactor(UIScreen* screen)
 {
     // NOTE: All views handled by Unity have their contentScaleFactor initialized
     // to value returned by this function.
@@ -611,24 +768,24 @@ extern "C" float UnityScreenScaleFactor(UIScreen* screen)
     return screen.scale;
 }
 
-extern "C" int UnityMainScreenRefreshRate()
+UNITY_EXPORT extern "C" int UnityMainScreenRefreshRate()
 {
     return (int)[UIScreen mainScreen].maximumFramesPerSecond;
 }
 
-extern "C" void UnityStartFrameRendering()
+UNITY_EXPORT extern "C" void UnityStartFrameRendering()
 {
     [[DisplayManager Instance] startFrameRendering];
 }
 
-extern "C" void UnityDestroyUnityRenderSurfaces()
+UNITY_EXPORT extern "C" void UnityDestroyUnityRenderSurfaces()
 {
     [[DisplayManager Instance] enumerateDisplaysWithBlock:^(DisplayConnection* conn) {
         [conn destroySurface];
     }];
 }
 
-extern "C" void UnitySetBrightness(float brightness)
+UNITY_EXPORT extern "C" void UnitySetBrightness(float brightness)
 {
 #if !PLATFORM_TVOS
     brightness = (brightness > 1.0 ? 1.0 : brightness) < 0 ? 0.0 : brightness;
@@ -637,7 +794,7 @@ extern "C" void UnitySetBrightness(float brightness)
 #endif
 }
 
-extern "C" float UnityGetBrightness()
+UNITY_EXPORT extern "C" float UnityGetBrightness()
 {
 #if !PLATFORM_TVOS
     UIScreen* screen  = [UIScreen mainScreen];
@@ -647,10 +804,40 @@ extern "C" float UnityGetBrightness()
 #endif
 }
 
-extern "C" bool UnityIsFullscreen()
+UNITY_EXPORT extern "C" bool UnityIsFullscreen()
 {
     CGSize screenSize = [[[[DisplayManager Instance] mainDisplay] screen] bounds].size;
     CGSize viewSize = [[[[DisplayManager Instance] mainDisplay] view] bounds].size;
-    
+
     return screenSize.width == viewSize.width && screenSize.height == viewSize.height;
 }
+#else
+UNITY_EXPORT extern "C" int UnityMainScreenRefreshRate()
+{
+    return 90;
+}
+
+UNITY_EXPORT extern "C" void UnityStartFrameRendering()
+{
+    [[DisplayManager Instance] startFrameRendering];
+}
+
+UNITY_EXPORT extern "C" void UnityDestroyUnityRenderSurfaces()
+{
+    [[DisplayManager Instance].mainDisplay destroySurface];
+}
+
+UNITY_EXPORT extern "C" void UnitySetBrightness(float brightness)
+{
+}
+
+UNITY_EXPORT extern "C" float UnityGetBrightness()
+{
+    return 1.0f;
+}
+
+UNITY_EXPORT extern "C" bool UnityIsFullscreen()
+{
+    return false;
+}
+#endif

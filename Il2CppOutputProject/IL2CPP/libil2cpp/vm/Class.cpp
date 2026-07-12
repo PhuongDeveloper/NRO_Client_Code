@@ -36,6 +36,7 @@
 #include "il2cpp-tabledefs.h"
 #include "gc/GarbageCollector.h"
 #include "utils/Il2CppHashMap.h"
+#include "utils/InitOnce.h"
 #include "utils/StringUtils.h"
 #include "utils/HashUtils.h"
 #include <string>
@@ -64,6 +65,7 @@ namespace vm
     static void GetBitmapNoInit(Il2CppClass* klass, size_t* bitmap, size_t& maxSetBit, size_t parentOffset, const il2cpp::os::FastAutoLock* lockPtr);
     static Il2CppClass* ResolveGenericInstanceType(Il2CppClass*, const il2cpp::vm::TypeNameParseInfo&, TypeSearchFlags searchFlags);
     static void SetupVTable(Il2CppClass *klass, const il2cpp::os::FastAutoLock& lock);
+    static void AddStaticFieldData(Il2CppClass* klass);
 
     void Class::AllocateStaticData()
     {
@@ -235,9 +237,6 @@ namespace vm
 
         klass->image = GenericContainer::GetDeclaringType(paramInfo.containerHandle)->image;
 
-        klass->initialized = true;
-        UpdateInitializedAndNoError(klass);
-
         klass->parent = il2cpp_defaults.object_class;
         klass->castClass = klass->element_class = klass;
 
@@ -255,6 +254,8 @@ namespace vm
         klass->native_size = -1;
         klass->size_inited = true;
         klass->typeHierarchyDepth = 1;
+
+        PublishInitialized(klass);
 
         s_GenericParameterMap.insert(std::make_pair(param, klass));
 
@@ -355,9 +356,6 @@ namespace vm
         if (!klass->has_finalize)
             return NULL;
 
-#if IL2CPP_TINY
-        IL2CPP_ASSERT(0 && "System.Object does not have a finalizer in the Tiny mscorlib, so we don't have a finalizer slot.");
-#endif
         return klass->vtable[s_FinalizerSlot].method;
     }
 
@@ -1010,9 +1008,7 @@ namespace vm
         if (klass->static_fields_size)
         {
             klass->static_fields = il2cpp::gc::GarbageCollector::AllocateFixed(klass->static_fields_size, NULL);
-            s_ClassContext->m_staticFieldData.push_back(klass);
-
-            il2cpp_runtime_stats.class_static_data_size += klass->static_fields_size;
+            AddStaticFieldData(klass);
         }
         if (klass->thread_static_fields_size)
             klass->thread_static_fields_offset = il2cpp::vm::Thread::AllocThreadStaticData(klass->thread_static_fields_size);
@@ -1077,8 +1073,9 @@ namespace vm
         if (!Class::IsGeneric(klass))
             LayoutFieldsLocked(klass, lock);
 
+        // Set the init flags after a barrier so they are set after all data is written
+        il2cpp::os::Atomic::FullMemoryBarrier();
         klass->size_init_pending = false;
-
         klass->size_inited = true;
     }
 
@@ -1162,6 +1159,7 @@ namespace vm
                 if (newMethod->genericContainerHandle)
                     newMethod->is_generic = true;
                 newMethod->has_full_generic_sharing_signature = false;
+                newMethod->is_unmanaged_callers_only = methodInfo.isUnmangedCallersOnly;
 
                 if (newMethod->virtualMethodPointer)
                 {
@@ -1249,7 +1247,7 @@ namespace vm
                     {
                         if (method && method->is_inflated)
                         {
-                            const Il2CppGenericMethod* genericMethod = il2cpp::metadata::GenericMetadata::Inflate(method->genericMethod, context);
+                            Il2CppGenericMethod genericMethod = il2cpp::metadata::GenericMetadata::Inflate(*method->genericMethod, context);
                             method = il2cpp::metadata::GenericMethod::GetMethod(genericMethod);
                         }
                         if (method && method->klass && Class::IsGeneric(method->klass))
@@ -1261,7 +1259,7 @@ namespace vm
                     klass->vtable[i].method = method;
                     if (method != NULL)
                     {
-                        // For default interface methods on generic interfaces we need to ensure that their rgctx's are initalized
+                        // For default interface methods on generic interfaces we need to ensure that their rgctx's are initialized
                         if (method->klass != NULL && method->klass != klass && Method::IsDefaultInterfaceMethodOnGenericInstance(method))
                             Class::InitLocked(method->klass, lock);
 
@@ -1547,10 +1545,8 @@ namespace vm
                 else if (!strcmp(vmethod->name, "Finalize"))
                     s_FinalizerSlot = slot;
             }
-#if !IL2CPP_TINY
             IL2CPP_ASSERT(s_FinalizerSlot > 0);
             IL2CPP_ASSERT(s_GetHashCodeSlot > 0);
-#endif
         }
 
         bool canBeInstantiated = !Class::IsGeneric(klass) && !il2cpp::metadata::GenericMetadata::ContainsGenericParameters(klass);
@@ -1567,9 +1563,7 @@ namespace vm
             }
         }
 
-        klass->initialized = true;
-        Class::UpdateInitializedAndNoError(klass);
-        klass->init_pending = false;
+        Class::PublishInitialized(klass);
 
         ++il2cpp_runtime_stats.initialized_class_count;
 
@@ -1606,12 +1600,18 @@ namespace vm
     void Class::SetClassInitializationError(Il2CppClass *klass, Il2CppException* error)
     {
         klass->initializationExceptionGCHandle = gc::GCHandle::New(error, false);
-        UpdateInitializedAndNoError(klass);
+        PublishInitialized(klass);
     }
 
-    void Class::UpdateInitializedAndNoError(Il2CppClass *klass)
+    void Class::PublishInitialized(Il2CppClass *klass)
     {
-        klass->initialized_and_no_error = klass->initialized && !klass->initializationExceptionGCHandle;
+        // Update the initialized flags last, so that other threads can't see the class as initialized
+        // until after everything else is set up.
+        il2cpp::os::Atomic::FullMemoryBarrier();
+
+        klass->initialized = true;
+        klass->initialized_and_no_error = !klass->initializationExceptionGCHandle;
+        klass->init_pending = false;
     }
 
     Il2CppClass* Class::FromName(const Il2CppImage* image, const char* namespaze, const char *name)
@@ -1785,11 +1785,6 @@ namespace vm
         return klass->image;
     }
 
-    Il2CppMetadataGenericContainerHandle Class::GetGenericContainer(Il2CppClass *klass)
-    {
-        return klass->genericContainerHandle;
-    }
-
     const MethodInfo* Class::GetCCtor(Il2CppClass *klass)
     {
         if (!klass->has_cctor)
@@ -1862,7 +1857,6 @@ namespace vm
         pointerClass->name = il2cpp::utils::StringUtils::StringDuplicate(il2cpp::utils::StringUtils::Printf("%s*", elementClass->name).c_str());
 
         pointerClass->image = elementClass->image;
-        pointerClass->initialized = true;
         pointerClass->flags = TYPE_ATTRIBUTE_CLASS | (elementClass->flags & TYPE_ATTRIBUTE_VISIBILITY_MASK);
         pointerClass->instance_size = sizeof(void*);
         pointerClass->stack_slot_size = sizeof(void*);
@@ -1875,6 +1869,8 @@ namespace vm
         pointerClass->parent = NULL;
         pointerClass->typeHierarchyDepth = 1;
         pointerClass->castClass = pointerClass->element_class = elementClass;
+
+        PublishInitialized(pointerClass);
 
         MetadataCache::AddPointerTypeLocked(elementClass, pointerClass, lock);
 
@@ -1898,8 +1894,22 @@ namespace vm
         return klass->has_references;
     }
 
+    static void AddStaticFieldData(Il2CppClass* klass)
+    {
+        // The m_staticFieldData collect is used by liveness checking with the GC lock held
+        // Use the GC lock to add to this array
+
+        gc::GarbageCollector::CallWithAllocLockHeld([](void* klass) {
+            s_ClassContext->m_staticFieldData.push_back((Il2CppClass*)klass);
+            return (void*)nullptr;
+        }, klass);
+
+        il2cpp_runtime_stats.class_static_data_size += klass->static_fields_size;
+    }
+
     const il2cpp::utils::dynamic_array<Il2CppClass*>& Class::GetStaticFieldData()
     {
+        // Must be called with the GC lock held!
         return s_ClassContext->m_staticFieldData;
     }
 
@@ -1912,8 +1922,8 @@ namespace vm
 
     size_t Class::GetBitmapSize(const Il2CppClass* klass)
     {
-        size_t maxBits = klass->instance_size / sizeof(void*);
-        size_t maxWords = 1 + (maxBits / sizeof(size_t));
+        size_t maxBytes = klass->instance_size / kWordSize + 1;
+        size_t maxWords = 1 + (maxBytes / sizeof(size_t));
         return sizeof(size_t) * maxWords;
     }
 
@@ -1982,7 +1992,7 @@ namespace vm
                         maxSetBit = std::max(maxSetBit, offset / sizeof(void*));
                         break;
                     case IL2CPP_TYPE_GENERICINST:
-                        if (!Type::GenericInstIsValuetype(type))
+                        if (!Type::IsValueType(type))
                         {
                             IL2CPP_ASSERT(0 == (offset % sizeof(void*)));
                             set_bit(bitmap, offset / sizeof(void*));
@@ -2016,6 +2026,12 @@ namespace vm
 
     void SetupGCDescriptor(Il2CppClass* klass, const il2cpp::os::FastAutoLock& lock)
     {
+        if (!klass->has_references)
+        {
+            klass->gc_desc = il2cpp::gc::GarbageCollector::MakeEmptyDescriptor();
+            return;
+        }
+
         const size_t kMaxAllocaSize = 1024;
         size_t bitmapSize = Class::GetBitmapSize(klass);
         size_t* bitmap = NULL;

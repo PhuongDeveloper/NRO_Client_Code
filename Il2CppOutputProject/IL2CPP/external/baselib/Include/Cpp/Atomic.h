@@ -227,7 +227,7 @@ namespace baselib
         template<typename T, typename MemoryOrder>
         static FORCE_INLINE T atomic_fetch_sub_explicit(T& obj, typename std::common_type<T>::type value, MemoryOrder order)
         {
-            return atomic_fetch_add_explicit(obj, 0 - value, order);
+            return baselib::atomic_fetch_add_explicit(obj, 0 - value, order);
         }
 
         // API documentation and default fallback for non-matching types
@@ -301,49 +301,49 @@ namespace baselib
         template<typename T>
         static FORCE_INLINE T atomic_load(const T& obj)
         {
-            return atomic_load_explicit(obj, memory_order_seq_cst);
+            return baselib::atomic_load_explicit(obj, memory_order_seq_cst);
         }
 
         template<typename T>
         static FORCE_INLINE void atomic_store(T& obj, typename std::common_type<T>::type value)
         {
-            return atomic_store_explicit(obj, value, memory_order_seq_cst);
+            return baselib::atomic_store_explicit(obj, value, memory_order_seq_cst);
         }
 
         template<typename T>
         static FORCE_INLINE T atomic_fetch_add(T& obj, typename std::common_type<T>::type value)
         {
-            return atomic_fetch_add_explicit(obj, value, memory_order_seq_cst);
+            return baselib::atomic_fetch_add_explicit(obj, value, memory_order_seq_cst);
         }
 
         template<typename T>
         static FORCE_INLINE T atomic_fetch_sub(T& obj, typename std::common_type<T>::type value)
         {
-            return atomic_fetch_sub_explicit(obj, value, memory_order_seq_cst);
+            return baselib::atomic_fetch_sub_explicit(obj, value, memory_order_seq_cst);
         }
 
         template<typename T>
         static FORCE_INLINE T atomic_fetch_and(T& obj, typename std::common_type<T>::type value)
         {
-            return atomic_fetch_and_explicit(obj, value, memory_order_seq_cst);
+            return baselib::atomic_fetch_and_explicit(obj, value, memory_order_seq_cst);
         }
 
         template<typename T>
         static FORCE_INLINE T atomic_fetch_or(T& obj, typename std::common_type<T>::type value)
         {
-            return atomic_fetch_or_explicit(obj, value, memory_order_seq_cst);
+            return baselib::atomic_fetch_or_explicit(obj, value, memory_order_seq_cst);
         }
 
         template<typename T>
         static FORCE_INLINE T atomic_fetch_xor(T& obj, typename std::common_type<T>::type value)
         {
-            return atomic_fetch_xor_explicit(obj, value, memory_order_seq_cst);
+            return baselib::atomic_fetch_xor_explicit(obj, value, memory_order_seq_cst);
         }
 
         template<typename T>
         static FORCE_INLINE T atomic_exchange(T& obj, typename std::common_type<T>::type value)
         {
-            return atomic_exchange_explicit(obj, value, memory_order_seq_cst);
+            return baselib::atomic_exchange_explicit(obj, value, memory_order_seq_cst);
         }
 
         template<typename T>
@@ -351,7 +351,7 @@ namespace baselib
             typename std::common_type<T>::type& expected,
             typename std::common_type<T>::type desired)
         {
-            return atomic_compare_exchange_weak_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
+            return baselib::atomic_compare_exchange_weak_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
         }
 
         template<typename T>
@@ -359,7 +359,7 @@ namespace baselib
             typename std::common_type<T>::type& expected,
             typename std::common_type<T>::type desired)
         {
-            return atomic_compare_exchange_strong_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
+            return baselib::atomic_compare_exchange_strong_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
         }
 
         template<typename T>
@@ -379,47 +379,47 @@ namespace baselib
                 obj = value;
             }
 
-            FORCE_INLINE operator T() const { return atomic_load_explicit(obj, memory_order_seq_cst); }
-            FORCE_INLINE T operator=(T value) { atomic_store_explicit(obj, value, memory_order_seq_cst); return value; }
+            FORCE_INLINE operator T() const { return baselib::atomic_load_explicit(obj, memory_order_seq_cst); }
+            FORCE_INLINE T operator=(T value) { baselib::atomic_store_explicit(obj, value, memory_order_seq_cst); return value; }
 
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE T load(TMemoryOrder order = memory_order_seq_cst) const
             {
-                return atomic_load_explicit(obj, order);
+                return baselib::atomic_load_explicit(obj, order);
             }
 
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE void store(T value, TMemoryOrder order = memory_order_seq_cst)
             {
-                return atomic_store_explicit(obj, value, order);
+                return baselib::atomic_store_explicit(obj, value, order);
             }
 
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE T exchange(T value, TMemoryOrder order = memory_order_seq_cst)
             {
-                return atomic_exchange_explicit(obj, value, order);
+                return baselib::atomic_exchange_explicit(obj, value, order);
             }
 
             template<typename TMemoryOrderSuccess, typename TMemoryOrderFailure>
             FORCE_INLINE bool compare_exchange_weak(T& expected, T desired, TMemoryOrderSuccess order_success, TMemoryOrderFailure order_failure)
             {
-                return atomic_compare_exchange_weak_explicit(obj, expected, desired, order_success, order_failure);
+                return baselib::atomic_compare_exchange_weak_explicit(obj, expected, desired, order_success, order_failure);
             }
 
             FORCE_INLINE bool compare_exchange_weak(T& expected, T desired)
             {
-                return atomic_compare_exchange_weak_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
+                return baselib::atomic_compare_exchange_weak_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
             }
 
             template<typename TMemoryOrderSuccess, typename TMemoryOrderFailure>
             FORCE_INLINE bool compare_exchange_strong(T& expected, T desired, TMemoryOrderSuccess order_success, TMemoryOrderFailure order_failure)
             {
-                return atomic_compare_exchange_strong_explicit(obj, expected, desired, order_success, order_failure);
+                return baselib::atomic_compare_exchange_strong_explicit(obj, expected, desired, order_success, order_failure);
             }
 
             FORCE_INLINE bool compare_exchange_strong(T& expected, T desired)
             {
-                return atomic_compare_exchange_strong_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
+                return baselib::atomic_compare_exchange_strong_explicit(obj, expected, desired, memory_order_seq_cst, memory_order_seq_cst);
             }
         };
 
@@ -435,42 +435,42 @@ namespace baselib
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE T fetch_add(T value, TMemoryOrder order = memory_order_seq_cst)
             {
-                return atomic_fetch_add_explicit(atomic_common<T>::obj, value, order);
+                return baselib::atomic_fetch_add_explicit(atomic_common<T>::obj, value, order);
             }
 
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE T fetch_sub(T value, TMemoryOrder order = memory_order_seq_cst)
             {
-                return atomic_fetch_sub_explicit(atomic_common<T>::obj, value, order);
+                return baselib::atomic_fetch_sub_explicit(atomic_common<T>::obj, value, order);
             }
 
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE T fetch_and(T value, TMemoryOrder order = memory_order_seq_cst)
             {
-                return atomic_fetch_and_explicit(atomic_common<T>::obj, value, order);
+                return baselib::atomic_fetch_and_explicit(atomic_common<T>::obj, value, order);
             }
 
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE T fetch_or(T value, TMemoryOrder order = memory_order_seq_cst)
             {
-                return atomic_fetch_or_explicit(atomic_common<T>::obj, value, order);
+                return baselib::atomic_fetch_or_explicit(atomic_common<T>::obj, value, order);
             }
 
             template<typename TMemoryOrder = memory_order_seq_cst_t>
             FORCE_INLINE T fetch_xor(T value, TMemoryOrder order = memory_order_seq_cst)
             {
-                return atomic_fetch_xor_explicit(atomic_common<T>::obj, value, order);
+                return baselib::atomic_fetch_xor_explicit(atomic_common<T>::obj, value, order);
             }
 
-            FORCE_INLINE T operator++(int)      { return atomic_fetch_add_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst); }
-            FORCE_INLINE T operator--(int)      { return atomic_fetch_sub_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst); }
-            FORCE_INLINE T operator++()         { return atomic_fetch_add_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst) + T(1); }
-            FORCE_INLINE T operator--()         { return atomic_fetch_sub_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst) - T(1); }
-            FORCE_INLINE T operator+=(T value)  { return atomic_fetch_add_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) + value; }
-            FORCE_INLINE T operator-=(T value)  { return atomic_fetch_sub_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) - value; }
-            FORCE_INLINE T operator&=(T value)  { return atomic_fetch_and_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) & value; }
-            FORCE_INLINE T operator|=(T value)  { return atomic_fetch_or_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) | value; }
-            FORCE_INLINE T operator^=(T value)  { return atomic_fetch_xor_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) ^ value; }
+            FORCE_INLINE T operator++(int)      { return baselib::atomic_fetch_add_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst); }
+            FORCE_INLINE T operator--(int)      { return baselib::atomic_fetch_sub_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst); }
+            FORCE_INLINE T operator++()         { return baselib::atomic_fetch_add_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst) + T(1); }
+            FORCE_INLINE T operator--()         { return baselib::atomic_fetch_sub_explicit(atomic_common<T>::obj, T(1), memory_order_seq_cst) - T(1); }
+            FORCE_INLINE T operator+=(T value)  { return baselib::atomic_fetch_add_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) + value; }
+            FORCE_INLINE T operator-=(T value)  { return baselib::atomic_fetch_sub_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) - value; }
+            FORCE_INLINE T operator&=(T value)  { return baselib::atomic_fetch_and_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) & value; }
+            FORCE_INLINE T operator|=(T value)  { return baselib::atomic_fetch_or_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) | value; }
+            FORCE_INLINE T operator^=(T value)  { return baselib::atomic_fetch_xor_explicit(atomic_common<T>::obj, value, memory_order_seq_cst) ^ value; }
         };
 
         // Atomic type for non-integral types.

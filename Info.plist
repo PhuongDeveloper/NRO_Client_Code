@@ -11,7 +11,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>GodDragon_v095</string>
+    <string>NroRedSv2</string>
     <key>CFBundleExecutable</key>
     <string>${EXECUTABLE_NAME}</string>
     <key>CFBundleIdentifier</key>
@@ -23,7 +23,7 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.9.5</string>
+    <string>1.0</string>
     <key>CFBundleVersion</key>
     <string>0</string>
     <key>LSRequiresIPhoneOS</key>
@@ -46,7 +46,7 @@
     <key>UIRequiresFullScreen</key>
     <true />
     <key>UIRequiresPersistentWiFi</key>
-    <true />
+    <false />
     <key>UIStatusBarHidden</key>
     <true />
     <key>UIStatusBarStyle</key>
@@ -54,6 +54,7 @@
     <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationLandscapeRight</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <true />

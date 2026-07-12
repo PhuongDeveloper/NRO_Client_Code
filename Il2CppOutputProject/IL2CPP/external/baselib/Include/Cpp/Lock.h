@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../C/Baselib_Lock.h"
+#include "Internal/ScopedAcquireMixin.h"
 #include "Time.h"
 
 namespace baselib
@@ -12,42 +13,9 @@ namespace baselib
         //
         // "Lock (computer science)", Wikipedia: The Free Encyclopedia
         // https://en.wikipedia.org/w/index.php?title=Lock_(computer_science)&oldid=875674239
-        class Lock
+        class Lock : public detail::ScopedAcquireMixin<Lock>
         {
         public:
-            // Releases Lock when ScopedRelease goes out of scope.
-            //
-            // Can only be created by Lock's scoped acquire methods.
-            // Loses its reference to the Lock when moved (target of the move will take ownership).
-            class ScopedRelease
-            {
-                friend Lock;
-
-            public:
-                FORCE_INLINE ~ScopedRelease() { if (m_LockPtr) m_LockPtr->Release(); }
-
-                // non-copyable
-                ScopedRelease(const ScopedRelease& other) = delete;
-                ScopedRelease& operator=(const ScopedRelease& other) = delete;
-
-                // move-constructable, but not assignable as it doesn't make much sense to swap locks.
-                ScopedRelease(ScopedRelease&& other)
-                {
-                    this->m_LockPtr = other.m_LockPtr;
-                    other.m_LockPtr = nullptr;
-                }
-
-                ScopedRelease& operator=(ScopedRelease&& other) = delete;
-
-                // Returns false if either this object was created from a failed TryAcquireScoped/TryTimedAcquireScoped or ownership was moved.
-                bool HasAcquiredLock() const { return m_LockPtr != nullptr; }
-
-            private:
-                FORCE_INLINE ScopedRelease(Lock* lockPtr) : m_LockPtr(lockPtr) {}
-
-                Lock* m_LockPtr;
-            };
-
             // non-copyable
             Lock(const Lock& other) = delete;
             Lock& operator=(const Lock& other) = delete;
@@ -75,21 +43,32 @@ namespace baselib
             // If lock is held, either by this or another thread, then the function wait for lock to be released.
             //
             // This function is guaranteed to emit an acquire barrier.
-            inline void Acquire()
+            //
+            // \param maxSpinCount  Max number of times to spin in user space before falling back to the kernel. The actual number
+            //                      may differ depending on the underlying implementation but will never exceed the maxSpinCount
+            //                      value.
+            inline void Acquire(const uint32_t maxSpinCount = 0)
             {
+                if (maxSpinCount && Baselib_Lock_TrySpinAcquire(&m_LockData, maxSpinCount))
+                    return;
+
                 return Baselib_Lock_Acquire(&m_LockData);
             }
 
-            // Try to acquire lock and return immediately.
+            // Try to acquire locks.
+            //
             // If lock is held, either by this or another thread, then lock is not acquired and function return false.
             //
             // When a lock is acquired this function is guaranteed to emit an acquire barrier.
             //
-            // Return:          true if lock was acquired.
+            // \param maxSpinCount  Max number of times to spin in user space before falling back to the kernel. The actual number
+            //                      may differ depending on the underlying implementation but will never exceed the maxSpinCount
+            //                      value.
+            // \returns             true if lock was acquired.
             COMPILER_WARN_UNUSED_RESULT
-            FORCE_INLINE bool TryAcquire()
+            FORCE_INLINE bool TryAcquire(const uint32_t maxSpinCount = 0)
             {
-                return Baselib_Lock_TryAcquire(&m_LockData);
+                return Baselib_Lock_TrySpinAcquire(&m_LockData, maxSpinCount);
             }
 
             // Try to acquire lock.
@@ -103,10 +82,16 @@ namespace baselib
             // Timeout passed to this function may be subject to system clock resolution.
             // If the system clock has a resolution of e.g. 16ms that means this function may exit with a timeout error 16ms earlier than originally scheduled.
             //
-            // Return:          true if lock was acquired.
+            // \param maxSpinCount  Max number of times to spin in user space before falling back to the kernel. The actual number
+            //                      may differ depending on the underlying implementation but will never exceed the maxSpinCount
+            //                      value.
+            // \returns             true if lock was acquired.
             COMPILER_WARN_UNUSED_RESULT
-            FORCE_INLINE bool TryTimedAcquire(const timeout_ms timeoutInMilliseconds)
+            FORCE_INLINE bool TryTimedAcquire(const timeout_ms timeoutInMilliseconds, const uint32_t maxSpinCount = 0)
             {
+                if (maxSpinCount && Baselib_Lock_TrySpinAcquire(&m_LockData, maxSpinCount))
+                    return true;
+
                 return Baselib_Lock_TryTimedAcquire(&m_LockData, timeoutInMilliseconds.count());
             }
 
@@ -119,118 +104,6 @@ namespace baselib
             FORCE_INLINE void Release()
             {
                 return Baselib_Lock_Release(&m_LockData);
-            }
-
-            // Acquire lock and invoke user defined function.
-            // If lock is held, either by this or another thread, then the function wait for lock to be released.
-            //
-            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
-            //
-            // Example usage:
-            //  lock.AcquireScoped([] {
-            //      enteredCriticalSection++;
-            //  });
-            template<class FunctionType>
-            FORCE_INLINE void AcquireScoped(const FunctionType& func)
-            {
-                ScopedRelease releaseScope(this);
-                Acquire();
-                func();
-            }
-
-            // Acquire lock and returns an object that calls Release on its destruction.
-            //
-            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
-            COMPILER_WARN_UNUSED_RESULT
-            FORCE_INLINE ScopedRelease AcquireScoped()
-            {
-                Acquire();
-                return ScopedRelease(this);
-            }
-
-            // Try to acquire lock and invoke user defined function.
-            // If lock is held, either by this or another thread, then lock is not acquired and function return false.
-            // On failure to obtain lock the user defined function is not invoked.
-            //
-            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
-            //
-            // Example usage:
-            //  lock.TryAcquireScoped([] {
-            //      enteredCriticalSection++;
-            //  });
-            //
-            // Return:          true if lock was acquired.
-            template<class FunctionType>
-            FORCE_INLINE bool TryAcquireScoped(const FunctionType& func)
-            {
-                if (TryAcquire())
-                {
-                    ScopedRelease releaseScope(this);
-                    func();
-                    return true;
-                }
-                return false;
-            }
-
-            // Try to acquire lock and returns an object that calls Release on its destruction.
-            // If lock is held, either by this or another thread, then lock is not acquired and function return false.
-            // On failure to obtain lock the user defined function is not invoked.
-            //
-            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
-            //
-            // Return:          Scope object will do nothing on destruction if no lock was acquired.
-            COMPILER_WARN_UNUSED_RESULT
-            FORCE_INLINE ScopedRelease TryAcquireScoped()
-            {
-                if (TryAcquire())
-                    return ScopedRelease(this);
-                return ScopedRelease(nullptr);
-            }
-
-            // Try to acquire lock and invoke user defined function.
-            // If lock is held, either by this or another thread, then the function wait for timeoutInMilliseconds for lock to be released.
-            // On failure to obtain lock the user defined function is not invoked.
-            //
-            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
-            //
-            // Timeout passed to this function may be subject to system clock resolution.
-            // If the system clock has a resolution of e.g. 16ms that means this function may exit with a timeout error 16ms earlier than originally scheduled.
-            //
-            // Example usage:
-            //  bool lockAcquired = lock.TryTimedAcquireScoped(std::chrono::minutes(1), [] {
-            //      enteredCriticalSection++;
-            //  });
-            //  assert(lockAcquired);
-            //
-            // Return:          true if lock was acquired.
-            template<class FunctionType>
-            FORCE_INLINE bool TryTimedAcquireScoped(const timeout_ms timeoutInMilliseconds, const FunctionType& func)
-            {
-                if (TryTimedAcquire(timeoutInMilliseconds))
-                {
-                    ScopedRelease releaseScope(this);
-                    func();
-                    return true;
-                }
-                return false;
-            }
-
-            // Try to acquire lock and returns an object that calls Release on its destruction.
-            // If lock is held, either by this or another thread, then the function wait for timeoutInMilliseconds for lock to be released.
-            // On failure to obtain lock the user defined function is not invoked.
-            //
-            // When a lock is acquired this function is guaranteed to emit an acquire barrier.
-            //
-            // Timeout passed to this function may be subject to system clock resolution.
-            // If the system clock has a resolution of e.g. 16ms that means this function may exit with a timeout error 16ms earlier than originally scheduled.
-            //
-            // Return:          Scope object will do nothing on destruction if no lock was acquired.
-            COMPILER_WARN_UNUSED_RESULT
-            FORCE_INLINE ScopedRelease TryTimedAcquireScoped(const timeout_ms timeoutInMilliseconds)
-            {
-                if (TryTimedAcquire(timeoutInMilliseconds))
-                    return ScopedRelease(this);
-                return ScopedRelease(nullptr);
             }
 
         private:

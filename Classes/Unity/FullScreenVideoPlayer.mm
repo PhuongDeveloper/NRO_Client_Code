@@ -38,7 +38,7 @@ static AVKitVideoPlayback*  _AVKitVideoPlayback = nil;
 
 @implementation AVKitVideoPlayback
 
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
 static void AVPlayerViewController_SetAllowsPictureInPicturePlayback_OldIOSImpl(id self_, SEL _cmd, BOOL allow) {}
 static NSUInteger supportedInterfaceOrientations_DefaultImpl(id self_, SEL _cmd)
 {
@@ -59,7 +59,7 @@ static bool prefersStatusBarHidden_DefaultImpl(id self_, SEL _cmd)
 {
     if (self == [AVKitVideoPlayback class])
     {
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
         class_replaceMethod([AVPlayerViewController class], @selector(supportedInterfaceOrientations), (IMP)&supportedInterfaceOrientations_DefaultImpl, UIViewController_supportedInterfaceOrientations_Enc);
         class_replaceMethod([AVPlayerViewController class], @selector(prefersStatusBarHidden), (IMP)&prefersStatusBarHidden_DefaultImpl, UIViewController_prefersStatusBarHidden_Enc);
 #endif
@@ -98,7 +98,7 @@ static bool prefersStatusBarHidden_DefaultImpl(id self_, SEL _cmd)
         videoViewController.videoGravity = (NSString*)videoGravity;
         videoViewController.transitioningDelegate = self;
 
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
         videoViewController.allowsPictureInPicturePlayback = NO;
 #endif
 #if PLATFORM_TVOS
@@ -217,7 +217,7 @@ static bool prefersStatusBarHidden_DefaultImpl(id self_, SEL _cmd)
 
 @end
 
-extern "C" void UnityPlayFullScreenVideo(const char* path, const float* color, unsigned controls, unsigned scaling)
+UNITY_EXPORT extern "C" void UnityPlayFullScreenVideo(const char* path, const float* color, unsigned controls, unsigned scaling)
 {
     const BOOL  cancelOnTouch[] = { NO, NO, YES, NO };
     UIColor*    bgColor         = [UIColor colorWithRed: color[0] green: color[1] blue: color[2] alpha: color[3]];
@@ -250,18 +250,18 @@ extern "C" void UnityPlayFullScreenVideo(const char* path, const float* color, u
                            showControls: showControls[controls] videoGravity: videoGravity[scaling] cancelOnTouch: cancelOnTouch[controls]];
 }
 
-extern "C" void UnityStopFullScreenVideoIfPlaying()
+UNITY_EXPORT extern "C" void UnityStopFullScreenVideoIfPlaying()
 {
     if (_AVKitVideoPlayback)
         [_AVKitVideoPlayback finish];
 }
 
-extern "C" int UnityIsFullScreenPlaying()
+UNITY_EXPORT extern "C" int UnityIsFullScreenPlaying()
 {
     return _AVKitVideoPlayback ? 1 : 0;
 }
 
-extern "C" void TryResumeFullScreenVideo()
+UNITY_EXPORT extern "C" void TryResumeFullScreenVideo()
 {
     if (_AVKitVideoPlayback)
         [_AVKitVideoPlayback onPlayerTryResume];

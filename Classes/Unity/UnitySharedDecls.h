@@ -19,6 +19,7 @@ ScreenOrientation;
 // be aware that this enum is shared with unity implementation so you should absolutely not change it
 typedef enum DeviceGeneration
 {
+    // iOSDevice.cs
     deviceUnknown            = 0,
     deviceiPhone3GS          = 3,
     deviceiPhone4            = 8,
@@ -89,16 +90,34 @@ typedef enum DeviceGeneration
     deviceiPhone14Plus       = 73,
     deviceiPhone14Pro        = 74,
     deviceiPhone14ProMax     = 75,
+    deviceiPadPro6Gen        = 76,
+    deviceiPadPro11Inch4Gen  = 77,
+    deviceiPad10Gen          = 78,
+    deviceiPhone15           = 79,
+    deviceiPhone15Plus       = 80,
+    deviceiPhone15Pro        = 81,
+    deviceiPhone15ProMax     = 82,
+    deviceiPhone16           = 83,
+    deviceiPhone16Plus       = 84,
+    deviceiPhone16Pro        = 85,
+    deviceiPhone16ProMax     = 86,
+    deviceiPhone16e          = 87,
+    deviceiPhone17           = 88,
+    deviceiPhoneAir          = 89,
+    deviceiPhone17Pro        = 90,
+    deviceiPhone17ProMax     = 91,
 
-    deviceiPhoneUnknown     = 10001,
-    deviceiPadUnknown       = 10002,
-    deviceiPodTouchUnknown  = 10003,
-
+    // tvOSDevice.cs
     deviceAppleTV1Gen       = 1001,
     deviceAppleTVHD         = 1001,
     deviceAppleTV2Gen       = 1002,
     deviceAppleTV4K         = 1002,
-    deviceAppleTV4K2Gen     = 1003
+    deviceAppleTV4K2Gen     = 1003,
+    deviceAppleTV4K3Gen     = 1004,
+
+    deviceiPhoneUnknown     = 10001,
+    deviceiPadUnknown       = 10002,
+    deviceiPodTouchUnknown  = 10003,
 }
 DeviceGeneration;
 

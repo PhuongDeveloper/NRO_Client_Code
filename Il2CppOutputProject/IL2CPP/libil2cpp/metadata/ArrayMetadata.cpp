@@ -134,17 +134,23 @@ namespace metadata
         for (uint8_t i = 0; i < rank; i++)
             parameters[i] = &il2cpp_defaults.int32_class->byval_arg;
         parameters[rank] = &arrayClass->element_class->byval_arg;
-        arrayClass->methods[methodIndex++] = ConstructArrayMethod(arrayClass, "Set", &il2cpp_defaults.void_class->byval_arg, rank + 1, parameters);
+        MethodInfo* setMethod = ConstructArrayMethod(arrayClass, "Set", &il2cpp_defaults.void_class->byval_arg, rank + 1, parameters);
+        setMethod->invoker_method = vm::Runtime::GetArraySetInvoker();
+        arrayClass->methods[methodIndex++] = setMethod;
 
         parameters = (const Il2CppType**)alloca(rank * sizeof(Il2CppType*));
         for (uint8_t i = 0; i < rank; i++)
             parameters[i] = &il2cpp_defaults.int32_class->byval_arg;
-        arrayClass->methods[methodIndex++] = ConstructArrayMethod(arrayClass, "Address", &arrayClass->element_class->this_arg, rank, parameters);
+        MethodInfo* addressMethod = ConstructArrayMethod(arrayClass, "Address", &arrayClass->element_class->this_arg, rank, parameters);
+        addressMethod->invoker_method = vm::Runtime::GetMissingMethodInvoker();
+        arrayClass->methods[methodIndex++] = addressMethod;
 
         parameters = (const Il2CppType**)alloca(rank * sizeof(Il2CppType*));
         for (uint8_t i = 0; i < rank; i++)
             parameters[i] = &il2cpp_defaults.int32_class->byval_arg;
-        arrayClass->methods[methodIndex++] = ConstructArrayMethod(arrayClass, "Get", &arrayClass->element_class->byval_arg, rank, parameters);
+        MethodInfo* getMethod = ConstructArrayMethod(arrayClass, "Get", &arrayClass->element_class->byval_arg, rank, parameters);
+        getMethod->invoker_method = vm::Runtime::GetArrayGetInvoker();
+        arrayClass->methods[methodIndex++] = getMethod;
 
         IL2CPP_ASSERT(methodIndex <= std::numeric_limits<uint16_t>::max());
         PopulateArrayGenericMethods(arrayClass, static_cast<uint16_t>(methodIndex));
@@ -587,22 +593,38 @@ namespace metadata
 
     void ArrayMetadata::WalkSZArrays(ArrayTypeWalkCallback callback, void* context)
     {
-        FastAutoLock lock(&il2cpp::vm::g_MetadataLock);
+        s_SZArrayClassMap.LockShared();
 
         for (SZArrayClassMap::iterator it = s_SZArrayClassMap.UnlockedBegin(); it != s_SZArrayClassMap.UnlockedEnd(); it++)
         {
             callback(it->second, context);
         }
+
+        s_SZArrayClassMap.ReleaseShared();
     }
 
     void ArrayMetadata::WalkArrays(ArrayTypeWalkCallback callback, void* context)
     {
-        FastAutoLock lock(&il2cpp::vm::g_MetadataLock);
+        s_ArrayClassMap.LockShared();
 
         for (ArrayClassMap::iterator it = s_ArrayClassMap.UnlockedBegin(); it != s_ArrayClassMap.UnlockedEnd(); it++)
         {
             callback(it->second, context);
         }
+
+        s_ArrayClassMap.ReleaseShared();
+    }
+
+    void ArrayMetadata::AcquireMetadataLocks()
+    {
+        s_SZArrayClassMap.LockExclusive();
+        s_ArrayClassMap.LockExclusive();
+    }
+
+    void ArrayMetadata::ReleaseMetadataLocks()
+    {
+        s_ArrayClassMap.ReleaseExclusive();
+        s_SZArrayClassMap.ReleaseExclusive();
     }
 } /* namespace vm */
 } /* namespace il2cpp */

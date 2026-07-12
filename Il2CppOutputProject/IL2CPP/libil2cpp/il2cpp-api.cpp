@@ -32,6 +32,7 @@
 #include "utils/Exception.h"
 #include "utils/Logging.h"
 #include "utils/Memory.h"
+#include "utils/MemoryPool.h"
 #include "utils/StringUtils.h"
 #include "utils/Runtime.h"
 #include "utils/Environment.h"
@@ -53,7 +54,7 @@ using namespace il2cpp::gc;
 #if IL2CPP_API_DYNAMIC_NO_DLSYM
 #include <map>
 
-struct SymbolCompare : public std::binary_function<char*, char*, bool>
+struct SymbolCompare
 {
     bool operator()(const char* lhs, const char* rhs) const
     {
@@ -146,6 +147,16 @@ void il2cpp_set_memory_callbacks(Il2CppMemoryCallbacks* callbacks)
     Memory::SetMemoryCallbacks(callbacks);
 }
 
+void il2cpp_memory_pool_set_region_size(size_t size)
+{
+    il2cpp::utils::MemoryPool::SetRegionSize(size);
+}
+
+size_t il2cpp_memory_pool_get_region_size()
+{
+    return il2cpp::utils::MemoryPool::GetRegionSize();
+}
+
 const Il2CppImage* il2cpp_get_corlib()
 {
     return Image::GetCorlib();
@@ -229,6 +240,14 @@ const Il2CppType* il2cpp_class_enum_basetype(Il2CppClass *klass)
 Il2CppClass* il2cpp_class_from_system_type(Il2CppReflectionType *type)
 {
     return Class::FromSystemType(type);
+}
+
+bool il2cpp_class_is_inited(const Il2CppClass *klass)
+{
+    // Return true here as long as the size is initialized, even if we didn't fully initialize the class
+    // This API is currently used by the memory profiler and we want to report classes that we've encountered
+    // for layout and that's what's actually being asked
+    return klass->size_inited;
 }
 
 bool il2cpp_class_is_generic(const Il2CppClass *klass)
@@ -436,18 +455,6 @@ void* il2cpp_class_get_static_field_data(const Il2CppClass *klass)
     return klass->static_fields;
 }
 
-// testing only
-size_t il2cpp_class_get_bitmap_size(const Il2CppClass *klass)
-{
-    return Class::GetBitmapSize(klass);
-}
-
-void il2cpp_class_get_bitmap(Il2CppClass *klass, size_t* bitmap)
-{
-    size_t dummy = 0;
-    Class::GetBitmap(klass, bitmap, dummy);
-}
-
 // stats
 
 extern Il2CppRuntimeStats il2cpp_runtime_stats;
@@ -581,7 +588,7 @@ void il2cpp_unhandled_exception(Il2CppException* exc)
 
 void il2cpp_native_stack_trace(const Il2CppException * ex, uintptr_t** addresses, int* numFrames, char** imageUUID, char** imageName)
 {
-#if IL2CPP_ENABLE_NATIVE_INSTRUCTION_POINTER_EMISSION && !IL2CPP_TINY
+#if IL2CPP_ENABLE_NATIVE_INSTRUCTION_POINTER_EMISSION
     if (ex == NULL || ex->native_trace_ips == NULL)
     {
         *numFrames = 0;
@@ -1210,11 +1217,6 @@ void il2cpp_thread_detach(Il2CppThread *thread)
     Thread::Detach(thread);
 }
 
-Il2CppThread **il2cpp_thread_get_all_attached_threads(size_t *size)
-{
-    return Thread::GetAllAttachedThreads(*size);
-}
-
 bool il2cpp_is_vm_thread(Il2CppThread *thread)
 {
     return Thread::IsVmThread(thread);
@@ -1416,6 +1418,13 @@ void il2cpp_register_debugger_agent_transport(Il2CppDebuggerTransport * debugger
 {
 #if IL2CPP_MONO_DEBUGGER
     il2cpp::utils::Debugger::RegisterTransport(debuggerTransport);
+#endif
+}
+
+void il2cpp_debug_foreach_method(void(*func)(const MethodInfo* method, Il2CppMethodDebugInfo* methodDebugInfo, void* userData), void* userData)
+{
+#if IL2CPP_ENABLE_NATIVE_STACKTRACES
+    return il2cpp::utils::NativeSymbol::GetAllManagedMethodsWithDebugInfo(func, userData);
 #endif
 }
 

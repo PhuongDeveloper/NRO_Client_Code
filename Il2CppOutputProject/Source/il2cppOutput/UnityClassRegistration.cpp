@@ -15,6 +15,9 @@ extern "C" void RegisterStaticallyLinkedModulesGranular()
 	void RegisterModule_GameCenter();
 	RegisterModule_GameCenter();
 
+	void RegisterModule_GraphicsStateCollectionSerializer();
+	RegisterModule_GraphicsStateCollectionSerializer();
+
 	void RegisterModule_IMGUI();
 	RegisterModule_IMGUI();
 
@@ -26,6 +29,12 @@ extern "C" void RegisterStaticallyLinkedModulesGranular()
 
 	void RegisterModule_JSONSerialize();
 	RegisterModule_JSONSerialize();
+
+	void RegisterModule_Physics();
+	RegisterModule_Physics();
+
+	void RegisterModule_PhysicsBackendPhysX();
+	RegisterModule_PhysicsBackendPhysX();
 
 	void RegisterModule_RuntimeInitializeOnLoadManagerInitializer();
 	RegisterModule_RuntimeInitializeOnLoadManagerInitializer();
@@ -45,6 +54,9 @@ extern "C" void RegisterStaticallyLinkedModulesGranular()
 	void RegisterModule_UnityWebRequest();
 	RegisterModule_UnityWebRequest();
 
+	void RegisterModule_UnityWebRequestAudio();
+	RegisterModule_UnityWebRequestAudio();
+
 }
 
 template <typename T> void RegisterUnityClass(const char*);
@@ -63,6 +75,7 @@ class AudioBehaviour; template <> void RegisterUnityClass<AudioBehaviour>(const 
 class AudioClip; template <> void RegisterUnityClass<AudioClip>(const char*);
 class AudioListener; template <> void RegisterUnityClass<AudioListener>(const char*);
 class AudioManager; template <> void RegisterUnityClass<AudioManager>(const char*);
+class AudioResource; template <> void RegisterUnityClass<AudioResource>(const char*);
 class AudioSource; template <> void RegisterUnityClass<AudioSource>(const char*);
 class SampleClip; template <> void RegisterUnityClass<SampleClip>(const char*);
 class Behaviour; template <> void RegisterUnityClass<Behaviour>(const char*);
@@ -74,7 +87,6 @@ class Cubemap; template <> void RegisterUnityClass<Cubemap>(const char*);
 class CubemapArray; template <> void RegisterUnityClass<CubemapArray>(const char*);
 class DelayedCallManager; template <> void RegisterUnityClass<DelayedCallManager>(const char*);
 class EditorExtension; template <> void RegisterUnityClass<EditorExtension>(const char*);
-class FlareLayer; template <> void RegisterUnityClass<FlareLayer>(const char*);
 class GameManager; template <> void RegisterUnityClass<GameManager>(const char*);
 class GameObject; template <> void RegisterUnityClass<GameObject>(const char*);
 class GlobalGameManager; template <> void RegisterUnityClass<GlobalGameManager>(const char*);
@@ -118,13 +130,15 @@ class Texture2DArray; template <> void RegisterUnityClass<Texture2DArray>(const 
 class Texture3D; template <> void RegisterUnityClass<Texture3D>(const char*);
 class TimeManager; template <> void RegisterUnityClass<TimeManager>(const char*);
 class Transform; template <> void RegisterUnityClass<Transform>(const char*);
+class Collider; template <> void RegisterUnityClass<Collider>(const char*);
+class PhysicsManager; template <> void RegisterUnityClass<PhysicsManager>(const char*);
 namespace TextRendering { class Font; } template <> void RegisterUnityClass<TextRendering::Font>(const char*);
 
 void RegisterAllClasses()
 {
 void RegisterBuiltinTypes();
 RegisterBuiltinTypes();
-	//Total: 64 non stripped classes
+	//Total: 66 non stripped classes
 	//0. Animator
 	RegisterUnityClass<Animator>("Animation");
 	//1. AnimatorController
@@ -141,30 +155,30 @@ RegisterBuiltinTypes();
 	RegisterUnityClass<AudioListener>("Audio");
 	//7. AudioManager
 	RegisterUnityClass<AudioManager>("Audio");
-	//8. AudioSource
+	//8. AudioResource
+	RegisterUnityClass<AudioResource>("Audio");
+	//9. AudioSource
 	RegisterUnityClass<AudioSource>("Audio");
-	//9. SampleClip
+	//10. SampleClip
 	RegisterUnityClass<SampleClip>("Audio");
-	//10. Behaviour
+	//11. Behaviour
 	RegisterUnityClass<Behaviour>("Core");
-	//11. BuildSettings
+	//12. BuildSettings
 	RegisterUnityClass<BuildSettings>("Core");
-	//12. Camera
+	//13. Camera
 	RegisterUnityClass<Camera>("Core");
-	//13. Component
+	//14. Component
 	RegisterUnityClass<Unity::Component>("Core");
-	//14. ComputeShader
+	//15. ComputeShader
 	RegisterUnityClass<ComputeShader>("Core");
-	//15. Cubemap
+	//16. Cubemap
 	RegisterUnityClass<Cubemap>("Core");
-	//16. CubemapArray
+	//17. CubemapArray
 	RegisterUnityClass<CubemapArray>("Core");
-	//17. DelayedCallManager
+	//18. DelayedCallManager
 	RegisterUnityClass<DelayedCallManager>("Core");
-	//18. EditorExtension
+	//19. EditorExtension
 	RegisterUnityClass<EditorExtension>("Core");
-	//19. FlareLayer
-	RegisterUnityClass<FlareLayer>("Core");
 	//20. GameManager
 	RegisterUnityClass<GameManager>("Core");
 	//21. GameObject
@@ -251,7 +265,11 @@ RegisterBuiltinTypes();
 	RegisterUnityClass<TimeManager>("Core");
 	//62. Transform
 	RegisterUnityClass<Transform>("Core");
-	//63. Font
+	//63. Collider
+	RegisterUnityClass<Collider>("Physics");
+	//64. PhysicsManager
+	RegisterUnityClass<PhysicsManager>("Physics");
+	//65. Font
 	RegisterUnityClass<TextRendering::Font>("TextRendering");
 
 }

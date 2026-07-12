@@ -1,16 +1,13 @@
 #include "RegisterFeatures.h"
 #include <csignal>
 #include "UnityInterface.h"
-#include "../UnityFramework/UnityFramework.h"
+#import <UnityFramework/UnityFramework.h>
+#include "UI/Keyboard.h"
 
 void UnityInitTrampoline();
 
 // WARNING: this MUST be c decl (NSString ctor will be called after +load, so we cant really change its value)
 const char* AppControllerClassName = "UnityAppController";
-
-#if UNITY_USES_DYNAMIC_PLAYER_LIB
-extern "C" void SetAllUnityFunctionsForDynamicPlayerLib();
-#endif
 
 extern "C" void UnitySetExecuteMachHeader(const MachHeader* header);
 
@@ -35,6 +32,11 @@ UnityFramework* _gUnityFramework = nil;
 - (UnityAppController*)appController
 {
     return GetAppController();
+}
+
+- (UITextField*)keyboardTextField
+{
+    return KeyboardDelegate.Instance.getTextField;
 }
 
 - (void)setExecuteHeader:(const MachHeader*)header
@@ -67,11 +69,6 @@ if([obj respondsToSelector:sel])                        \
 
 - (void)frameworkWarmup:(int)argc argv:(char*[])argv
 {
-#if UNITY_USES_DYNAMIC_PLAYER_LIB
-    SetAllUnityFunctionsForDynamicPlayerLib();
-#endif
-
-
     UnityInitTrampoline();
     UnityInitRuntime(argc, argv);
 
@@ -149,10 +146,20 @@ if([obj respondsToSelector:sel])                        \
     UnityPause(pause);
 }
 
+- (void)setAbsoluteURL:(const char *)url
+{
+    UnitySetAbsoluteURL(url);
+}
+
+- (int)shouldRunInBackground
+{
+    return UnityShouldRunInBackground();
+}
+
 @end
 
 
-#if TARGET_IPHONE_SIMULATOR && TARGET_TVOS_SIMULATOR
+#if TARGET_OS_SIMULATOR
 #include <pthread.h>
 
 extern "C" int pthread_cond_init$UNIX2003(pthread_cond_t *cond, const pthread_condattr_t *attr)
@@ -165,4 +172,4 @@ extern "C" int pthread_cond_timedwait$UNIX2003(pthread_cond_t *cond, pthread_mut
     const struct timespec *abstime)
 { return pthread_cond_timedwait(cond, mutex, abstime); }
 
-#endif // TARGET_IPHONE_SIMULATOR && TARGET_TVOS_SIMULATOR
+#endif // TARGET_OS_SIMULATOR

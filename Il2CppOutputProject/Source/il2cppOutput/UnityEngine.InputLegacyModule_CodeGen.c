@@ -9,8 +9,8 @@
 
 extern void CameraRaycastHelper_RaycastTry_m79A654495BD2C09623E9067BCC70D23A0DA3BF58 (void);
 extern void CameraRaycastHelper_RaycastTry2D_m132832B9171CD030AD231A63BF70D1226ED1F373 (void);
-extern void CameraRaycastHelper_RaycastTry_Injected_mF0CCC8B28FA39583286BC4E4513E2339D9093971 (void);
-extern void CameraRaycastHelper_RaycastTry2D_Injected_mABCD0C512C6726B8D1AB33C1DC1C1A6523B5EF0B (void);
+extern void CameraRaycastHelper_RaycastTry_Injected_m4CD2A2E8F1B7E117BC341C8FF747C9B1225AC18E (void);
+extern void CameraRaycastHelper_RaycastTry2D_Injected_m3123DA0EB974FFA1A629457B398C31B84B12936C (void);
 extern void Input_GetAxis_m10372E6C5FF591668D2DC5F58C58D213CC598A62 (void);
 extern void Input_GetKeyInt_m2FFCC49AF36B74247CC1B412E9787A15D0984E95 (void);
 extern void Input_GetMouseButton_m4995DD4A2D4F916565C1B1B5AAF7DF17C126B3EA (void);
@@ -38,12 +38,13 @@ extern void InputUnsafeUtility_GetAxisRaw__Unmanaged_m31953D955E75028D274A75661C
 extern void InputUnsafeUtility_GetButton__Unmanaged_m270892EB7D8C88443200DF972F76076AC28952B2 (void);
 extern void InputUnsafeUtility_GetButtonDown__Unmanaged_m411E8743768382A33B3778E734AF072F8DBDECC4 (void);
 extern void InputUnsafeUtility_GetButtonUp__Unmanaged_mCCE34158CE05432541102B1C2AEC6545E25D0732 (void);
-static Il2CppMethodPointer s_methodPointers[31] = 
+extern void InputUnsafeUtility_GetAxis_Injected_m7617B11C7695077D77C9C2F3F068734E5F35E12E (void);
+static Il2CppMethodPointer s_methodPointers[32] = 
 {
 	CameraRaycastHelper_RaycastTry_m79A654495BD2C09623E9067BCC70D23A0DA3BF58,
 	CameraRaycastHelper_RaycastTry2D_m132832B9171CD030AD231A63BF70D1226ED1F373,
-	CameraRaycastHelper_RaycastTry_Injected_mF0CCC8B28FA39583286BC4E4513E2339D9093971,
-	CameraRaycastHelper_RaycastTry2D_Injected_mABCD0C512C6726B8D1AB33C1DC1C1A6523B5EF0B,
+	CameraRaycastHelper_RaycastTry_Injected_m4CD2A2E8F1B7E117BC341C8FF747C9B1225AC18E,
+	CameraRaycastHelper_RaycastTry2D_Injected_m3123DA0EB974FFA1A629457B398C31B84B12936C,
 	Input_GetAxis_m10372E6C5FF591668D2DC5F58C58D213CC598A62,
 	Input_GetKeyInt_m2FFCC49AF36B74247CC1B412E9787A15D0984E95,
 	Input_GetMouseButton_m4995DD4A2D4F916565C1B1B5AAF7DF17C126B3EA,
@@ -71,51 +72,53 @@ static Il2CppMethodPointer s_methodPointers[31] =
 	InputUnsafeUtility_GetButton__Unmanaged_m270892EB7D8C88443200DF972F76076AC28952B2,
 	InputUnsafeUtility_GetButtonDown__Unmanaged_m411E8743768382A33B3778E734AF072F8DBDECC4,
 	InputUnsafeUtility_GetButtonUp__Unmanaged_mCCE34158CE05432541102B1C2AEC6545E25D0732,
+	InputUnsafeUtility_GetAxis_Injected_m7617B11C7695077D77C9C2F3F068734E5F35E12E,
 };
 extern void HitInfo_SendMessage_m7834418ACE250BBCBA38ADCF0892E475BD1AD541_AdjustorThunk (void);
 static Il2CppTokenAdjustorThunkPair s_adjustorThunks[1] = 
 {
 	{ 0x06000014, HitInfo_SendMessage_m7834418ACE250BBCBA38ADCF0892E475BD1AD541_AdjustorThunk },
 };
-static const int32_t s_InvokerIndices[31] = 
+static const int32_t s_InvokerIndices[32] = 
 {
-	2727,
-	2727,
-	2712,
-	2712,
-	3789,
-	3630,
-	3630,
-	3630,
-	3630,
-	3630,
-	3925,
-	3955,
-	3925,
-	3865,
-	3957,
-	3957,
-	3870,
-	3451,
-	3957,
-	1846,
-	3642,
-	3269,
-	3221,
-	3221,
-	3221,
-	3789,
-	3388,
-	3388,
-	3221,
-	3221,
-	3221,
+	3566,
+	3566,
+	3525,
+	3525,
+	4876,
+	4674,
+	4674,
+	4674,
+	4674,
+	4674,
+	5034,
+	5069,
+	5034,
+	4956,
+	5071,
+	5071,
+	4961,
+	4461,
+	5071,
+	2359,
+	4689,
+	4246,
+	4184,
+	4184,
+	4184,
+	4876,
+	4387,
+	4387,
+	4184,
+	4184,
+	4184,
+	4868,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_InputLegacyModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_InputLegacyModule_CodeGenModule = 
 {
 	"UnityEngine.InputLegacyModule.dll",
-	31,
+	32,
 	s_methodPointers,
 	1,
 	s_adjustorThunks,

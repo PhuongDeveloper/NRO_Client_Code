@@ -12,8 +12,7 @@
 #include "UI/Keyboard.h"
 #include <utility>
 
-extern bool _skipPresent;
-extern bool _unityAppReady;
+static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
 
 @implementation UnityAppController (ViewHandling)
 
@@ -33,7 +32,7 @@ extern bool _unityAppReady;
     [_unityView didRotate];
 
     // after we have updated unity view, this will poke unity itself about the changes in orient/extents
-    [_unityView boundsUpdated];
+    [_unityView updateUnityBackbufferSize];
 }
 
 #endif
@@ -45,12 +44,18 @@ extern bool _unityAppReady;
 
 - (UIViewController*)createUnityViewControllerDefault
 {
-    UnityViewControllerBase* ret = [AllocUnityDefaultViewController() init];
+#if PLATFORM_IOS
+    UnityViewControllerBase* ret = [[UnityDefaultViewController alloc] initShouldHandleFixedOrientation: _shouldUseDefaultViewControllerForFixedOrientations];
+#else
+    UnityViewControllerBase* ret = [[UnityDefaultViewController alloc] init];
+#endif
+
     ret.notificationDelegate = [[UnityViewControllerNotificationsDefaultSender alloc] init];
 
 #if PLATFORM_TVOS
     ret.controllerUserInteractionEnabled = YES;
 #endif
+
     return ret;
 }
 
@@ -67,7 +72,7 @@ extern bool _unityAppReady;
 - (UIViewController*)createRootViewController
 {
     UIViewController* ret = nil;
-    if (!UNITY_SUPPORT_ROTATION || UnityShouldAutorotate())
+    if (!UNITY_SUPPORT_ROTATION || UnityShouldAutorotate() || _shouldUseDefaultViewControllerForFixedOrientations)
         ret = [self createUnityViewControllerDefault];
 
 #if UNITY_SUPPORT_ROTATION
@@ -88,7 +93,11 @@ extern bool _unityAppReady;
 
 - (void)willStartWithViewController:(UIViewController*)controller
 {
+#if !PLATFORM_VISIONOS
     _unityView.contentScaleFactor   = UnityScreenScaleFactor([UIScreen mainScreen]);
+#else
+    _unityView.contentScaleFactor   = 1.0f;
+#endif
     _unityView.autoresizingMask     = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     _rootController.view = _rootView = _unityView;
@@ -100,11 +109,11 @@ extern bool _unityAppReady;
 
 - (void)didTransitionToViewController:(UIViewController*)toController fromViewController:(UIViewController*)fromController
 {
-#if UNITY_SUPPORT_ROTATION
+#if UNITY_SUPPORT_ROTATION && !PLATFORM_VISIONOS
     // when transitioning between view controllers ios will not send reorient events (because they are bound to controllers, not view)
     // so we imitate them here so unity view can update its size/orientation
     UIInterfaceOrientation newOrientation = UIViewControllerInterfaceOrientation(toController);
-    [_unityView willRotateToOrientation:newOrientation  fromOrientation: ConvertToIosScreenOrientation(_unityView.contentOrientation)];
+    [_unityView willRotateToOrientation: newOrientation  fromOrientation: ConvertToIosScreenOrientation(_unityView.contentOrientation)];
     [_unityView didRotate];
 
     // NB: this is both important and insane at the same time (that we have several places to keep current orentation and we need to sync them)
@@ -123,6 +132,11 @@ extern bool _unityAppReady;
 {
     NSAssert(_unityView != nil, @"_unityView should be inited at this point");
     NSAssert(_window != nil, @"_window should be inited at this point");
+
+#if PLATFORM_IOS
+    if (@available(iOS 16.0, *))    _shouldUseDefaultViewControllerForFixedOrientations = YES;
+    else                            _shouldUseDefaultViewControllerForFixedOrientations = NO;
+#endif
 
     _rootController = [self createRootViewController];
 
@@ -167,10 +181,12 @@ extern bool _unityAppReady;
     HideActivityIndicator();
 
     // make sure that we start up with correctly created/inited rendering surface
-    // NB: recreateRenderingSurface won't go into rendering because _unityAppReady is false
+    // NB: recreateRenderingSurface won't go into rendering because AppReady state is not set
 #if UNITY_SUPPORT_ROTATION
     [self checkOrientationRequest];
 #endif
+
+    [_unityView updateUnityBackbufferSize];
     [_unityView recreateRenderingSurface];
 
     // UI hierarchy
@@ -188,20 +204,25 @@ extern bool _unityAppReady;
     // but this frame now is actually the first one we want to process/draw
     // so all the recreateSurface before now (triggered by reorientation) should simply change extents
 
-    _unityAppReady = true;
+    [self advanceEngineLoadState: kUnityEngineLoadStateAppReady];
 
-    // why we skip present:
-    // this will be the first frame to draw, so Start methods will be called
-    // and we want to properly handle resolution request in Start (which might trigger surface recreate)
-    // NB: we want to draw right after showing window, to avoid black frame creeping in
+    // this is/was needed as a workaround for various issues with first frame rendering
+    //   on older iOS, not doing this "render twice" would result in black frame showing
+    // that does not seem necessary now, but we keep it "just in case" when using CADisplayLink
+    // when using CAMetalDisplayLink we cannot render to backbuffer (drawable) out of the displaylink callback, hence we must skip this
 
-    _skipPresent = true;
+    if(!self.unityUsesMetalDisplayLink)
+    {
+        // why we skip present:
+        // this will be the first frame to draw, so Start methods will be called
+        // and we want to properly handle resolution request in Start (which might trigger surface recreate)
+        // NB: we want to draw right after showing window, to avoid black frame creeping in
 
-    if (!UnityIsPaused())
-        UnityRepaint();
+        if (!UnityIsPaused())
+            UnityRepaint();
 
-    _skipPresent = false;
-    [self repaint];
+        [self repaint];
+    }
 
     [UIView setAnimationsEnabled: YES];
 }
@@ -237,7 +258,7 @@ extern bool _unityAppReady;
     // third: restore window as key and layout subviews to finalize size changes
     [_window makeKeyAndVisible];
     [_window layoutSubviews];
-    
+
     // In iOS16+ after we setup a new contoller and when we have multiple windows visible, iOS not fully prepares
     // view controller according it's orientation requirements. And then inside didTransitionToViewController:
     // from UIViewControllerInterfaceOrientation we get bad orientation as it uses scree.coordinationSpace which is not
@@ -247,7 +268,7 @@ extern bool _unityAppReady;
     // not call -viewWillTransitionToSize:.
     UIInterfaceOrientation newOrientation = UIViewControllerInterfaceOrientation(vc);
     BOOL orientationChangedToSupported = vc.supportedInterfaceOrientations & (1 << newOrientation);
-    if ( !UnityiOS160orNewer() || orientationChangedToSupported )
+    if (!UnityiOSVersionIsAtLeast(16) || orientationChangedToSupported)
     {
         [self didTransitionToViewController: vc fromViewController: _rootController];
     }
@@ -270,7 +291,7 @@ extern bool _unityAppReady;
 
 - (void)notifyHideHomeButtonChange
 {
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
     // setNeedsUpdateOfHomeIndicatorAutoHidden is not implemented on iOS 11.0.
     // The bug has been fixed in iOS 11.0.1. See http://www.openradar.me/35127134
     if ([_rootController respondsToSelector: @selector(setNeedsUpdateOfHomeIndicatorAutoHidden)])
@@ -280,7 +301,7 @@ extern bool _unityAppReady;
 
 - (void)notifyDeferSystemGesturesChange
 {
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
     [_rootController setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
 #endif
 }
@@ -309,6 +330,22 @@ extern bool _unityAppReady;
     //   presentation controller dismissal
     if (_rootController.presentedViewController)
         return;
+
+    // to reiterate: we have different processing on newish iOS where we stick to just one view controller
+    // in this case we leave all the processing to iOS
+    if(_shouldUseDefaultViewControllerForFixedOrientations)
+    {
+        NSAssert([self.rootViewController isKindOfClass: [UnityDefaultViewController class]],
+            @"UnityDefaultViewController should be root controller");
+
+        [(UnityDefaultViewController*)self.rootViewController updateSupportedOrientations];
+        [UIViewController attemptRotationToDeviceOrientation];
+
+        // note that we could have a big if-else block and call it once at the end of the method
+        // but it was deemed too ugly
+        UnityOrientationRequestWasCommitted();
+        return;
+    }
 
     // normally we want to call attemptRotationToDeviceOrientation to tell iOS that we changed orientation constraints
     // but if the current orientation is disabled we need special processing, as iOS will simply ignore us
@@ -381,7 +418,7 @@ extern bool _unityAppReady;
 
 - (void)orientInterface:(UIInterfaceOrientation)orient
 {
-    if (_unityAppReady)
+    if (self.engineLoadState >= kUnityEngineLoadStateAppReady)
         UnityFinishRendering();
 
     [KeyboardDelegate StartReorientation];
@@ -392,10 +429,21 @@ extern bool _unityAppReady;
         UIInterfaceOrientation newOrient = orient;
 
         [self interfaceWillChangeOrientationTo: newOrient];
+        // TODO: we should handle _shouldUseDefaultViewControllerForFixedOrientations = YES
+        // TODO: though i am not sure how this should be done
+        // TODO: currently in normal orientation processing this will not be called when _shouldUseDefaultViewControllerForFixedOrientations is true
+        // TODO: but native plugins can still call it directly
         [self transitionToViewController: [self createRootViewControllerForOrientation: newOrient]];
         [self interfaceDidChangeOrientationFrom: oldOrient];
 
+#if !PLATFORM_VISIONOS
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        // this was deprecated in favor of [UIWindowScene setInterfaceOrientation:]
+        // this API works perfectly fine for now, so we use it until we rewrite/modernize trampoline to be Scene-based
         [UIApplication sharedApplication].statusBarOrientation = orient;
+    #pragma clang diagnostic pop
+#endif
     }
     [CATransaction commit];
 
@@ -411,12 +459,12 @@ extern bool _unityAppReady;
 
 #endif
 
-extern "C" void UnityNotifyHideHomeButtonChange()
+UNITY_EXPORT extern "C" void UnityNotifyHideHomeButtonChange()
 {
     [GetAppController() notifyHideHomeButtonChange];
 }
 
-extern "C" void UnityNotifyDeferSystemGesturesChange()
+UNITY_EXPORT extern "C" void UnityNotifyDeferSystemGesturesChange()
 {
     [GetAppController() notifyDeferSystemGesturesChange];
 }

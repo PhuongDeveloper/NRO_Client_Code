@@ -1,5 +1,5 @@
 static NSURLSession* unityWebRequestSession;
-static NSLock* unityWebRequestLock;
+static NSRecursiveLock* unityWebRequestLock;
 
 @interface UnityURLRequest : NSMutableURLRequest
 
@@ -195,11 +195,14 @@ static NSMutableArray<UnityURLRequest*>* currentRequests;
         }
 
 #if !defined(DISABLE_WEBREQUEST_CERTIFICATE_CALLBACK)
-        SecTrustResultType systemResult;
+        SecTrustResultType systemResult = kSecTrustResultProceed;
+        CFErrorRef error;
         SecTrustRef serverTrust = [[challenge protectionSpace] serverTrust];
-        if (serverTrust == nil || errSecSuccess != SecTrustEvaluate(serverTrust, &systemResult))
-        {
+        if (serverTrust == nil)
             systemResult = kSecTrustResultOtherError;
+        else if (!SecTrustEvaluateWithError(serverTrust, &error))
+        {
+            SecTrustGetTrustResult(serverTrust, &systemResult);
         }
 
         switch (systemResult)
@@ -363,7 +366,25 @@ static NSMutableArray<UnityURLRequest*>* currentRequests;
 @end
 
 
-extern "C" void UnityCreateWebRequestBackend(void** connection, void* udata, const char* methodString, const void* headerDict, const char* url)
+const int WEB_ERROR_OK = 0;
+const int WEB_ERROR_MALFORMATTED_URL = 5;
+
+UNITY_EXPORT extern "C" void UnityWebRequestAddCustomHeader(void** headers, const char* headerName, const char* headerValue)
+{
+    @autoreleasepool
+    {
+        NSMutableDictionary* headerDict = (__bridge NSMutableDictionary*)*headers;
+        if (headerDict == nil)
+        {
+            headerDict = [[NSMutableDictionary alloc] init];
+            *headers = (__bridge_retained void*)headerDict;
+        }
+
+        [headerDict setValue: [NSString stringWithUTF8String: headerValue] forKey: [NSString stringWithUTF8String: headerName]];
+    }
+}
+
+UNITY_EXPORT extern "C" int UnityCreateWebRequestBackend(void** connection, void* udata, const char* methodString, const void* headerDict, const char* url)
 {
     @autoreleasepool
     {
@@ -372,14 +393,26 @@ extern "C" void UnityCreateWebRequestBackend(void** connection, void* udata, con
             @autoreleasepool
             {
                 currentRequests = [[NSMutableArray<UnityURLRequest*> alloc] init];
-                unityWebRequestLock = [[NSLock alloc] init];
+                unityWebRequestLock = [[NSRecursiveLock alloc] init];
             }
         });
 
+        NSDictionary* headers = (__bridge_transfer NSDictionary*)headerDict;
+        NSURL* requestUrl;
+#if defined(__IPHONE_17_0)
+        if (@available(iOS 17.0, tvOS 17.0, *))
+            requestUrl = [NSURL URLWithString: [NSString stringWithUTF8String: url] encodingInvalidCharacters: NO];
+        else
+#endif
+            requestUrl = [NSURL URLWithString: [NSString stringWithUTF8String: url]];
+
+        if (requestUrl == nil)
+            return WEB_ERROR_MALFORMATTED_URL;
+
         UnityURLRequest* request = [[UnityURLRequest alloc] init: udata];
-        request.URL = [NSURL URLWithString: [NSString stringWithUTF8String: url]];
+        request.URL = requestUrl;
         request.HTTPMethod = [NSString stringWithUTF8String: methodString];
-        request.allHTTPHeaderFields = (__bridge NSMutableDictionary*)headerDict;
+        request.allHTTPHeaderFields = headers;
         [request setCachePolicy: NSURLRequestReloadIgnoringLocalCacheData];
 
         // set or replace backend under lock
@@ -389,10 +422,11 @@ extern "C" void UnityCreateWebRequestBackend(void** connection, void* udata, con
         *connection = (__bridge_retained void*)request;
         previous = nil;
         [unityWebRequestLock unlock];
+        return WEB_ERROR_OK;
     }
 }
 
-extern "C" void UnitySendWebRequest(void* const* connection, unsigned length, unsigned long timeoutSec, bool wantCertificateCallback)
+UNITY_EXPORT extern "C" void UnitySendWebRequest(void* const* connection, unsigned length, unsigned long timeoutSec, bool wantCertificateCallback)
 {
     @autoreleasepool
     {
@@ -439,7 +473,7 @@ extern "C" void UnitySendWebRequest(void* const* connection, unsigned length, un
     }
 }
 
-extern "C" bool UnityWebRequestIsDone(void* const* connection)
+UNITY_EXPORT extern "C" bool UnityWebRequestIsDone(void* const* connection)
 {
     @autoreleasepool
     {
@@ -451,7 +485,7 @@ extern "C" bool UnityWebRequestIsDone(void* const* connection)
     }
 }
 
-extern "C" void UnityDestroyWebRequestBackend(void** connection)
+UNITY_EXPORT extern "C" void UnityDestroyWebRequestBackend(void** connection)
 {
     @autoreleasepool
     {
@@ -464,7 +498,7 @@ extern "C" void UnityDestroyWebRequestBackend(void** connection)
     }
 }
 
-extern "C" void UnityCancelWebRequest(void* const* connection)
+UNITY_EXPORT extern "C" void UnityCancelWebRequest(void* const* connection)
 {
     @autoreleasepool
     {
@@ -472,20 +506,22 @@ extern "C" void UnityCancelWebRequest(void* const* connection)
         UnityURLRequest* request = (__bridge UnityURLRequest*)*connection;
         if (request != nil)
         {
+            NSUInteger taskId = request.taskIdentifier;
             [unityWebRequestSession getAllTasksWithCompletionHandler:^(NSArray<NSURLSessionTask*>* _Nonnull tasks) {
-                for (unsigned i = 0; i < tasks.count; ++i)
-                    if (tasks[i].taskIdentifier == request.taskIdentifier)
+                [tasks enumerateObjectsUsingBlock:^(NSURLSessionTask * _Nonnull task, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (task.taskIdentifier == taskId)
                     {
-                        [tasks[i] cancel];
-                        break;
+                        [task cancel];
+                        *stop = YES;
                     }
+                }];
             }];
         }
         [unityWebRequestLock unlock];
     }
 }
 
-extern "C" void UnityWebRequestClearCookieCache(const char* domain)
+UNITY_EXPORT extern "C" void UnityWebRequestClearCookieCache(const char* domain)
 {
     NSArray<NSHTTPCookie*>* cookies;
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -512,7 +548,7 @@ extern "C" void UnityWebRequestClearCookieCache(const char* domain)
         [cookieStorage deleteCookie: cookies[i]];
 }
 
-extern "C" void UnityWebRequestCleanupSession()
+UNITY_EXPORT extern "C" void UnityWebRequestCleanupSession()
 {
     if (unityWebRequestLock == nil)
         return;

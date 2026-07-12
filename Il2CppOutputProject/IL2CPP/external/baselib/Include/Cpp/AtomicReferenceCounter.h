@@ -34,9 +34,20 @@ namespace baselib
             FORCE_INLINE bool operator--() { return Baselib_atomic_ref_dec_32(&referenceCount.obj); }
 
             // Increments a reference counter by 1 relaxed memory barrier semantics.
-            FORCE_INLINE void operator++() { referenceCount.fetch_add(1, baselib::memory_order_relaxed); }
+            // Returns true if the reference counter was 0 prior to incrementing
+            FORCE_INLINE bool operator++() { return referenceCount.fetch_add(1, baselib::memory_order_relaxed) == 0; }
+
             // Increments a reference counter by 1 relaxed memory barrier semantics.
-            FORCE_INLINE void operator++(int) { referenceCount.fetch_add(1, baselib::memory_order_relaxed); }
+            // Returns true if the reference counter was 0 prior to incrementing
+            FORCE_INLINE bool operator++(int) { return referenceCount.fetch_add(1, baselib::memory_order_relaxed) == 0; }
+
+            // Increments a reference counter by 1 relaxed memory barrier semantics.
+            // Returns true if the reference counter was 0 prior to incrementing
+            FORCE_INLINE bool acquire() { return referenceCount.fetch_add(1, baselib::memory_order_relaxed) == 0; }
+
+            // Decrements a reference counter with acquire-release memory-barrier if value reaches 0, otherwise release.
+            // Returns true if operation caused counter to reach 0, false otherwise.
+            FORCE_INLINE bool release() { return Baselib_atomic_ref_dec_32(&referenceCount.obj); }
         };
     }
 }

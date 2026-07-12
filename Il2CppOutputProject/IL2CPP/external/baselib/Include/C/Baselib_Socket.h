@@ -132,11 +132,11 @@ static inline Baselib_Socket_PollFd Baselib_Socket_PollFd_New(Baselib_Socket_Han
 // wait indefinitely.
 //
 // Possible error codes on the outer parameter errorState:
-// - Baselib_ErrorCode_InvalidArgument: Sockets list is null. An individual socket handle is invalid.
+// - Baselib_ErrorCode_InvalidArgument: Sockets list is null. An individual socket handle is invalid. Or flags are used in an invalid combination.
 //
 // Possible error codes on sockets[i].errorState:
 // - Baselib_ErrorCode_AddressUnreachable: Asynchronous Connect() failed.
-// - Baselib_ErrorCode_Disconnected: Socket has been disconnected, or asynchronous Connect() failed (apple devices).
+// - Baselib_ErrorCode_Disconnected: Socket has been disconnected.
 BASELIB_API void Baselib_Socket_Poll(
     Baselib_Socket_PollFd*          sockets,
     uint32_t                        socketsCount,
@@ -206,6 +206,10 @@ BASELIB_API uint32_t Baselib_Socket_UDP_Send(
 
 // Send a message to the connected peer.
 //
+// Nagle's algorithm is disabled in Baselib TCP sockets, so if making multiple
+// small sends in quick succession, it is recommended to instead batch them in
+// a single send call instead to improve bandwidth efficiency.
+//
 // \returns The possibly-zero length of the message actually sent, which may be less than `dataLen`.
 //
 // Possible error codes:
@@ -267,6 +271,38 @@ BASELIB_API uint32_t Baselib_Socket_TCP_Recv(
 // Closing an already closed socket results in a no-op.
 BASELIB_API void Baselib_Socket_Close(
     Baselib_Socket_Handle           socket
+);
+
+// Attempts to set the DON'T FRAGMENT header on an IPv4 socket.
+// This prevents the packet from being fragmented along the route,
+// which is useful for path MTU discovery and can provide improved network
+// performance so long as no packets exceed the path MTU.
+// Only available on IPv4 UDP sockets on certain platforms.
+//
+// Possible error codes:
+// - Baselib_ErrorCode_NotSupported: The current platform does not support user setting of the Don't Fragment header.
+// - Baselib_ErrorCode_InvalidSocketType: The socket is not a UDP socket.
+// - Baselib_ErrorCode_InvalidAddressFamily: The socket is not an IPv4 socket.
+//
+// The order that these error conditions are checked is always socket type, address family, platform support.
+BASELIB_API void Baselib_Socket_SetIPv4DontFragHeader(
+    Baselib_Socket_Handle           socket,
+    bool                            set,
+    Baselib_ErrorState*             errorState
+);
+
+// Retrieves the current value of the DON'T FRAGMENT header for an IPv4 socket.
+// Only available on IPv4 UDP sockets on certain platforms.
+//
+// Possible error codes:
+// - Baselib_ErrorCode_NotSupported: The current platform does not support user setting of the Don't Fragment header.
+// - Baselib_ErrorCode_InvalidSocketType: The socket is not a UDP socket.
+// - Baselib_ErrorCode_InvalidAddressFamily: The socket is not an IPv4 socket.
+//
+// The order that these error conditions are checked is always socket type, address family, platform support.
+BASELIB_API bool Baselib_Socket_GetIPv4DontFragHeader(
+    Baselib_Socket_Handle           socket,
+    Baselib_ErrorState*             errorState
 );
 
 #ifdef __cplusplus

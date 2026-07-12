@@ -15,7 +15,7 @@ extern "C" void UnitySetExecuteMachHeader(const decltype(_mh_execute_header)* he
     sExecuteHeader = header;
 }
 
-extern "C" const decltype(_mh_execute_header) * UnityGetExecuteMachHeader() {
+UNITY_EXPORT extern "C" const decltype(_mh_execute_header) * UnityGetExecuteMachHeader() {
     return sExecuteHeader;
 }
 
@@ -104,18 +104,5 @@ void InitCrashHandling()
 
 #if ENABLE_OBJC_UNCAUGHT_EXCEPTION_HANDLER
     InitObjCUEHandler();
-#endif
-}
-
-// This function will be called when AppDomain.CurrentDomain.UnhandledException event is triggered.
-// When running on device the app will do a hard crash and it will generate a crash log.
-extern "C" void CrashedCheckBelowForHintsWhy()
-{
-#if ENABLE_IOS_CRASH_REPORTING || ENABLE_CUSTOM_CRASH_REPORTER
-    // Make app crash hard here
-    __builtin_trap();
-
-    // Just in case above doesn't work
-    abort();
 #endif
 }

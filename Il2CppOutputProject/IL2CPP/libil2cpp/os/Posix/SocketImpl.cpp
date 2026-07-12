@@ -416,12 +416,18 @@ namespace os
 #if IL2CPP_TARGET_SWITCH
         Switch::NetworkInterface::Get().TryInitialize();
 #endif
+#if IL2CPP_TARGET_SWITCH2
+        Switch2::NetworkInterface::Get().TryInitialize();
+#endif
     }
 
     void SocketImpl::Cleanup()
     {
 #if IL2CPP_TARGET_SWITCH
         Switch::NetworkInterface::Get().Finalize();
+#endif
+#if IL2CPP_TARGET_SWITCH2
+        Switch2::NetworkInterface::Get().Finalize();
 #endif
     }
 
@@ -2185,21 +2191,18 @@ namespace os
                         *system_name = IP_OPTIONS;
                         break;
         #endif
-        #ifdef IP_HDRINCL
                     case kSocketOptionNameHeaderIncluded:
                         *system_name = IP_HDRINCL;
                         break;
-        #endif
-        #ifdef IP_TOS
+
                     case kSocketOptionNameTypeOfService:
                         *system_name = IP_TOS;
                         break;
-        #endif
-        #ifdef IP_TTL
+
                     case kSocketOptionNameIpTimeToLive:
                         *system_name = IP_TTL;
                         break;
-        #endif
+
                     case kSocketOptionNameMulticastInterface:
                         *system_name = IP_MULTICAST_IF;
                         break;

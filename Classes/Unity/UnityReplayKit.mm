@@ -58,7 +58,7 @@ static UnityReplayKit* _replayKit = nil;
 // meaning that if we dont do anything suddenly all orientations become enabled.
 // to avoid that we create this monstrosity that pokes unity for orientation.
 
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
 @interface UnityReplayKitViewController : UnityViewControllerBase
 {
 }
@@ -396,16 +396,7 @@ static UnityReplayKit* _replayKit = nil;
     #if PLATFORM_TVOS
         vc.modalPresentationStyle = UIModalPresentationFullScreen;
     #else
-        if (UnityiOS130orNewer())
-        {
-            vc.modalPresentationStyle = UIModalPresentationFormSheet;
-        }
-        else
-        {
-            vc.modalPresentationStyle = UIModalPresentationPopover;
-            vc.popoverPresentationController.sourceRect = CGRectMake(GetAppController().rootView.bounds.size.width / 2, 0, 0, 0);
-            vc.popoverPresentationController.sourceView = GetAppController().rootView;
-        }
+        vc.modalPresentationStyle = UIModalPresentationFormSheet;
     #endif
 
         [UnityGetGLViewController() presentViewController: vc animated: YES completion: nil];

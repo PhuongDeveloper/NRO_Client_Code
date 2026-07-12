@@ -45,6 +45,12 @@ typedef struct Il2CppGenericMethod
     Il2CppGenericContext context;
 } Il2CppGenericMethod;
 
+typedef struct Il2CppGenericMethodKey
+{
+    Il2CppMetadataMethodDefinitionHandle methodDefinitionHandle;
+    Il2CppGenericContext context;
+} Il2CppGenericMethodKey;
+
 typedef struct Il2CppType
 {
     union
@@ -86,6 +92,7 @@ typedef struct Il2CppMetadataMethodInfo
     uint16_t iflags;
     uint16_t slot;
     uint16_t parameterCount;
+    bool isUnmangedCallersOnly;
 } Il2CppMetadataMethodInfo;
 
 typedef struct Il2CppMetadataParameterInfo

@@ -1,26 +1,72 @@
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
+#include "UnityAppController.h"
+#include "UnityView.h"
 #include "DisplayManager.h"
 
 // ad/vendor ids
 #if UNITY_USES_IAD
 #include <AdSupport/ASIdentifierManager.h>
+#include <AppTrackingTransparency/ATTrackingManager.h>
 static id QueryASIdentifierManager()
 {
+    static bool _queryAttempted = false;
+    static id _manager = nil;
+
+    if (_queryAttempted)
+        return _manager;
+
+    _queryAttempted = true;
     NSBundle* bundle = [NSBundle bundleWithPath: @"/System/Library/Frameworks/AdSupport.framework"];
     if (bundle)
     {
         [bundle load];
-        return [NSClassFromString(@"ASIdentifierManager") performSelector: @selector(sharedManager)];
+        _manager = [NSClassFromString(@"ASIdentifierManager") performSelector: @selector(sharedManager)];
+        return _manager;
     }
 
     return nil;
 }
 
+static bool QueryAttTrackingAuthorization()
+{
+    static bool _status = false;
+
+    // if authorization is revoked, app is restarted, so we can cache
+    if (!_status)
+    {
+        static Class _ATTrackingManager = nil;
+        static bool _classLoadAttempted = false;
+
+        if (!_classLoadAttempted)
+        {
+            _classLoadAttempted = true;
+            NSBundle* bundle = [NSBundle bundleWithPath: @"/System/Library/Frameworks/AppTrackingTransparency.framework"];
+            if (bundle)
+            {
+                [bundle load];
+                _ATTrackingManager = NSClassFromString(@"ATTrackingManager");
+            }
+        }
+
+        if (_ATTrackingManager)
+        {
+            id status = [_ATTrackingManager valueForKey: @"trackingAuthorizationStatus"];
+            if (status && [status isKindOfClass: NSNumber.class])
+            {
+                NSNumber* tackingStatus = status;
+                _status = ATTrackingManagerAuthorizationStatusAuthorized == tackingStatus.unsignedIntValue;
+            }
+        }
+    }
+
+    return _status;
+}
+
 #endif
 
-extern "C" const char* UnityAdIdentifier()
+UNITY_EXPORT extern "C" const char* UnityAdIdentifier()
 {
     static const char* _ADID = NULL;
 
@@ -45,14 +91,14 @@ extern "C" const char* UnityAdIdentifier()
     return _ADID;
 }
 
-extern "C" int UnityGetLowPowerModeEnabled()
+UNITY_EXPORT extern "C" int UnityGetLowPowerModeEnabled()
 {
-    return [[NSProcessInfo processInfo] isLowPowerModeEnabled] ? 1 : 0;
+    return [NSProcessInfo processInfo].lowPowerModeEnabled ? 1 : 0;
 }
 
-extern "C" int UnityGetWantsSoftwareDimming()
+UNITY_EXPORT extern "C" int UnityGetWantsSoftwareDimming()
 {
-#if !PLATFORM_TVOS
+#if !PLATFORM_TVOS && !PLATFORM_VISIONOS
     UIScreen* mainScreen = [UIScreen mainScreen];
     return mainScreen.wantsSoftwareDimming ? 1 : 0;
 #else
@@ -60,36 +106,30 @@ extern "C" int UnityGetWantsSoftwareDimming()
 #endif
 }
 
-extern "C" void UnitySetWantsSoftwareDimming(int enabled)
+UNITY_EXPORT extern "C" void UnitySetWantsSoftwareDimming(int enabled)
 {
-#if !PLATFORM_TVOS
+#if !PLATFORM_TVOS && !PLATFORM_VISIONOS
     UIScreen* mainScreen = [UIScreen mainScreen];
     mainScreen.wantsSoftwareDimming = enabled;
 #endif
 }
 
-extern "C" int UnityGetIosAppOnMac()
+UNITY_EXPORT extern "C" int UnityGetIosAppOnMac()
 {
-    if (@available(iOS 14, tvOS 14, *))
-        return [[NSProcessInfo processInfo] isiOSAppOnMac] ? 1 : 0;
+    return [NSProcessInfo processInfo].iOSAppOnMac ? 1 : 0;
+}
+
+UNITY_EXPORT extern "C" int UnityAdTrackingEnabled()
+{
+
+#if UNITY_USES_IAD
+    return QueryAttTrackingAuthorization() ? 1 : 0;
+#endif
+
     return 0;
 }
 
-extern "C" int UnityAdTrackingEnabled()
-{
-    bool _AdTrackingEnabled = false;
-
-#if UNITY_USES_IAD
-    // ad tracking can be changed during app lifetime
-    id manager = QueryASIdentifierManager();
-    if (manager)
-        _AdTrackingEnabled = [manager performSelector: @selector(isAdvertisingTrackingEnabled)];
-#endif
-
-    return _AdTrackingEnabled ? 1 : 0;
-}
-
-extern "C" const char* UnityVendorIdentifier()
+UNITY_EXPORT extern "C" const char* UnityVendorIdentifier()
 {
     static const char*  _VendorID           = NULL;
 
@@ -110,15 +150,15 @@ extern "C" const char* UnityVendorIdentifier()
         return value;                                                               \
     }
 
-QUERY_UIDEVICE_PROPERTY(UnityDeviceName, name)
-QUERY_UIDEVICE_PROPERTY(UnitySystemName, systemName)
-QUERY_UIDEVICE_PROPERTY(UnitySystemVersion, systemVersion)
+UNITY_EXPORT QUERY_UIDEVICE_PROPERTY(UnityDeviceName, name)
+UNITY_EXPORT QUERY_UIDEVICE_PROPERTY(UnitySystemName, systemName)
+UNITY_EXPORT QUERY_UIDEVICE_PROPERTY(UnitySystemVersion, systemVersion)
 
 #undef QUERY_UIDEVICE_PROPERTY
 
 // hw info
 
-extern "C" const char* UnityDeviceModel()
+UNITY_EXPORT extern "C" const char* UnityDeviceModel()
 {
     static const char* _DeviceModel = NULL;
 
@@ -132,7 +172,7 @@ extern "C" const char* UnityDeviceModel()
         model[size] = 0;
 
 #if TARGET_OS_SIMULATOR
-        if (!strncmp(model, "i386", 4) || !strncmp(model, "x86_64", 6))
+        if (!strncmp(model, "arm64", 5) || !strncmp(model, "x86_64", 6))
         {
             NSString* simModel = [[NSProcessInfo processInfo] environment][@"SIMULATOR_MODEL_IDENTIFIER"];
             if ([simModel length] > 0)
@@ -151,7 +191,7 @@ extern "C" const char* UnityDeviceModel()
     return _DeviceModel;
 }
 
-extern "C" int UnityDeviceCPUCount()
+UNITY_EXPORT extern "C" int UnityDeviceCPUCount()
 {
     static int _DeviceCPUCount = -1;
 
@@ -166,19 +206,19 @@ extern "C" int UnityDeviceCPUCount()
     return _DeviceCPUCount;
 }
 
-extern "C" int UnityGetPhysicalMemory()
+UNITY_EXPORT extern "C" int UnityGetPhysicalMemory()
 {
     return (int)(NSProcessInfo.processInfo.physicalMemory / (1024ULL * 1024ULL));
 }
 
 // misc
-extern "C" const char* UnitySystemLanguage()
+UNITY_EXPORT extern "C" const char* UnitySystemLanguage()
 {
     static const char* _SystemLanguage = NULL;
 
     if (_SystemLanguage == NULL)
     {
-        NSArray* lang = [[NSUserDefaults standardUserDefaults] objectForKey: @"AppleLanguages"];
+        NSArray* lang = [NSLocale preferredLanguages];
         if (lang.count > 0)
             _SystemLanguage = AllocCString(lang[0]);
     }
@@ -248,6 +288,19 @@ DeviceTableEntry DeviceTable[] =
     { iPhone, 14, 8, 8, deviceiPhone14Plus },
     { iPhone, 15, 2, 2, deviceiPhone14Pro },
     { iPhone, 15, 3, 3, deviceiPhone14ProMax },
+    { iPhone, 15, 4, 4, deviceiPhone15 },
+    { iPhone, 15, 5, 5, deviceiPhone15Plus },
+    { iPhone, 16, 1, 1, deviceiPhone15Pro },
+    { iPhone, 16, 2, 2, deviceiPhone15ProMax },
+    { iPhone, 17, 3, 3, deviceiPhone16 },
+    { iPhone, 17, 5, 5, deviceiPhone16e },
+    { iPhone, 17, 4, 4, deviceiPhone16Plus },
+    { iPhone, 17, 1, 1, deviceiPhone16Pro },
+    { iPhone, 17, 2, 2, deviceiPhone16ProMax },
+    { iPhone, 18, 3, 3, deviceiPhone17 },
+    { iPhone, 18, 4, 4, deviceiPhoneAir },
+    { iPhone, 18, 1, 1, deviceiPhone17Pro },
+    { iPhone, 18, 2, 2, deviceiPhone17ProMax },
 
     { iPod, 4, 1, 1, deviceiPodTouch4Gen },
     { iPod, 5, 1, 1, deviceiPodTouch5Gen },
@@ -283,13 +336,18 @@ DeviceTableEntry DeviceTable[] =
     { iPad, 11, 6, 7, deviceiPad8Gen },
     { iPad, 13, 1, 2, deviceiPadAir4Gen },
     { iPad, 13, 16, 17, deviceiPadAir5Gen },
+    { iPad, 14, 5, 6, deviceiPadPro6Gen },
+    { iPad, 14, 3, 4, deviceiPadPro11Inch4Gen },
+    { iPad, 13, 18, 19, deviceiPad10Gen },
+
 
     { AppleTV, 5, 3, 3, deviceAppleTVHD },
     { AppleTV, 6, 2, 2, deviceAppleTV4K },
-    { AppleTV, 11, 1, 1, deviceAppleTV4K2Gen }
+    { AppleTV, 11, 1, 1, deviceAppleTV4K2Gen },
+    { AppleTV, 14, 1, 1, deviceAppleTV4K3Gen },
 };
 
-extern "C" int ParseDeviceGeneration(const char* model)
+UNITY_EXPORT extern "C" int ParseDeviceGeneration(const char* model)
 {
     DeviceType deviceType = deviceTypeUnknown;
 
@@ -342,7 +400,7 @@ extern "C" int ParseDeviceGeneration(const char* model)
     return deviceUnknown;
 }
 
-extern "C" int UnityDeviceGeneration()
+UNITY_EXPORT extern "C" int UnityDeviceGeneration()
 {
     static int _DeviceGeneration = deviceUnknown;
 
@@ -355,7 +413,7 @@ extern "C" int UnityDeviceGeneration()
 }
 
 // Currently a manual process to add devices that have a cutout (notch). If you add one here you need to also update UnityView GetCutoutToScreenRatio()
-extern "C" int UnityDeviceHasCutout()
+UNITY_EXPORT extern "C" int UnityDeviceHasCutout()
 {
     switch (UnityDeviceGeneration())
     {
@@ -364,6 +422,9 @@ extern "C" int UnityDeviceHasCutout()
         case deviceiPhone12: case deviceiPhone12Mini: case deviceiPhone12Pro: case deviceiPhone12ProMax:
         case deviceiPhone13: case deviceiPhone13Mini: case deviceiPhone13Pro: case deviceiPhone13ProMax:
         case deviceiPhone14: case deviceiPhone14Plus: case deviceiPhone14Pro: case deviceiPhone14ProMax:
+        case deviceiPhone15: case deviceiPhone15Plus: case deviceiPhone15Pro: case deviceiPhone15ProMax:
+        case deviceiPhone16: case deviceiPhone16Plus: case deviceiPhone16Pro: case deviceiPhone16ProMax: case deviceiPhone16e:
+        case deviceiPhone17: case deviceiPhoneAir:    case deviceiPhone17Pro: case deviceiPhone17ProMax:
             return 1;
         default:
             return 0;
@@ -371,12 +432,12 @@ extern "C" int UnityDeviceHasCutout()
 }
 
 // Devices with a cutout do not support Portrait UpsideDown orientation.
-extern "C" int UnityDeviceSupportsUpsideDown()
+UNITY_EXPORT extern "C" int UnityDeviceSupportsUpsideDown()
 {
     return UnityDeviceHasCutout() ? 0 : 1;
 }
 
-extern "C" int UnityDeviceSupportedOrientations()
+UNITY_EXPORT extern "C" int UnityDeviceSupportedOrientations()
 {
     int orientations = (1 << portrait) | (1 << landscapeLeft) | (1 << landscapeRight);
     if (UnityDeviceSupportsUpsideDown())
@@ -385,7 +446,12 @@ extern "C" int UnityDeviceSupportedOrientations()
     return orientations;
 }
 
-extern "C" int UnityDeviceIsStylusTouchSupported()
+UNITY_EXPORT extern "C" int UnityDeviceIsForceTouchSupported()
+{
+    return UnityGetUnityView().traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+}
+
+UNITY_EXPORT extern "C" int UnityDeviceIsStylusTouchSupported()
 {
     const int deviceGen = UnityDeviceGeneration();
     return (deviceGen == deviceiPadPro1Gen ||
@@ -397,12 +463,16 @@ extern "C" int UnityDeviceIsStylusTouchSupported()
         deviceGen == deviceiPad6Gen) ? 1 : 0;
 }
 
-extern "C" int UnityDeviceCanShowWideColor()
+UNITY_EXPORT extern "C" int UnityDeviceCanShowWideColor()
 {
-    return [UIScreen mainScreen].traitCollection.displayGamut == UIDisplayGamutP3;
+#if PLATFORM_VISIONOS
+    return 1;
+#else
+    return UnityGetUnityView().traitCollection.displayGamut == UIDisplayGamutP3;
+#endif
 }
 
-extern "C" float UnityDeviceDPI()
+UNITY_EXPORT extern "C" float UnityDeviceDPI()
 {
     static float _DeviceDPI = -1.0f;
 
@@ -449,6 +519,19 @@ extern "C" float UnityDeviceDPI()
             case deviceiPhone14:
             case deviceiPhone14Pro:
             case deviceiPhone14ProMax:
+            case deviceiPhone15:
+            case deviceiPhone15Plus:
+            case deviceiPhone15Pro:
+            case deviceiPhone15ProMax:
+            case deviceiPhone16:
+            case deviceiPhone16e:
+            case deviceiPhone16Plus:
+            case deviceiPhone16Pro:
+            case deviceiPhone16ProMax:
+            case deviceiPhone17:
+            case deviceiPhoneAir:
+            case deviceiPhone17Pro:
+            case deviceiPhone17ProMax:
                 _DeviceDPI = 460.0f; break;
             case deviceiPhone12Mini:
             case deviceiPhone13Mini:
@@ -503,6 +586,9 @@ extern "C" float UnityDeviceDPI()
             case deviceiPhoneUnknown:
                 _DeviceDPI = 326.0f; break;
             case deviceiPadUnknown:
+            case deviceiPadPro6Gen:
+            case deviceiPadPro11Inch4Gen:
+            case deviceiPad10Gen:
                 _DeviceDPI = 264.0f; break;
             case deviceiPodTouchUnknown:
                 _DeviceDPI = 326.0f; break;
@@ -518,7 +604,7 @@ extern "C" float UnityDeviceDPI()
 
 // device id with fallback for pre-ios7
 
-extern "C" const char* UnityDeviceUniqueIdentifier()
+UNITY_EXPORT extern "C" const char* UnityDeviceUniqueIdentifier()
 {
     static const char* _DeviceID = NULL;
 

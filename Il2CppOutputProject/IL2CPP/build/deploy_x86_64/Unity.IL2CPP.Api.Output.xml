@@ -4,6 +4,26 @@
         <name>Unity.IL2CPP.Api.Output</name>
     </assembly>
     <members>
+        <member name="T:Unity.IL2CPP.Api.Output.Analytics.Constants">
+            <summary>
+            Constants related to il2cpp analytics output
+            </summary>
+        </member>
+        <member name="F:Unity.IL2CPP.Api.Output.Analytics.Constants.DataTableName">
+            <summary>
+            The name of the table
+            </summary>
+        </member>
+        <member name="T:Unity.IL2CPP.Api.Output.Analytics.Il2CppAnalyticsOutput">
+            <summary>
+            The type of the serialized il2cpp analytics output.
+            </summary>
+        </member>
+        <member name="P:Unity.IL2CPP.Api.Output.Analytics.Il2CppAnalyticsOutput.DataTable">
+            <summary>
+            The table that will be uploaded to the analytics server
+            </summary>
+        </member>
         <member name="T:Unity.IL2CPP.Api.Output.Analytics.Il2CppDataTable">
             <summary>
             Analytics data from il2cpp.exe
@@ -47,11 +67,6 @@
         <member name="P:Unity.IL2CPP.Api.Output.Analytics.Il2CppDataTable.option_extra_types_file_count">
             <summary>
             The number of extra types files that were included
-            </summary>
-        </member>
-        <member name="P:Unity.IL2CPP.Api.Output.Analytics.Il2CppDataTable.option_jobs">
-            <summary>
-            The number of jobs that were requested.  Defaults to the processor count
             </summary>
         </member>
         <member name="P:Unity.IL2CPP.Api.Output.Analytics.Il2CppDataTable.option_debug_assembly_name_count">
@@ -229,6 +244,11 @@
         <member name="P:Unity.IL2CPP.Api.Output.Analytics.Il2CppDataTable.option_generate_usym_file">
             <summary>
             Whether or not generating a usym file was enabled
+            </summary>
+        </member>
+        <member name="P:Unity.IL2CPP.Api.Output.Analytics.Il2CppDataTable.option_jobs">
+            <summary>
+            The number of jobs that were requested.  Defaults to the processor count
             </summary>
         </member>
     </members>

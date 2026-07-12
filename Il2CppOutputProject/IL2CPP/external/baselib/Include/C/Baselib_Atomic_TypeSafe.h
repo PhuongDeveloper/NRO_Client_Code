@@ -10,6 +10,9 @@
 //            Failure to comply is undefined behavior (in practice depending on compiler & architecture either crash, non-atomicity or slow performance)
 //            In Cpp code, ALIGN_ATOMIC can be used to ensure this, but generally it is recommended to use the baselib::atomic struct instead!
 
+// ATTENTION: SEQ_CST memory order is NOT equivalent to having a full memory barrier. More details are in Baselib_Atomic_Gcc.h
+//            Please add a `Baselib_atomic_thread_fence_seq_cst();` call for a full memory barrier.
+
 // 8-bit declarations
 // ----------------------------------------------------------------------------------------------------------------------------------------
 static FORCE_INLINE int8_t Baselib_atomic_load_8_relaxed(const int8_t* obj);

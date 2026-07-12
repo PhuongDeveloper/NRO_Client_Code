@@ -8,6 +8,8 @@
 
 #if defined(__NX__)
     #define BASELIB_PLATFORM_SWITCH 1
+#elif defined(__NN_OS_GENERIC__)
+    #define BASELIB_PLATFORM_SWITCH2 1
 #elif defined __ORBIS__
     #define BASELIB_PLATFORM_PS4 1
 #elif defined __PROSPERO__
@@ -18,7 +20,15 @@
     #define BASELIB_PLATFORM_WASI 1
 #elif defined(__APPLE__)
     #include <TargetConditionals.h>
-    #if TARGET_OS_IOS
+    #if !defined(TARGET_OS_XR)
+        #define TARGET_OS_XR 0
+    #endif
+    #if !defined(TARGET_OS_VISION)
+        #define TARGET_OS_VISION 0
+    #endif
+    #if TARGET_OS_XR || TARGET_OS_VISION
+        #define BASELIB_PLATFORM_VISIONOS 1
+    #elif TARGET_OS_IOS
         #define BASELIB_PLATFORM_IOS 1
     #elif TARGET_OS_TV
         #define BASELIB_PLATFORM_TVOS 1
@@ -28,9 +38,7 @@
 #elif defined(__NetBSD__)
     #define BASELIB_PLATFORM_NETBSD 1
 #elif defined(linux) || defined(__linux__)
-    #if defined(GGP)
-        #define BASELIB_PLATFORM_STADIA 1
-    #elif defined(ANDROID) || defined(__ANDROID__)
+    #if defined(ANDROID) || defined(__ANDROID__)
         #define BASELIB_PLATFORM_ANDROID 1
     #elif defined(EMBEDDED_LINUX)
         #define BASELIB_PLATFORM_EMBEDDED_LINUX 1

@@ -464,9 +464,6 @@ namespace vm
             Il2CppReflectionMethod* method = (Il2CppReflectionMethod*)parameter->MemberImpl;
             const Il2CppImage* image = method->method->klass->image;
 
-            if (parameter->PositionImpl == -1)
-                return std::make_tuple(0x8000000, method->method->klass->image); // This is what mono returns as a fixed value.
-
             return std::make_tuple(vm::Method::GetParameterToken(method->method, parameter->PositionImpl), method->method->klass->image);
         }
         if (IsAssembly(obj))
@@ -565,10 +562,6 @@ namespace vm
 
             if (method->method->parameters == NULL)
                 return il2cpp::metadata::CustomAttributeDataReader::Empty();
-
-            IL2CPP_NOT_IMPLEMENTED_NO_ASSERT(Reflection::GetCustomAttributeReaderFor, "-1 represents the return value. Need to emit custom attribute information for that.")
-            if (parameter->PositionImpl == -1)
-                return il2cpp::metadata::CustomAttributeDataReader::Empty();
         }
 
         return il2cpp::vm::MetadataCache::GetCustomAttributeDataReader(image, token);
@@ -640,7 +633,6 @@ namespace vm
 
         s_System_Reflection_Assembly = Class::FromName(il2cpp_defaults.corlib, "System.Reflection", "RuntimeAssembly");
         IL2CPP_ASSERT(s_System_Reflection_Assembly != NULL);
-#if !IL2CPP_TINY_DEBUGGER
         s_System_Reflection_Module = Class::FromName(il2cpp_defaults.corlib, "System.Reflection", "RuntimeModule");
         IL2CPP_ASSERT(s_System_Reflection_Module != NULL);
 
@@ -659,7 +651,6 @@ namespace vm
         IL2CPP_ASSERT(s_System_Reflection_RuntimeEventInfoKlass != NULL);
         s_System_Reflection_RuntimePropertyInfoKlass = Class::FromName(il2cpp_defaults.corlib, "System.Reflection", "RuntimePropertyInfo");
         IL2CPP_ASSERT(s_System_Reflection_RuntimePropertyInfoKlass != NULL);
-#endif
     }
 
     bool Reflection::HasAttribute(FieldInfo *field, Il2CppClass *attributeClass)
@@ -724,6 +715,27 @@ namespace vm
 
     void Reflection::ClearStatics()
     {
+        delete s_AssemblyMap;
+        s_AssemblyMap = NULL;
+        delete s_FieldMap;
+        s_FieldMap = NULL;
+        delete s_PropertyMap;
+        s_PropertyMap = NULL;
+        delete s_EventMap;
+        s_EventMap = NULL;
+        delete s_MethodMap;
+        s_MethodMap = NULL;
+        delete s_ModuleMap;
+        s_ModuleMap = NULL;
+        delete s_ParametersMap;
+        s_ParametersMap = NULL;
+        delete s_TypeMap;
+        s_TypeMap = NULL;
+        delete s_MonoGenericParamterMap;
+        s_MonoGenericParamterMap = NULL;
+        delete s_MonoAssemblyNameMap;
+        s_MonoAssemblyNameMap = NULL;
+
         s_System_Reflection_Assembly = NULL;
         s_System_Reflection_RuntimeFieldInfoKlass = NULL;
         s_System_Reflection_Module = NULL;

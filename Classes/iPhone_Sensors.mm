@@ -17,7 +17,13 @@
 #include "Vector3.h"
 #include "Quaternion4.h"
 
-
+extern "C" void il2cpp_init(void);
+__attribute__((retain)) void keepCallAgainstIL2CPP() {
+    // todo move to more propper location
+    // here just to ensures LD will 'see' il2cpp.a and export il2cpp symbols from UnityFramework binary
+    // keepCallAgainstIL2CPP wont be called
+    il2cpp_init();
+}
 typedef void (^ControllerPausedHandler)(GCController *controller);
 static NSArray* QueryControllerCollection();
 
@@ -37,7 +43,7 @@ static bool gJoysticksInited = false;
 static bool gPausedJoysticks[MAX_JOYSTICKS] = {false, false, false, false};
 static id gGameControllerClass = nil;
 // This defines the number of maximum acceleration events Unity will queue internally for scripts to access.
-extern "C" int UnityMaxQueuedAccelerationEvents() { return 2 * 60; } // 120 events or 2 seconds at 60Hz reporting.
+UNITY_EXPORT extern "C" int UnityMaxQueuedAccelerationEvents() { return 2 * 60; } // 120 events or 2 seconds at 60Hz reporting.
 
 static ControllerPausedHandler gControllerHandler = ^(GCController *controller)
 {
@@ -52,8 +58,8 @@ static ControllerPausedHandler gControllerHandler = ^(GCController *controller)
     }
 };
 
-extern "C" bool IsCompensatingSensors() { return gCompensateSensors; }
-extern "C" void SetCompensatingSensors(bool val) { gCompensateSensors = val; }
+UNITY_EXPORT extern "C" bool IsCompensatingSensors() { return gCompensateSensors; }
+UNITY_EXPORT extern "C" void SetCompensatingSensors(bool val) { gCompensateSensors = val; }
 
 inline float UnityReorientHeading(float heading)
 {
@@ -173,7 +179,7 @@ void SensorsCleanup()
 #endif
 }
 
-extern "C" void UnityCoreMotionStart()
+UNITY_EXPORT extern "C" void UnityCoreMotionStart()
 {
 #if PLATFORM_TVOS
     sGCMotionForwardingEnabled = true;
@@ -214,7 +220,7 @@ extern "C" void UnityCoreMotionStart()
 #endif
 }
 
-extern "C" void UnityCoreMotionStop()
+UNITY_EXPORT extern "C" void UnityCoreMotionStop()
 {
 #if PLATFORM_TVOS
     sGCMotionForwardingEnabled = false;
@@ -227,7 +233,7 @@ extern "C" void UnityCoreMotionStop()
 #endif
 }
 
-extern "C" void UnityUpdateAccelerometerData()
+UNITY_EXPORT extern "C" void UnityUpdateAccelerometerData()
 {
 #if !PLATFORM_TVOS
     if (sMotionManager)
@@ -242,7 +248,7 @@ extern "C" void UnityUpdateAccelerometerData()
 #endif
 }
 
-extern "C" void UnitySetGyroUpdateInterval(int idx, float interval)
+UNITY_EXPORT extern "C" void UnitySetGyroUpdateInterval(int idx, float interval)
 {
 #if !PLATFORM_TVOS
     static const float _MinUpdateInterval = 1.0f / 60.0f;
@@ -265,12 +271,12 @@ extern "C" void UnitySetGyroUpdateInterval(int idx, float interval)
 #endif
 }
 
-extern "C" float UnityGetGyroUpdateInterval(int idx)
+UNITY_EXPORT extern "C" float UnityGetGyroUpdateInterval(int idx)
 {
     return sUpdateInterval;
 }
 
-extern "C" void UnityUpdateGyroData()
+UNITY_EXPORT extern "C" void UnityUpdateGyroData()
 {
 #if !PLATFORM_TVOS
     CMRotationRate rotationRate = { 0.0, 0.0, 0.0 };
@@ -317,7 +323,7 @@ extern "C" void UnityUpdateGyroData()
 #endif
 }
 
-extern "C" int UnityIsGyroEnabled(int idx)
+UNITY_EXPORT extern "C" int UnityIsGyroEnabled(int idx)
 {
 #if PLATFORM_TVOS
     return sGCMotionForwardingEnabled;
@@ -329,7 +335,7 @@ extern "C" int UnityIsGyroEnabled(int idx)
 #endif
 }
 
-extern "C" int UnityIsGyroAvailable()
+UNITY_EXPORT extern "C" int UnityIsGyroAvailable()
 {
 #if PLATFORM_TVOS
     return true;
@@ -365,7 +371,7 @@ enum JoystickButtonNumbers
     BTN_COUNT
 };
 
-typedef struct
+struct JoystickButtonState
 {
     int buttonCode;
     bool state;
@@ -373,7 +379,7 @@ typedef struct
 
     bool StateChanged() { return state ^ lastRecordedState; }
     void ClearRecordedState() { lastRecordedState = false; }
-} JoystickButtonState;
+};
 
 JoystickButtonState gAggregatedJoystickState[BTN_COUNT];
 
@@ -393,7 +399,7 @@ static BOOL GetButtonPressed(GCControllerButtonInput* button)
     return button.pressed;
 }
 
-extern "C" void UnityInitJoysticks()
+UNITY_EXPORT extern "C" void UnityInitJoysticks()
 {
     if (!gJoysticksInited)
     {
@@ -412,8 +418,9 @@ extern "C" void UnityInitJoysticks()
 
         for (int i = 0; i < BTN_COUNT; i++)
         {
-            char buf[128];
-            sprintf(buf, "joystick button %d", i);
+            const int bufSize = 128;
+            char buf[bufSize];
+            snprintf(buf, bufSize, "joystick button %d", i);
 
             gAggregatedJoystickState[i].buttonCode = UnityStringToKey(buf);
             gAggregatedJoystickState[i].state = false;
@@ -446,8 +453,9 @@ static void HandleAggregatedJoystickState()
 
 static void SetJoystickButtonState(int joyNum, int buttonNum, int state)
 {
-    char buf[128];
-    sprintf(buf, "joystick %d button %d", joyNum, buttonNum);
+    const int bufSize = 128;
+    char buf[bufSize];
+    snprintf(buf, bufSize, "joystick %d button %d", joyNum, buttonNum);
     UnitySetKeyState(UnityStringToKey(buf), state);
     if (state && buttonNum < BTN_COUNT)
     {
@@ -501,10 +509,9 @@ static void ReportJoystickMicro(int idx, GCMicroGamepad* gamepad)
     GCControllerDirectionPad* dpad = [gamepad dpad];
     GCControllerDirectionPad* cardinalDpad;
 
-    if (@available(tvOS 14.5, *))
-    {
-        cardinalDpad = [[gamepad dpads] valueForKey: @"Cardinal Direction Pad"];
-    }
+#if PLATFORM_TVOS
+    cardinalDpad = [[gamepad dpads] valueForKey: GCInputDirectionalCardinalDpad];
+#endif
 
     UnitySetJoystickPosition(idx + 1, 0, GetAxisValue([dpad xAxis]));
     UnitySetJoystickPosition(idx + 1, 1, -GetAxisValue([dpad yAxis]));
@@ -515,23 +522,13 @@ static void ReportJoystickMicro(int idx, GCMicroGamepad* gamepad)
     ReportJoystickButton(idx, BTN_DPAD_LEFT, SelectPreferedButton([dpad left], [cardinalDpad left]));
 
     bool isDirectionalButtonPressed = false;
-    #if PLATFORM_TVOS
+#if PLATFORM_TVOS
     if (cardinalDpad)
     {
-        if (@available(tvOS 14.5, *))
-        {
-            isDirectionalButtonPressed = [cardinalDpad up].isPressed ||
-                [cardinalDpad right].isPressed ||
-                [cardinalDpad down].isPressed ||
-                [cardinalDpad left].isPressed;
-        }
-        else if (@available(tvOS 15, *))
-        {
-            ReportJoystickButton(idx, BTN_A, [[gamepad buttons] valueForKey: GCInputDirectionalCenterButton]);
-            isDirectionalButtonPressed = true;
-        }
+        ReportJoystickButton(idx, BTN_A, [[gamepad buttons] valueForKey: GCInputDirectionalCenterButton]);
+        isDirectionalButtonPressed = true;
     }
-    #endif
+#endif
 
     if (!isDirectionalButtonPressed)
         ReportJoystickButton(idx, BTN_A, [gamepad buttonA]);
@@ -697,7 +694,7 @@ void ReportFakeRemote(int idx)
 
 #endif
 
-extern "C" void UnityUpdateJoystickData()
+UNITY_EXPORT extern "C" void UnityUpdateJoystickData()
 {
     UnityInitJoysticks();
 
@@ -731,7 +728,6 @@ static NSString* FormatJoystickIdentifier(int idx, const char* typeString, const
 
 NSString* GetJoystickName(GCController* controller, int idx)
 {
-    NSString* joystickName;
     if (controller != nil)
     {
         // iOS 8 has bug, which is encountered when controller is being attached
@@ -744,29 +740,16 @@ NSString* GetJoystickName(GCController* controller, int idx)
             attached = (controller.attachedToDevice ? "wired" : "wireless");
 
         const char* typeString = [controller extendedGamepad] != nil ? "extended" : "basic";
-        joystickName = FormatJoystickIdentifier(idx, typeString, attached, [[controller vendorName] UTF8String]);
+        return FormatJoystickIdentifier(idx, typeString, attached, [[controller vendorName] UTF8String]);
     }
-    else
-    {
-#if UNITY_TVOS_SIMULATOR_FAKE_REMOTE
-        if (idx == [QueryControllerCollection() count])
-        {
-            joystickName = FormatJoystickIdentifier(idx, "basic", "wireless", "Unity");
-        }
-#endif
-        joystickName = @"unknown";
-    }
-    return joystickName;
+    
+    return @"unknown";
 }
 
-extern "C" NSArray* UnityGetJoystickNames()
+UNITY_EXPORT extern "C" NSArray* UnityGetJoystickNames()
 {
     NSArray* joysticks = QueryControllerCollection();
     int count = joysticks != nil ? (int)[joysticks count] : 0;
-
-    #if UNITY_TVOS_SIMULATOR_FAKE_REMOTE
-    count++;
-    #endif
 
     NSMutableArray * joystickNames = [NSMutableArray arrayWithCapacity: count];
 
@@ -774,14 +757,19 @@ extern "C" NSArray* UnityGetJoystickNames()
     {
         [joystickNames addObject: GetJoystickName(joysticks[i], i)];
     }
+    
+#if UNITY_TVOS_SIMULATOR_FAKE_REMOTE
+    [joystickNames addObject: FormatJoystickIdentifier(count, "basic", "wireless", "Unity")];
+#endif
+    
     return joystickNames;
 }
 
-extern "C" void UnityGetJoystickAxisName(int idx, int axis, char* buffer, int maxLen)
+UNITY_EXPORT extern "C" void UnityGetJoystickAxisName(int idx, int axis, char* buffer, int maxLen)
 {
 }
 
-extern "C" void UnityGetNiceKeyname(int key, char* buffer, int maxLen)
+UNITY_EXPORT extern "C" void UnityGetNiceKeyname(int key, char* buffer, int maxLen)
 {
 }
 
@@ -847,7 +835,7 @@ CLLocationManager* LocationServiceInfo::GetLocationManager()
 
 #endif
 
-bool LocationService::IsServiceEnabledByUser()
+UNITY_EXPORT bool LocationService::IsServiceEnabledByUser()
 {
 #if UNITY_USES_LOCATION
     return [CLLocationManager locationServicesEnabled];
@@ -856,14 +844,14 @@ bool LocationService::IsServiceEnabledByUser()
 #endif
 }
 
-void LocationService::SetDesiredAccuracy(float val)
+UNITY_EXPORT void LocationService::SetDesiredAccuracy(float val)
 {
 #if UNITY_USES_LOCATION
     gLocationServiceStatus.desiredAccuracy = val;
 #endif
 }
 
-float LocationService::GetDesiredAccuracy()
+UNITY_EXPORT float LocationService::GetDesiredAccuracy()
 {
 #if UNITY_USES_LOCATION
     return gLocationServiceStatus.desiredAccuracy;
@@ -872,14 +860,14 @@ float LocationService::GetDesiredAccuracy()
 #endif
 }
 
-void LocationService::SetDistanceFilter(float val)
+UNITY_EXPORT void LocationService::SetDistanceFilter(float val)
 {
 #if UNITY_USES_LOCATION
     gLocationServiceStatus.distanceFilter = val;
 #endif
 }
 
-float LocationService::GetDistanceFilter()
+UNITY_EXPORT float LocationService::GetDistanceFilter()
 {
 #if UNITY_USES_LOCATION
     return gLocationServiceStatus.distanceFilter;
@@ -888,7 +876,7 @@ float LocationService::GetDistanceFilter()
 #endif
 }
 
-void LocationService::StartUpdatingLocation()
+UNITY_EXPORT void LocationService::StartUpdatingLocation()
 {
 #if UNITY_USES_LOCATION
     if (gLocationServiceStatus.locationStatus != kLocationServiceRunning)
@@ -911,7 +899,7 @@ void LocationService::StartUpdatingLocation()
 #endif
 }
 
-void LocationService::StopUpdatingLocation()
+UNITY_EXPORT void LocationService::StopUpdatingLocation()
 {
 #if UNITY_USES_LOCATION
     if (gLocationServiceStatus.locationStatus != kLocationServiceStopped)
@@ -922,7 +910,7 @@ void LocationService::StopUpdatingLocation()
 #endif
 }
 
-void LocationService::SetHeadingUpdatesEnabled(bool enabled)
+UNITY_EXPORT void LocationService::SetHeadingUpdatesEnabled(bool enabled)
 {
 #if PLATFORM_IOS && UNITY_USES_LOCATION
     if (enabled)
@@ -947,7 +935,7 @@ void LocationService::SetHeadingUpdatesEnabled(bool enabled)
 #endif
 }
 
-bool LocationService::IsHeadingUpdatesEnabled()
+UNITY_EXPORT bool LocationService::IsHeadingUpdatesEnabled()
 {
 #if UNITY_USES_LOCATION
     return (gLocationServiceStatus.headingStatus == kLocationServiceRunning);
@@ -956,7 +944,7 @@ bool LocationService::IsHeadingUpdatesEnabled()
 #endif
 }
 
-LocationServiceStatus LocationService::GetLocationStatus()
+UNITY_EXPORT LocationServiceStatus LocationService::GetLocationStatus()
 {
 #if UNITY_USES_LOCATION
     return (LocationServiceStatus)gLocationServiceStatus.locationStatus;
@@ -965,7 +953,7 @@ LocationServiceStatus LocationService::GetLocationStatus()
 #endif
 }
 
-LocationServiceStatus LocationService::GetHeadingStatus()
+UNITY_EXPORT LocationServiceStatus LocationService::GetHeadingStatus()
 {
 #if UNITY_USES_LOCATION
     return (LocationServiceStatus)gLocationServiceStatus.headingStatus;
@@ -974,7 +962,7 @@ LocationServiceStatus LocationService::GetHeadingStatus()
 #endif
 }
 
-bool LocationService::IsHeadingAvailable()
+UNITY_EXPORT bool LocationService::IsHeadingAvailable()
 {
 #if PLATFORM_IOS && UNITY_USES_LOCATION
     return [CLLocationManager headingAvailable];
@@ -1042,12 +1030,12 @@ GCMicroGamepad* QueryMicroController()
     return nil;
 }
 
-extern "C" int UnityGetAppleTVRemoteTouchesEnabled()
+UNITY_EXPORT extern "C" int UnityGetAppleTVRemoteTouchesEnabled()
 {
     return gTVRemoteTouchesEnabled;
 }
 
-extern "C" void UnitySetAppleTVRemoteTouchesEnabled(int val)
+UNITY_EXPORT extern "C" void UnitySetAppleTVRemoteTouchesEnabled(int val)
 {
     gTVRemoteTouchesEnabled = val;
 }
@@ -1057,7 +1045,7 @@ extern "C" void UnitySetAppleTVRemoteTouchesEnabled(int val)
     Lowest bit caches the value of .controllerUserInteractionEnabled.
     Second lowest bit is set if .controllerUserInteractionEnabled is temporarily changed for internal purposes.
 */
-extern "C" int UnityGetAppleTVRemoteAllowExitToMenu()
+UNITY_EXPORT extern "C" int UnityGetAppleTVRemoteAllowExitToMenu()
 {
     if (gTVControllerUserInteractionEnabled & 2)
         return gTVControllerUserInteractionEnabled & 1;
@@ -1068,7 +1056,7 @@ extern "C" int UnityGetAppleTVRemoteAllowExitToMenu()
     Same as getter above, except that second lowest bit here indicates fake setting,
     meaning we set the value on controller, but cache the true value so getter report no changes.
 */
-extern "C" void UnitySetAppleTVRemoteAllowExitToMenu(int val)
+UNITY_EXPORT extern "C" void UnitySetAppleTVRemoteAllowExitToMenu(int val)
 {
     bool newVal = val & 1;
     if (val & 2)
@@ -1084,7 +1072,7 @@ extern "C" void UnitySetAppleTVRemoteAllowExitToMenu(int val)
     ((GCEventViewController*)UnityGetGLViewController()).controllerUserInteractionEnabled = newVal;
 }
 
-extern "C" int UnityGetAppleTVRemoteAllowRotation()
+UNITY_EXPORT extern "C" int UnityGetAppleTVRemoteAllowRotation()
 {
     GCMicroGamepad* controller = QueryMicroController();
     if (controller != nil)
@@ -1093,7 +1081,7 @@ extern "C" int UnityGetAppleTVRemoteAllowRotation()
         return false;
 }
 
-extern "C" void UnitySetAppleTVRemoteAllowRotation(int val)
+UNITY_EXPORT extern "C" void UnitySetAppleTVRemoteAllowRotation(int val)
 {
     GCMicroGamepad* controller = QueryMicroController();
     if (controller != nil)
@@ -1102,7 +1090,7 @@ extern "C" void UnitySetAppleTVRemoteAllowRotation(int val)
         gTVRemoteAllowRotationInitialValue = val;
 }
 
-extern "C" int UnityGetAppleTVRemoteReportAbsoluteDpadValues()
+UNITY_EXPORT extern "C" int UnityGetAppleTVRemoteReportAbsoluteDpadValues()
 {
     GCMicroGamepad* controller = QueryMicroController();
     if (controller != nil)
@@ -1111,7 +1099,7 @@ extern "C" int UnityGetAppleTVRemoteReportAbsoluteDpadValues()
         return false;
 }
 
-extern "C" void UnitySetAppleTVRemoteReportAbsoluteDpadValues(int val)
+UNITY_EXPORT extern "C" void UnitySetAppleTVRemoteReportAbsoluteDpadValues(int val)
 {
     NSArray* list = QueryControllerCollection();
     for (GCController* controller in list)

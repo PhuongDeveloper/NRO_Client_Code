@@ -8,6 +8,7 @@
 #import <QuartzCore/CADisplayLink.h>
 #import <Availability.h>
 #import <AVFoundation/AVFoundation.h>
+#import <GameController/GameController.h>
 
 #include <mach/mach_time.h>
 
@@ -41,17 +42,14 @@ UnityAppController* GetAppController()
 }
 
 // we keep old bools around to support "old" code that might have used them
-bool _ios81orNewer = false, _ios82orNewer = false, _ios83orNewer = false, _ios90orNewer = false, _ios91orNewer = false;
-bool _ios100orNewer = false, _ios101orNewer = false, _ios102orNewer = false, _ios103orNewer = false;
-bool _ios110orNewer = false, _ios111orNewer = false, _ios112orNewer = false;
-bool _ios130orNewer = false, _ios140orNewer = false, _ios150orNewer = false, _ios160orNewer = false;
+bool _ios81orNewer = true, _ios82orNewer = true, _ios83orNewer = true, _ios90orNewer = true, _ios91orNewer = true;
+bool _ios100orNewer = true, _ios101orNewer = true, _ios102orNewer = true, _ios103orNewer = true;
+bool _ios110orNewer = true, _ios111orNewer = true, _ios112orNewer = true;
+bool _ios130orNewer = true, _ios140orNewer = false, _ios150orNewer = false, _ios160orNewer = false;
+bool _unityEngineLoaded = false, _unityEngineInitialized = false, _renderingInited = false, _unityAppReady = false;
 
-// was core of Unity loaded (non-graphics part prior to loading first scene)
-bool _unityEngineInitialized = false;
-// was unity rendering already inited: we should not touch rendering while this is false
-bool    _renderingInited        = false;
-// was unity inited: we should not touch unity api while this is false
-bool    _unityAppReady          = false;
+static UInt32 _iosMajorVersion = 0;
+static UInt32 _iosMinorVersion = 0;
 // see if there's a need to do internal player pause/resume handling
 //
 // Typically the trampoline code should manage this internally, but
@@ -60,8 +58,6 @@ bool    _unityAppReady          = false;
 // overriding externally managed player pause/resume handling by
 // caching the state
 bool    _wasPausedExternal      = false;
-// should we skip present on next draw: used in corner cases (like rotation) to fill both draw-buffers with some content
-bool    _skipPresent            = false;
 // was app "resigned active": some operations do not make sense while app is in background
 bool    _didResignActive        = false;
 
@@ -71,13 +67,22 @@ NSInteger _forceInterfaceOrientationMask = 0;
 #endif
 
 @implementation UnityAppController
+{
+    UnityEngineLoadState _engineLoadState;
+}
 
-@synthesize unityView               = _unityView;
-@synthesize unityDisplayLink        = _displayLink;
+@synthesize unityView                   = _unityView;
+@synthesize unityDisplayLink            = _displayLink;
+@synthesize unityUsesMetalDisplayLink   = _usesMetalDisplayLink;
+
+#if UNITY_USES_METAL_DISPLAY_LINK
+    @synthesize unityMetalDisplayLink   = _metalDisplayLink;
+#endif
 
 @synthesize rootView                = _rootView;
 @synthesize rootViewController      = _rootController;
 @synthesize mainDisplay             = _mainDisplay;
+@synthesize engineLoadState         = _engineLoadState;
 @synthesize renderDelegate          = _renderDelegate;
 @synthesize quitHandler             = _quitHandler;
 
@@ -105,6 +110,11 @@ NSInteger _forceInterfaceOrientationMask = 0;
     return self;
 }
 
+- (bool)didResignActive
+{
+    return _didResignActive;
+}
+
 - (void)setWindow:(id)object        {}
 - (UIWindow*)window                 { return _window; }
 
@@ -112,21 +122,56 @@ NSInteger _forceInterfaceOrientationMask = 0;
 - (void)shouldAttachRenderDelegate  {}
 - (void)preStartUnity               {}
 
+- (BOOL)shouldUseMetalDisplayLink
+{
+#if UNITY_USES_METAL_DISPLAY_LINK
+    if (@available(iOS 17.0, tvOS 17.0, *))
+    {
+    #if PLATFORM_VISIONOS
+        // not supported for now (but will be at some point)
+        return NO;
+    #else
+        // We get GPU Timeout errors when enabling the CAMetalDisplayLink.
+        // Therefore it is disabled until a fix is found.
+        return NO;
+    #endif
+    }
+#endif
+
+    return NO;
+}
 
 - (void)startUnity:(UIApplication*)application
 {
-    NSAssert(_unityAppReady == NO, @"[UnityAppController startUnity:] called after Unity has been initialized");
+    NSAssert(self.engineLoadState < kUnityEngineLoadStateAppReady, @"[UnityAppController startUnity:] called after Unity has been initialized");
 
     UnityInitApplicationGraphics();
 
+#if !PLATFORM_VISIONOS
     // we make sure that first level gets correct display list and orientation
-    [[DisplayManager Instance] updateDisplayListCacheInUnity];
+    [[DisplayManager Instance] prepareForFirstScene];
+#endif
+
+#if PLATFORM_VISIONOS && UNITY_HAS_VISIONOSSDK_2_0
+    // https://developer.apple.com/documentation/visionos-release-notes/visionos-2-release-notes
+    // Game controllers can be used to interact with system UI on visionOS.
+    // Apps built with the visionOS 2 SDK that use the Game Controller
+    // framework for input in one or more of their views must add an instance
+    // of GCEventInteraction to those views (UIKit) or apply a
+    // handlesGameControllerEvents(matching: .gamepad) modifier to those views (SwiftUI).
+    GCEventInteraction* gamepadInteraction = [[GCEventInteraction alloc] init];
+    gamepadInteraction.handledEventTypes = GCUIEventTypeGamepad;
+    NSMutableArray* interactions = [NSMutableArray array];
+    [interactions addObject:gamepadInteraction];
+    [interactions addObjectsFromArray:_rootView.interactions];
+    _rootView.interactions = interactions;
+#endif
 
     UnityLoadApplication();
     Profiler_InitProfiler();
 
-    [self showGameUI];
     [self createDisplayLink];
+    [self showGameUI];
 
     UnitySetPlayerFocus(1);
 
@@ -148,31 +193,51 @@ NSInteger _forceInterfaceOrientationMask = 0;
 #endif
 }
 
-extern "C" void UnityDestroyDisplayLink()
+UNITY_EXPORT extern "C" void UnityDestroyDisplayLink()
 {
     [GetAppController() destroyDisplayLink];
 }
 
-extern "C" void UnityRequestQuit()
+UNITY_EXPORT extern "C" void UnityEngineDidQuit(unsigned level)
 {
-    _didResignActive = true;
-    if (GetAppController().quitHandler)
-        GetAppController().quitHandler();
-    else
-        exit(0);
+    enum class UnityEngineQuitLevel : unsigned
+    {
+        Unload = 1,
+        AppQuit = 2,
+    };
+
+    if (level > static_cast<unsigned>(UnityEngineQuitLevel::AppQuit))
+        return;
+
+    switch (static_cast<UnityEngineQuitLevel>(level))
+    {
+        case UnityEngineQuitLevel::Unload:
+            [GetAppController() downgradeEngineLoadState: kUnityEngineLoadStateRenderingInitialized];
+            [NSNotificationCenter.defaultCenter postNotificationName: kUnityDidUnload object: nil];
+            break;
+        case UnityEngineQuitLevel::AppQuit:
+            [GetAppController() downgradeEngineLoadState: kUnityEngineLoadStateNotStarted];
+            [NSNotificationCenter.defaultCenter postNotificationName: kUnityDidQuit object: nil];
+            _didResignActive = true;
+            if (GetAppController().quitHandler)
+                GetAppController().quitHandler();
+            else
+                exit(0);
+            break;
+    }
 }
 
 extern void SensorsCleanup();
-extern "C" void UnityCleanupTrampoline()
+UNITY_EXPORT extern "C" void UnityCleanupTrampoline()
 {
-    // Unity view and viewController will not necessary be destroyed right after this function execution.
-    // We need to ensure that these objects will not receive any callbacks from system during that time.
-    [_UnityAppController window].rootViewController = nil;
-    [[_UnityAppController unityView] removeFromSuperview];
-
     // Prevent multiple cleanups
     if (_UnityAppController == nil)
         return;
+
+    // Unity view and viewController will not necessary be destroyed right after this function execution.
+    // We need to ensure that these objects will not receive any callbacks from system during that time.
+    _UnityAppController.window.rootViewController = nil;
+    [_UnityAppController.unityView removeFromSuperview];
 
     [KeyboardDelegate Destroy];
 
@@ -180,9 +245,21 @@ extern "C" void UnityCleanupTrampoline()
 
     Profiler_UninitProfiler();
 
+#if !PLATFORM_VISIONOS
     [DisplayManager Destroy];
+#endif
 
-    UnityDestroyDisplayLink();
+    // there are two ways we can end up here:
+    // 1. normal shutdown sequence: let's be fair, in this case ios will just (cleanly) kills everything so we don't care that much
+    // 2. unity unload (UaaL): in this case, run loop continues to exist.
+    //      Alas on some device/ios-versions, if we invalidate/destroy (metal) display link here, it gets a crash later on
+    //      referencing null pointer in displaylink dispatcher
+    // so we take the safest route: we just pause display link here. Note that we *never* run unity again after this point
+    _UnityAppController.unityDisplayLink.paused = YES;
+#if UNITY_USES_METAL_DISPLAY_LINK
+    if (@available(iOS 17.0, tvOS 17.0, *))
+        _UnityAppController.unityMetalDisplayLink.paused = YES;
+#endif
 
     _UnityAppController = nil;
 }
@@ -197,7 +274,7 @@ extern "C" void UnityCleanupTrampoline()
 
     // During splash screen show phase no forced orientations should be allowed.
     // This will prevent unwanted rotation while splash screen is on and application is not yet ready to present (Ex. Fogbugz cases: 1190428, 1269547).
-    if (!_unityAppReady)
+    if (self.engineLoadState < kUnityEngineLoadStateAppReady)
         return [_rootController supportedInterfaceOrientations];
 
     // Some presentation controllers (e.g. UIImagePickerController) require portrait orientation and will throw exception if it is not supported.
@@ -275,7 +352,37 @@ extern "C" void UnityCleanupTrampoline()
 - (BOOL)application:(UIApplication*)application willFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     AppController_SendNotificationWithArg(kUnityWillFinishLaunchingWithOptions, launchOptions);
+    NSURL* url = [self extractURLFromLaunchOptions: launchOptions];
+    if (url != nil)
+    {
+        [self initUnityApplicationNoGraphics];
+        UnitySetAbsoluteURL(url.absoluteString.UTF8String);
+    }
     return YES;
+}
+
+// Helper method to extract URL from launch options
+- (NSURL*)extractURLFromLaunchOptions:(NSDictionary*)launchOptions
+{
+    // Check for the direct launch URL
+    NSURL* url = launchOptions[UIApplicationLaunchOptionsURLKey];
+    if (url != nil)
+    {
+        return url;
+    }
+
+    // Check for the user activity dictionary and URL from user activity
+    NSUserActivity* userActivity = launchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey][@"UIApplicationLaunchOptionsUserActivityKey"];
+    if (userActivity != nil && [userActivity.activityType isEqualToString: NSUserActivityTypeBrowsingWeb])
+    {
+        url = userActivity.webpageURL;
+        if (url != nil)
+        {
+            return url;
+        }
+    }
+
+    return nil;
 }
 
 - (UIWindowScene*)pickStartupWindowScene:(NSSet<UIScene*>*)scenes
@@ -307,58 +414,67 @@ extern "C" void UnityCleanupTrampoline()
 {
     ::printf("-> applicationDidFinishLaunching()\n");
 
-    // send notfications
-#if !PLATFORM_TVOS
+    // make sure orientation notifications are sent
+#if !PLATFORM_TVOS && !PLATFORM_VISIONOS
     if ([UIDevice currentDevice].generatesDeviceOrientationNotifications == NO)
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 #endif
 
-    if ([self isBackgroundLaunchOptions: launchOptions])
+    // if application is in background, don't initialize Unity
+    // this happens if app uses location fence, notifications with content/actions, ...
+    // initUnityWithApplication: initializes rendering, possibly loads scene and calls Start(), none meant for background
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground)
         return YES;
 
     [self initUnityWithApplication: application];
     return YES;
 }
 
-- (BOOL)isBackgroundLaunchOptions:(NSDictionary*)launchOptions
+- (void)initUnityApplicationNoGraphics
 {
-    if (launchOptions.count == 0)
-        return NO;
-
-    // launch due to location event, the app likely will stay in background
-    BOOL locationLaunch = [[launchOptions valueForKey: UIApplicationLaunchOptionsLocationKey] boolValue];
-    if (locationLaunch)
-        return YES;
-    return NO;
+    if ([self advanceEngineLoadState: kUnityEngineLoadStateMinimal])
+        UnityInitApplicationNoGraphics(UnityDataBundleDir());
 }
 
 - (void)initUnityWithApplication:(UIApplication*)application
 {
-    if (_unityEngineInitialized)
+    if (self.engineLoadState >= kUnityEngineLoadStateCoreInitialized)
         return;
-    _unityEngineInitialized = true;
-
     // basic unity init
-    UnityInitApplicationNoGraphics(UnityDataBundleDir());
+    [self initUnityApplicationNoGraphics];
+    // initUnityApplicationNoGraphics progresses the state & does initialization if necessary
+    // so the next state bump has to be after it to not skip the init part
+    [self advanceEngineLoadState: kUnityEngineLoadStateCoreInitialized];
 
+    // we want to initialize DisplayManager first, since unity view might need it on creation
+    [DisplayManager Initialize];
+
+#if !PLATFORM_VISIONOS
+    // init main window
+    _window = [[UIWindow alloc] initWithWindowScene: [self pickStartupWindowScene: application.connectedScenes]];
+#else
+    _window = [[UIWindow alloc] init];
+#endif
+
+    // init unity view
     [self selectRenderingAPI];
     [UnityRenderingView InitializeForAPI: self.renderingAPI];
-
-    _window = [[UIWindow alloc] initWithWindowScene: [self pickStartupWindowScene: application.connectedScenes]];
     _unityView = [self createUnityView];
 
-    [DisplayManager Initialize];
+    // connect main display with window and unity view
     _mainDisplay = [DisplayManager Instance].mainDisplay;
     [_mainDisplay createWithWindow: _window andView: _unityView];
 
+    // create UI hierarchy, and proceed with unity graphics init
     [self createUI];
     [self preStartUnity];
 
     // if you wont use keyboard you may comment it out at save some memory
     [KeyboardDelegate Initialize];
 
-#if UNITY_DEVELOPER_BUILD
+#if UNITY_DEVELOPER_BUILD && !PLATFORM_VISIONOS
     // Causes a black screen after splash screen, but would deadlock if waiting for manged debugger otherwise
+    // also causes issues on visionOS, but we don't have wait for debugger dialog there
     [self performSelector: @selector(startUnity:) withObject: application afterDelay: 0];
 #else
     [self startUnity: application];
@@ -376,6 +492,14 @@ extern "C" void UnityCleanupTrampoline()
 - (void)applicationDidEnterBackground:(UIApplication*)application
 {
     ::printf("-> applicationDidEnterBackground()\n");
+
+#if PLATFORM_VISIONOS
+    if (UnityIsFocused())
+        UnitySetPlayerFocus(0);
+
+    if (!UnityShouldRunInBackground() && !UnityIsPaused())
+        UnityPause(1);
+#endif
 }
 
 - (void)applicationWillEnterForeground:(UIApplication*)application
@@ -383,8 +507,16 @@ extern "C" void UnityCleanupTrampoline()
     ::printf("-> applicationWillEnterForeground()\n");
 
     // applicationWillEnterForeground: might sometimes arrive *before* actually initing unity (e.g. locking on startup)
-    if (_unityAppReady)
+    if (self.engineLoadState >= kUnityEngineLoadStateAppReady)
     {
+#if PLATFORM_VISIONOS
+        if (!UnityIsFocused())
+            UnitySetPlayerFocus(1);
+
+        if (UnityIsPaused() && _wasPausedExternal == false)
+            UnityPause(0);
+#endif
+
         // if we were showing video before going to background - the view size may be changed while we are in background
         [GetAppController().unityView recreateRenderingSurfaceIfNeeded];
     }
@@ -396,9 +528,10 @@ extern "C" void UnityCleanupTrampoline()
 
     [self removeSnapshotViewController];
 
-    if (_unityAppReady)
+    if (self.engineLoadState >= kUnityEngineLoadStateAppReady)
     {
-        if (UnityIsPaused() && _wasPausedExternal == false)
+        // Pause/unpause is handled by repaint if CompositorLayer is in use
+        if (self.usingCompositorLayer == NO && UnityIsPaused() && _wasPausedExternal == false)
         {
             UnityWillResume();
             UnityPause(0);
@@ -410,7 +543,10 @@ extern "C" void UnityCleanupTrampoline()
         }
         // need to do this with delay because FMOD restarts audio in AVAudioSessionInterruptionNotification handler
         [self performSelector: @selector(updateUnityAudioOutput) withObject: nil afterDelay: 0.1];
-        UnitySetPlayerFocus(1);
+
+        // In case we got to applicationWillEnterForeground before Unity was initialized (or any other edge case)
+        if (!UnityIsFocused())
+            UnitySetPlayerFocus(1);
     }
     else
     {
@@ -472,36 +608,54 @@ extern "C" void UnityCleanupTrampoline()
 {
     ::printf("-> applicationWillResignActive()\n");
 
-    if (_unityAppReady)
+    if (self.engineLoadState >= kUnityEngineLoadStateAppReady)
     {
-        UnitySetPlayerFocus(0);
+        // This should be covered by applicationDidEnterBackground but double-check just in case we missed it
+        if (UnityIsFocused())
+            UnitySetPlayerFocus(0);
 
         // signal unity that the frame rendering have ended
         // as we will not get the callback from the display link current frame
         UnityDisplayLinkCallback(0);
 
         _wasPausedExternal = UnityIsPaused();
-        if (_wasPausedExternal == false)
+        // Pause/unpause is handled by repaint if CompositorLayer is in use
+        if (self.usingCompositorLayer == NO && _wasPausedExternal == false)
         {
             // Pause Unity only if we don't need special background processing
             // otherwise batched player loop can be called to run user scripts.
             if (!UnityGetUseCustomAppBackgroundBehavior())
             {
 #if UNITY_SNAPSHOT_VIEW_ON_APPLICATION_PAUSE
-                // Force player to do one more frame, so scripts get a chance to render custom screen for minimized app in task manager.
-                // NB: UnityWillPause will schedule OnApplicationPause message, which will be sent normally inside repaint (unity player loop)
-                // NB: We will actually pause after the loop (when calling UnityPause).
-                UnityWillPause();
-                [self repaint];
-                UnityWaitForFrame();
-                [self addSnapshotViewController];
+                // we cannot repaint without drawable given to us by CAMetalDisplayLink
+                // TODO: there should be a way to handle this somehow
+                if(!self.unityUsesMetalDisplayLink)
+                {
+                    // Force player to do one more frame, so scripts get a chance to render custom screen for minimized app in task manager.
+                    // NB: UnityWillPause will schedule OnApplicationPause message, which will be sent normally inside repaint (unity player loop)
+                    // NB: We will actually pause after the loop (when calling UnityPause).
+                    UnityWillPause();
+                    [self repaint];
+                    [self addSnapshotViewController];
+                }
 #endif
+
+#if PLATFORM_VISIONOS
+                if (!UnityShouldRunInBackground())
+                    UnityPause(1);
+#else
                 UnityPause(1);
+#endif
             }
         }
     }
 
     _didResignActive = true;
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication*)application
+{
+    UnityLowMemory();
 }
 
 - (void)applicationWillTerminate:(UIApplication*)application
@@ -510,8 +664,17 @@ extern "C" void UnityCleanupTrampoline()
 
     // Only clean up if Unity has finished initializing, else the clean up process will crash,
     // this happens if the app is force closed immediately after opening it.
-    if (_unityAppReady)
+    if (self.engineLoadState >= kUnityEngineLoadStateAppReady)
     {
+        // make sure that we are in a "unity cannot be touched" state
+        // if there was some complex UI shown when terminating, we can get extra UI calls from iOS after applicationWillTerminate:
+        // and we want to make sure we never do anything touching unity runtime at this point
+        _engineLoadState = kUnityEngineLoadStateMinimal;
+
+        // keep "old" way of tracking state synced
+        _unityAppReady = _renderingInited = _unityEngineInitialized = false;
+        _didResignActive = true;
+
         UnityCleanup();
         UnityCleanupTrampoline();
     }
@@ -521,6 +684,57 @@ extern "C" void UnityCleanupTrampoline()
 {
     NSDictionary* arg = @{identifier: completionHandler};
     AppController_SendNotificationWithArg(kUnityHandleEventsForBackgroundURLSession, arg);
+}
+
+// advance the load state to newState, if it's not there or higher yet
+// returns YES if state was less than newState
+// returns NO if previous state was already the requested one or even higher than that
+- (BOOL)advanceEngineLoadState:(UnityEngineLoadState)newState
+{
+    if (_engineLoadState >= newState)
+        return NO;
+    _engineLoadState = newState;
+
+    // Old individual variables; fall-through because higher level also has to set all lower ones
+    switch (_engineLoadState)
+    {
+        case kUnityEngineLoadStateAppReady:
+            _unityAppReady = true;
+        case kUnityEngineLoadStateRenderingInitialized:
+            _renderingInited = true;
+        case kUnityEngineLoadStateCoreInitialized:
+            _unityEngineInitialized = true;
+        case kUnityEngineLoadStateMinimal:
+            _unityEngineLoaded = true;
+        case kUnityEngineLoadStateNotStarted:
+            break;
+    }
+
+    return YES;
+}
+
+// the opposite of advanceEngineLoadState:
+- (BOOL)downgradeEngineLoadState:(UnityEngineLoadState)newState
+{
+    if (newState >= _engineLoadState)
+        return NO;
+    _engineLoadState = newState;
+
+    switch (_engineLoadState)
+    {
+        case kUnityEngineLoadStateNotStarted:
+            _unityEngineLoaded = false;
+        case kUnityEngineLoadStateMinimal:
+            _unityEngineInitialized = false;
+        case kUnityEngineLoadStateCoreInitialized:
+            _renderingInited = false;
+        case kUnityEngineLoadStateRenderingInitialized:
+            _unityAppReady = false;
+        case kUnityEngineLoadStateAppReady:
+            break;
+    }
+
+    return YES;
 }
 
 @end
@@ -541,22 +755,13 @@ void AppController_SendUnityViewControllerNotification(NSString* name)
     [[NSNotificationCenter defaultCenter] postNotificationName: name object: UnityGetGLViewController()];
 }
 
-extern "C" UIWindow*            UnityGetMainWindow()
-{
-    return GetAppController().mainDisplay.window;
-}
+UNITY_EXPORT extern "C" UIWindow*            UnityGetMainWindow()        { return GetAppController().mainDisplay.window; }
+UNITY_EXPORT extern "C" UIViewController*    UnityGetGLViewController()  { return GetAppController().rootViewController; }
+UNITY_EXPORT extern "C" UnityView*           UnityGetUnityView()         { return GetAppController().unityView; }
+UNITY_EXPORT extern "C" UIView*              UnityGetGLView()            { return UnityGetUnityView(); }
 
-extern "C" UIViewController*    UnityGetGLViewController()
-{
-    return GetAppController().rootViewController;
-}
 
-extern "C" UIView*              UnityGetGLView()
-{
-    return GetAppController().unityView;
-}
-
-extern "C" ScreenOrientation    UnityCurrentOrientation()   { return GetAppController().unityView.contentOrientation; }
+UNITY_EXPORT extern "C" ScreenOrientation    UnityCurrentOrientation()   { return GetAppController().unityView.contentOrientation; }
 
 
 bool LogToNSLogHandler(LogType logType, const char* log, va_list list)
@@ -597,8 +802,10 @@ static bool isDebuggerAttachedToConsole(void)
     assert(junk == 0);
 
     // We're being debugged if the P_TRACED flag is set.
-
-    return ((info.kp_proc.p_flag & P_TRACED) != 0);
+    // But if we are starting app on device (and make debugger wait and attach after start)
+    //   it will NOT connect stout (only stderr, used by nslog)
+    // Hence we also check that stoud is rerouted
+    return ((info.kp_proc.p_flag & P_TRACED) != 0) && isatty(STDOUT_FILENO);
 }
 
 void UnityInitTrampoline()
@@ -606,18 +813,23 @@ void UnityInitTrampoline()
     InitCrashHandling();
 
     NSString* version = [[UIDevice currentDevice] systemVersion];
+    const char* versionStr = version.UTF8String;
+    char* dot = NULL;
+    UInt32 major = (UInt32)std::strtoul(versionStr, &dot, 10);
+    UInt32 minor = 0;
+    if (major > 0 && *dot == '.')
+        minor = (UInt32)std::strtoul(++dot, NULL, 10);
+    _iosMajorVersion = major;
+    _iosMinorVersion = minor;
+
 #define CHECK_VER(s) [version compare: s options: NSNumericSearch] != NSOrderedAscending
-    _ios81orNewer  = CHECK_VER(@"8.1");  _ios82orNewer  = CHECK_VER(@"8.2");  _ios83orNewer  = CHECK_VER(@"8.3");
-    _ios90orNewer  = CHECK_VER(@"9.0");  _ios91orNewer  = CHECK_VER(@"9.1");
-    _ios100orNewer = CHECK_VER(@"10.0"); _ios101orNewer = CHECK_VER(@"10.1"); _ios102orNewer = CHECK_VER(@"10.2"); _ios103orNewer = CHECK_VER(@"10.3");
-    _ios110orNewer = CHECK_VER(@"11.0"); _ios111orNewer = CHECK_VER(@"11.1"); _ios112orNewer = CHECK_VER(@"11.2");
-    _ios130orNewer  = CHECK_VER(@"13.0"); _ios140orNewer = CHECK_VER(@"14.0"); _ios150orNewer = CHECK_VER(@"15.0");
+    _ios140orNewer = CHECK_VER(@"14.0"); _ios150orNewer = CHECK_VER(@"15.0");
     _ios160orNewer = CHECK_VER(@"16.0");
 #undef CHECK_VER
 
     AddNewAPIImplIfNeeded();
 
-#if !TARGET_IPHONE_SIMULATOR
+#if !TARGET_OS_SIMULATOR
     // Use NSLog logging if a debugger is not attached, otherwise we write to stdout.
     if (!isDebuggerAttachedToConsole())
         UnitySetLogEntryHandler(LogToNSLogHandler);
@@ -639,11 +851,20 @@ extern "C" bool UnityiOS130orNewer() { return _ios130orNewer; }
 extern "C" bool UnityiOS140orNewer() { return _ios140orNewer; }
 extern "C" bool UnityiOS150orNewer() { return _ios150orNewer; }
 extern "C" bool UnityiOS160orNewer() { return _ios160orNewer; }
+UNITY_EXPORT extern "C" bool UnityiOSVersionIsAtLeast(uint32_t major, uint32_t minor)
+{
+    if (major < _iosMajorVersion)
+        return true;
+    if (major > _iosMajorVersion)
+        return false;
+    return minor <= _iosMinorVersion;
+}
 
 // sometimes apple adds new api with obvious fallback on older ios.
 // in that case we simply add these functions ourselves to simplify code
 static void AddNewAPIImplIfNeeded()
 {
+#if !PLATFORM_VISIONOS
     if (![[UIScreen class] instancesRespondToSelector: @selector(maximumFramesPerSecond)])
     {
         IMP UIScreen_MaximumFramesPerSecond_IMP = imp_implementationWithBlock(^NSInteger(id _self) {
@@ -659,4 +880,5 @@ static void AddNewAPIImplIfNeeded()
         });
         class_replaceMethod([UIView class], @selector(safeAreaInsets), UIView_SafeAreaInsets_IMP, UIView_safeAreaInsets_Enc);
     }
+#endif
 }

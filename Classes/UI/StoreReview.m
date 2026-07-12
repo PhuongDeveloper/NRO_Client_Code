@@ -1,11 +1,11 @@
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
 
 // This definition is here only for compiler to know about selector requestReview
 @interface UnityStoreReviewController
 + requestReview;
 @end
 
-bool UnityRequestStoreReview()
+UNITY_EXPORT bool UnityRequestStoreReview()
 {
     Class classSKStoreReviewController = NSClassFromString(@"SKStoreReviewController");
     if (!classSKStoreReviewController || ![classSKStoreReviewController respondsToSelector: @selector(requestReview)])
@@ -15,4 +15,4 @@ bool UnityRequestStoreReview()
     return true;
 }
 
-#endif
+#endif // PLATFORM_IOS || PLATFORM_VISIONOS

@@ -30,8 +30,9 @@ KeyboardShowParam;
 - (void)textInputLostFocus;
 - (void)textViewDidChange:(UITextView *)textView;
 - (void)becomeFirstResponder;
+- (void)layoutSubviews;
 
-#if PLATFORM_IOS
+#if PLATFORM_IOS || PLATFORM_VISIONOS
 - (void)textInputModeDidChange:(NSNotification*)notification;
 - (void)keyboardWillShow:(NSNotification*)notification;
 - (void)keyboardDidShow:(NSNotification*)notification;
@@ -62,6 +63,7 @@ KeyboardShowParam;
 - (NSString*)getText;
 - (void)setText:(NSString*)newText;
 - (BOOL)hasExternalKeyboard;
+- (UITextField*)getTextField;
 
 @property (readonly, nonatomic, getter = queryArea)               CGRect          area;
 @property (readonly, nonatomic)                                 BOOL            active;

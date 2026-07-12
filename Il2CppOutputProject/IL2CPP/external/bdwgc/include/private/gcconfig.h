@@ -104,29 +104,6 @@ EXTERN_C_BEGIN
 #   define LINUX
 # endif
 
-/* And one for QNX: */
-# if defined(__QNX__)
-#    define QNX_STACKBOTTOM 1
-#    if defined(__aarch64__)
-#        define AARCH64
-#    elif defined(__arm__) || defined(__ARM__)
-#        define ARM32
-#    elif defined(__amd64) || defined(__X86_64__)
-#        define X86_64
-#    elif defined(__X86__)
-#        define I386
-#    else
-#        error Unknown QNX target architecture detected.
-#    endif
-#    define OS_TYPE "QNX"
-#    define SA_RESTART 0
-     extern char etext[];
-     extern int _end[];
-#    define DATASTART ((ptr_t)(etext))
-#    define DATAEND ((ptr_t)(_end))
-#    define mach_type_known
-# endif
-
 /* And one for NetBSD: */
 # if defined(__NetBSD__)
 #    define NETBSD
@@ -150,6 +127,12 @@ EXTERN_C_BEGIN
     EXTERN_C_END
 #   include <TargetConditionals.h>
     EXTERN_C_BEGIN
+#   if !defined(TARGET_OS_XR)
+#     define TARGET_OS_XR 0
+#   endif
+#   if !defined(TARGET_OS_VISION)
+#     define TARGET_OS_VISION 0
+#   endif
 # endif
 
 /* Determine the machine type: */
@@ -165,7 +148,7 @@ EXTERN_C_BEGIN
 # if defined(__aarch64__)
 #    define AARCH64
 #    if !defined(LINUX) && !defined(DARWIN) && !defined(FREEBSD) \
-        && !defined(NN_BUILD_TARGET_PLATFORM_NX) && !defined(__QNX__)
+        && !defined(NN_BUILD_TARGET_PLATFORM_NX) && !defined(NINTENDO_SWITCH2) && !defined(__QNX__)
 #      define NOSYS
 #      define mach_type_known
 #    endif
@@ -177,7 +160,7 @@ EXTERN_C_BEGIN
 #    elif !defined(LINUX) && !defined(NETBSD) && !defined(FREEBSD) \
           && !defined(OPENBSD) && !defined(DARWIN) && !defined(_WIN32) \
           && !defined(__CEGCC__) && !defined(NN_PLATFORM_CTR) \
-          && !defined(NN_BUILD_TARGET_PLATFORM_NX) \
+          && !defined(NN_BUILD_TARGET_PLATFORM_NX) && !defined(NINTENDO_SWITCH2) \
           && !defined(GC_NO_NOSYS) && !defined(SN_TARGET_PSP2) \
           && !defined(SYMBIAN) && !defined(__QNX__)
 #      define NOSYS
@@ -684,12 +667,32 @@ EXTERN_C_BEGIN
 #   define mach_type_known
 # endif
 
+# if defined(NINTENDO_SWITCH2)
+#   define mach_type_known
+# endif
+
 # if defined(SYMBIAN)
 #   define mach_type_known
 # endif
 
 # if defined(__EMSCRIPTEN__)
 #   define I386
+#   define mach_type_known
+# endif
+
+# if defined(__QNX__)
+#   define QNX
+#   if defined(__aarch64__)
+#     define AARCH64
+#   elif defined(__arm__) || defined(__ARM__)
+#     define ARM32
+#   elif defined(__amd64) || defined(__X86_64__)
+#     define X86_64
+#   elif defined(__X86__)
+#     define I386
+#   else
+#     error Unknown QNX target architecture detected.
+#   endif
 #   define mach_type_known
 # endif
 
@@ -905,6 +908,19 @@ EXTERN_C_BEGIN
     /* are no objects that would be found on the stack, and BDWGC is    */
     /* compiled with stack walking disabled.                            */
 #   define STACK_NOT_SCANNED
+# endif
+
+# ifdef QNX
+#   define OS_TYPE "QNX"
+#   define SA_RESTART 0
+    extern char etext[];
+    extern int _end[];
+#   define DATASTART ((ptr_t)(etext))
+#   define DATAEND ((ptr_t)(_end))
+    EXTERN_C_BEGIN
+    extern void *qnx_get_stack_bottom(void);
+    EXTERN_C_END
+#   define STACKBOTTOM ((ptr_t)qnx_get_stack_bottom())
 # endif
 
 # define STACK_GRAN 0x1000000
@@ -1714,7 +1730,7 @@ EXTERN_C_BEGIN
       /* There seems to be some issues with trylock hanging on darwin.  */
       /* This should be looked into some more.                          */
 #     define NO_PTHREAD_TRYLOCK
-#     if TARGET_OS_IPHONE && !defined(NO_DYLD_BIND_FULLY_IMAGE)
+#     if (TARGET_OS_IPHONE || TARGET_OS_XR || TARGET_OS_VISION) && !defined(NO_DYLD_BIND_FULLY_IMAGE)
         /* iPhone/iPad simulator */
 #       define NO_DYLD_BIND_FULLY_IMAGE
 #     endif
@@ -2296,7 +2312,7 @@ EXTERN_C_BEGIN
       /* FIXME: There seems to be some issues with trylock hanging on   */
       /* darwin. This should be looked into some more.                  */
 #     define NO_PTHREAD_TRYLOCK
-#     if TARGET_OS_IPHONE && !defined(NO_DYLD_BIND_FULLY_IMAGE)
+#     if (TARGET_OS_IPHONE || TARGET_OS_XR || TARGET_OS_VISION) && !defined(NO_DYLD_BIND_FULLY_IMAGE)
 #       define NO_DYLD_BIND_FULLY_IMAGE
 #     endif
 #   endif
@@ -2313,7 +2329,7 @@ EXTERN_C_BEGIN
 #     define DATASTART GC_FreeBSDGetDataStart(0x1000, (ptr_t)etext)
 #     define DATASTART_USES_BSDGETDATASTART
 #   endif
-#   ifdef NINTENDO_SWITCH
+#   if defined(NINTENDO_SWITCH) || defined(NINTENDO_SWITCH2)
       static int zero_fd = -1;
 #     define OPT_MAP_ANON 0
       extern int __bss_end[];
@@ -2321,8 +2337,13 @@ EXTERN_C_BEGIN
 #     define GETPAGESIZE() 4096
 #     define DATASTART (ptr_t)ALIGNMENT /* cannot be null */
 #     define DATAEND (ptr_t)(&__bss_end)
-      void *switch_get_stack_bottom(void);
-#     define STACKBOTTOM ((ptr_t)switch_get_stack_bottom())
+#     if defined(NINTENDO_SWITCH)
+        void *switch_get_stack_bottom(void);
+#       define STACKBOTTOM ((ptr_t)switch_get_stack_bottom())
+#     else
+        void *switch2_get_stack_bottom(void);
+#       define STACKBOTTOM ((ptr_t)switch2_get_stack_bottom())
+#     endif
 #     undef USE_MMAP
 #     undef USE_MUNMAP
 #   endif
@@ -2426,7 +2447,7 @@ EXTERN_C_BEGIN
       /* FIXME: There seems to be some issues with trylock hanging on   */
       /* darwin. This should be looked into some more.                  */
 #     define NO_PTHREAD_TRYLOCK
-#     if TARGET_OS_IPHONE && !defined(NO_DYLD_BIND_FULLY_IMAGE)
+#     if (TARGET_OS_IPHONE || TARGET_OS_XR || TARGET_OS_VISION) && !defined(NO_DYLD_BIND_FULLY_IMAGE)
 #       define NO_DYLD_BIND_FULLY_IMAGE
 #     endif
 #   endif
@@ -2665,7 +2686,7 @@ EXTERN_C_BEGIN
       /* There seems to be some issues with trylock hanging on darwin.  */
       /* This should be looked into some more.                          */
 #     define NO_PTHREAD_TRYLOCK
-#     if TARGET_OS_IPHONE && !defined(NO_DYLD_BIND_FULLY_IMAGE)
+#     if (TARGET_OS_IPHONE || TARGET_OS_XR || TARGET_OS_VISION) && !defined(NO_DYLD_BIND_FULLY_IMAGE)
         /* iPhone/iPad simulator */
 #       define NO_DYLD_BIND_FULLY_IMAGE
 #     endif
@@ -3059,7 +3080,7 @@ EXTERN_C_BEGIN
 #if defined(SVR4) || defined(LINUX) || defined(IRIX5) || defined(HPUX) \
     || defined(OPENBSD) || defined(NETBSD) || defined(FREEBSD) \
     || defined(DGUX) || defined(BSD) || defined(HAIKU) || defined(HURD) \
-    || defined(AIX) || defined(DARWIN) || defined(OSF1) || defined(__QNX__)
+    || defined(AIX) || defined(DARWIN) || defined(OSF1) || defined(QNX)
 # define UNIX_LIKE      /* Basic Unix-like system calls work.   */
 #endif
 
@@ -3183,7 +3204,7 @@ EXTERN_C_BEGIN
 
 #if ((defined(UNIX_LIKE) && (defined(DARWIN) || defined(HAIKU) \
                              || defined(HURD) || defined(OPENBSD) \
-                             || defined(ARM32) || defined(__QNX__) \
+                             || defined(ARM32) || defined(QNX) \
                              || defined(AVR32) || defined(MIPS) \
                              || defined(NIOS2) || defined(OR1K))) \
      || (defined(LINUX) && !defined(__gnu_linux__)) \
@@ -3286,7 +3307,7 @@ EXTERN_C_BEGIN
 #endif /* !CPPCHECK */
 
 #if defined(PCR) || defined(GC_WIN32_THREADS) || defined(GC_PTHREADS) \
-    || defined(NN_PLATFORM_CTR) || defined(NINTENDO_SWITCH) \
+    || defined(NN_PLATFORM_CTR) || defined(NINTENDO_SWITCH) || defined(NINTENDO_SWITCH2) \
     || defined(SN_TARGET_PS3) \
     || defined(SN_TARGET_PSP2)
   #if !defined(THREADS)
@@ -3625,6 +3646,9 @@ EXTERN_C_BEGIN
 # elif defined(NINTENDO_SWITCH)
     void *switch_get_mem(size_t bytes);
 #   define GET_MEM(bytes) (struct hblk*)switch_get_mem(bytes)
+# elif defined(NINTENDO_SWITCH2)
+    void * switch2_get_mem(size_t bytes);
+#   define GET_MEM(bytes) (struct hblk*)switch2_get_mem(bytes)
 # elif defined(HAIKU)
     ptr_t GC_haiku_get_mem(size_t bytes);
 #   define GET_MEM(bytes) (struct hblk*)GC_haiku_get_mem(bytes)

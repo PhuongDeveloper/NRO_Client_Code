@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Internal/BasicTypes.h"
 #include "Internal/PlatformDetection.h"
 #include "Internal/ArchitectureDetection.h"
 #include "Internal/PlatformEnvironment.h"
-
 
 #ifdef BASELIB_INLINE_NAMESPACE
     #ifndef __cplusplus
@@ -35,7 +35,5 @@
     #define BASELIB_FORCEINLINE_API   static COMPILER_FORCEINLINE
 #endif
 
-
-#include "Internal/BasicTypes.h"
 #include "Internal/CoreMacros.h"
 #include "Internal/Assert.h"

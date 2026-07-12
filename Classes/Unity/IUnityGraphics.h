@@ -28,7 +28,9 @@ typedef enum UnityGfxRenderer
     kUnityGfxRendererGameCoreXboxOne   = 24, // GameCore Xbox One
     kUnityGfxRendererGameCoreXboxSeries  = 25, // GameCore XboxSeries
     kUnityGfxRendererPS5               = 26, // PS5
-    kUnityGfxRendererPS5NGGC           = 27  // PS5 NGGC
+    kUnityGfxRendererPS5NGGC           = 27, // PS5 NGGC
+
+    kUnityGfxRendererNvn2              = 29  // Switch2
 } UnityGfxRenderer;
 
 typedef enum UnityGfxDeviceEventType
