@@ -1,14 +1,8 @@
 #pragma once
 
-#if !PLATFORM_TVOS && UNITY_USES_WEBCAM
-
 #import <AVFoundation/AVFoundation.h>
 
-#if PLATFORM_VISIONOS
-@interface CameraCaptureController : NSObject<AVCaptureVideoDataOutputSampleBufferDelegate>
-#else
 @interface CameraCaptureController : NSObject<AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureDataOutputSynchronizerDelegate>
-#endif
 
 - (bool)initCapture:(AVCaptureDevice*)device;
 - (bool)initCapture:(AVCaptureDevice*)device preset:(NSString*)preset fps:(float)fps;
@@ -17,10 +11,8 @@
 - (void)initColorAndDepthCameraCaptureSession;
 - (void)clearColorAndDepthCameraCaptureSession;
 - (void)captureOutput:(AVCaptureOutput*)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection*)connection;
-#if !PLATFORM_VISIONOS
+- (void)depthDataOutput:(AVCaptureDepthDataOutput*)captureDepthOutput didOutputDepthData:(AVDepthData*)depthData  timestamp:(CMTime)timestamp connection:(AVCaptureConnection*)connection;
 - (void)dataOutputSynchronizer:(AVCaptureDataOutputSynchronizer *)synchronizer didOutputSynchronizedDataCollection:(AVCaptureSynchronizedDataCollection *)synchronizedDataCollection;
-+ (BOOL)focusPointSupported:(AVCaptureDevice*)captureDevice withFocusMode:(AVCaptureFocusMode)focusMode;
-#endif
 + (NSMutableArray<CameraCaptureController*>*)getActiveColorAndDepthCameraControllers;
 + (void)addColorAndDepthCameraController:(CameraCaptureController*)controller;
 + (void)removeColorAndDepthCameraController:(CameraCaptureController*)controller;
@@ -28,6 +20,7 @@
 + (CameraCaptureController*)findColorAndDepthCameraController:(AVCaptureDevice*)device isDepth:(bool)isDepth;
 - (void)capturePixelBufferToMemBuffer:(uint8_t*)dst;
 - (int)isCVTextureFlipped;
++ (BOOL)focusPointSupported:(AVCaptureDevice*)captureDevice withFocusMode:(AVCaptureFocusMode)focusMode;
 - (int)setFocusPointWithX:(float)x Y:(float)y;
 - (int)setFocusPoint;
 
@@ -39,10 +32,8 @@
 @property (nonatomic, retain) AVCaptureSession*         captureSession;
 @property (nonatomic, retain) AVCaptureDeviceInput*     captureInput;
 @property (nonatomic, retain) AVCaptureVideoDataOutput* captureOutput;
-#if !PLATFORM_VISIONOS
 @property (nonatomic, retain) AVCaptureDepthDataOutput* captureDepthOutput;
 @property (nonatomic, retain) AVCaptureDataOutputSynchronizer*    captureSynchronizer;
-#endif
 
 - (float)pickAvailableFrameRate:(float)fps;
 
@@ -66,5 +57,3 @@ enum WebCamKind
 + (void)createCameraCaptureDevicesArray;
 + (void)addCameraCaptureDevice:(AVCaptureDevice*)device;
 @end
-
-#endif

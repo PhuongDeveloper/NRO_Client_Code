@@ -42,20 +42,11 @@ extern "C" void RegisterStaticallyLinkedModulesGranular()
 	void RegisterModule_TextCoreTextEngine();
 	RegisterModule_TextCoreTextEngine();
 
-	void RegisterModule_UI();
-	RegisterModule_UI();
-
-	void RegisterModule_UIElements();
-	RegisterModule_UIElements();
-
 	void RegisterModule_UnityWebRequest();
 	RegisterModule_UnityWebRequest();
 
 	void RegisterModule_UnityWebRequestAudio();
 	RegisterModule_UnityWebRequestAudio();
-
-	void RegisterModule_Video();
-	RegisterModule_Video();
 
 }
 
@@ -118,9 +109,7 @@ class ResourceManager; template <> void RegisterUnityClass<ResourceManager>(cons
 class RuntimeInitializeOnLoadManager; template <> void RegisterUnityClass<RuntimeInitializeOnLoadManager>(const char*);
 class Shader; template <> void RegisterUnityClass<Shader>(const char*);
 class ShaderNameRegistry; template <> void RegisterUnityClass<ShaderNameRegistry>(const char*);
-class SortingGroup; template <> void RegisterUnityClass<SortingGroup>(const char*);
 class Sprite; template <> void RegisterUnityClass<Sprite>(const char*);
-class SpriteAtlas; template <> void RegisterUnityClass<SpriteAtlas>(const char*);
 class SpriteRenderer; template <> void RegisterUnityClass<SpriteRenderer>(const char*);
 class TagManager; template <> void RegisterUnityClass<TagManager>(const char*);
 class TextAsset; template <> void RegisterUnityClass<TextAsset>(const char*);
@@ -131,16 +120,12 @@ class Texture3D; template <> void RegisterUnityClass<Texture3D>(const char*);
 class TimeManager; template <> void RegisterUnityClass<TimeManager>(const char*);
 class Transform; template <> void RegisterUnityClass<Transform>(const char*);
 namespace TextRendering { class Font; } template <> void RegisterUnityClass<TextRendering::Font>(const char*);
-namespace UI { class Canvas; } template <> void RegisterUnityClass<UI::Canvas>(const char*);
-namespace UI { class CanvasGroup; } template <> void RegisterUnityClass<UI::CanvasGroup>(const char*);
-namespace UI { class CanvasRenderer; } template <> void RegisterUnityClass<UI::CanvasRenderer>(const char*);
-class VideoPlayer; template <> void RegisterUnityClass<VideoPlayer>(const char*);
 
 void RegisterAllClasses()
 {
 void RegisterBuiltinTypes();
 RegisterBuiltinTypes();
-	//Total: 68 non stripped classes
+	//Total: 62 non stripped classes
 	//0. Animator
 	RegisterUnityClass<Animator>("Animation");
 	//1. AnimatorController
@@ -243,39 +228,27 @@ RegisterBuiltinTypes();
 	RegisterUnityClass<Shader>("Core");
 	//50. ShaderNameRegistry
 	RegisterUnityClass<ShaderNameRegistry>("Core");
-	//51. SortingGroup
-	RegisterUnityClass<SortingGroup>("Core");
-	//52. Sprite
+	//51. Sprite
 	RegisterUnityClass<Sprite>("Core");
-	//53. SpriteAtlas
-	RegisterUnityClass<SpriteAtlas>("Core");
-	//54. SpriteRenderer
+	//52. SpriteRenderer
 	RegisterUnityClass<SpriteRenderer>("Core");
-	//55. TagManager
+	//53. TagManager
 	RegisterUnityClass<TagManager>("Core");
-	//56. TextAsset
+	//54. TextAsset
 	RegisterUnityClass<TextAsset>("Core");
-	//57. Texture
+	//55. Texture
 	RegisterUnityClass<Texture>("Core");
-	//58. Texture2D
+	//56. Texture2D
 	RegisterUnityClass<Texture2D>("Core");
-	//59. Texture2DArray
+	//57. Texture2DArray
 	RegisterUnityClass<Texture2DArray>("Core");
-	//60. Texture3D
+	//58. Texture3D
 	RegisterUnityClass<Texture3D>("Core");
-	//61. TimeManager
+	//59. TimeManager
 	RegisterUnityClass<TimeManager>("Core");
-	//62. Transform
+	//60. Transform
 	RegisterUnityClass<Transform>("Core");
-	//63. Font
+	//61. Font
 	RegisterUnityClass<TextRendering::Font>("TextRendering");
-	//64. Canvas
-	RegisterUnityClass<UI::Canvas>("UI");
-	//65. CanvasGroup
-	RegisterUnityClass<UI::CanvasGroup>("UI");
-	//66. CanvasRenderer
-	RegisterUnityClass<UI::CanvasRenderer>("UI");
-	//67. VideoPlayer
-	RegisterUnityClass<VideoPlayer>("Video");
 
 }
