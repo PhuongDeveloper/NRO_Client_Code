@@ -1173,18 +1173,18 @@ struct ValueTuple_3_tC9C1846E6BD237797AE9B56D5138EE67C1B5FA01
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 
 {
-	String_t* ___jcg;
-	String_t* ___jch;
+	String_t* ___jci;
+	String_t* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_pinvoke
 {
-	char* ___jcg;
-	char* ___jch;
+	char* ___jci;
+	char* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_com
 {
-	Il2CppChar* ___jcg;
-	Il2CppChar* ___jch;
+	Il2CppChar* ___jci;
+	Il2CppChar* ___jcj;
 };
 struct BatchCullingOutputDrawCommands_t61DD68A8D702A9468AF6D5DDF4529CE7BD5A636D 
 {
@@ -3084,9 +3084,9 @@ struct AccountU5BU5D_tBBE5B90E0B08D66A0D7CCDE1D27407DF90707B84  : public Runtime
 	{
 		IL2CPP_ARRAY_BOUNDS_CHECK(index, (uint32_t)(this)->max_length);
 		m_Items[index] = value;
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcj), (void*)NULL);
 		#endif
 	}
 	inline Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 GetAtUnchecked(il2cpp_array_size_t index) const
@@ -3100,9 +3100,9 @@ struct AccountU5BU5D_tBBE5B90E0B08D66A0D7CCDE1D27407DF90707B84  : public Runtime
 	inline void SetAtUnchecked(il2cpp_array_size_t index, Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 value)
 	{
 		m_Items[index] = value;
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcj), (void*)NULL);
 		#endif
 	}
 };
@@ -10932,9 +10932,9 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Enumerator_MoveNext_m3DC9BB762661144543F
 		int32_t L_10 = L_9;
 		Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 L_11 = (L_8)->GetAt(static_cast<il2cpp_array_size_t>(L_10));
 		__this->____current = L_11;
-		Il2CppCodeGenWriteBarrier((void**)&(((&__this->____current))->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&(((&__this->____current))->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&(((&__this->____current))->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&(((&__this->____current))->___jcj), (void*)NULL);
 		#endif
 		int32_t L_12 = __this->____index;
 		__this->____index = ((int32_t)il2cpp_codegen_add(L_12, 1));

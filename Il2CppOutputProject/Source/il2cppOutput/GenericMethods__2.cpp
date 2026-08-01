@@ -719,18 +719,18 @@ struct ValueTuple_5_t0ECA92C4CF82E53BCE5CFE578708475CBA45B999
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 
 {
-	String_t* ___jcg;
-	String_t* ___jch;
+	String_t* ___jci;
+	String_t* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_pinvoke
 {
-	char* ___jcg;
-	char* ___jch;
+	char* ___jci;
+	char* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_com
 {
-	Il2CppChar* ___jcg;
-	Il2CppChar* ___jch;
+	Il2CppChar* ___jci;
+	Il2CppChar* ___jcj;
 };
 struct AsyncMethodBuilderCore_tD5ABB3A2536319A3345B32A5481E37E23DD8CEDF 
 {
@@ -2751,8 +2751,8 @@ struct U3CLoadNewSceneAsyncU3Ed__5_t92C4DB276726EF8722570431A43BC8E4E427E913
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_t7A5128C134547B5918EB1AA24FE47ED4C1DF3F06 ___U3CU3Et__builder;
 	int32_t ___index;
-	AsyncOperation_tD2789250E4B098DEDA92B366A577E500A92D2D3C* ___jco;
-	YieldAwaiter_t5F0A81DC85227C01FFC38D53139B5C19D920B52A ___jcp;
+	AsyncOperation_tD2789250E4B098DEDA92B366A577E500A92D2D3C* ___jcq;
+	YieldAwaiter_t5F0A81DC85227C01FFC38D53139B5C19D920B52A ___jcr;
 };
 struct ArgumentNullException_t327031E412FAB2351B0022DD5DAD47E67E597129  : public ArgumentException_tAD90411542A20A9C72D5CDA3A84181D8B947A263
 {
@@ -3242,9 +3242,9 @@ struct AccountU5BU5D_tBBE5B90E0B08D66A0D7CCDE1D27407DF90707B84  : public Runtime
 	{
 		IL2CPP_ARRAY_BOUNDS_CHECK(index, (uint32_t)(this)->max_length);
 		m_Items[index] = value;
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcj), (void*)NULL);
 		#endif
 	}
 	inline Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 GetAtUnchecked(il2cpp_array_size_t index) const
@@ -3258,9 +3258,9 @@ struct AccountU5BU5D_tBBE5B90E0B08D66A0D7CCDE1D27407DF90707B84  : public Runtime
 	inline void SetAtUnchecked(il2cpp_array_size_t index, Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 value)
 	{
 		m_Items[index] = value;
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcj), (void*)NULL);
 		#endif
 	}
 };
@@ -18132,16 +18132,16 @@ IL_0069:
 		Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4* L_23 = V_1;
 		Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 L_24 = (*(Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_23);
 		*(Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_22 = L_24;
-		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_22)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_22)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_22)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_22)->___jcj), (void*)NULL);
 		#endif
 		Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4* L_25 = V_1;
 		Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 L_26 = V_2;
 		*(Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_25 = L_26;
-		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_25)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_25)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_25)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&(((Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4*)L_25)->___jcj), (void*)NULL);
 		#endif
 		Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4* L_27 = V_0;
 		Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4* L_28;

@@ -1067,18 +1067,18 @@ struct ValueTuple_3_tFD2ADB3DA89E958885034AAFEF1ABDA8C814D987
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 
 {
-	String_t* ___jcg;
-	String_t* ___jch;
+	String_t* ___jci;
+	String_t* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_pinvoke
 {
-	char* ___jcg;
-	char* ___jch;
+	char* ___jci;
+	char* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_com
 {
-	Il2CppChar* ___jcg;
-	Il2CppChar* ___jch;
+	Il2CppChar* ___jci;
+	Il2CppChar* ___jcj;
 };
 struct BatchCullingOutputDrawCommands_t61DD68A8D702A9468AF6D5DDF4529CE7BD5A636D 
 {
@@ -3454,25 +3454,25 @@ struct TypeUtility_t62F146E51B66BB18FA0E1EFA84A564FF2B8AAD03_StaticFields
 };
 struct bd_t18A7563F8C3F808C28EBC54FDA33440FCD3EF7B7_StaticFields
 {
-	bool ___jdb;
+	bool ___jdd;
 };
 struct sh_tA2444320AC478E10834AC1F0839E1764A5FD4537_StaticFields
 {
-	bool ___zig;
-	bool ___zih;
-	bool ___zii;
-	bool ___zij;
-	bool ___zik;
-	int32_t ___zil;
+	bool ___zin;
+	bool ___zio;
+	bool ___zip;
+	bool ___ziq;
+	bool ___zir;
+	int32_t ___zis;
 };
 struct sv_t5A54B1F3DCA22DF9C299C7F5DFD1A0AE467CC44C_StaticFields
 {
-	bool ___zmf;
-	bool ___zmg;
-	bool ___zmh;
-	bool ___zmi;
-	bool ___zmj;
-	int32_t ___zmk;
+	bool ___zmm;
+	bool ___zmn;
+	bool ___zmo;
+	bool ___zmp;
+	bool ___zmq;
+	int32_t ___zmr;
 };
 struct Cache_1_t3D5B27BB72DB559823D975C81EB8746985435377_StaticFields
 {
@@ -15371,7 +15371,7 @@ IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR bool bd_vz_m9378F1E85AC141435A560
 	}
 	{
 		il2cpp_codegen_runtime_class_init_inline(bd_t18A7563F8C3F808C28EBC54FDA33440FCD3EF7B7_il2cpp_TypeInfo_var);
-		bool L_0 = ((bd_t18A7563F8C3F808C28EBC54FDA33440FCD3EF7B7_StaticFields*)il2cpp_codegen_static_fields_for(bd_t18A7563F8C3F808C28EBC54FDA33440FCD3EF7B7_il2cpp_TypeInfo_var))->___jdb;
+		bool L_0 = ((bd_t18A7563F8C3F808C28EBC54FDA33440FCD3EF7B7_StaticFields*)il2cpp_codegen_static_fields_for(bd_t18A7563F8C3F808C28EBC54FDA33440FCD3EF7B7_il2cpp_TypeInfo_var))->___jdd;
 		return L_0;
 	}
 }

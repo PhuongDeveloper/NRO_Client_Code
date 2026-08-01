@@ -1232,18 +1232,18 @@ struct ValueTuple_5_t0ECA92C4CF82E53BCE5CFE578708475CBA45B999
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 
 {
-	String_t* ___jcg;
-	String_t* ___jch;
+	String_t* ___jci;
+	String_t* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_pinvoke
 {
-	char* ___jcg;
-	char* ___jch;
+	char* ___jci;
+	char* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_com
 {
-	Il2CppChar* ___jcg;
-	Il2CppChar* ___jch;
+	Il2CppChar* ___jci;
+	Il2CppChar* ___jcj;
 };
 struct AsyncMethodBuilderCore_tD5ABB3A2536319A3345B32A5481E37E23DD8CEDF 
 {

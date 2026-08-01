@@ -1584,18 +1584,18 @@ struct WhereSelectEnumerableIterator_2_t585674E4C2106F965D6B51B3B1068924FC97CE0F
 struct WhereSelectEnumerableIterator_2_t1FBA58379B31F544881FB4C45B2D102F32A71E1C : public RuntimeObject {};
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 
 {
-	String_t* ___jcg;
-	String_t* ___jch;
+	String_t* ___jci;
+	String_t* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_pinvoke
 {
-	char* ___jcg;
-	char* ___jch;
+	char* ___jci;
+	char* ___jcj;
 };
 struct Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4_marshaled_com
 {
-	Il2CppChar* ___jcg;
-	Il2CppChar* ___jch;
+	Il2CppChar* ___jci;
+	Il2CppChar* ___jcj;
 };
 struct AsyncMethodBuilderCore_tD5ABB3A2536319A3345B32A5481E37E23DD8CEDF 
 {
@@ -3869,16 +3869,16 @@ struct U3CDoCheckU3Ed__73_tEA175CB9CB4EF2933586D03CADE0D1A886CFC9C5
 {
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_1_t651E7BA5C7209C40335555F361280911CF711AAA ___U3CU3Et__builder;
-	HttpClient_t18C26B758AF7E9331DC8A86A2AD715B53BBA9D42* ___qnn;
-	TaskAwaiter_1_tE38072315F6A88FBFA6F29739C27EDE17D53E6B4 ___qno;
-	TaskAwaiter_1_t254638BB1FAD695D9A9542E098A189D438A000F6 ___qnp;
+	HttpClient_t18C26B758AF7E9331DC8A86A2AD715B53BBA9D42* ___qnu;
+	TaskAwaiter_1_tE38072315F6A88FBFA6F29739C27EDE17D53E6B4 ___qnv;
+	TaskAwaiter_1_t254638BB1FAD695D9A9542E098A189D438A000F6 ___qnw;
 };
 struct U3CDoCheckU3Ed__69_tBD538F8C9C1F88E6FA337869FE82C93F6E4E734A 
 {
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_1_t651E7BA5C7209C40335555F361280911CF711AAA ___U3CU3Et__builder;
-	HttpClient_t18C26B758AF7E9331DC8A86A2AD715B53BBA9D42* ___yky;
-	TaskAwaiter_1_tE38072315F6A88FBFA6F29739C27EDE17D53E6B4 ___ykz;
+	HttpClient_t18C26B758AF7E9331DC8A86A2AD715B53BBA9D42* ___ylf;
+	TaskAwaiter_1_tE38072315F6A88FBFA6F29739C27EDE17D53E6B4 ___ylg;
 };
 struct U3CReceiveAsyncPrivateU3Ed__61_2_t8DA00567218B02294D1A8D094B865BA39E211BCC 
 {
@@ -4430,8 +4430,8 @@ struct U3CLoadNewSceneAsyncU3Ed__5_t92C4DB276726EF8722570431A43BC8E4E427E913
 	int32_t ___U3CU3E1__state;
 	AsyncTaskMethodBuilder_t7A5128C134547B5918EB1AA24FE47ED4C1DF3F06 ___U3CU3Et__builder;
 	int32_t ___index;
-	AsyncOperation_tD2789250E4B098DEDA92B366A577E500A92D2D3C* ___jco;
-	YieldAwaiter_t5F0A81DC85227C01FFC38D53139B5C19D920B52A ___jcp;
+	AsyncOperation_tD2789250E4B098DEDA92B366A577E500A92D2D3C* ___jcq;
+	YieldAwaiter_t5F0A81DC85227C01FFC38D53139B5C19D920B52A ___jcr;
 };
 struct ReflectedPropertyBag_1_tE1C09DA96513A538F766F89263E88809EE14AF79  : public ContainerPropertyBag_1_t47684299E462BBF7DC930C28B27E8A8008478424
 {
@@ -5439,9 +5439,9 @@ struct AccountU5BU5D_tBBE5B90E0B08D66A0D7CCDE1D27407DF90707B84  : public Runtime
 	{
 		IL2CPP_ARRAY_BOUNDS_CHECK(index, (uint32_t)(this)->max_length);
 		m_Items[index] = value;
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcj), (void*)NULL);
 		#endif
 	}
 	inline Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 GetAtUnchecked(il2cpp_array_size_t index) const
@@ -5455,9 +5455,9 @@ struct AccountU5BU5D_tBBE5B90E0B08D66A0D7CCDE1D27407DF90707B84  : public Runtime
 	inline void SetAtUnchecked(il2cpp_array_size_t index, Account_tEEC69E981115B22CFB24D4EE23BCC01309F318F4 value)
 	{
 		m_Items[index] = value;
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcg), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jci), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jch), (void*)NULL);
+		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___jcj), (void*)NULL);
 		#endif
 	}
 };
