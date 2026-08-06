@@ -66,6 +66,7 @@ static DisplayManager* _DisplayManager = nil;
     }
     return self;
 }
+
 #else
 - (id)init
 {
@@ -77,6 +78,7 @@ static DisplayManager* _DisplayManager = nil;
     }
     return self;
 }
+
 #endif
 
 - (void)createWithWindow:(UIWindow*)window andView:(UIView*)view
@@ -523,8 +525,9 @@ static DisplayManager* _DisplayManager = nil;
     if (!_DisplayManager)
         _DisplayManager = [[DisplayManager alloc] init];
 
-     return _DisplayManager;
+    return _DisplayManager;
 }
+
 @end
 #endif
 
@@ -628,16 +631,18 @@ extern "C" void UnityDisplayManager_DisplaySystemResolution(void* nativeDisplay,
 
 extern "C" void UnityDisplayManager_DisplayRenderingResolution(void* nativeDisplay, int* w, int* h)
 {
-#if !PLATFORM_VISIONOS
     if (nativeDisplay == NULL)
         return;
 
+#if !PLATFORM_VISIONOS
     DisplayConnection* conn = [DisplayManager Instance][(__bridge UIScreen*)nativeDisplay];
+#else
+    DisplayConnection* conn = [DisplayManager Instance].mainDisplay;
+#endif
     EnsureDisplayIsInited(conn);
 
     *w = (int)conn.surface->targetW;
     *h = (int)conn.surface->targetH;
-#endif
 }
 
 extern "C" void UnityDisplayManager_DisplayRenderingBuffers(void* nativeDisplay, void** colorBuffer, void** depthBuffer)
@@ -764,9 +769,10 @@ extern "C" bool UnityIsFullscreen()
 {
     CGSize screenSize = [[[[DisplayManager Instance] mainDisplay] screen] bounds].size;
     CGSize viewSize = [[[[DisplayManager Instance] mainDisplay] view] bounds].size;
-    
+
     return screenSize.width == viewSize.width && screenSize.height == viewSize.height;
 }
+
 #else
 extern "C" int UnityMainScreenRefreshRate()
 {
@@ -796,4 +802,5 @@ extern "C" bool UnityIsFullscreen()
 {
     return false;
 }
-#endif 
+
+#endif

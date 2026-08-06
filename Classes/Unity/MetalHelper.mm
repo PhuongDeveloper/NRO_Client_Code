@@ -32,12 +32,14 @@ static MTLPixelFormat GetColorFormatForSurface(const UnityDisplaySurfaceMTL* sur
 
     if(colorFormat == MTLPixelFormatInvalid && surface->wideColor)
     {
-    #if PLATFORM_OSX || __is_target_environment(simulator)
+        // at some point we tried using MTLPixelFormatBGR10_XR formats, but it seems that apple CoreImage have issues with that
+        //   and we are not alone here, see for example https://forums.developer.apple.com/forums/thread/66166
+        // when application goes to background the colors are changed (more white-ish?)
+        // no matter what we tried, the issue persists
+        // NOTE: the most funny thing is when we set color space to be P3 we get same whitish colors always
+        // NOTE: but this time they become normal when going to background
+        // in all, it seems that using rgba f16 is the most robust option here, so we are back to it again
         colorFormat = MTLPixelFormatRGBA16Float;
-    #else
-        if(UnityIsWideColorSupported())
-            colorFormat = surface->srgb ? MTLPixelFormatBGR10_XR_sRGB : MTLPixelFormatBGR10_XR;
-    #endif
     }
 
     if(colorFormat == MTLPixelFormatInvalid)

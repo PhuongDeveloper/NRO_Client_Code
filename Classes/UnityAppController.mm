@@ -157,6 +157,12 @@ extern "C" void UnityDestroyDisplayLink()
     [GetAppController() destroyDisplayLink];
 }
 
+extern "C" void UnityRequestUnload()
+{
+    _unityAppReady = false;
+    [[NSNotificationCenter defaultCenter] postNotificationName: kUnityDidUnload object: nil];
+}
+
 extern "C" void UnityRequestQuit()
 {
     _didResignActive = true;
@@ -169,14 +175,14 @@ extern "C" void UnityRequestQuit()
 extern void SensorsCleanup();
 extern "C" void UnityCleanupTrampoline()
 {
-    // Unity view and viewController will not necessary be destroyed right after this function execution.
-    // We need to ensure that these objects will not receive any callbacks from system during that time.
-    [_UnityAppController window].rootViewController = nil;
-    [[_UnityAppController unityView] removeFromSuperview];
-
     // Prevent multiple cleanups
     if (_UnityAppController == nil)
         return;
+
+    // Unity view and viewController will not necessary be destroyed right after this function execution.
+    // We need to ensure that these objects will not receive any callbacks from system during that time.
+    _UnityAppController.window.rootViewController = nil;
+    [_UnityAppController.unityView removeFromSuperview];
 
     [KeyboardDelegate Destroy];
 
@@ -279,13 +285,37 @@ extern "C" void UnityCleanupTrampoline()
 - (BOOL)application:(UIApplication*)application willFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     AppController_SendNotificationWithArg(kUnityWillFinishLaunchingWithOptions, launchOptions);
-    NSURL* url = launchOptions[UIApplicationLaunchOptionsURLKey];
+    NSURL* url = [self extractURLFromLaunchOptions: launchOptions];
     if (url != nil)
     {
         [self initUnityApplicationNoGraphics];
         UnitySetAbsoluteURL(url.absoluteString.UTF8String);
     }
     return YES;
+}
+
+// Helper method to extract URL from launch options
+- (NSURL*)extractURLFromLaunchOptions:(NSDictionary*)launchOptions
+{
+    // Check for the direct launch URL
+    NSURL* url = launchOptions[UIApplicationLaunchOptionsURLKey];
+    if (url != nil)
+    {
+        return url;
+    }
+
+    // Check for the user activity dictionary and URL from user activity
+    NSUserActivity* userActivity = launchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey][@"UIApplicationLaunchOptionsUserActivityKey"];
+    if (userActivity != nil && [userActivity.activityType isEqualToString: NSUserActivityTypeBrowsingWeb])
+    {
+        url = userActivity.webpageURL;
+        if (url != nil)
+        {
+            return url;
+        }
+    }
+
+    return nil;
 }
 
 - (UIWindowScene*)pickStartupWindowScene:(NSSet<UIScene*>*)scenes API_AVAILABLE(ios(13.0), tvos(13.0))
@@ -323,23 +353,14 @@ extern "C" void UnityCleanupTrampoline()
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 #endif
 
-    if ([self isBackgroundLaunchOptions: launchOptions])
+    // if application is in background, don't initialize Unity
+    // this happens if app uses location fence, notifications with content/actions, ...
+    // initUnityWithApplication: initializes rendering, possibly loads scene and calls Start(), none meant for background
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground)
         return YES;
 
     [self initUnityWithApplication: application];
     return YES;
-}
-
-- (BOOL)isBackgroundLaunchOptions:(NSDictionary*)launchOptions
-{
-    if (launchOptions.count == 0)
-        return NO;
-
-    // launch due to location event, the app likely will stay in background
-    BOOL locationLaunch = [[launchOptions valueForKey: UIApplicationLaunchOptionsLocationKey] boolValue];
-    if (locationLaunch)
-        return YES;
-    return NO;
 }
 
 - (void)initUnityApplicationNoGraphics
@@ -626,8 +647,10 @@ static bool isDebuggerAttachedToConsole(void)
     assert(junk == 0);
 
     // We're being debugged if the P_TRACED flag is set.
-
-    return ((info.kp_proc.p_flag & P_TRACED) != 0);
+    // But if we are starting app on device (and make debugger wait and attach after start)
+    //   it will NOT connect stout (only stderr, used by nslog)
+    // Hence we also check that stoud is rerouted
+    return ((info.kp_proc.p_flag & P_TRACED) != 0) && isatty(STDOUT_FILENO);
 }
 
 void UnityInitTrampoline()

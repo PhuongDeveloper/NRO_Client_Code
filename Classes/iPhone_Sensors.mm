@@ -481,19 +481,62 @@ static void ReportJoystickXYZWAxes(int idx, int xaxis, int yaxis, int zaxis, int
     UnitySetJoystickPosition(idx + 1, waxis, xyzw.w);
 }
 
+static GCControllerDirectionPad* GetCardinalDPad(GCMicroGamepad* gamepad)
+{
+    if (![gamepad respondsToSelector: @selector(dpadsbling)])
+        return nil;
+
+    NSDictionary<NSString *, GCDeviceDirectionPad *> *dpads = [gamepad performSelector: @selector(dpadsbling)];
+    return [dpads valueForKey: @"Cardinal Direction Pad"];
+}
+
+static GCControllerButtonInput* SelectPreferedButton(GCControllerButtonInput* prefered, GCControllerButtonInput* alternative)
+{
+    if (prefered.isPressed)
+        return prefered;
+
+    return alternative;
+}
+
 static void ReportJoystickMicro(int idx, GCMicroGamepad* gamepad)
 {
     GCControllerDirectionPad* dpad = [gamepad dpad];
+    GCControllerDirectionPad* cardinalDpad;
+
+    if (@available(tvOS 14.5, *))
+    {
+        cardinalDpad = [[gamepad dpads] valueForKey: @"Cardinal Direction Pad"];
+    }
 
     UnitySetJoystickPosition(idx + 1, 0, GetAxisValue([dpad xAxis]));
     UnitySetJoystickPosition(idx + 1, 1, -GetAxisValue([dpad yAxis]));
 
-    ReportJoystickButton(idx, BTN_DPAD_UP, [dpad up]);
-    ReportJoystickButton(idx, BTN_DPAD_RIGHT, [dpad right]);
-    ReportJoystickButton(idx, BTN_DPAD_DOWN, [dpad down]);
-    ReportJoystickButton(idx, BTN_DPAD_LEFT, [dpad left]);
+    ReportJoystickButton(idx, BTN_DPAD_UP, SelectPreferedButton([dpad up], [cardinalDpad up]));
+    ReportJoystickButton(idx, BTN_DPAD_RIGHT, SelectPreferedButton([dpad right], [cardinalDpad right]));
+    ReportJoystickButton(idx, BTN_DPAD_DOWN, SelectPreferedButton([dpad down], [cardinalDpad down]));
+    ReportJoystickButton(idx, BTN_DPAD_LEFT, SelectPreferedButton([dpad left], [cardinalDpad left]));
 
-    ReportJoystickButton(idx, BTN_A, [gamepad buttonA]);
+    bool isDirectionalButtonPressed = false;
+    #if PLATFORM_TVOS
+    if (cardinalDpad)
+    {
+        if (@available(tvOS 14.5, *))
+        {
+            isDirectionalButtonPressed = [cardinalDpad up].isPressed ||
+                [cardinalDpad right].isPressed ||
+                [cardinalDpad down].isPressed ||
+                [cardinalDpad left].isPressed;
+        }
+        else if (@available(tvOS 15, *))
+        {
+            ReportJoystickButton(idx, BTN_A, [[gamepad buttons] valueForKey: GCInputDirectionalCenterButton]);
+            isDirectionalButtonPressed = true;
+        }
+    }
+    #endif
+
+    if (!isDirectionalButtonPressed)
+        ReportJoystickButton(idx, BTN_A, [gamepad buttonA]);
     ReportJoystickButton(idx, BTN_X, [gamepad buttonX]);
 }
 

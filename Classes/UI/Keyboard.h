@@ -56,6 +56,7 @@ KeyboardShowParam;
 - (NSString*)getText;
 - (void)setText:(NSString*)newText;
 - (BOOL)hasExternalKeyboard;
+- (UITextField*)getTextField;
 
 @property (readonly, nonatomic, getter = queryArea)               CGRect          area;
 @property (readonly, nonatomic)                                 BOOL            active;

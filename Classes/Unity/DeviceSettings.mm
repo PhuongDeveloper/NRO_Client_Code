@@ -8,16 +8,61 @@
 // ad/vendor ids
 #if UNITY_USES_IAD
 #include <AdSupport/ASIdentifierManager.h>
+#include <AppTrackingTransparency/ATTrackingManager.h>
 static id QueryASIdentifierManager()
 {
+    static bool _queryAttempted = false;
+    static id _manager = nil;
+
+    if (_queryAttempted)
+        return _manager;
+
+    _queryAttempted = true;
     NSBundle* bundle = [NSBundle bundleWithPath: @"/System/Library/Frameworks/AdSupport.framework"];
     if (bundle)
     {
         [bundle load];
-        return [NSClassFromString(@"ASIdentifierManager") performSelector: @selector(sharedManager)];
+        _manager = [NSClassFromString(@"ASIdentifierManager") performSelector: @selector(sharedManager)];
+        return _manager;
     }
 
     return nil;
+}
+
+API_AVAILABLE(ios(14))
+static bool QueryAttTrackingAuthorization()
+{
+    static bool _status = false;
+
+    // if authorization is revoked, app is restarted, so we can cache
+    if (!_status)
+    {
+        static Class _ATTrackingManager = nil;
+        static bool _classLoadAttempted = false;
+
+        if (!_classLoadAttempted)
+        {
+            _classLoadAttempted = true;
+            NSBundle* bundle = [NSBundle bundleWithPath: @"/System/Library/Frameworks/AppTrackingTransparency.framework"];
+            if (bundle)
+            {
+                [bundle load];
+                _ATTrackingManager = NSClassFromString(@"ATTrackingManager");
+            }
+        }
+
+        if (_ATTrackingManager)
+        {
+            id status = [_ATTrackingManager valueForKey: @"trackingAuthorizationStatus"];
+            if (status && [status isKindOfClass: NSNumber.class])
+            {
+                NSNumber* tackingStatus = status;
+                _status = ATTrackingManagerAuthorizationStatusAuthorized == tackingStatus.unsignedIntValue;
+            }
+        }
+    }
+
+    return _status;
 }
 
 #endif
@@ -82,10 +127,17 @@ extern "C" int UnityAdTrackingEnabled()
     bool _AdTrackingEnabled = false;
 
 #if UNITY_USES_IAD
-    // ad tracking can be changed during app lifetime
-    id manager = QueryASIdentifierManager();
-    if (manager)
-        _AdTrackingEnabled = [manager performSelector: @selector(isAdvertisingTrackingEnabled)];
+    if (@available(iOS 14.0, tvOS 14.0, *))
+    {
+        _AdTrackingEnabled = QueryAttTrackingAuthorization();
+    }
+    else
+    {
+        // ad tracking can be changed during app lifetime
+        id manager = QueryASIdentifierManager();
+        if (manager)
+            _AdTrackingEnabled = [manager performSelector: @selector(isAdvertisingTrackingEnabled)];
+    }
 #endif
 
     return _AdTrackingEnabled ? 1 : 0;
@@ -134,7 +186,7 @@ extern "C" const char* UnityDeviceModel()
         model[size] = 0;
 
 #if TARGET_OS_SIMULATOR
-        if (!strncmp(model, "i386", 4) || !strncmp(model, "x86_64", 6))
+        if (!strncmp(model, "arm64", 5) || !strncmp(model, "x86_64", 6))
         {
             NSString* simModel = [[NSProcessInfo processInfo] environment][@"SIMULATOR_MODEL_IDENTIFIER"];
             if ([simModel length] > 0)
@@ -254,6 +306,11 @@ DeviceTableEntry DeviceTable[] =
     { iPhone, 15, 5, 5, deviceiPhone15Plus },
     { iPhone, 16, 1, 1, deviceiPhone15Pro },
     { iPhone, 16, 2, 2, deviceiPhone15ProMax },
+    { iPhone, 17, 3, 3, deviceiPhone16 },
+    { iPhone, 17, 5, 5, deviceiPhone16e },
+    { iPhone, 17, 4, 4, deviceiPhone16Plus },
+    { iPhone, 17, 1, 1, deviceiPhone16Pro },
+    { iPhone, 17, 2, 2, deviceiPhone16ProMax },
 
     { iPod, 4, 1, 1, deviceiPodTouch4Gen },
     { iPod, 5, 1, 1, deviceiPodTouch5Gen },
@@ -376,6 +433,7 @@ extern "C" int UnityDeviceHasCutout()
         case deviceiPhone13: case deviceiPhone13Mini: case deviceiPhone13Pro: case deviceiPhone13ProMax:
         case deviceiPhone14: case deviceiPhone14Plus: case deviceiPhone14Pro: case deviceiPhone14ProMax:
         case deviceiPhone15: case deviceiPhone15Plus: case deviceiPhone15Pro: case deviceiPhone15ProMax:
+        case deviceiPhone16: case deviceiPhone16Plus: case deviceiPhone16Pro: case deviceiPhone16ProMax: case deviceiPhone16e:
             return 1;
         default:
             return 0;
@@ -470,6 +528,11 @@ extern "C" float UnityDeviceDPI()
             case deviceiPhone15Plus:
             case deviceiPhone15Pro:
             case deviceiPhone15ProMax:
+            case deviceiPhone16:
+            case deviceiPhone16e:
+            case deviceiPhone16Plus:
+            case deviceiPhone16Pro:
+            case deviceiPhone16ProMax:
                 _DeviceDPI = 460.0f; break;
             case deviceiPhone12Mini:
             case deviceiPhone13Mini:

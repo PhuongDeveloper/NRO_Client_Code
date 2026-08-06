@@ -426,7 +426,7 @@ static bool _AudioRouteWasChanged = false;
 #if !PLATFORM_VISIONOS
         [_player setAllowsExternalPlayback: NO];
 #endif
-        
+
         // we want to subscribe to route change notifications, for that we need audio session active
         // and in case FMOD wasnt used up to this point it is still not active
         [[AVAudioSession sharedInstance] setActive: YES error: nil];

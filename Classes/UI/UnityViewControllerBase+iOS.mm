@@ -87,23 +87,53 @@ const NSTimeInterval REORIENTATION_RENDERING_PAUSE = 0.15;
 @end
 
 @implementation UnityDefaultViewController
+{
+    // these will be updated in one place where we "sync" UI side orientation handling to unity side
+    NSUInteger _supportedOrientations;
 
-// these will be updated in one place where we "sync" UI side orientation handling to unity side
-NSUInteger _supportedOrientations;
+    // this will be updated in one place where we "sync" UI side orientation handling to unity side
+    UIInterfaceOrientation _fixedOrientation;
 
-- (id)init
+    // this indicates if we are asked to handle fixed orientation too - app should decide
+    BOOL _willHandleFixedOrientation;
+}
+
+- (BOOL)willHandleFixedOrientation
+{
+    return _willHandleFixedOrientation;
+}
+
+- (void)readOrientationFromUnity
+{
+    if(UnityShouldAutorotate())
+    {
+        _fixedOrientation = UIInterfaceOrientationUnknown;
+        _supportedOrientations = EnabledAutorotationInterfaceOrientations();
+    }
+    else
+    {
+        _fixedOrientation = ConvertToIosScreenOrientation((ScreenOrientation)UnityRequestedScreenOrientation());
+        _supportedOrientations = (1 << _fixedOrientation);
+    }
+}
+
+- (instancetype)initShouldHandleFixedOrientation:(BOOL)shouldHandleFixedOrientation
 {
     if ((self = [super init]))
     {
-        NSAssert(UnityShouldAutorotate(), @"UnityDefaultViewController should be used only if unity is set to autorotate");
-        _supportedOrientations = EnabledAutorotationInterfaceOrientations();
+        _willHandleFixedOrientation = shouldHandleFixedOrientation;
+        NSAssert(UnityShouldAutorotate() || _willHandleFixedOrientation,
+            @"UnityDefaultViewController should be used either if unity is set to autorotate, or if asked explicitly to handle fixed orientation");
+
+        [self readOrientationFromUnity];
     }
     return self;
 }
 
 - (void)updateSupportedOrientations
 {
-    _supportedOrientations = EnabledAutorotationInterfaceOrientations();
+    [self readOrientationFromUnity];
+
     if (@available(iOS 16.0, *))
         [self setNeedsUpdateOfSupportedInterfaceOrientations];
 }

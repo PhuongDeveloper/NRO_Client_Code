@@ -1,5 +1,5 @@
 static NSURLSession* unityWebRequestSession;
-static NSLock* unityWebRequestLock;
+static NSRecursiveLock* unityWebRequestLock;
 
 @interface UnityURLRequest : NSMutableURLRequest
 
@@ -390,7 +390,7 @@ extern "C" int UnityCreateWebRequestBackend(void** connection, void* udata, cons
             @autoreleasepool
             {
                 currentRequests = [[NSMutableArray<UnityURLRequest*> alloc] init];
-                unityWebRequestLock = [[NSLock alloc] init];
+                unityWebRequestLock = [[NSRecursiveLock alloc] init];
             }
         });
 
@@ -503,13 +503,15 @@ extern "C" void UnityCancelWebRequest(void* const* connection)
         UnityURLRequest* request = (__bridge UnityURLRequest*)*connection;
         if (request != nil)
         {
+            NSUInteger taskId = request.taskIdentifier;
             [unityWebRequestSession getAllTasksWithCompletionHandler:^(NSArray<NSURLSessionTask*>* _Nonnull tasks) {
-                for (unsigned i = 0; i < tasks.count; ++i)
-                    if (tasks[i].taskIdentifier == request.taskIdentifier)
+                [tasks enumerateObjectsUsingBlock:^(NSURLSessionTask * _Nonnull task, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (task.taskIdentifier == taskId)
                     {
-                        [tasks[i] cancel];
-                        break;
+                        [task cancel];
+                        *stop = YES;
                     }
+                }];
             }];
         }
         [unityWebRequestLock unlock];
