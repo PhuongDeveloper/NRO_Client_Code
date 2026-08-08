@@ -4,6 +4,8 @@
 #import "UnityAppController+Rendering.h"
 #include "OrientationSupport.h"
 
+extern bool _unityAppReady;
+
 @interface UnityView ()
 @property (nonatomic, readwrite) ScreenOrientation contentOrientation;
 @end

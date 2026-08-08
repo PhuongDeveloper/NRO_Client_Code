@@ -15,8 +15,6 @@
 extern bool _skipPresent;
 extern bool _unityAppReady;
 
-static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
-
 @implementation UnityAppController (ViewHandling)
 
 #if UNITY_SUPPORT_ROTATION
@@ -47,18 +45,12 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
 
 - (UIViewController*)createUnityViewControllerDefault
 {
-#if PLATFORM_IOS
-    UnityViewControllerBase* ret = [[UnityDefaultViewController alloc] initShouldHandleFixedOrientation: _shouldUseDefaultViewControllerForFixedOrientations];
-#else
-    UnityViewControllerBase* ret = [[UnityDefaultViewController alloc] init];
-#endif
-
+    UnityViewControllerBase* ret = [AllocUnityDefaultViewController() init];
     ret.notificationDelegate = [[UnityViewControllerNotificationsDefaultSender alloc] init];
 
 #if PLATFORM_TVOS
     ret.controllerUserInteractionEnabled = YES;
 #endif
-
     return ret;
 }
 
@@ -75,7 +67,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
 - (UIViewController*)createRootViewController
 {
     UIViewController* ret = nil;
-    if (!UNITY_SUPPORT_ROTATION || UnityShouldAutorotate() || _shouldUseDefaultViewControllerForFixedOrientations)
+    if (!UNITY_SUPPORT_ROTATION || UnityShouldAutorotate())
         ret = [self createUnityViewControllerDefault];
 
 #if UNITY_SUPPORT_ROTATION
@@ -116,7 +108,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     // when transitioning between view controllers ios will not send reorient events (because they are bound to controllers, not view)
     // so we imitate them here so unity view can update its size/orientation
     UIInterfaceOrientation newOrientation = UIViewControllerInterfaceOrientation(toController);
-    [_unityView willRotateToOrientation: newOrientation  fromOrientation: ConvertToIosScreenOrientation(_unityView.contentOrientation)];
+    [_unityView willRotateToOrientation:newOrientation  fromOrientation: ConvertToIosScreenOrientation(_unityView.contentOrientation)];
     [_unityView didRotate];
 
     // NB: this is both important and insane at the same time (that we have several places to keep current orentation and we need to sync them)
@@ -135,9 +127,6 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
 {
     NSAssert(_unityView != nil, @"_unityView should be inited at this point");
     NSAssert(_window != nil, @"_window should be inited at this point");
-
-    if (@available(iOS 16.0, *))    _shouldUseDefaultViewControllerForFixedOrientations = YES;
-    else                            _shouldUseDefaultViewControllerForFixedOrientations = NO;
 
     _rootController = [self createRootViewController];
 
@@ -252,7 +241,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     // third: restore window as key and layout subviews to finalize size changes
     [_window makeKeyAndVisible];
     [_window layoutSubviews];
-
+    
     // In iOS16+ after we setup a new contoller and when we have multiple windows visible, iOS not fully prepares
     // view controller according it's orientation requirements. And then inside didTransitionToViewController:
     // from UIViewControllerInterfaceOrientation we get bad orientation as it uses scree.coordinationSpace which is not
@@ -262,7 +251,7 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     // not call -viewWillTransitionToSize:.
     UIInterfaceOrientation newOrientation = UIViewControllerInterfaceOrientation(vc);
     BOOL orientationChangedToSupported = vc.supportedInterfaceOrientations & (1 << newOrientation);
-    if (!UnityiOS160orNewer() || orientationChangedToSupported)
+    if ( !UnityiOS160orNewer() || orientationChangedToSupported )
     {
         [self didTransitionToViewController: vc fromViewController: _rootController];
     }
@@ -324,22 +313,6 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
     //   presentation controller dismissal
     if (_rootController.presentedViewController)
         return;
-
-    // to reiterate: we have different processing on newish iOS where we stick to just one view controller
-    // in this case we leave all the processing to iOS
-    if(_shouldUseDefaultViewControllerForFixedOrientations)
-    {
-        NSAssert([self.rootViewController isKindOfClass: [UnityDefaultViewController class]],
-            @"UnityDefaultViewController should be root controller");
-
-        [(UnityDefaultViewController*)self.rootViewController updateSupportedOrientations];
-        [UIViewController attemptRotationToDeviceOrientation];
-
-        // note that we could have a big if-else block and call it once at the end of the method
-        // but it was deemed too ugly
-        UnityOrientationRequestWasCommitted();
-        return;
-    }
 
     // normally we want to call attemptRotationToDeviceOrientation to tell iOS that we changed orientation constraints
     // but if the current orientation is disabled we need special processing, as iOS will simply ignore us
@@ -423,10 +396,6 @@ static BOOL _shouldUseDefaultViewControllerForFixedOrientations = NO;
         UIInterfaceOrientation newOrient = orient;
 
         [self interfaceWillChangeOrientationTo: newOrient];
-        // TODO: we should handle _shouldUseDefaultViewControllerForFixedOrientations = YES
-        // TODO: though i am not sure how this should be done
-        // TODO: currently in normal orientation processing this will not be called when _shouldUseDefaultViewControllerForFixedOrientations is true
-        // TODO: but native plugins can still call it directly
         [self transitionToViewController: [self createRootViewControllerForOrientation: newOrient]];
         [self interfaceDidChangeOrientationFrom: oldOrient];
 

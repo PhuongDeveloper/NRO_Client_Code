@@ -38,7 +38,7 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     UIBarButtonItem *singleLineDone, *singleLineCancel, *singleLineInputField;
 
     NSLayoutConstraint* widthConstraint;
-    CGFloat singleLineSystemButtonsSpace;
+    int singleLineSystemButtonsSpace;
 #endif
 
     UITextField*    textField;
@@ -143,21 +143,11 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    if (textView.markedTextRange == nil && textView.text.length > _characterLimit && _characterLimit != 0)
-    {
-      textView.text = [textView.text substringToIndex: _characterLimit];
-    }
-    
     UnityKeyboard_TextChanged(textView.text);
 }
 
 - (void)textFieldDidChange:(UITextField*)textField
 {
-    if (textField.markedTextRange == nil && textField.text.length > _characterLimit && _characterLimit != 0)
-    {
-      textField.text = [textField.text substringToIndex: _characterLimit];
-    }
-    
     UnityKeyboard_TextChanged(textField.text);
 }
 
@@ -308,18 +298,17 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
     // That's why we keep UIBarButtonSystemItemDone/UIBarButtonSystemItemCancel above
     //   and try to translate "Done"/"Cancel" in a way that "should" work
     //   if localization fails we will still have "some" values (coming from english)
+    //   and while this wont work with, say, asian languages - it should not regress the current behaviour
     UIFont* font = [UIFont systemFontOfSize: kSingleLineFontSize];
     NSBundle* uikitBundle = [NSBundle bundleForClass: UIApplication.class];
     NSString* doneStr   = [uikitBundle localizedStringForKey: @"Done" value: nil table: nil];
     NSString* cancelStr = [uikitBundle localizedStringForKey: @"Cancel" value: nil table: nil];
 
     // mind you, all of that is highly empirical.
-    // we assume space between items to be 18 [both between buttons and on the sides]
-    // we also assume that button width would be more or less the title width exactly (it should be quite close though)
-
-    // some language fonts (i.e korean, vietnamese..) can have non integer width (i.e 34.5999), thus we round up the width to fit the buttons
-    const CGFloat doneW   = ceil([doneStr   sizeWithAttributes: @{NSFontAttributeName: font}].width);
-    const CGFloat cancelW = ceil([cancelStr sizeWithAttributes: @{NSFontAttributeName: font}].width);
+    // we assume space between items to be 18 [both betwen buttons and on the sides]
+    // we also assume that button width would be more less title width exactly (it should be quite close though)
+    const int doneW   = (int)[doneStr sizeWithAttributes: @{NSFontAttributeName: font}].width;
+    const int cancelW = (int)[cancelStr sizeWithAttributes: @{NSFontAttributeName: font}].width;
 
     singleLineSystemButtonsSpace = doneW + cancelW + 3 * 18;
 }
@@ -737,11 +726,6 @@ extern "C" void UnityKeyboard_LayoutChanged(NSString* layout);
         return [NSClassFromString(@"GCKeyboard") valueForKey: @"coalescedKeyboard"] != nil;
     else // The minimum height a software keyboard will be on iOS is 160, A bluetooth keyboard just uses a toolbar which will be smaller than this.
         return _heightOfKeyboard < 160.0f;
-}
-
-- (UITextField*)getTextField
-{
-    return textField;
 }
 
 static bool StringContainsEmoji(NSString *string);
